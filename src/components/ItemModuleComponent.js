@@ -15,8 +15,8 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "XFD12Z",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
-                cateory: "Power Tool",
-                subCategory: "Pistol-Grip Drills",
+                cateory: "Tool",
+                subCategory: "Power Tool",
                 
             },
             {
@@ -28,8 +28,8 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "Milwaukee",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
-                cateory: "Power Tool",
-                subCategory: "Circular Saw",
+                cateory: "Tool",
+                subCategory: "Power Tool",
             },
             {
                 code: "150F44",
@@ -40,8 +40,8 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "8SWCB",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
-                cateory: "Hand Tool",
-                subCategory: "Wrench",
+                cateory: "Tool",
+                subCategory: "Hand Tool",
             },
     ]
     )
@@ -54,20 +54,25 @@ function ItemModuleComponent() {
         unitPrice,
         issueCost,
         suppierId,
+        itemImage,
         cateory,
         subCategory ) => {
-          
+        
+            
             const newItem = {
                 code: code,
                 description1: description1,
                 description2: description2,
                 itemType: itemType,
                 unitPrice: unitPrice,
-                issueCost:issueCost,
-                suppierId:suppierId,
+                issueCost: issueCost,
+                suppierId: suppierId,
+                itemImage: itemImage,
                 cateory:cateory,
                 subCategory:subCategory
             }
+
+            console.log('Inside of addItem ', newItem)
             setItems(items => [...items, newItem])
     }
 

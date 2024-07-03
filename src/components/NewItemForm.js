@@ -38,6 +38,7 @@ function NewItemForm(props) {
     const [subCategory, setSubCategory] = useState('');
 
     const submitItem = () => {
+        console.log('submitItem was called')
         if ( code !== '' &&
             description1 !== '' &&
             unitPrice!== '' &&
@@ -45,6 +46,7 @@ function NewItemForm(props) {
             suppierId !== '' &&
             itemImage !== '' 
         ){
+            console.log('ready to add')
             props.addItem(
                 code,
                 description1,
@@ -53,14 +55,16 @@ function NewItemForm(props) {
                 unitPrice,
                 issueCost,
                 suppierId,
+                itemImage,
                 cateory,
                 subCategory 
             );
         }
     }
 
+
     return (
-        <div>
+        <div className='container mt-5 mb-3'>
             <form>
                 <div className='mb-3'>
                     <label className='form label'>Item Code</label>
@@ -85,7 +89,7 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Item Type</label>
-                    <select className='form control' required 
+                    <select className='form control' 
                         value={itemType} 
                         onChange={(event) => setItemType(event.target.value)}
                     >
@@ -99,14 +103,14 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Unit Price</label>
-                    <input className='form control' type='text' required 
+                    <input className='form control' type='text'  
                         value={unitPrice}
                         onChange={(event) => setUnitPrice(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Issue Cost</label>
-                    <input className='form control' type='text' required
+                    <input className='form control' type='text' 
                         value={issueCost}
                         onChange={(event) => setIssueCost(event.target.value)}
                     ></input>
@@ -120,14 +124,14 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Item Image URL</label>
-                    <input className='form control' type='text' reqired
+                    <input className='form control' type='text' 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Category</label>
-                    <select className='form control' type='text' required 
+                    <select className='form control' type='text' 
                         value={cateory}
                         onChange={(event) => setCateory(event.target.value)}
                     >
@@ -146,9 +150,9 @@ function NewItemForm(props) {
                         onChange={(event) => setSubCategory(event.target.value)}
                         ></input>
                 </div>
-                <button className='btn btn-primary' onClick={submitItem}>Add New Item</button>
-
+                
             </form>
+            <button className='btn btn-primary' onClick={submitItem}>Add New Item</button>
 
         </div>
     )
