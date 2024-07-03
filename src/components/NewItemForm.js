@@ -38,7 +38,7 @@ function NewItemForm(props) {
     const [subCategory, setSubCategory] = useState('');
 
     const submitItem = () => {
-        console.log('submitItem was called')
+        
         if ( code !== '' &&
             description1 !== '' &&
             unitPrice!== '' &&
@@ -46,7 +46,6 @@ function NewItemForm(props) {
             suppierId !== '' &&
             itemImage !== '' 
         ){
-            console.log('ready to add')
             props.addItem(
                 code,
                 description1,
@@ -59,9 +58,23 @@ function NewItemForm(props) {
                 cateory,
                 subCategory 
             );
+
+            resetForm();
         }
     }
 
+    const resetForm = () => {
+        setCode('');
+        setDescription1('');
+        setDescription2('');
+        setItemType(ItemTypes.EXPENDABLE);
+        setUnitPrice('0');
+        setIssueCost('0');
+        setSuppierId('');
+        setItemImage('');
+        setCateory(ItemCategories.TOOL);
+        setSubCategory('');
+    }
 
     return (
         <div className='container mt-5 mb-3'>
@@ -75,23 +88,23 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Description 1</label>
-                    <input className='form control' type='text' required 
+                    <textarea className='form control' rows={3} required 
                         value={description1}
                         onChange={(event) => setDescription1(event.target.value)}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Description 2</label>
-                    <input className='form control' type='text' 
+                    <textarea className='form control'  rows={3} 
                         value={description2}
                         onChange={(event) => setDescription2(event.target.value)}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Item Type</label>
                     <select className='form control' 
                         value={itemType} 
-                        onChange={(event) => setItemType(event.target.value)}
+                        onChange={(event) => setItemType(event.target.vagitlue)}
                     >
                         {Object.entries(ItemTypes).map(([key, value]) =>
                         (

@@ -57,7 +57,6 @@ function ItemModuleComponent() {
         itemImage,
         cateory,
         subCategory ) => {
-        
             
             const newItem = {
                 code: code,
@@ -71,8 +70,7 @@ function ItemModuleComponent() {
                 cateory:cateory,
                 subCategory:subCategory
             }
-
-            console.log('Inside of addItem ', newItem)
+            
             setItems(items => [...items, newItem])
     }
 
