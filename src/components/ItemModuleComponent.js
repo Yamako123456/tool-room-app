@@ -29,7 +29,7 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
                 category: "Tool",
                 subCategory: "Power Tool",
-                active: false
+                active: true
             },
             {
                 code: "150F44",

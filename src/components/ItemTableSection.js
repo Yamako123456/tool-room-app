@@ -1,6 +1,13 @@
+import React, {useState} from "react";
 import ItemRowItem from "./ItemRowItem"
+import ItemDropdownList from "./ItemDropdownList";
 
 function ItemTableSection(props) {
+    const [sortBy, setSortBy] = useState('code');
+
+    const handleRadioChange = (e) => {
+        setSortBy(e.target.value);
+    }
 
     return(
         <div>
@@ -31,25 +38,47 @@ function ItemTableSection(props) {
                                     .filter(item => item.active === true)
                                     .map(item=>(
                                         <ItemRowItem 
-                                            //React Key
-                                            key={item.code} 
+                                            
+                                            key={item.code} //React Key
                                             item={item} 
                                         />
                                 ))}
                                 
                             </tbody>
                         </table>
-
+                    </div
+                    ><div className="card-body"> 
                         <form>
-                            <select className="form-control">
-                                {Object.entries(props.items.map( (item) => (
-                                    <option key='code' value={item.code}></option>
-                                )
+                            <ItemDropdownList items={props.items} sortBy={sortBy} />
+                            
+                            <div className="mt-3">
+                                <label className="form-label">Sort Dropdown List:</label>    
 
-                                ))}
-                            </select>
+                                <div className="form-check">
+                                    <input  
+                                        type="radio"
+                                        value="description1"
+                                        checked={sortBy == 'description1'}
+                                        onChange={handleRadioChange}
+                                    />
+                                    By Description1
+
+                                
+                                </div>
+                                <div className="form-check">
+                                
+                                    <input 
+                                        type="radio"
+                                        value="code"
+                                        checked={sortBy == 'code'}
+                                        onChange={handleRadioChange}
+                                    />
+                                    By Code
+
+                                </div>                              
+                            </div>  
                         </form> 
-                        
+                            
                         {/* <button className="btn btn-primary"
                             onClick={()}
                         >Inactivate Selected Item</button> */}
