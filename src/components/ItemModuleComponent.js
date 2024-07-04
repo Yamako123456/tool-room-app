@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 import ItemTableSection from "./ItemTableSection";
 import NewItemForm from './NewItemForm';
@@ -15,7 +14,7 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "XFD12Z",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
-                cateory: "Tool",
+                category: "Tool",
                 subCategory: "Power Tool",
                 
             },
@@ -28,7 +27,7 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "Milwaukee",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
-                cateory: "Tool",
+                category: "Tool",
                 subCategory: "Power Tool",
             },
             {
@@ -40,7 +39,7 @@ function ItemModuleComponent() {
                 issueCost: "5.00",
                 suppierId: "8SWCB",
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
-                cateory: "Tool",
+                category: "Tool",
                 subCategory: "Hand Tool",
             },
     ]
@@ -55,7 +54,7 @@ function ItemModuleComponent() {
         issueCost,
         suppierId,
         itemImage,
-        cateory,
+        category,
         subCategory ) => {
             
             const newItem = {
@@ -67,7 +66,7 @@ function ItemModuleComponent() {
                 issueCost: issueCost,
                 suppierId: suppierId,
                 itemImage: itemImage,
-                cateory:cateory,
+                category:category,
                 subCategory:subCategory
             }
             
@@ -84,7 +83,7 @@ function ItemModuleComponent() {
                     New Item Entry Form
                 </div>
                 <div className='card-body'>
-                    <NewItemForm addItem={addItem} />
+                    <NewItemForm addItem={addItem} items={items} />
                 </div>
             </div>
         </div>

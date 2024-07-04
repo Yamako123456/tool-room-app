@@ -34,15 +34,30 @@ function NewItemForm(props) {
     const [issueCost, setIssueCost] = useState('0.00');
     const [suppierId, setSuppierId] = useState('');
     const [itemImage, setItemImage] = useState('');
-    const [cateory, setCateory] = useState(ItemCategories.TOOL);
+    const [category, setCategory] = useState(ItemCategories.TOOL);
     const [subCategory, setSubCategory] = useState('');
 
     const submitItem = () => {
-        const regex = '/^\d*\.?\d*$/'; 
        
-         if ( 
+        const { items, addItem } = props;
+
+        // Check if items is defined before using find
+        if (!items) {
+            console.log('Items prop is undefined or null.');
+            return;
+        }
+       
+        //const regex = '/^\d*\.?\d*$/'; 
+       
+        const codeFound = props.items.find(item => item.code === code );
+       
+        if (codeFound) {
+            alert(`Code: "${code}" already exists. Please enter unique item code.`)
+        }
+
+        if ( 
             //regex.test(unitPrice) &&
-            code !== '' &&
+            code !== '' && !codeFound &&
             description1 !== '' &&
             suppierId !== '' 
         ){
@@ -55,7 +70,7 @@ function NewItemForm(props) {
                 issueCost,
                 suppierId,
                 itemImage,
-                cateory,
+                category,
                 subCategory 
             );
 
@@ -72,7 +87,7 @@ function NewItemForm(props) {
         setIssueCost('0.00');
         setSuppierId('');
         setItemImage('');
-        setCateory(ItemCategories.TOOL);
+        setCategory(ItemCategories.TOOL);
         setSubCategory('');
     }
 
@@ -146,8 +161,8 @@ function NewItemForm(props) {
                 <div className='mb-3'>
                     <label className='form-label'>Category</label>
                     <select className='form-control' type='text' 
-                        value={cateory}
-                        onChange={(event) => setCateory(event.target.value)}
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
                     >
                         {Object.entries(ItemCategories).map(([key, value]) => (
                             <option key={key} value={value}>
