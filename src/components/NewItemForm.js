@@ -39,10 +39,7 @@ function NewItemForm(props) {
 
     const submitItem = () => {
         const regex = '/^\d*\.?\d*$/'; 
-        const usDollarFormatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currence: 'USD'
-        });
+       
          if ( 
         // /^ \d*\.?\d{0, 2} $/.test(unitPrice) &&
             regex.test(unitPrice) &&
@@ -85,29 +82,30 @@ function NewItemForm(props) {
         <div className='mt-5'>
             <form>
                 <div className='mb-3'>
-                    <label className='form label'>Item Code</label>
-                    <input className='form control' type='text' required 
+                    <label className='form-label'>Item Code</label>
+                    <input type='text' className='form-control' required 
                         value={code}
                         onChange={(event) => setCode(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Description 1</label>
-                    <textarea className='form control' rows={3} required 
+                    <label className='form-label'>Description 1</label>
+                    <textarea className='form-control' rows={3} required 
                         value={description1}
                         onChange={(event) => setDescription1(event.target.value)}
                     ></textarea>
+                    
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Description 2</label>
-                    <textarea className='form control'  rows={3} 
+                    <label className='form-label'>Description 2</label>
+                    <textarea className='form-control'  rows={3} 
                         value={description2}
                         onChange={(event) => setDescription2(event.target.value)}
                     ></textarea>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Item Type</label>
-                    <select className='form control' 
+                    <label className='form-label'>Item Type</label>
+                    <select className='form-control' 
                         value={itemType} 
                         onChange={(event) => setItemType(event.target.vagitlue)}
                     >
@@ -120,36 +118,36 @@ function NewItemForm(props) {
                     </select>   
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Unit Price</label>
-                    <input className='form control' type='number'  
+                    <label className='form-label'>Unit Price</label>
+                    <input className='form-control' type='number'  
                         value={unitPrice}
                         onChange={(event) => setUnitPrice(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Issue Cost</label>
-                    <input className='form control' type='number' 
+                    <label className='form-label'>Issue Cost</label>
+                    <input className='form-control' type='number' 
                         value={issueCost}
                         onChange={(event) => setIssueCost(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Supplier ID</label>
-                    <input className='form control' type='text' required
+                    <label className='form-label'>Supplier ID</label>
+                    <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Item Image URL</label>
-                    <input className='form control' type='text' 
+                    <label className='form-label'>Item Image URL</label>
+                    <input className='form-control' type='text' 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'>Category</label>
-                    <select className='form control' type='text' 
+                    <label className='form-label'>Category</label>
+                    <select className='form-control' type='text' 
                         value={cateory}
                         onChange={(event) => setCateory(event.target.value)}
                     >
@@ -162,8 +160,8 @@ function NewItemForm(props) {
                     </select>
                 </div>
                 <div className='mb-3'>
-                    <label className='form label'></label>
-                    <input className='form control' type='text' 
+                    <label className='form-label'>Sub-catetory</label>
+                    <input className='form-control' type='text' 
                         value={subCategory}
                         onChange={(event) => setSubCategory(event.target.value)}
                         ></input>
