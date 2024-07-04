@@ -16,7 +16,7 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
                 category: "Tool",
                 subCategory: "Power Tool",
-                
+                active: true
             },
             {
                 code: "2830D20",
@@ -29,6 +29,7 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
                 category: "Tool",
                 subCategory: "Power Tool",
+                active: false
             },
             {
                 code: "150F44",
@@ -41,6 +42,7 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
                 category: "Tool",
                 subCategory: "Hand Tool",
+                active: true
             },
     ]
     )
@@ -66,17 +68,26 @@ function ItemModuleComponent() {
                 issueCost: issueCost,
                 suppierId: suppierId,
                 itemImage: itemImage,
-                category:category,
-                subCategory:subCategory
+                category: category,
+                subCategory: subCategory,
+                active: true
             }
             
             setItems(items => [...items, newItem])
     }
 
+    const inactivateItem = (code) => {
+        let modifiedItems = items.map(item => 
+            item.code === code ? { ...item, active: false } : item
+        );    
+
+        setItems(modifiedItems);
+    } 
+
     return(
         <div className='mt-5 container'>
 
-            <ItemTableSection items={items}/>
+            <ItemTableSection items={items} inactivateItem={inactivateItem}/>
 
             <div className='card mt-5'>
                 <div className='card-header'>

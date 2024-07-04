@@ -27,12 +27,32 @@ function ItemTableSection(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.items.map(item=>(
-                                    <ItemRowItem item={item} />
+                                {props.items
+                                    .filter(item => item.active === true)
+                                    .map(item=>(
+                                        <ItemRowItem 
+                                            //React Key
+                                            key={item.code} 
+                                            item={item} 
+                                        />
                                 ))}
                                 
                             </tbody>
                         </table>
+
+                        <form>
+                            <select className="form-control">
+                                {Object.entries(props.items.map( (item) => (
+                                    <option key='code' value={item.code}></option>
+                                )
+
+                                ))}
+                            </select>
+                        </form> 
+                        
+                        {/* <button className="btn btn-primary"
+                            onClick={()}
+                        >Inactivate Selected Item</button> */}
                     </div>
                 </div>
             </div>
