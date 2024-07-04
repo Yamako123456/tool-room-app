@@ -38,11 +38,16 @@ function NewItemForm(props) {
     const [subCategory, setSubCategory] = useState('');
 
     const submitItem = () => {
-        
-        if ( code !== '' &&
+        const regex = '/^\d*\.?\d*$/'; 
+        const usDollarFormatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currence: 'USD'
+        });
+         if ( 
+        // /^ \d*\.?\d{0, 2} $/.test(unitPrice) &&
+            regex.test(unitPrice) &&
+            code !== '' &&
             description1 !== '' &&
-            unitPrice!== '' &&
-            issueCost !== '' &&
             suppierId !== '' &&
             itemImage !== '' 
         ){
@@ -77,7 +82,7 @@ function NewItemForm(props) {
     }
 
     return (
-        <div className='container mt-5 mb-3'>
+        <div className='mt-5'>
             <form>
                 <div className='mb-3'>
                     <label className='form label'>Item Code</label>
@@ -116,14 +121,14 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Unit Price</label>
-                    <input className='form control' type='text'  
+                    <input className='form control' type='number'  
                         value={unitPrice}
                         onChange={(event) => setUnitPrice(event.target.value)}
                     ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form label'>Issue Cost</label>
-                    <input className='form control' type='text' 
+                    <input className='form control' type='number' 
                         value={issueCost}
                         onChange={(event) => setIssueCost(event.target.value)}
                     ></input>

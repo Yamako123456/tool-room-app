@@ -1,6 +1,7 @@
 import ItemRowItem from "./ItemRowItem"
 
 function ItemTableSection(props) {
+
     return(
         <div>
             <div className="container mt-5">

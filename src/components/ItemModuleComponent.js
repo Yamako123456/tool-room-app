@@ -75,9 +75,18 @@ function ItemModuleComponent() {
     }
 
     return(
-        <div>
+        <div className='mt-5 container'>
+
             <ItemTableSection items={items}/>
-            <NewItemForm addItem={addItem} />
+
+            <div className='card mt-5'>
+                <div className='card-header'>
+                    New Item Entry Form
+                </div>
+                <div className='card-body'>
+                    <NewItemForm addItem={addItem} />
+                </div>
+            </div>
         </div>
         
     )
