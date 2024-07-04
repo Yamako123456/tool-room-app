@@ -30,8 +30,8 @@ function NewItemForm(props) {
     const [description1, setDescription1] = useState('');
     const [description2, setDescription2] = useState('');
     const [itemType, setItemType] = useState(ItemTypes.EXPENDABLE);
-    const [unitPrice, setUnitPrice] = useState('0');
-    const [issueCost, setIssueCost] = useState('0');
+    const [unitPrice, setUnitPrice] = useState('0.00');
+    const [issueCost, setIssueCost] = useState('0.00');
     const [suppierId, setSuppierId] = useState('');
     const [itemImage, setItemImage] = useState('');
     const [cateory, setCateory] = useState(ItemCategories.TOOL);
@@ -41,12 +41,10 @@ function NewItemForm(props) {
         const regex = '/^\d*\.?\d*$/'; 
        
          if ( 
-        // /^ \d*\.?\d{0, 2} $/.test(unitPrice) &&
-            regex.test(unitPrice) &&
+            //regex.test(unitPrice) &&
             code !== '' &&
             description1 !== '' &&
-            suppierId !== '' &&
-            itemImage !== '' 
+            suppierId !== '' 
         ){
             props.addItem(
                 code,
@@ -70,8 +68,8 @@ function NewItemForm(props) {
         setDescription1('');
         setDescription2('');
         setItemType(ItemTypes.EXPENDABLE);
-        setUnitPrice('0');
-        setIssueCost('0');
+        setUnitPrice('0.00');
+        setIssueCost('0.00');
         setSuppierId('');
         setItemImage('');
         setCateory(ItemCategories.TOOL);
@@ -107,7 +105,7 @@ function NewItemForm(props) {
                     <label className='form-label'>Item Type</label>
                     <select className='form-control' 
                         value={itemType} 
-                        onChange={(event) => setItemType(event.target.vagitlue)}
+                        onChange={(event) => setItemType(event.target.value)}
                     >
                         {Object.entries(ItemTypes).map(([key, value]) =>
                         (
