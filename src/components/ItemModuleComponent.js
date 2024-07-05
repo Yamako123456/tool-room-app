@@ -4,6 +4,9 @@ import ItemTableSection from "./ItemTableSection";
 import NewItemForm from './NewItemForm';
 
 function ItemModuleComponent() {
+    const [showEntryForm, setShowEntryForm] = useState(false);
+    const [showDetail, setShowDetail] = useState(true);
+
     const [items, setItems] = useState([
             {
                 code: "153KJ83",
@@ -87,16 +90,45 @@ function ItemModuleComponent() {
     return(
         <div className='mt-5 container'>
 
-            <ItemTableSection items={items} inactivateItem={inactivateItem}/>
+            <ItemTableSection 
+                addItem={addItem}
+                items={items} 
+                inactivateItem={inactivateItem}
+                setShowEntryForm={setShowEntryForm}
+                showDetail={showDetail}
+                setShowDetail={setShowDetail}
+            />
 
-            <div className='card mt-5'>
-                <div className='card-header'>
-                    New Item Entry Form
-                </div>
+            <div className='card mt-3'>
                 <div className='card-body'>
-                    <NewItemForm addItem={addItem} items={items} />
+
+                    <button className='btn btn-primary' 
+                        onClick={() => {setShowEntryForm(true)}}
+                        disabled={showEntryForm}
+                    >Add New Item</button>    
                 </div>
             </div>
+            
+
+            {showEntryForm && (
+
+                <div className='card mt-5'>
+                    <div className='card-header'>
+                        New Item Entry Form
+                    </div>
+                    <div className='card-body'>
+                        <NewItemForm 
+                            addItem={addItem} 
+                            items={items} 
+                            readOnly={false} 
+                            setShowEntryForm={setShowEntryForm}
+                            setShowDetail={setShowDetail}
+                            caption={'Add New Item'}
+                        />
+                    </div>
+                </div>
+
+            )}
         </div>
         
     )

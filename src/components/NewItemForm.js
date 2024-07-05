@@ -74,6 +74,7 @@ function NewItemForm(props) {
             );
 
             resetForm();
+            props.setShowEntryForm(false);
         }
     }
 
@@ -90,6 +91,12 @@ function NewItemForm(props) {
         setSubCategory('');
     }
 
+    const closeForm = () => {
+        resetForm();
+        props.setShowEntryForm(false);
+        props.setShowDetail(false);
+    }
+
     return (
         <div className='mt-5'>
             <form>
@@ -98,6 +105,7 @@ function NewItemForm(props) {
                     <input type='text' className='form-control' required 
                         value={code}
                         onChange={(event) => setCode(event.target.value)}
+                        readOnly={props.readOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -105,6 +113,7 @@ function NewItemForm(props) {
                     <textarea className='form-control' rows={3} required 
                         value={description1}
                         onChange={(event) => setDescription1(event.target.value)}
+                        readOnly={props.readOnly}
                     ></textarea>
                     
                 </div>
@@ -113,6 +122,7 @@ function NewItemForm(props) {
                     <textarea className='form-control'  rows={3} 
                         value={description2}
                         onChange={(event) => setDescription2(event.target.value)}
+                        readOnly={props.readOnly}
                     ></textarea>
                 </div>
                 <div className='mb-3'>
@@ -120,6 +130,7 @@ function NewItemForm(props) {
                     <select className='form-control' 
                         value={itemType} 
                         onChange={(event) => setItemType(event.target.value)}
+                        disabled={props.readOnly}
                     >
                         {Object.entries(ItemTypes).map(([key, value]) =>
                         (
@@ -134,6 +145,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='number'  
                         value={unitPrice}
                         onChange={(event) => setUnitPrice(event.target.value)}
+                        readOnly={props.readOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -141,6 +153,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='number' 
                         value={issueCost}
                         onChange={(event) => setIssueCost(event.target.value)}
+                        readOnly={props.readOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -148,6 +161,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
+                        readOnly={props.readOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -155,6 +169,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value)}
+                        readOnly={props.readOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -162,6 +177,7 @@ function NewItemForm(props) {
                     <select className='form-control' type='text' 
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}
+                        disabled={props.readOnly}
                     >
                         {Object.entries(ItemCategories).map(([key, value]) => (
                             <option key={key} value={value}>
@@ -176,11 +192,13 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' 
                         value={subCategory}
                         onChange={(event) => setSubCategory(event.target.value)}
+                        readOnly={props.readOnly}
                         ></input>
                 </div>
                 
             </form>
-            <button className='btn btn-primary' onClick={submitItem}>Add New Item</button>
+            <button className='btn btn-primary' onClick={submitItem}>{props.caption}</button>
+            <button className='btn btn-primary' onClick={closeForm}>Close</button>
 
         </div>
     )
