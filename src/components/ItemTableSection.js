@@ -5,7 +5,7 @@ import NewItemForm from "./NewItemForm";
 
 function ItemTableSection(props) {
     const [sortBy, setSortBy] = useState('code');
-    const [selectedItem, setSelectedItem] = useState('')
+    const [selectedCode, setSelectedCode] = useState('')
     
 
     const handleRadioChange = (e) => {
@@ -13,7 +13,17 @@ function ItemTableSection(props) {
     }
 
     const showDetail = () => {
-        props.setShowDetail(true);
+        //console.log('showDetail() selectedCode= ' + selectedCode)
+        if (selectedCode === '')
+            alert("Please select item from the dropdown list.")
+        else
+            props.setShowDetail(true);
+    }
+    
+    const getItemByCode = (code)  => {
+        return props.items.filter((item) => { 
+            return item.code === code  
+        });
     }
 
     return(
@@ -59,7 +69,9 @@ function ItemTableSection(props) {
                             <ItemDropdownList 
                                 items={props.items} 
                                 sortBy={sortBy} 
-                                selectedItem={selectedItem}
+                                selectedCode={selectedCode}
+                                setSelectedCode={setSelectedCode}
+                                
                             />
                             
                             <div className="mt-3">
@@ -97,13 +109,15 @@ function ItemTableSection(props) {
                         {props.showDetail && (
                             // <div  className="card-body">
                                 <NewItemForm 
+                                    isNew={false}
+                                    selectedCode={selectedCode}
                                     addItem={props.addItem} 
                                     items={props.items} 
-                                    readOnly={false} 
+                                   
                                     setShowEntryForm={props.setShowEntryForm}
                                     setShowDetail={props.setShowDetail}
-                                    
                                     caption={'Update'}
+
                             />
                             // </div>
                         )}

@@ -118,12 +118,15 @@ function ItemModuleComponent() {
                     </div>
                     <div className='card-body'>
                         <NewItemForm 
+                            isNew={true}
+                            selectedCode={''}
                             addItem={addItem} 
                             items={items} 
-                            readOnly={false} 
+                            
                             setShowEntryForm={setShowEntryForm}
                             setShowDetail={setShowDetail}
                             caption={'Add New Item'}
+                            
                         />
                     </div>
                 </div>

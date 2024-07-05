@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 
 function NewItemForm(props) {
-
+    // console.log(props.selectedItem)
+    
     const ItemTypes = {
         EXPENDABLE: 'Expendable',
         DURABLE: 'Durable',
@@ -26,30 +27,45 @@ function NewItemForm(props) {
         OFFICE_SUPPLY: 'Office Supplies',
 
     }   
-    const [code, setCode] = useState('');
-    const [description1, setDescription1] = useState('');
-    const [description2, setDescription2] = useState('');
-    const [itemType, setItemType] = useState(ItemTypes.EXPENDABLE);
-    const [unitPrice, setUnitPrice] = useState('0.00');
-    const [issueCost, setIssueCost] = useState('0.00');
-    const [suppierId, setSuppierId] = useState('');
-    const [itemImage, setItemImage] = useState('');
-    const [category, setCategory] = useState(ItemCategories.TOOL);
-    const [subCategory, setSubCategory] = useState('');
+
+    const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode)[0];
+    
+    const [code, setCode] = useState(props.isNew ? '' : selectedItem.code);
+    const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
+    const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
+    const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
+    const [unitPrice, setUnitPrice] = useState(props.isNew ? 0.00 : selectedItem.unitPrice);
+    const [issueCost, setIssueCost] = useState(props.isNew ? 0.00 : selectedItem.issueCost);
+    const [suppierId, setSuppierId] = useState(props.isNew ? '' : selectedItem.suppierId);
+    const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
+    const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
+    const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
+    // const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode);
+    
+    // const [code, setCode] = useState(props.isNew ? '' : props.selectedItem.code);
+    // const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
+    // const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
+    // const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
+    // const [unitPrice, setUnitPrice] = useState(props.isNew ? 0.00 : selectedItem.unitPrice);
+    // const [issueCost, setIssueCost] = useState(props.isNew ? 0.00 : selectedItem.issueCost);
+    // const [suppierId, setSuppierId] = useState(props.isNew ? '' : selectedItem.suppierId);
+    // const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
+    // const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
+    // const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
+
+    const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
 
     const submitItem = () => {
        
-        const { items, addItem } = props;
-
         // Check if items is defined before using find
-        if (!items) {
+        if (!props.items) {
             console.log('Items prop is undefined or null.');
             return;
         }
        
         //const regex = '/^\d*\.?\d*$/'; 
        
-        // const codeFound = props.items.find(item => item.code === code );
+        const codeFound = props.items.find(item => item.code === code );
        
         if (props.items.find(item => item.code === code )) {
             alert(`Code: "${code}" already exists. Please enter unique item code.`)
@@ -103,9 +119,9 @@ function NewItemForm(props) {
                 <div className='mb-3'>
                     <label className='form-label'>Item Code</label>
                     <input type='text' className='form-control' required 
-                        value={code}
+                        // value={code}
                         onChange={(event) => setCode(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -113,7 +129,7 @@ function NewItemForm(props) {
                     <textarea className='form-control' rows={3} required 
                         value={description1}
                         onChange={(event) => setDescription1(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></textarea>
                     
                 </div>
@@ -122,7 +138,7 @@ function NewItemForm(props) {
                     <textarea className='form-control'  rows={3} 
                         value={description2}
                         onChange={(event) => setDescription2(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></textarea>
                 </div>
                 <div className='mb-3'>
@@ -130,7 +146,7 @@ function NewItemForm(props) {
                     <select className='form-control' 
                         value={itemType} 
                         onChange={(event) => setItemType(event.target.value)}
-                        disabled={props.readOnly}
+                        disabled={isReadOnly}
                     >
                         {Object.entries(ItemTypes).map(([key, value]) =>
                         (
@@ -145,7 +161,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='number'  
                         value={unitPrice}
                         onChange={(event) => setUnitPrice(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -153,7 +169,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='number' 
                         value={issueCost}
                         onChange={(event) => setIssueCost(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -161,7 +177,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -169,7 +185,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -177,7 +193,7 @@ function NewItemForm(props) {
                     <select className='form-control' type='text' 
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}
-                        disabled={props.readOnly}
+                        disabled={isReadOnly}
                     >
                         {Object.entries(ItemCategories).map(([key, value]) => (
                             <option key={key} value={value}>
@@ -192,7 +208,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' 
                         value={subCategory}
                         onChange={(event) => setSubCategory(event.target.value)}
-                        readOnly={props.readOnly}
+                        readOnly={isReadOnly}
                         ></input>
                 </div>
                 
