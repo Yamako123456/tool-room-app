@@ -5,7 +5,7 @@ import NewItemForm from './NewItemForm';
 
 function ItemModuleComponent() {
     const [showEntryForm, setShowEntryForm] = useState(false);
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
 
     const [items, setItems] = useState([
             {

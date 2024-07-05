@@ -28,9 +28,22 @@ function NewItemForm(props) {
 
     }   
 
+    // const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode)[0];
+    // console.log('propsItems', props.ITems)
+    // const [itemCode, setItemCode] = useState('');
+    // const [description1, setDescription1] = useState('');
+    // const [description2, setDescription2] = useState('');
+    // const [itemType, setItemType] = useState(ItemTypes.PERISHABLE);
+    // const [unitPrice, setUnitPrice] = useState(0.00);
+    // const [issueCost, setIssueCost] = useState(0.00 );
+    // const [suppierId, setSuppierId] = useState('');
+    // const [itemImage, setItemImage] = useState('');
+    // const [category, setCategory] = useState(ItemCategories.TOOL);
+    // const [subCategory, setSubCategory] = useState('');
+
     const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode)[0];
-    
-    const [code, setCode] = useState(props.isNew ? '' : selectedItem.code);
+    console.log('propsItems', props.ITems)
+    const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
     const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
@@ -40,18 +53,6 @@ function NewItemForm(props) {
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
     const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
-    // const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode);
-    
-    // const [code, setCode] = useState(props.isNew ? '' : props.selectedItem.code);
-    // const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
-    // const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
-    // const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
-    // const [unitPrice, setUnitPrice] = useState(props.isNew ? 0.00 : selectedItem.unitPrice);
-    // const [issueCost, setIssueCost] = useState(props.isNew ? 0.00 : selectedItem.issueCost);
-    // const [suppierId, setSuppierId] = useState(props.isNew ? '' : selectedItem.suppierId);
-    // const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
-    // const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
-    // const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
 
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
 
@@ -63,21 +64,16 @@ function NewItemForm(props) {
             return;
         }
        
-        //const regex = '/^\d*\.?\d*$/'; 
-       
-        const codeFound = props.items.find(item => item.code === code );
-       
-        if (props.items.find(item => item.code === code )) {
-            alert(`Code: "${code}" already exists. Please enter unique item code.`)
+        if (props.items.find(item => item.code === itemCode )) {
+            alert(`Code: "${itemCode}" already exists. Please enter unique item code.`)
 
         }else if( 
-            //regex.test(unitPrice) &&
-            code !== '' && //!codeFound &&
+            itemCode !== '' && //!codeFound &&
             description1 !== '' &&
             suppierId !== '' 
         ){
             props.addItem(
-                code,
+                itemCode,
                 description1,
                 description2,
                 itemType,
@@ -91,11 +87,12 @@ function NewItemForm(props) {
 
             resetForm();
             props.setShowEntryForm(false);
+            props.setShowDetail(false);
         }
     }
 
     const resetForm = () => {
-        setCode('');
+        setItemCode('');
         setDescription1('');
         setDescription2('');
         setItemType(ItemTypes.EXPENDABLE);
@@ -119,8 +116,8 @@ function NewItemForm(props) {
                 <div className='mb-3'>
                     <label className='form-label'>Item Code</label>
                     <input type='text' className='form-control' required 
-                        // value={code}
-                        onChange={(event) => setCode(event.target.value)}
+                        value={itemCode}
+                        onChange={(event) => setItemCode(event.target.value)}
                         readOnly={isReadOnly}
                     ></input>
                 </div>
