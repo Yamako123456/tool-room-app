@@ -6,7 +6,7 @@ import NewItemForm from './NewItemForm';
 function ItemModuleComponent() {
     const [items, setItems] = useState([
             {
-                code: "53KJ83",
+                code: "153KJ83",
                 description1: "Makita Cordless Pistol-Grip Drills",
                 description2: "Tools using lower-voltage batteries are generally lighter and more compact but less powerful than tools using higher-voltage batteries.",
                 itemType: "Durable",
@@ -32,7 +32,7 @@ function ItemModuleComponent() {
                 active: true
             },
             {
-                code: "150F44",
+                code: "9150F44",
                 description1: "CHANNELLOCK Wrench",
                 description2: "Slim Jaw,8 Chrome, 8 in Overall Lg, 1 1/2 in Jaw Capacity",
                 itemType: "Durable",

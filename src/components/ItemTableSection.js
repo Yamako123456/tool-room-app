@@ -4,6 +4,7 @@ import ItemDropdownList from "./ItemDropdownList";
 
 function ItemTableSection(props) {
     const [sortBy, setSortBy] = useState('code');
+    const [selectedItem, setSelectedItem] = useState('')
 
     const handleRadioChange = (e) => {
         setSortBy(e.target.value);
@@ -49,7 +50,11 @@ function ItemTableSection(props) {
                     </div
                     ><div className="card-body"> 
                         <form>
-                            <ItemDropdownList items={props.items} sortBy={sortBy} />
+                            <ItemDropdownList 
+                                items={props.items} 
+                                sortBy={sortBy} 
+                                selectedItem={selectedItem}
+                            />
                             
                             <div className="mt-3">
                                 <label className="form-label">Sort Dropdown List:</label>    
@@ -62,11 +67,8 @@ function ItemTableSection(props) {
                                         onChange={handleRadioChange}
                                     />
                                     By Description1
-
-                                
                                 </div>
                                 <div className="form-check">
-                                
                                     <input 
                                         type="radio"
                                         value="code"
@@ -74,7 +76,6 @@ function ItemTableSection(props) {
                                         onChange={handleRadioChange}
                                     />
                                     By Code
-
                                 </div>                              
                             </div>  
                         </form> 

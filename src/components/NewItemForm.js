@@ -49,15 +49,14 @@ function NewItemForm(props) {
        
         //const regex = '/^\d*\.?\d*$/'; 
        
-        const codeFound = props.items.find(item => item.code === code );
+        // const codeFound = props.items.find(item => item.code === code );
        
-        if (codeFound) {
+        if (props.items.find(item => item.code === code )) {
             alert(`Code: "${code}" already exists. Please enter unique item code.`)
-        }
 
-        if ( 
+        }else if( 
             //regex.test(unitPrice) &&
-            code !== '' && !codeFound &&
+            code !== '' && //!codeFound &&
             description1 !== '' &&
             suppierId !== '' 
         ){
