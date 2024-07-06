@@ -4,7 +4,7 @@ This Tool Room Management Application helps tool toom attendants in manufacturer
 
 It monitors stock-outs and issuing items to employees based on their access control
 
-This project consist of small multiple momulde, such as Inventory Item Management module
+This project consist of small multiple momuldes, such as Inventory Item Management module
 
 
 ## Inventory Item Management module
@@ -17,9 +17,11 @@ For `CREATE` item operation, the system enforces that a item code to be unique a
 
 To `RETRIEVE` items, a employee can select a item from dropdown list to display the "detail screen". Also, there is a talbe displaying all items (excluding non-activevitems) for reference with brief information.
 
-`DELETE` item operation physically removes the item from the system only if the item has never used in any transactions; otherwise, it would turn the "active" flag to false and not show it on the inventory item list.
-
 The `UPDATE` functionality is available from the item's "detail screen".
 It allows full-update only on the item that hasn't used in any transaction. Once a item's used, the item code and the supplier ID can not be changed. If the item is getting supplied from the different vendor, a new item entry must be created.
+
+`DELETE` item operation physically removes the item from the system only if the item has never used in any transactions; otherwise, it would turn the "active" flag to false and not show it on the inventory item list.
+
+
 
 
