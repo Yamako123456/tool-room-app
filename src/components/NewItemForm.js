@@ -145,7 +145,7 @@ function NewItemForm(props) {
                     <input type='text' className='form-control' required 
                         value={itemCode}
                         onChange={(event) => setItemCode(event.target.value)}
-                        readOnly={isReadOnly}
+                        readOnly={isReadOnly || isUsedInTransactions}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -207,7 +207,7 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
-                        readOnly={isReadOnly}
+                        readOnly={isReadOnly || isUsedInTransactions}
                     ></input>
                 </div>
                 <div className='mb-3'>

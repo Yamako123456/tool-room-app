@@ -19,7 +19,8 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
                 category: "Tool",
                 subCategory: "Power Tool",
-                active: true
+                active: true,
+                isUsedInTransactions: false
             },
             {
                 code: "2830D20",
@@ -32,7 +33,8 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
                 category: "Tool",
                 subCategory: "Power Tool",
-                active: true
+                active: true,
+                isUsedInTransactions: false
             },
             {
                 code: "9150F44",
@@ -45,7 +47,8 @@ function ItemModuleComponent() {
                 itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
                 category: "Tool",
                 subCategory: "Hand Tool",
-                active: true
+                active: true,
+                isUsedInTransactions: false
             },
     ]
     )
@@ -76,7 +79,8 @@ function ItemModuleComponent() {
                 itemImage: itemImage,
                 category: category,
                 subCategory: subCategory,
-                active: true
+                active: true,
+                isUsedInTransactions: false
             }
             
             setItems(items => [...items, newItem])

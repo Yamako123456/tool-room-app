@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Tool Room Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This Tool Room Management Application help tool toom attendants in manufactureer shops to issue tools or parts to production team members and accept return of the tools based on their access control; as well as inventory management.
+This project consist of multiple mulde such as Inventory Item Management module
 
-## Available Scripts
 
-In the project directory, you can run:
+## Inventory Item Management module
 
-### `npm start`
+It allows employees with admin-rights to perform CRUD operation on inventory items in the system.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Restrictions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For `CREATE` item operation, the system enforces that a item code to be unique and non-empty. Also, the description 1 and the supplier ID canot be empty.
 
-### `npm test`
+To `RETRIEVE` items, a employee can select a item from dropdown list to display the detail information. Also, there is a talbe displaying all active items with brief info for reference.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`DELETE` item operation physically removes the item from the system only if the item has never used in any transactions; otherwise, it turn the active flag to false.
 
-### `npm run build`
+It allows full `UPDATE` only on the item that hasn't used in any transaction. Once a item was used, the item code and the supplier ID can not be change. If the item is getting supplied by the different vendor, a new item entry must be created.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
