@@ -62,6 +62,9 @@ function ItemModuleComponent() {
         category,
         subCategory ) => {
             
+            if (items.find(itm => itm.code === code))
+                return;
+
             const newItem = {
                 code: code,
                 description1: description1,
@@ -80,6 +83,7 @@ function ItemModuleComponent() {
     }
 
     const updateItem = (
+        originalCode,
         code,
         description1,
         description2,
@@ -91,6 +95,12 @@ function ItemModuleComponent() {
         category,
         subCategory ) => {
            
+            if ( code !== originalCode && 
+                 items.find(itm => itm.code === code)) {
+                    alert('Your new code alread exists! Update aborted. Pleas try again.')
+                return;
+            }
+
             const index = items.findIndex(itm => itm.code === code);
             if (index !== -1) {
            

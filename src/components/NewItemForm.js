@@ -42,6 +42,7 @@ function NewItemForm(props) {
 
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
+
     const submitItem = () => {
         // Check if items is defined before using find
         if (!props.items) {
@@ -54,15 +55,17 @@ function NewItemForm(props) {
             description1 === '' &&
             suppierId === '' 
         ){
+            alert('Code, Description1 and SupplierId are required. Please try again.');
             return;
         }   
         
         if (!props.isNew ) { //Update existed item
-            if (btnCaption === 'Update') {
+            if (btnCaption === 'Edit') {
                 setIsReadOnly(false);
                 setBtnCaption('Save')
             } else {
                 props.updateItem(
+                    props.selectedCode,
                     itemCode,
                     description1,
                     description2,
