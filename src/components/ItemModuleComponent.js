@@ -79,6 +79,48 @@ function ItemModuleComponent() {
             setItems(items => [...items, newItem])
     }
 
+    const updateItem = (
+        code,
+        description1,
+        description2,
+        itemType,
+        unitPrice,
+        issueCost,
+        suppierId,
+        itemImage,
+        category,
+        subCategory ) => {
+           
+            const index = items.findIndex(itm => itm.code === code);
+            if (index !== -1) {
+           
+                const newItem = {
+                    code: code,
+                    description1: description1,
+                    description2: description2,
+                    itemType: itemType,
+                    unitPrice: unitPrice,
+                    issueCost: issueCost,
+                    suppierId: suppierId,
+                    itemImage: itemImage,
+                    category: category,
+                    subCategory: subCategory,
+                    active: true
+                }
+
+                const shallowCopiedItems = [
+                    ...items.slice(0, index), 
+                    newItem, 
+                    ...items.slice(index + 1)
+                ]
+                setItems(shallowCopiedItems);
+            }
+
+
+
+
+        }
+
     const inactivateItem = (code) => {
         let modifiedItems = items.map(item => 
             item.code === code ? { ...item, active: false } : item
@@ -89,7 +131,6 @@ function ItemModuleComponent() {
 
     return(
         <div className='mt-5 container'>
-
             <ItemTableSection 
                 addItem={addItem}
                 items={items} 
@@ -97,6 +138,7 @@ function ItemModuleComponent() {
                 setShowEntryForm={setShowEntryForm}
                 showDetail={showDetail}
                 setShowDetail={setShowDetail}
+                updateItem={updateItem}
             />
 
             <div className='card mt-3'>

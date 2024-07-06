@@ -28,21 +28,7 @@ function NewItemForm(props) {
 
     }   
 
-    // const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode)[0];
-    // console.log('propsItems', props.ITems)
-    // const [itemCode, setItemCode] = useState('');
-    // const [description1, setDescription1] = useState('');
-    // const [description2, setDescription2] = useState('');
-    // const [itemType, setItemType] = useState(ItemTypes.PERISHABLE);
-    // const [unitPrice, setUnitPrice] = useState(0.00);
-    // const [issueCost, setIssueCost] = useState(0.00 );
-    // const [suppierId, setSuppierId] = useState('');
-    // const [itemImage, setItemImage] = useState('');
-    // const [category, setCategory] = useState(ItemCategories.TOOL);
-    // const [subCategory, setSubCategory] = useState('');
-
-    const selectedItem = props.items.filter((itm) => itm.code == props.selectedCode)[0];
-    console.log('propsItems', props.ITems)
+    const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
@@ -55,23 +41,48 @@ function NewItemForm(props) {
     const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
 
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
-
+    const [btnCaption, setBtnCaption] = useState(props.caption);
     const submitItem = () => {
-       
         // Check if items is defined before using find
         if (!props.items) {
-            console.log('Items prop is undefined or null.');
+            console.log('Items prop is undefined or null in submitItem().');
             return;
         }
-       
-        if (props.items.find(item => item.code === itemCode )) {
-            alert(`Code: "${itemCode}" already exists. Please enter unique item code.`)
 
-        }else if( 
-            itemCode !== '' && //!codeFound &&
-            description1 !== '' &&
-            suppierId !== '' 
+        if( 
+            itemCode === '' && //!codeFound &&
+            description1 === '' &&
+            suppierId === '' 
         ){
+            return;
+        }   
+        
+        if (!props.isNew ) { //Update existed item
+            if (btnCaption === 'Update') {
+                setIsReadOnly(false);
+                setBtnCaption('Save')
+            } else {
+                props.updateItem(
+                    itemCode,
+                    description1,
+                    description2,
+                    itemType,
+                    unitPrice,
+                    issueCost,
+                    suppierId,
+                    itemImage,
+                    category,
+                    subCategory 
+                );
+
+                resetForm();
+                props.setShowEntryForm(false);
+                props.setShowDetail(false);
+            }
+
+        } else if (props.items.find(item => item.code === itemCode )) {
+            alert(`Code: "${itemCode}" already exists. Please enter unique item code.`) 
+        } else {
             props.addItem(
                 itemCode,
                 description1,
@@ -88,7 +99,7 @@ function NewItemForm(props) {
             resetForm();
             props.setShowEntryForm(false);
             props.setShowDetail(false);
-        }
+        }    
     }
 
     const resetForm = () => {
@@ -210,7 +221,8 @@ function NewItemForm(props) {
                 </div>
                 
             </form>
-            <button className='btn btn-primary' onClick={submitItem}>{props.caption}</button>
+            <button className='btn btn-primary me-2' onClick={submitItem}>{btnCaption}</button>
+            
             <button className='btn btn-primary' onClick={closeForm}>Close</button>
 
         </div>
