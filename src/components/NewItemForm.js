@@ -125,7 +125,10 @@ function NewItemForm(props) {
         <div className='mt-5'>
             <form>
                 <div className='mb-3'>
-                    <label className='form-label'>Item Code</label>
+                    <label className='form-label'>
+                        Item Code
+                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                    </label>
                     <input type='text' className='form-control' required 
                         value={itemCode}
                         onChange={(event) => setItemCode(event.target.value)}
@@ -133,7 +136,10 @@ function NewItemForm(props) {
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form-label'>Description 1</label>
+                    <label className='form-label'>
+                        Description 1
+                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                    </label>
                     <textarea className='form-control' rows={3} required 
                         value={description1}
                         onChange={(event) => setDescription1(event.target.value)}
@@ -181,7 +187,10 @@ function NewItemForm(props) {
                     ></input>
                 </div>
                 <div className='mb-3'>
-                    <label className='form-label'>Supplier ID</label>
+                    <label className='form-label'>
+                        Supplier ID
+                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                    </label>
                     <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
