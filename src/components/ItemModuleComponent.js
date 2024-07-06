@@ -181,7 +181,7 @@ function ItemModuleComponent() {
                             
                             setShowEntryForm={setShowEntryForm}
                             setShowDetail={setShowDetail}
-                            caption={'Add New Item'}
+                            caption={'Add'}
                             
                         />
                     </div>

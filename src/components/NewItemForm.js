@@ -51,11 +51,21 @@ function NewItemForm(props) {
         }
 
         if( 
-            itemCode === '' && //!codeFound &&
-            description1 === '' &&
+            itemCode === '' || //!codeFound &&
+            description1 === '' ||
             suppierId === '' 
         ){
-            alert('Code, Description1 and SupplierId are required. Please try again.');
+            let msg = 'Code, Description1 and SupplierId are required!';
+            if (!props.isNew) {
+                msg += ' Update aborted. Please try again.';
+            }
+
+            alert(msg);
+            if (!props.isNew){
+                resetForm();
+                props.setShowEntryForm(false);
+                props.setShowDetail(false);
+            }
             return;
         }   
         
