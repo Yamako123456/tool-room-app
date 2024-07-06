@@ -188,6 +188,7 @@ function ItemModuleComponent() {
                 </div>
 
             )}
+
         </div>
         
     )
