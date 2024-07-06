@@ -131,6 +131,10 @@ function ItemModuleComponent() {
 
     return(
         <div className='mt-5 container'>
+            <div class="page-header">
+                <h1>Inventory Items</h1>
+            </div>
+            
             <ItemTableSection 
                 addItem={addItem}
                 items={items} 
