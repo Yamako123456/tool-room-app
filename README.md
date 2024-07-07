@@ -2,9 +2,9 @@
 
 This Tool Room Management Application helps tool toom attendants in manufacturer shop-floors to issue tools or parts to production team members and accept return of the tools, and records transactions.
 
-It monitors stock-outs and issuing items to employees based on their access control
+It monitors stock-outs and issuing items to employees based on their access control.
 
-This project consist of small multiple momuldes, such as Inventory Item Management module
+This project consist of small multiple momuldes, such as Inventory Item Management module.
 
 
 ## Inventory Item Management module

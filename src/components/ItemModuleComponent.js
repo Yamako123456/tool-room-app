@@ -48,7 +48,7 @@ function ItemModuleComponent() {
                 category: "Tool",
                 subCategory: "Hand Tool",
                 active: true,
-                isUsedInTransactions: false
+                isUsedInTransactions: true
             },
     ]
     )
@@ -105,7 +105,7 @@ function ItemModuleComponent() {
                 return;
             }
 
-            const index = items.findIndex(itm => itm.code === code);
+            const index = items.findIndex(itm => itm.code === originalCode);
             if (index !== -1) {
            
                 const newItem = {

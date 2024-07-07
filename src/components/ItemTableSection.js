@@ -41,7 +41,6 @@ function ItemTableSection(props) {
                                 sortBy={sortBy} 
                                 selectedCode={selectedCode}
                                 setSelectedCode={setSelectedCode}
-                                
                             />
                             
                             <div className="mt-3">

@@ -27,8 +27,9 @@ function NewItemForm(props) {
         OFFICE_SUPPLY: 'Office Supplies',
 
     }   
-
+          
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
+    
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
@@ -43,6 +44,13 @@ function NewItemForm(props) {
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
 
+    const CODE_MAX = 30;
+    const DESCRIPTION_MAX = 35;
+    const SUPLIER_MAX = 50;
+    // URL_MAX = is unlimited Text data type in database;
+    const CURRENCY_MAX = 25;
+    const CATEGORY_MAX = 40;
+
     const submitItem = () => {
         // Check if items is defined before using find
         if (!props.items) {
@@ -51,8 +59,8 @@ function NewItemForm(props) {
         }
 
         if( 
-            itemCode === '' || //!codeFound &&
-            description1 === '' ||
+            itemCode === '' || 
+            description1 === '' || 
             suppierId === '' 
         ){
             let msg = 'Code, Description1 and SupplierId are required!';
@@ -69,10 +77,30 @@ function NewItemForm(props) {
             return;
         }   
         
+        let msg = '';
+        if( itemCode.length > CODE_MAX) 
+            msg = 'Code length cannot exceed ' + CODE_MAX;
+        if( description1.length > DESCRIPTION_MAX || description2.length > DESCRIPTION_MAX)
+            msg = 'Description length cannot exceed ' + DESCRIPTION_MAX;
+        if( unitPrice.length > CURRENCY_MAX || issueCost.length > CURRENCY_MAX)
+            msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
+        if ( suppierId.length > SUPLIER_MAX)
+            msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
+
+        if( subCategory.length > CATEGORY_MAX)    
+            msg = 'Category length cannot exceed ' + CATEGORY_MAX;
+        
+        if (msg.length > 0) {
+            alert(msg);
+            return;
+        }
+
         if (!props.isNew ) { //Update existed item
             if (btnCaption === 'Edit') {
                 setIsReadOnly(false);
                 setBtnCaption('Save')
+            } else if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
+                    alert(`Code: "${itemCode}" already exists. Please enter unique item code.`) 
             } else {
                 props.updateItem(
                     props.selectedCode,
@@ -145,7 +173,7 @@ function NewItemForm(props) {
                     <input type='text' className='form-control' required 
                         value={itemCode}
                         onChange={(event) => setItemCode(event.target.value)}
-                        readOnly={isReadOnly || isUsedInTransactions}
+                        readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
                     ></input>
                 </div>
                 <div className='mb-3'>
@@ -207,16 +235,16 @@ function NewItemForm(props) {
                     <input className='form-control' type='text' required
                         value={suppierId}
                         onChange={(event) => setSuppierId(event.target.value)}
-                        readOnly={isReadOnly || isUsedInTransactions}
+                        readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
                     ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Item Image URL</label>
-                    <input className='form-control' type='text' 
+                    <textarea className='form-control' row='50' 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value)}
                         readOnly={isReadOnly}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Category</label>
