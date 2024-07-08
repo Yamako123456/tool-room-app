@@ -10,6 +10,9 @@ function ItemRowItem(props) {
     });
 
     const handleRowDblClick= () => {
+        if (props.isDisableClick)
+            return;
+        
         console.log(props.index, props.item.code)
         props.setSelectedCode(props.item.code)
         setSelectedRow(props.index)

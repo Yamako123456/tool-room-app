@@ -31,12 +31,13 @@ function ItemTableSection(props) {
             <div className="container mt-5">
                 <div className="card">
                     <div className="card-header">
-                        Item To Edit
+                        Selected Item
                     </div>
 
                     <div className="card-body"> 
                         <form>
                             <ItemDropdownList 
+                                isDisableClick={props.showDetail}
                                 items={props.items} 
                                 sortBy={sortBy} 
                                 selectedCode={selectedCode}
@@ -88,10 +89,14 @@ function ItemTableSection(props) {
                             />
                             // </div>
                         )}
+       
                     </div>
                     <hr/>
                     <div className="card-body">
-                        <table className="table table-hover">
+                        <table 
+                            className="table table-hover"
+                            disabled={props.showDetail}
+                        >
                             <thead>
                                 {/* <ItemTableHead /> */}
                                 <tr>
@@ -112,6 +117,7 @@ function ItemTableSection(props) {
                                     .filter(item => item.active === true)
                                     .map((item, index) =>(
                                         <ItemRowItem 
+                                            isDisableClick={props.showDetail}
                                             index={index}
                                             key={item.code} //React Key
                                             item={item} 

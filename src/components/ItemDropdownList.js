@@ -17,10 +17,11 @@ function ItemDropdownList(props) {
 
     return (
        <div>
-            <label className="form-label">Selected Item</label>
+            <label className="form-label">Code - Description 1</label>
             <select className="form-control" 
                 value={props.selectedCode}
                 onChange={selectedChange}
+                disabled={props.isDisableClick}
             >
                 <option value="" disabled>Please select Item</option>
                 { 

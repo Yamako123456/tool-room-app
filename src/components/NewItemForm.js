@@ -45,13 +45,21 @@ function NewItemForm(props) {
     const [btnCaption, setBtnCaption] = useState(props.caption);
 
     const CODE_MAX = 30;
-    const DESCRIPTION_MAX = 35;
+    const DESCRIPTION1_MAX = 50;
+    const DESCRIPTION2_MAX = 200;
     const SUPLIER_MAX = 50;
     // URL_MAX = is unlimited Text data type in database;
     const CURRENCY_MAX = 25;
     const CATEGORY_MAX = 40;
 
     const submitItem = () => {
+        if (btnCaption === 'Edit') {
+            setIsReadOnly(false);
+            setBtnCaption('Save')
+            return;
+        }
+
+
         // Check if items is defined before using find
         if (!props.items) {
             console.log('Items prop is undefined or null in submitItem().');
@@ -76,12 +84,19 @@ function NewItemForm(props) {
             }
             return;
         }   
-        
+    
         let msg = '';
         if( itemCode.length > CODE_MAX) 
             msg = 'Code length cannot exceed ' + CODE_MAX;
-        if( description1.length > DESCRIPTION_MAX || description2.length > DESCRIPTION_MAX)
-            msg = 'Description length cannot exceed ' + DESCRIPTION_MAX;
+        
+        if( description1.length > DESCRIPTION1_MAX) {
+            msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
+        }
+        if( description2.length > DESCRIPTION2_MAX) {
+            msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
+        }
+    
+
         if( unitPrice.length > CURRENCY_MAX || issueCost.length > CURRENCY_MAX)
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
         if ( suppierId.length > SUPLIER_MAX)
@@ -96,10 +111,7 @@ function NewItemForm(props) {
         }
 
         if (!props.isNew ) { //Update existed item
-            if (btnCaption === 'Edit') {
-                setIsReadOnly(false);
-                setBtnCaption('Save')
-            } else if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
+            if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
                     alert(`Code: "${itemCode}" already exists. Please enter unique item code.`) 
             } else {
                 props.updateItem(
