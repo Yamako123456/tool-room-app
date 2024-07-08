@@ -27,12 +27,12 @@ function ItemRowItem(props) {
                 border: props.selectedCode === props.item.code ? '2px solid #000' : 'none'
               }}
         >
-            <td>{props.item.code}</td>
-            <td>{props.item.description1}</td>
-            <td>{props.item.itemType}</td>
-            <td>{props.item.suppierId}</td>
-            <td>{props.item.cateory}</td>
-            <td>{props.item.subCategory}</td>     
+            <td style={{ padding: '10px' }}>{props.item.code}</td>
+            <td style={{ padding: '10px' }}>{props.item.description1}</td>
+            <td style={{ padding: '10px' }}>{props.item.itemType}</td>
+            <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
+            <td style={{ padding: '10px' }}>{props.item.category}</td>
+            <td style={{ padding: '10px' }}>{props.item.subCategory}</td>     
         </tr>  
     )
 }

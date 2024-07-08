@@ -96,28 +96,25 @@ function ItemTableSection(props) {
                     <div className="card-body">
                         <table 
                             // className="table table-hover"
-                            disabled={props.isShowDetail}
                         >
                             <thead>
                                 <tr>
-                                    <th scope="col">Item Code</th>
-                                    <th scope="col">Description 1</th>
-                                    <th scope="col">Item Type</th>
-                                    <th scope="col">Supplier ID</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Sub Category</th>
+                                    <th style={{ padding: '10px' }} scope="col">Item Code</th>
+                                    <th style={{ padding: '10px' }} scope="col">Description 1</th>
+                                    <th style={{ padding: '10px' }} scope="col">Item Type</th>
+                                    <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
+                                    <th style={{ padding: '10px' }} scope="col">Category</th>
+                                    <th style={{ padding: '10px' }} scope="col">Sub Category</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <ItemRows
-                                    items={props.items}
-                                    isShowDetail={props.isShowDetail}
-                                    setIsSelectedCode={setSelectedCode}
-                                    selectedCode={selectedCode}
-                                    setSelectedCode={setSelectedCode}
-                                    sortBy={sortBy}
-                                />
-                            </tbody>
+                            <ItemRows
+                                items={props.items}
+                                isShowDetail={props.isShowDetail}
+                                setIsSelectedCode={setSelectedCode}
+                                selectedCode={selectedCode}
+                                setSelectedCode={setSelectedCode}
+                                sortBy={sortBy}
+                            />
                         </table>
                     </div>
                 </div>

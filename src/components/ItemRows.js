@@ -4,7 +4,7 @@ import ItemRowItem from "./ItemRowItem"
 
 function ItemRows(props) {
     return (
-        <div>
+        <tbody>
             {props.items
                 .filter(item => item.active === true)
                 .sort((a, b) => {
@@ -24,7 +24,7 @@ function ItemRows(props) {
                         className={props.items.indexOf}
                     />
             ))}
-        </div>
+        </tbody>
     )
 }
 
