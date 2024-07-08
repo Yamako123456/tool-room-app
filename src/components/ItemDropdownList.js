@@ -17,7 +17,7 @@ function ItemDropdownList(props) {
 
     return (
        <div>
-            <label className="form-label">Select Item From Dropdown</label>
+            <label className="form-label">Selected Item</label>
             <select className="form-control" 
                 value={props.selectedCode}
                 onChange={selectedChange}

@@ -31,7 +31,7 @@ function ItemTableSection(props) {
             <div className="container mt-5">
                 <div className="card">
                     <div className="card-header">
-
+                        Item To Edit
                     </div>
 
                     <div className="card-body"> 
@@ -88,9 +88,6 @@ function ItemTableSection(props) {
                             />
                             // </div>
                         )}
-                           
-
-       
                     </div>
                     <hr/>
                     <div className="card-body">
@@ -113,12 +110,13 @@ function ItemTableSection(props) {
                             <tbody>
                                 {props.items
                                     .filter(item => item.active === true)
-                                    .map(item=>(
+                                    .map((item, index) =>(
                                         <ItemRowItem 
-                                            
+                                            index={index}
                                             key={item.code} //React Key
                                             item={item} 
-
+                                            setSelectedCode={setSelectedCode}
+                                            selectedCode={selectedCode}
                                             className={props.items.indexOf}
                                         />
                                 ))}
