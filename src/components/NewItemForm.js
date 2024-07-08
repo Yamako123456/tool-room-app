@@ -180,8 +180,12 @@ function NewItemForm(props) {
     }
 
 
-    const deleteItem = () => {
+    const proceedDelete = () => {
         props.deleteItem(props.selectedCode);
+        setShowModal(false)
+        resetForm();
+        props.setIsShowEntryForm(false);
+        props.setIsShowDetail(false);
     }
 
     const deleteConfirmation = () => {
@@ -320,12 +324,10 @@ function NewItemForm(props) {
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                    <Button variant="secondary" onClick={() => showModal(false)}>
                     Cancel
                     </Button>
-                    <Button variant="danger" onClick={    
-                        () =>  props.deleteItem(props.selectedCode)
-                    }>
+                    <Button variant="danger" onClick={proceedDelete}>
                     Delete
                     </Button>
                 </Modal.Footer>

@@ -136,12 +136,22 @@ function ItemModuleComponent() {
         }
 
     const deleteItem = (originalCode) => {
-        if (items.filter((itm) => itm.code === originalCode)[0].isUsedInTransactions === true) {
-            console.log('deleteItem  it is used' )
+        if (items.filter((itm) => itm.code === originalCode)[0].isUsedInTransactions) {
+            
+            const updatedItems = items.map(item => {
+                if (item.code === originalCode) {
+                    return { ...item, active: false };
+                } else
+                    return item;
+            })
+            setItems(updatedItems)
+            
         } else {
-                
-                console.log('deleteItem it is NOT used' )
+
+
         }
+         
+    
     }
 
     const inactivateItem = (code) => {
