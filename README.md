@@ -15,7 +15,7 @@ It allows employees with admin-rights to perform CRUD operation on inventory ite
 
 For `CREATE` item operation, the system enforces that a item code to be unique and non-empty. Also, the description 1 and the supplier ID must be non-empty values.
 
-To `RETRIEVE` items, a employee can select a item from dropdown list to display the "detail screen". Also, there is a talbe displaying all items (excluding non-activevitems) for reference with brief information.
+To `RETRIEVE` items, a employee can select a item from the dropdown list or double click on a row in the item tabl to display the "detail screen". 
 
 The `UPDATE` functionality is available from the item's "detail screen".
 It allows full-update only on the item that hasn't used in any transaction. Once a item's used, the item code and the supplier ID can not be changed. If the item is getting supplied from the different vendor, a new item entry must be created.

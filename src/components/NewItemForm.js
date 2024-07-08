@@ -79,8 +79,8 @@ function NewItemForm(props) {
             alert(msg);
             if (!props.isNew){
                 resetForm();
-                props.setShowEntryForm(false);
-                props.setShowDetail(false);
+                props.setIsShowEntryForm(false);
+                props.setIsShowDetail(false);
             }
             return;
         }   
@@ -129,8 +129,8 @@ function NewItemForm(props) {
                 );
 
                 resetForm();
-                props.setShowEntryForm(false);
-                props.setShowDetail(false);
+                props.setIsShowEntryForm(false);
+                props.setIsShowDetail(false);
             }
 
         } else if (props.items.find(item => item.code === itemCode )) {
@@ -150,8 +150,8 @@ function NewItemForm(props) {
             );
 
             resetForm();
-            props.setShowEntryForm(false);
-            props.setShowDetail(false);
+            props.setIsShowEntryForm(false);
+            props.setIsShowDetail(false);
         }    
     }
 
@@ -170,8 +170,8 @@ function NewItemForm(props) {
 
     const closeForm = () => {
         resetForm();
-        props.setShowEntryForm(false);
-        props.setShowDetail(false);
+        props.setIsShowEntryForm(false);
+        props.setIsShowDetail(false);
     }
 
     return (

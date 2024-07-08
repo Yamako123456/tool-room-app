@@ -4,8 +4,8 @@ import ItemTableSection from "./ItemTableSection";
 import NewItemForm from './NewItemForm';
 
 function ItemModuleComponent() {
-    const [showEntryForm, setShowEntryForm] = useState(false);
-    const [showDetail, setShowDetail] = useState(false);
+    const [isShowEntryForm, setIsShowEntryForm] = useState(false);
+    const [isShowDetail, setIsShowDetail] = useState(false);
 
     const [items, setItems] = useState([
             {
@@ -153,9 +153,9 @@ function ItemModuleComponent() {
                 addItem={addItem}
                 items={items} 
                 inactivateItem={inactivateItem}
-                setShowEntryForm={setShowEntryForm}
-                showDetail={showDetail}
-                setShowDetail={setShowDetail}
+                setIsShowEntryForm={setIsShowEntryForm}
+                isShowDetail={isShowDetail}
+                setIsShowDetail={setIsShowDetail}
                 updateItem={updateItem}
             />
 
@@ -163,14 +163,14 @@ function ItemModuleComponent() {
                 <div className='card-body'>
 
                     <button className='btn btn-primary' 
-                        onClick={() => {setShowEntryForm(true)}}
-                        disabled={showEntryForm}
+                        onClick={() => {setIsShowEntryForm(true)}}
+                        disabled={isShowEntryForm}
                     >Add New Item</button>    
                 </div>
             </div>
             
 
-            {showEntryForm && (
+            {isShowEntryForm && (
 
                 <div className='card mt-5'>
                     <div className='card-header'>
@@ -183,8 +183,8 @@ function ItemModuleComponent() {
                             addItem={addItem} 
                             items={items} 
                             
-                            setShowEntryForm={setShowEntryForm}
-                            setShowDetail={setShowDetail}
+                            setIsShowEntryForm={setIsShowEntryForm}
+                            setIsShowDetail={setIsShowDetail}
                             caption={'Add'}
                             
                         />
