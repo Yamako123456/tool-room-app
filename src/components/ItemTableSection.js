@@ -82,8 +82,8 @@ function ItemTableSection(props) {
                                     selectedCode={selectedCode}
                                     addItem={props.addItem} 
                                     updateItem={props.updateItem}
+                                    deleteItem={props.deleteItem}
                                     items={props.items} 
-                                   
                                     setIsShowEntryForm={props.setIsShowEntryForm}
                                     setIsShowDetail={props.setIsShowDetail}
                                     caption={'Edit'}

@@ -135,6 +135,15 @@ function ItemModuleComponent() {
 
         }
 
+    const deleteItem = (originalCode) => {
+        if (items.filter((itm) => itm.code === originalCode)[0].isUsedInTransactions === true) {
+            console.log('deleteItem  it is used' )
+        } else {
+                
+                console.log('deleteItem it is NOT used' )
+        }
+    }
+
     const inactivateItem = (code) => {
         let modifiedItems = items.map(item => 
             item.code === code ? { ...item, active: false } : item
@@ -151,12 +160,13 @@ function ItemModuleComponent() {
             
             <ItemTableSection 
                 addItem={addItem}
+                updateItem={updateItem}
+                deleteItem={deleteItem}
                 items={items} 
                 inactivateItem={inactivateItem}
                 setIsShowEntryForm={setIsShowEntryForm}
                 isShowDetail={isShowDetail}
                 setIsShowDetail={setIsShowDetail}
-                updateItem={updateItem}
             />
 
             <div className='card mt-3'>
@@ -181,6 +191,7 @@ function ItemModuleComponent() {
                             isNew={true}
                             selectedCode={''}
                             addItem={addItem} 
+                            // deleteItem={deleteItem}
                             items={items} 
                             
                             setIsShowEntryForm={setIsShowEntryForm}

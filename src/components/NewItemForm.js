@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 
+import { Modal, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function NewItemForm(props) {
     // console.log(props.selectedItem)
     
@@ -43,6 +46,8 @@ function NewItemForm(props) {
 
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
+
+    const [showModal, setShowModal] = useState(false);
 
     const CODE_MAX = 30;
     const DESCRIPTION1_MAX = 50;
@@ -174,6 +179,17 @@ function NewItemForm(props) {
         props.setIsShowDetail(false);
     }
 
+
+    const deleteItem = () => {
+        props.deleteItem(props.selectedCode);
+    }
+
+    const deleteConfirmation = () => {
+        console.log('deleteConfirmation')
+        setShowModal(true)
+  
+    }
+
     return (
         <div className='mt-5'>
             <form>
@@ -292,9 +308,30 @@ function NewItemForm(props) {
             </form>
             <button className='btn btn-primary me-2' onClick={submitItem}>{btnCaption}</button>
             
+            {!props.isNew && props.setIsShowDetail &&
+                <button className='btn btn-primary' onClick={deleteConfirmation}>Delete</button>    
+            }
+
             <button className='btn btn-primary' onClick={closeForm}>Close</button>
 
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                    Cancel
+                    </Button>
+                    <Button variant="danger" onClick={    
+                        () =>  props.deleteItem(props.selectedCode)
+                    }>
+                    Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
+
     )
 }
 
