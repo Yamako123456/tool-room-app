@@ -12,18 +12,22 @@ function ItemRowItem(props) {
     const handleRowDblClick= () => {
         if (props.isDisableClick)
             return;
-        
-        console.log(props.index, props.item.code)
+
+        //console.log(props.index, props.item.code)
         props.setSelectedCode(props.item.code)
         setSelectedRow(props.index)
     }
 
     return (
-        <tr 
+         <tr 
             key={props.item.code}   
-        onDoubleClick={() => handleRowDblClick(props.index)}
-        
+            onDoubleClick={() => handleRowDblClick(props.index)}
+            style={{
+                backgroundColor: props.selectedCode === props.item.code ? 'papayawhip' : 'transparent',
+                border: props.selectedCode === props.item.code ? '2px solid #000' : 'none'
+              }}
         >
+            
             <td>{props.item.code}</td>
             <td>{props.item.description1}</td>
             {/* <td>{props.item.description2}</td> */}

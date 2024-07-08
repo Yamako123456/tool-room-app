@@ -94,7 +94,7 @@ function ItemTableSection(props) {
                     <hr/>
                     <div className="card-body">
                         <table 
-                            className="table table-hover"
+                            // className="table table-hover"
                             disabled={props.showDetail}
                         >
                             <thead>
