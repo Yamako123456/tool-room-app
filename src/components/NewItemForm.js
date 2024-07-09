@@ -84,6 +84,7 @@ function NewItemForm(props) {
                 setModalTitle('Update Aborted')
             
             setModalMsg('Code, Description1 and SupplierId are required!')
+            setIsDelete(false)
             setShowModal(true)
 
             if (!props.isNew){
@@ -115,7 +116,10 @@ function NewItemForm(props) {
             msg = 'Category length cannot exceed ' + CATEGORY_MAX;
         
         if (msg.length > 0) {
-            alert(msg);
+            setModalTitle('Corrections Required')
+            setModalMsg(msg);
+            setIsDelete(false)
+            setShowModal(true)
             return;
         }
 
@@ -188,7 +192,7 @@ function NewItemForm(props) {
         props.deleteItem(props.selectedCode);
         setModalTitle('')
         setModalMsg('')
-        setIsDelete(true)
+        setIsDelete(false)
         setShowModal(false)
         setIsDelete(false)
         resetForm();
@@ -339,7 +343,8 @@ function NewItemForm(props) {
                         setModalTitle('')
                         setModalTitle('')
                     }}>
-                    Cancel
+                    {isDelete ? 'Cancel' : 'Close'}
+                    
                     </Button>
 
                     {isDelete && (
