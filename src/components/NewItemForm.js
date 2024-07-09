@@ -328,13 +328,17 @@ function NewItemForm(props) {
                 </div>
                 
             </form>
-            <button className='btn btn-primary me-2' onClick={submitItem}>{btnCaption}</button>
+            <button 
+                className={btnCaption === 'Save' || btnCaption === 'Add' ? 'btn btn-success me-2' : 'btn btn-primary me-2'} 
+                onClick={submitItem}>
+                    {btnCaption}
+            </button>
             
             {!props.isNew && props.setIsShowDetail &&
-                <button className='btn btn-primary' onClick={deleteConfirmation}>Delete</button>    
+                <button className='btn btn-warning me-2' onClick={deleteConfirmation}>Delete</button>    
             }
 
-            <button className='btn btn-primary' onClick={closeForm}>Close</button>
+            <button className='btn btn-dark' onClick={closeForm}>Close</button>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
