@@ -39,7 +39,7 @@ function NewItemForm(props) {
     const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
     const [unitPrice, setUnitPrice] = useState(props.isNew ? 0.00 : selectedItem.unitPrice);
     const [issueCost, setIssueCost] = useState(props.isNew ? 0.00 : selectedItem.issueCost);
-    const [suppierId, setSuppierId] = useState(props.isNew ? '' : selectedItem.suppierId);
+    const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
     const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
@@ -48,6 +48,8 @@ function NewItemForm(props) {
     const [btnCaption, setBtnCaption] = useState(props.caption);
 
     const [showModal, setShowModal] = useState(false);
+    const [modalTitle, setModalTitle] = useState('')
+    const [modalMsg, setModalMsg] = useState('')
 
     const CODE_MAX = 30;
     const DESCRIPTION1_MAX = 50;
@@ -74,14 +76,16 @@ function NewItemForm(props) {
         if( 
             itemCode === '' || 
             description1 === '' || 
-            suppierId === '' 
+            supplierId === '' 
         ){
-            let msg = 'Code, Description1 and SupplierId are required!';
-            if (!props.isNew) {
-                msg += ' Update aborted. Please try again.';
-            }
+            if (props.isNew) {
+                setModalTitle('Incomplete Form');
+            }else
+                setModalTitle('Update Aborted')
+            
+            setModalMsg('Code, Description1 and SupplierId are required!')
+            setShowModal(true)
 
-            alert(msg);
             if (!props.isNew){
                 resetForm();
                 props.setIsShowEntryForm(false);
@@ -91,23 +95,23 @@ function NewItemForm(props) {
         }   
     
         let msg = '';
-        if( itemCode.length > CODE_MAX) 
+        if(itemCode.length > CODE_MAX) 
             msg = 'Code length cannot exceed ' + CODE_MAX;
         
-        if( description1.length > DESCRIPTION1_MAX) {
+        if(description1.length > DESCRIPTION1_MAX) {
             msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
         }
-        if( description2.length > DESCRIPTION2_MAX) {
+        if(description2.length > DESCRIPTION2_MAX) {
             msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
         }
     
 
-        if( unitPrice.length > CURRENCY_MAX || issueCost.length > CURRENCY_MAX)
+        if(unitPrice.length > CURRENCY_MAX || issueCost.length > CURRENCY_MAX)
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
-        if ( suppierId.length > SUPLIER_MAX)
+        if (supplierId.length > SUPLIER_MAX)
             msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
 
-        if( subCategory.length > CATEGORY_MAX)    
+        if(subCategory.length > CATEGORY_MAX)    
             msg = 'Category length cannot exceed ' + CATEGORY_MAX;
         
         if (msg.length > 0) {
@@ -127,7 +131,7 @@ function NewItemForm(props) {
                     itemType,
                     unitPrice,
                     issueCost,
-                    suppierId,
+                    supplierId,
                     itemImage,
                     category,
                     subCategory 
@@ -148,7 +152,7 @@ function NewItemForm(props) {
                 itemType,
                 unitPrice,
                 issueCost,
-                suppierId,
+                supplierId,
                 itemImage,
                 category,
                 subCategory 
@@ -167,7 +171,7 @@ function NewItemForm(props) {
         setItemType(ItemTypes.EXPENDABLE);
         setUnitPrice('0.00');
         setIssueCost('0.00');
-        setSuppierId('');
+        setSupplierId('');
         setItemImage('');
         setCategory(ItemCategories.TOOL);
         setSubCategory('');
@@ -182,6 +186,8 @@ function NewItemForm(props) {
 
     const proceedDelete = () => {
         props.deleteItem(props.selectedCode);
+        setModalTitle('')
+        setModalMsg('')
         setShowModal(false)
         resetForm();
         props.setIsShowEntryForm(false);
@@ -189,7 +195,8 @@ function NewItemForm(props) {
     }
 
     const deleteConfirmation = () => {
-        console.log('deleteConfirmation')
+        setModalTitle('Confirm Delete')
+        setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?')
         setShowModal(true)
   
     }
@@ -271,8 +278,8 @@ function NewItemForm(props) {
                         {props.isNew && (<span className='text-danger small'> (required)</span>)}
                     </label>
                     <input className='form-control' type='text' required
-                        value={suppierId}
-                        onChange={(event) => setSuppierId(event.target.value)}
+                        value={supplierId}
+                        onChange={(event) => setSupplierId(event.target.value)}
                         readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
                         ></input>
                 </div>
@@ -320,9 +327,9 @@ function NewItemForm(props) {
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm Delete</Modal.Title>
+                    <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
+                <Modal.Body>{modalMsg}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => showModal(false)}>
                     Cancel
