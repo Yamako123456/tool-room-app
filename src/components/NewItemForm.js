@@ -32,7 +32,6 @@ function NewItemForm(props) {
     }   
           
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
-    
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
@@ -125,7 +124,10 @@ function NewItemForm(props) {
 
         if (!props.isNew ) { //Update existed item
             if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
-                    alert(`Code: "${itemCode}" already exists. Please enter unique item code.`) 
+                setModalMsg('Unique Code Required');
+                setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
+                setIsDelete(false);
+                setShowModal(true);
             } else {
                 props.updateItem(
                     props.selectedCode,
@@ -147,7 +149,11 @@ function NewItemForm(props) {
             }
 
         } else if (props.items.find(item => item.code === itemCode )) {
-            alert(`Code: "${itemCode}" already exists. Please enter unique item code.`) 
+            console.log(itemCode)
+            setModalMsg('Unique Code Required');
+            setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
+            setIsDelete(false);
+            setShowModal(true);
         } else {
             props.addItem(
                 itemCode,
@@ -214,34 +220,34 @@ function NewItemForm(props) {
                 <div className='mb-3'>
                     <label className='form-label'>
                         Item Code
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: 30 )</span>)}
+                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
                         {props.isNew && (<span className='text-danger small'> (required)</span>)}
                     </label>
                     <input type='text' className='form-control' required 
                         value={itemCode}
-                        onChange={(event) => setItemCode(event.target.value)}
+                        onChange={(event) => setItemCode(event.target.value.trim())}
                         readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
                         ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>
                         Description 1
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: 35 )</span>)}
+                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX}} )</span>)}
                         {props.isNew && (<span className='text-danger small'> (required)</span>)}
                     </label>
-                    <textarea className='form-control' rows={3} required 
+                    <input className='form-control' type='text' required 
                         value={description1}
-                        onChange={(event) => setDescription1(event.target.value)}
+                        onChange={(event) => setDescription1(event.target.value.trim())}
                         readOnly={isReadOnly}
-                        ></textarea>
+                        ></input>
                     
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Description 2</label>
-                    {(<span style={{ fontSize: '0.6rem' }}> ( max length: 35 )</span>)}
+                    {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
                     <textarea className='form-control'  rows={3} 
                         value={description2}
-                        onChange={(event) => setDescription2(event.target.value)}
+                        onChange={(event) => setDescription2(event.target.value.trim())}
                         readOnly={isReadOnly}
                         ></textarea>
                 </div>
@@ -249,7 +255,7 @@ function NewItemForm(props) {
                     <label className='form-label'>Item Type</label>
                     <select className='form-control' 
                         value={itemType} 
-                        onChange={(event) => setItemType(event.target.value)}
+                        onChange={(event) => setItemType(event.target.value.trim())}
                         disabled={isReadOnly}
                         >
                         {Object.entries(ItemTypes).map(([key, value]) =>
@@ -262,31 +268,29 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Unit Price</label>
-                    {/* {(<span style={{ fontSize: '0.6rem' }}> (max length: 25')</span>)} */}
                     <input className='form-control' type='number'  
                         value={unitPrice}
-                        onChange={(event) => setUnitPrice(event.target.value)}
+                        onChange={(event) => setUnitPrice(event.target.value.trim())}
                         readOnly={isReadOnly}
                         ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Issue Cost</label>
-                    {/* {(<span style={{ fontSize: '06.rem' }}> (max length: 25')</span>)} */}
                     <input className='form-control' type='number' 
                         value={issueCost}
-                        onChange={(event) => setIssueCost(event.target.value)}
+                        onChange={(event) => setIssueCost(event.target.value.trim())}
                         readOnly={isReadOnly}
                         ></input>
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>
                         Supplier ID
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: 50 )</span>)}
+                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
                         {props.isNew && (<span className='text-danger small'> (required)</span>)}
                     </label>
                     <input className='form-control' type='text' required
                         value={supplierId}
-                        onChange={(event) => setSupplierId(event.target.value)}
+                        onChange={(event) => setSupplierId(event.target.value.trim())}
                         readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
                         ></input>
                 </div>
@@ -294,7 +298,7 @@ function NewItemForm(props) {
                     <label className='form-label'>Item Image URL</label>
                     <textarea className='form-control' row='50' 
                         value={itemImage}
-                        onChange={(event) => setItemImage(event.target.value)}
+                        onChange={(event) => setItemImage(event.target.value.trim())}
                         readOnly={isReadOnly}
                         ></textarea>
                 </div>
@@ -302,7 +306,7 @@ function NewItemForm(props) {
                     <label className='form-label'>Category</label>
                     <select className='form-control' type='text' 
                         value={category}
-                        onChange={(event) => setCategory(event.target.value)}
+                        onChange={(event) => setCategory(event.target.value.trim())}
                         disabled={isReadOnly}
                         >
                         {Object.entries(ItemCategories).map(([key, value]) => (
@@ -315,10 +319,10 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Sub-catetory</label>
-                    {(<span style={{ fontSize: '0.6rem' }}>( max length: 40 )</span>)}
+                    {(<span style={{ fontSize: '0.6rem' }}>( max length: {CATEGORY_MAX} )</span>)}
                     <input className='form-control' type='text' 
                         value={subCategory}
-                        onChange={(event) => setSubCategory(event.target.value)}
+                        onChange={(event) => setSubCategory(event.target.value.trim())}
                         readOnly={isReadOnly}
                         ></input>
                 </div>
