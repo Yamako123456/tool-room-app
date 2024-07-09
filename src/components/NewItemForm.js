@@ -50,7 +50,7 @@ function NewItemForm(props) {
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState('')
     const [modalMsg, setModalMsg] = useState('')
-
+    const [isDelete, setIsDelete] = useState(false)
     const CODE_MAX = 30;
     const DESCRIPTION1_MAX = 50;
     const DESCRIPTION2_MAX = 200;
@@ -188,7 +188,9 @@ function NewItemForm(props) {
         props.deleteItem(props.selectedCode);
         setModalTitle('')
         setModalMsg('')
+        setIsDelete(true)
         setShowModal(false)
+        setIsDelete(false)
         resetForm();
         props.setIsShowEntryForm(false);
         props.setIsShowDetail(false);
@@ -196,6 +198,7 @@ function NewItemForm(props) {
 
     const deleteConfirmation = () => {
         setModalTitle('Confirm Delete')
+        setIsDelete(true)
         setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?')
         setShowModal(true)
   
@@ -338,9 +341,12 @@ function NewItemForm(props) {
                     }}>
                     Cancel
                     </Button>
-                    <Button variant="danger" onClick={proceedDelete}>
-                    Delete
-                    </Button>
+
+                    {isDelete && (
+                        <Button variant="danger" onClick={proceedDelete}>
+                            Delete
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
         </div>
