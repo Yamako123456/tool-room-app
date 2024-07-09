@@ -148,7 +148,7 @@ function ItemModuleComponent() {
             
         } else {
 
-
+            setItems(items.filter(item => item.code !== originalCode));
         }
          
     
