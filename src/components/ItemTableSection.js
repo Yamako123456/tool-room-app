@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-
+import { Modal, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ItemDropdownList from "./ItemDropdownList";
 import NewItemForm from "./NewItemForm";
 import ItemRows from "./ItemRows";
@@ -7,17 +8,29 @@ import ItemRows from "./ItemRows";
 function ItemTableSection(props) {
     const [sortBy, setSortBy] = useState('code');
     const [selectedCode, setSelectedCode] = useState('')
-    
+    const [showModal2, setShowModal2] = useState(false);
+    const [modalTitle2, setModalTitle2] = useState('')
+    const [modalMsg2, setModalMsg2] = useState('') 
 
     const handleRadioChange = (e) => {
         setSortBy(e.target.value);
     }
 
-    const showDetail = () => {
-        //console.log('showDetail() selectedCode= ' + selectedCode)
-        if (selectedCode === '')
-            alert("Please select item from the dropdown list.")
-        else
+    const showDetail = (e) => {
+        e.preventDefault();
+
+        console.log()
+        if (props.items.filter(item => item.active === true).length < 1) {
+            setSelectedCode('')
+            setModalTitle2('Item Not Available')
+            setModalMsg2('There is no item available')
+            setShowModal2(true)
+
+        } else if (selectedCode === '') {
+            setModalTitle2('Item Selection Required')
+            setModalMsg2('Please select item first')
+            setShowModal2(true)
+        } else
             props.setIsShowDetail(true);
     }
     
@@ -94,9 +107,7 @@ function ItemTableSection(props) {
                     </div>
                     <hr/>
                     <div className="card-body">
-                        <table 
-                            // className="table table-hover"
-                        >
+                        <table >
                             <thead>
                                 <tr>
                                     <th style={{ padding: '10px' }} scope="col">Item Code</th>
@@ -119,6 +130,22 @@ function ItemTableSection(props) {
                     </div>
                 </div>
             </div>
+
+            <Modal show={showModal2} onHide={() => setShowModal2(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalTitle2}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{modalMsg2}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => {
+                        setShowModal2(false)
+                        setModalTitle2('')
+                        setModalTitle2('')
+                    }}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
