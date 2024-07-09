@@ -331,7 +331,11 @@ function NewItemForm(props) {
                 </Modal.Header>
                 <Modal.Body>{modalMsg}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => showModal(false)}>
+                    <Button variant="secondary" onClick={() => {
+                        setShowModal(false)
+                        setModalTitle('')
+                        setModalTitle('')
+                    }}>
                     Cancel
                     </Button>
                     <Button variant="danger" onClick={proceedDelete}>
