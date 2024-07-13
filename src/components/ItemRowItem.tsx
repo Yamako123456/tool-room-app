@@ -1,6 +1,14 @@
 import React, {useState} from 'react'
 
-function ItemRowItem(props) {
+export const ItemRowItem: React.FC<{
+    isDisableClick: boolean,
+    index: number,
+    key: string,
+    item: ItemModel,
+    setSelectedCode: Function,
+    selectedCode: string,
+    // className: string
+}> = (props) => {
 
     const [selectedRow, setSelectedRow] = useState(0);
 
@@ -9,13 +17,13 @@ function ItemRowItem(props) {
         currency: 'USD'
     });
 
-    const handleRowDblClick= () => {
+    const handleRowDblClick= (theIndex: number) => {
         if (props.isDisableClick)
             return;
 
         //console.log(props.index, props.item.code)
         props.setSelectedCode(props.item.code)
-        setSelectedRow(props.index)
+        setSelectedRow(theIndex)
     }
 
     return (
@@ -36,6 +44,4 @@ function ItemRowItem(props) {
         </tr>  
     )
 }
-
-export default ItemRowItem
 

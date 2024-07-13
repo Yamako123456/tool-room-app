@@ -1,6 +1,14 @@
 import React, {useState} from 'react'
 
-function ItemDropdownList(props) {
+export const ItemDropdownList: React.FC<
+{
+    isDisableClick: boolean,
+    items: ItemModel[],
+    sortBy: string,
+    selectedCode: string,
+    setSelectedCode: Function
+}
+> = (props) => {
     const sortedList = props.items.filter(item => item.active === true)
                             .sort((a, b) => {
                                 if (props.sortBy === 'description1')
@@ -9,7 +17,7 @@ function ItemDropdownList(props) {
                                     return a.code.localeCompare(b.code)
                             });
 
-    const selectedChange = (e) => {
+    const selectedChange = (e: any) => {
         
         props.setSelectedCode(e.target.value)
     }
@@ -36,5 +44,3 @@ function ItemDropdownList(props) {
         </div>
     )
 }
-
-export default ItemDropdownList

@@ -1,22 +1,34 @@
 import React, {useState} from "react";
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ItemDropdownList from "./ItemDropdownList";
-import NewItemForm from "./NewItemForm";
-import ItemRows from "./ItemRows";
+import {ItemDropdownList} from "./ItemDropdownList";
+import {NewItemForm} from "./NewItemForm";
+import {ItemRows} from "./ItemRows";
 
-function ItemTableSection(props) {
+export const ItemTableSection: React.FC<
+{
+    addItem: Function,
+    updateItem: Function,
+    deleteItem: Function,
+    items: ItemModel[], 
+    inactivateItem: Function
+    setIsShowEntryForm: Function,
+    isShowDetail: boolean,
+    setIsShowDetail: Function
+}
+> = (props) => {
+
     const [sortBy, setSortBy] = useState('code');
     const [selectedCode, setSelectedCode] = useState('')
     const [showModal2, setShowModal2] = useState(false);
     const [modalTitle2, setModalTitle2] = useState('')
     const [modalMsg2, setModalMsg2] = useState('') 
 
-    const handleRadioChange = (e) => {
+    const handleRadioChange = (e: any) => {
         setSortBy(e.target.value);
     }
 
-    const showDetail = (e) => {
+    const showDetail = (e: any) => {
         e.preventDefault();
 
         console.log()
@@ -34,7 +46,7 @@ function ItemTableSection(props) {
             props.setIsShowDetail(true);
     }
     
-    const getItemByCode = (code)  => {
+    const getItemByCode = (code: string)  => {
         return props.items.filter((item) => { 
             return item.code === code  
         });
@@ -149,5 +161,3 @@ function ItemTableSection(props) {
         </div>
     )
 }
-
-export default ItemTableSection

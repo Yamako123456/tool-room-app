@@ -1,8 +1,24 @@
 import React, {useState} from 'react'
 
-import ItemRowItem from "./ItemRowItem"
+import {ItemRowItem} from "./ItemRowItem"
 
-function ItemRows(props) {
+// <ItemRows
+//                                 items={props.items}
+//                                 isShowDetail={props.isShowDetail}
+//                                 setIsSelectedCode={setSelectedCode}
+//                                 selectedCode={selectedCode}
+//                                 setSelectedCode={setSelectedCode}
+//                                 sortBy={sortBy}
+//                             />
+
+export const ItemRows: React.FC<{
+    items: ItemModel[],
+    isShowDetail: boolean,
+    setIsSelectedCode: Function,
+    selectedCode: string,
+    setSelectedCode: Function,
+    sortBy: string
+}> = (props) => {
     return (
         <tbody>
             {props.items
@@ -21,11 +37,9 @@ function ItemRows(props) {
                         item={item} 
                         setSelectedCode={props.setSelectedCode}
                         selectedCode={props.selectedCode}
-                        className={props.items.indexOf}
+                        // className={props.items.indexOf}
                     />
             ))}
         </tbody>
     )
 }
-
-export default ItemRows

@@ -3,7 +3,17 @@ import React, {useState} from 'react'
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function NewItemForm(props) {
+export const NewItemForm: React.FC<{
+    isNew: boolean,
+    selectedCode: string,
+    addItem: Function,
+    deleteItem: Function,
+    updateItem: Function,
+    items: ItemModel[],
+    setIsShowEntryForm: Function,
+    setIsShowDetail: Function,
+    caption: string
+}> = (props) => {
     // console.log(props.selectedItem)
     
     const ItemTypes = {
@@ -106,7 +116,7 @@ function NewItemForm(props) {
         }
     
 
-        if(unitPrice.length > CURRENCY_MAX || issueCost.length > CURRENCY_MAX)
+        if(unitPrice.toString().length > CURRENCY_MAX || issueCost.toString().length > CURRENCY_MAX)
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
         if (supplierId.length > SUPLIER_MAX)
             msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
@@ -179,8 +189,8 @@ function NewItemForm(props) {
         setDescription1('');
         setDescription2('');
         setItemType(ItemTypes.EXPENDABLE);
-        setUnitPrice('0.00');
-        setIssueCost('0.00');
+        setUnitPrice(0.00);
+        setIssueCost(0.00);
         setSupplierId('');
         setItemImage('');
         setCategory(ItemCategories.TOOL);
@@ -232,7 +242,7 @@ function NewItemForm(props) {
                 <div className='mb-3'>
                     <label className='form-label'>
                         Description 1
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX}} )</span>)}
+                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
                         {props.isNew && (<span className='text-danger small'> (required)</span>)}
                     </label>
                     <input className='form-control' type='text' required 
@@ -270,7 +280,8 @@ function NewItemForm(props) {
                     <label className='form-label'>Unit Price</label>
                     <input className='form-control' type='number'  
                         value={unitPrice}
-                        onChange={(event) => setUnitPrice(event.target.value.trim())}
+                        onChange={e => setUnitPrice(Number(e.target.value.trim()))}
+
                         readOnly={isReadOnly}
                         ></input>
                 </div>
@@ -278,7 +289,7 @@ function NewItemForm(props) {
                     <label className='form-label'>Issue Cost</label>
                     <input className='form-control' type='number' 
                         value={issueCost}
-                        onChange={(event) => setIssueCost(event.target.value.trim())}
+                        onChange={(e) => setIssueCost(Number(e.target.value.trim()))}
                         readOnly={isReadOnly}
                         ></input>
                 </div>
@@ -296,7 +307,7 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Item Image URL</label>
-                    <textarea className='form-control' row='50' 
+                    <textarea className='form-control' rows={10} 
                         value={itemImage}
                         onChange={(event) => setItemImage(event.target.value.trim())}
                         readOnly={isReadOnly}
@@ -304,8 +315,7 @@ function NewItemForm(props) {
                 </div>
                 <div className='mb-3'>
                     <label className='form-label'>Category</label>
-                    <select className='form-control' type='text' 
-                        value={category}
+                    <select className='form-control' 
                         onChange={(event) => setCategory(event.target.value.trim())}
                         disabled={isReadOnly}
                         >
@@ -367,4 +377,4 @@ function NewItemForm(props) {
     )
 }
 
-export default NewItemForm
+
