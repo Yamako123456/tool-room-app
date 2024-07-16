@@ -183,7 +183,7 @@ export const ItemModuleComponent = () => {
                     New Item Entry Form
                 </div>
                 <div className='card-body'>
-                    <NewItemForm 
+                    {/* <NewItemForm 
                         isNew={true}
                         selectedCode={''}
                         addItem={addItem} 
@@ -193,7 +193,7 @@ export const ItemModuleComponent = () => {
                         setIsShowEntryForm={setIsShowEntryForm}
                         setIsShowDetail={setIsShowDetail}
                         caption={'Add'}
-                    />
+                    /> */}
                 </div>
             </div>
 
