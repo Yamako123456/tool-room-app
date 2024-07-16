@@ -99,23 +99,33 @@ export const ItemTableSection: React.FC<
                                 </div>                              
                             </div>  
                         </form> 
-                            
+                        
                         {props.isShowDetail && (
-                            // <div  className="card-body">
-                                <NewItemForm 
-                                    isNew={false}
-                                    selectedCode={selectedCode}
-                                    addItem={props.addItem} 
-                                    updateItem={props.updateItem}
-                                    deleteItem={props.deleteItem}
-                                    items={props.items} 
-                                    setIsShowEntryForm={props.setIsShowEntryForm}
-                                    setIsShowDetail={props.setIsShowDetail}
-                                    caption={'Edit'}
-                            />
-                            // </div>
+                            <div className="card mt-3" style={{ backgroundColor: 'silver' }}>
+
+                                <div className="card-header">Detail View</div>
+                                <div className="card-body">
+                                    <h5 className="card-text">Item: {selectedCode} </h5>
+                                    <div  className="card-body">
+                                        <NewItemForm 
+                                            isNew={false}
+                                            selectedCode={selectedCode}
+                                            addItem={props.addItem} 
+                                            updateItem={props.updateItem}
+                                            deleteItem={props.deleteItem}
+                                            items={props.items} 
+                                            setIsShowEntryForm={props.setIsShowEntryForm}
+                                            setIsShowDetail={props.setIsShowDetail}
+                                            caption={'Edit'}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="card-footer text=muted">
+                                    --- Item Code = {selectedCode} ----
+                                </div>
+                            </div>    
                         )}
-       
+                        
                     </div>
                     <hr/>
                     <div className="card-body">

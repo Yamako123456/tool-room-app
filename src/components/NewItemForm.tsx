@@ -225,7 +225,7 @@ export const NewItemForm: React.FC<{
     }
 
     return (
-        <div className='mt-5'>
+        <div>
             <form>
                 <div className='mb-3'>
                     <label className='form-label'>

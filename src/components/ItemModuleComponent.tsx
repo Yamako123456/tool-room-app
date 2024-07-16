@@ -176,6 +176,28 @@ export const ItemModuleComponent = () => {
                 setIsShowDetail={setIsShowDetail}
             />
 
+            {isShowEntryForm && (
+
+            <div className='card mt-5' style={{backgroundColor: 'lightblue'}}>
+                <div className='card-header'>
+                    New Item Entry Form
+                </div>
+                <div className='card-body'>
+                    <NewItemForm 
+                        isNew={true}
+                        selectedCode={''}
+                        addItem={addItem} 
+                        deleteItem={deleteItem}
+                        items={items} 
+                        updateItem={updateItem}
+                        setIsShowEntryForm={setIsShowEntryForm}
+                        setIsShowDetail={setIsShowDetail}
+                        caption={'Add'}
+                    />
+                </div>
+            </div>
+
+            )}
             <div className='card mt-3'>
                 <div className='card-body'>
 
@@ -185,30 +207,6 @@ export const ItemModuleComponent = () => {
                     >Add New Item</button>    
                 </div>
             </div>
-            
-
-            {isShowEntryForm && (
-
-                <div className='card mt-5'>
-                    <div className='card-header'>
-                        New Item Entry Form
-                    </div>
-                    <div className='card-body'>
-                        <NewItemForm 
-                            isNew={true}
-                            selectedCode={''}
-                            addItem={addItem} 
-                            deleteItem={deleteItem}
-                            items={items} 
-                            updateItem={updateItem}
-                            setIsShowEntryForm={setIsShowEntryForm}
-                            setIsShowDetail={setIsShowDetail}
-                            caption={'Add'}
-                        />
-                    </div>
-                </div>
-
-            )}
 
         </div>
         
