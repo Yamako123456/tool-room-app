@@ -25,6 +25,27 @@ export const ItemDropdownList: React.FC<
 
     return (
        <div>
+            <div className='dropdown'>
+                <button 
+                    className='btn btn-secondary dropdown-toggle'
+                    data-bs-toggle='dropdown'
+                >
+                    Code - Description 1
+                </button>
+                <ul className='dropdown-menu'
+                    // onChange={(event) => setCategory(event.target.value.trim())}
+                    // disabled={isReadOnly}
+                >
+                    {sortedList.map(item => (
+                        <li key={item.code} value={item.code}>
+                                <a className='dropdown-item' >
+                                    {item.code} - {item.description1} 
+                                </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        
             <label className="form-label">Code - Description 1</label>
             <select className="form-control" 
                 value={props.selectedCode}
