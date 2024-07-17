@@ -262,29 +262,7 @@ export const NewItemForm: React.FC<{
                         ></textarea>
                 </div>
                 <div className='mb-3'>
-
-                    <div className='dropdown'>
-                        <button 
-                            className='btn btn-secondary dropdown-toggle'
-                            data-bs-toggle='dropdown'
-                        >
-                            Item Type
-                        </button>
-                        <ul className='dropdown-menu'
-                            // value={itemType} 
-                            // onChange={(event) => setItemType(event.target.value.trim())}
-                            // disabled={isReadOnly}
-                        >
-                            {Object.entries(ItemTypes).map(([key, value]) =>
-                            (
-                                <li key={key} value={value}>
-                                     <a className='dropdown-item' >{value}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div> 
-
-
+                    
                     <label className='form-label'>Item Type</label>
                     <select className='form-control' 
                         value={itemType} 
@@ -337,27 +315,6 @@ export const NewItemForm: React.FC<{
                         ></textarea>
                 </div>
                 <div className='mb-3'>
-
-                    <div className='dropdown'>
-                        <button 
-                            className='btn btn-secondary dropdown-toggle'
-                            data-bs-toggle='dropdown'
-                        >
-                            Category
-                        </button>
-                        <ul className='dropdown-menu'
-                            // onChange={(event) => setCategory(event.target.value.trim())}
-                            // disabled={isReadOnly}
-                        >
-                            {Object.entries(ItemCategories).map(([key, value]) =>
-                            (
-                                <li key={key} value={value}>
-                                     <a className='dropdown-item' >{value}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
 
                     <label className='form-label'>Category</label>
                     <select className='form-control' 
