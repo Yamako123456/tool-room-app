@@ -1,10 +1,13 @@
 import './App.css';
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import {HomeComponent} from './components/HomeComponent';
 import {AboutComponent} from './components/AboutComponent';
 import {ItemModuleComponent} from './components/ItemModuleComponent';
+import { PrintComponent } from './components/PrintComponent';
+
+
 
 export const App = () => {
   return (
@@ -40,6 +43,7 @@ export const App = () => {
               <Route path="/" element={<HomeComponent />} />
               <Route path="/about" element={<AboutComponent />} />
               <Route path="/items" element={<ItemModuleComponent />} />
+              <Route path="/print/:itemCode" element={<PrintWrapper/>} />
           </Routes>
         </div>
       </Router>
@@ -48,4 +52,13 @@ export const App = () => {
     </div>
   );
 }
+const PrintWrapper = () => {
 
+  const { itemCode } = useParams<{ itemCode: string }>();
+  
+  if (!itemCode) {
+    return <div>Item Code not found.</div>; // In case  itemCode is undefined
+  }
+
+  return <PrintComponent barcode={itemCode} />;
+};

@@ -138,7 +138,7 @@ export const ItemTableSection: React.FC<
                                     <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
                                     <th style={{ padding: '10px' }} scope="col">Category</th>
                                     <th style={{ padding: '10px' }} scope="col">Sub Category</th>
-                                    <th style={{ padding: '10px' }} scope="col">Barcode</th>
+                                    <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
                                 </tr>
                             </thead>
                             <ItemRows
