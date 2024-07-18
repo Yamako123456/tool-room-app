@@ -14,6 +14,9 @@ export const HomeComponent: React.FC = () => {
 The Tool Room Management Application is designed to assist tool room attendants in manufacturing environments with efficiently managing the issuance and return of tools and parts to production team members. 
 </p>
 <p>
+  Printing out barcode for the item code and apllying to the item, the toolroom attendants can scan item to process issued/returned items from/to the toolroom.  
+</p>
+<p>
 This comprehensive system records all transactions, monitors stock levels, and controls item issuance based on employee access permissions.
 </p>
 <p>
@@ -36,6 +39,10 @@ Update: Full updates are allowed for items not yet used in transactions. Once us
         </li>
         <li>
 Delete: Items never used in transactions can be removed entirely; otherwise, they are marked inactive and hidden from the inventory list.
+
+        </li>
+        <li>
+<strong> Barcode Printing</strong> via your local printer so that each item is labeled with the barcode for scanning.
 
         </li>
     </ul>
