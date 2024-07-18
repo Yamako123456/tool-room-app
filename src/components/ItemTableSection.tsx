@@ -19,7 +19,7 @@ export const ItemTableSection: React.FC<
 > = (props) => {
 
     const [sortBy, setSortBy] = useState('code');
-    const [selectedCode, setSelectedCode] = useState('')
+    const [selectedCode, setSelectedCode] = useState<string>('');
     const [showModal2, setShowModal2] = useState(false);
     const [modalTitle2, setModalTitle2] = useState('')
     const [modalMsg2, setModalMsg2] = useState('') 
@@ -138,6 +138,7 @@ export const ItemTableSection: React.FC<
                                     <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
                                     <th style={{ padding: '10px' }} scope="col">Category</th>
                                     <th style={{ padding: '10px' }} scope="col">Sub Category</th>
+                                    <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
                                 </tr>
                             </thead>
                             <ItemRows

@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+.libre-barcode-39-text-regular {
+  font-family: "Libre Barcode 39 Text", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}

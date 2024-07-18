@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { ItemCodeBarcode } from './ItemCodeBarcode';
 
 export const ItemRowItem: React.FC<{
     isDisableClick: boolean,
@@ -41,6 +42,7 @@ export const ItemRowItem: React.FC<{
             <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
             <td style={{ padding: '10px' }}>{props.item.category}</td>
             <td style={{ padding: '10px' }}>{props.item.subCategory}</td>     
+            <td style={{ padding: '10px' }}><ItemCodeBarcode selectedCode={props.item.code} /></td>     
         </tr>  
     )
 }
