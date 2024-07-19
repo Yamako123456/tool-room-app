@@ -36,7 +36,7 @@ export const AboutComponent = () => {
                         The system enforces that a item code to be unique and non-empty. Also, the description 1 and the supplier ID must be non-empty values.
 
                         <h4>To RETRIEVE items</h4>
-                        A employee can select a item from the dropdown list or double click on a row in the item tabl to display the "detail screen".
+                        A employee can select a item by double-click on the item table to display the "detail screen".
 
                         <h4>The UPDATE items</h4>
                         Modifiction of the selected item properties is available from the item's "detail screen". It allows full-update only on the item that hasn't used in any transaction. Once a item's used, the item code and the supplier ID can not be changed. If the item is getting supplied from the different vendor, a new item entry must be created.

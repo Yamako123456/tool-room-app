@@ -36,7 +36,7 @@ export const HomeComponent: React.FC = () => {
 
                     </li>
                     <li>
-                        Retrieve: Employees can easily select items from a dropdown list or view details by double-clicking a row in the item table.
+                        Retrieve: Employees can easily select items by double-clicking a row in the item table.
 
                     </li>
                     <li>
