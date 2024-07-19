@@ -6,13 +6,17 @@ export const AboutComponent = () => {
             <h1>
                 About Tool Room Management System
             </h1>
-            <img src="/img/toolroom-attendant.jpg" alt="Dashboard" className="img-fluid" />
+            <div>
+                <img src="/img/new-empty-warehouse.jpg" alt="warehouse" className="img-fluid" />
+            </div>
+
+
             <p className='container mt-5'>
             
                 The Toolroom Management System helps tooltoom attendants in manufacturer's shop-floors to issue out tools/parts to production team members, accept returned tools, and manage inventory.
                 <br/>
                 <br/>
-                It monitors stock-outs and issuing items to employees based on their access control. 
+                It monitors stock-outs and restock. 
                 <br/>
                 <br/>
                 <h2> Inventory Item Management Module Features</h2>
@@ -44,6 +48,7 @@ export const AboutComponent = () => {
 
             </p>
 
+            <img src="/img/toolroom-attendant.jpg" alt="Dashboard" className="img-fluid" />
         </div>
     )
 }

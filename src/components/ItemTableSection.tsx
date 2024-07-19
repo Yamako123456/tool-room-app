@@ -54,7 +54,7 @@ export const ItemTableSection: React.FC<
 
     return(
         <div>
-            <div className="container mt-5">
+            <div className=" mt-5 ">
                 <div className="card">
                     <div className="card-header">
                         Selected Item
@@ -129,27 +129,29 @@ export const ItemTableSection: React.FC<
                     </div>
                     <hr/>
                     <div className="card-body">
-                        <table >
-                            <thead>
-                                <tr>
-                                    <th style={{ padding: '10px' }} scope="col">Item Code</th>
-                                    <th style={{ padding: '10px' }} scope="col">Description 1</th>
-                                    <th style={{ padding: '10px' }} scope="col">Item Type</th>
-                                    <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
-                                    <th style={{ padding: '10px' }} scope="col">Category</th>
-                                    <th style={{ padding: '10px' }} scope="col">Sub Category</th>
-                                    <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
-                                </tr>
-                            </thead>
-                            <ItemRows
-                                items={props.items}
-                                isShowDetail={props.isShowDetail}
-                                setIsSelectedCode={setSelectedCode}
-                                selectedCode={selectedCode}
-                                setSelectedCode={setSelectedCode}
-                                sortBy={sortBy}
-                            />
-                        </table>
+                        <div className="table-responsive">
+                            <table className="table-borderd">
+                                <thead>
+                                    <tr>
+                                        <th style={{ padding: '10px' }} scope="col">Item Code</th>
+                                        <th style={{ padding: '10px' }} scope="col">Description 1</th>
+                                        <th style={{ padding: '10px' }} scope="col">Item Type</th>
+                                        <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
+                                        <th style={{ padding: '10px' }} scope="col">Category</th>
+                                        <th style={{ padding: '10px' }} scope="col">Sub Category</th>
+                                        <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
+                                    </tr>
+                                </thead>
+                                <ItemRows
+                                    items={props.items}
+                                    isShowDetail={props.isShowDetail}
+                                    setIsSelectedCode={setSelectedCode}
+                                    selectedCode={selectedCode}
+                                    setSelectedCode={setSelectedCode}
+                                    sortBy={sortBy}
+                                    />
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -160,11 +160,11 @@ export const ItemModuleComponent = () => {
     } 
 
     return(
-        <div className='mt-5 container'>
+        <div className='mt-5 '>
             <div className="page-header">
                 <h1>Inventory Items</h1>
             </div>
-            
+
             <ItemTableSection 
                 addItem={addItem}
                 updateItem={updateItem}

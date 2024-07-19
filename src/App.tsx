@@ -18,11 +18,16 @@ export const App = () => {
           <div className='container-fluid'>
             <Link className='navbar-brand' to='/'>Toolroom Management System</Link>
           </div>
-          <button className='navbar-toggler' type='button'
+          {/* <button className='navbar-toggler' type='button'
                 data-bs-toggle='collapse'
                 data-bs-target='#contents'>
             <span className='navbar-toggler-icon'></span>  
-          </button>
+          </button> */}
+          <button className="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#contents">
+          <span className="navbar-toggler-icon"></span>
+        </button>
           <div className='collapse navbar-collapse' id='contents'>
             <ul className='navbar-nav'>
               <li className='nav-item'>
