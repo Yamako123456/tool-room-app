@@ -12,7 +12,7 @@ import {ItemRowItem} from "./ItemRowItem"
 //                             />
 
 export const ItemRows: React.FC<{
-    items: ItemModel[],
+    activeItems: ItemModel[],
     isShowDetail: boolean,
     setIsSelectedCode: Function,
     selectedCode: string,
@@ -21,8 +21,8 @@ export const ItemRows: React.FC<{
 }> = (props) => {
     return (
         <tbody>
-            {props.items
-                .filter(item => item.active === true)
+            {/* {props.items.filter(item => item.active === true) */}
+            {props.activeItems
                 .sort((a, b) => {
                     if (props.sortBy === 'description1')
                         return a.description1.localeCompare(b.description1) 

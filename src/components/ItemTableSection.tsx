@@ -18,8 +18,10 @@ export const ItemTableSection: React.FC<
 }
 > = (props) => {
 
+    const activeItems =  props.items.filter(item => item.active === true);
+
     const [sortBy, setSortBy] = useState('code');
-    const [selectedCode, setSelectedCode] = useState<string>('');
+    const [selectedCode, setSelectedCode] = useState<string>(activeItems.length > 0 ? activeItems[0].code : '');
     const [showModal2, setShowModal2] = useState(false);
     const [modalTitle2, setModalTitle2] = useState('')
     const [modalMsg2, setModalMsg2] = useState('') 
@@ -32,7 +34,8 @@ export const ItemTableSection: React.FC<
         e.preventDefault();
 
         console.log()
-        if (props.items.filter(item => item.active === true).length < 1) {
+        // if (props.items.filter(item => item.active === true).length < 1) {
+        if (activeItems.length < 1) {
             setSelectedCode('')
             setModalTitle2('Item Not Available')
             setModalMsg2('There is no item available')
@@ -47,7 +50,8 @@ export const ItemTableSection: React.FC<
     }
     
     const getItemByCode = (code: string)  => {
-        return props.items.filter((item) => { 
+        // return props.items.filter((item) => { 
+        return activeItems.filter((item) => { 
             return item.code === code  
         });
     }
@@ -57,18 +61,18 @@ export const ItemTableSection: React.FC<
             <div className=" mt-5 ">
                 <div className="card">
                     <div className="card-header">
-                        Selected Item
+                        Selected Item: {selectedCode}
                     </div>
 
                     <div className="card-body"> 
                         <form>
-                            <ItemDropdownList 
+                            {/* <ItemDropdownList 
                                 isDisableClick={props.isShowDetail}
                                 items={props.items} 
                                 sortBy={sortBy} 
                                 selectedCode={selectedCode}
                                 setSelectedCode={setSelectedCode}
-                            />
+                            /> */}
                             
                             <button className="btn btn-primary"
                                 onClick={showDetail}
@@ -143,7 +147,8 @@ export const ItemTableSection: React.FC<
                                     </tr>
                                 </thead>
                                 <ItemRows
-                                    items={props.items}
+                                    // items={props.items}
+                                    activeItems={activeItems}
                                     isShowDetail={props.isShowDetail}
                                     setIsSelectedCode={setSelectedCode}
                                     selectedCode={selectedCode}
