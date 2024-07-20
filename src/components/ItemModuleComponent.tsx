@@ -6,7 +6,7 @@ export const ItemModuleComponent = () => {
     const [isShowEntryForm, setIsShowEntryForm] = useState(false);
     const [isShowDetail, setIsShowDetail] = useState(false);
 
-    const [items, setItems] = useState([
+    const [items, setItems] = useState<ItemModel[]>([
             {
                 code: "153KJ83",
                 description1: "Makita Cordless Pistol-Grip Drills",
@@ -19,7 +19,18 @@ export const ItemModuleComponent = () => {
                 category: "Tool",
                 subCategory: "Power Tool",
                 active: true,
-                isUsedInTransactions: false
+                isUsedInTransactions: false,
+                packQty: 1,
+                orderQty: 1,
+                weigh: false,
+                weight: 0.0,
+                uom: 'qyt',
+                mfg: '',
+                mfgItem: '',
+                notes: '',
+                lastIssue: undefined,
+                dateCreated: undefined,
+                createdBy:''
             },
             {
                 code: "2830D20",
@@ -33,7 +44,18 @@ export const ItemModuleComponent = () => {
                 category: "Tool",
                 subCategory: "Power Tool",
                 active: true,
-                isUsedInTransactions: false
+                isUsedInTransactions: false,
+                packQty: 1,
+                orderQty: 1,
+                weigh: false,
+                weight: 0.0,
+                uom: 'qyt',
+                mfg: '',
+                mfgItem: '',
+                notes: '',
+                lastIssue: undefined,
+                dateCreated: undefined,
+                createdBy:''
             },
             {
                 code: "9150F44",
@@ -47,7 +69,18 @@ export const ItemModuleComponent = () => {
                 category: "Tool",
                 subCategory: "Hand Tool",
                 active: true,
-                isUsedInTransactions: true
+                isUsedInTransactions: true,
+                packQty: 1,
+                orderQty: 1,
+                weigh: false,
+                weight: 0.0,
+                uom: 'qyt',
+                mfg: '',
+                mfgItem: '',
+                notes: '',
+                lastIssue: undefined,
+                dateCreated: undefined,
+                createdBy:''
             },
     ]
     )
@@ -62,7 +95,15 @@ export const ItemModuleComponent = () => {
         supplierId: string,
         itemImage: string,
         category: string,
-        subCategory:string ) => {
+        subCategory: string,
+        active: boolean,
+        isUsedInTransactions: boolean,
+        packQty: number,
+        orderQty: number,
+        mfg?: string,
+        mfgItem?: string,
+        notes?: string,
+    ) => {
             
             if (items.find(itm => itm.code === code))
                 return;
@@ -79,9 +120,20 @@ export const ItemModuleComponent = () => {
                 category: category,
                 subCategory: subCategory,
                 active: true,
-                isUsedInTransactions: false
-            }
-            
+                isUsedInTransactions: false,
+                packQty: packQty,
+                orderQty: orderQty,
+                weigh: false,
+                weight: 0.0,
+                uom: 'qyt',
+                mfg: mfg,
+                mfgItem: mfgItem,
+                notes: notes,
+                lastIssue: undefined,
+                dateCreated: new Date(),
+                createdBy: ''
+            }    
+
             setItems(items => [...items, newItem])
     }
 
@@ -96,7 +148,15 @@ export const ItemModuleComponent = () => {
         supplierId: string,
         itemImage: string,
         category: string,
-        subCategory: string ) => {
+        subCategory: string,
+        active: boolean,
+        isUsedInTransactions: boolean,
+        packQty: number,
+        orderQty: number,
+        mfg?: string,
+        mfgItem?: string,
+        notes?: string,
+    ) => {
            
             if ( code !== originalCode && 
                  items.find(itm => itm.code === code)) {
@@ -119,7 +179,18 @@ export const ItemModuleComponent = () => {
                     category: category,
                     subCategory: subCategory,
                     active: true,
-                    isUsedInTransactions: false
+                    isUsedInTransactions: false,
+                    packQty: packQty,
+                    orderQty: orderQty,
+                    weigh: false,
+                    weight: 0.0,
+                    uom: 'qyt',
+                    mfg: mfg,
+                    mfgItem: mfgItem,
+                    notes: notes,
+                    lastIssue: undefined,
+                    dateCreated: new Date(),
+                    createdBy: ''
                 }
 
                 const shallowCopiedItems: ItemModel[] = [

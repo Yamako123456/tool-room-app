@@ -22,44 +22,80 @@ enum ItemCategories {
     OfficeSupply //: 'Office Supplies',
 
 }   
-
 class ItemModel {
-    code: string = '';// "153KJ83",
-    description1: string = ''; // "Makita Cordless Pistol-Grip Drills",
-    description2: string = '' // "Tools using lower-voltage batteries are generally lighter and more compact but less powerful than tools using higher-voltage batteries.",
-    itemType: string = ''; //ItemTypes = ItemTypes.Durable; // enum "Durable",
-    unitPrice: number = 0; // "161.54",
-    issueCost: number = 0; // "5.00",
-    supplierId: string = ''; // "XFD12Z",
-    itemImage: string = ''; //"https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
-    category: string = ''; //ItemCategories.Tool; // "Tool",
-    subCategory: string  = ''; // "Power Tool",
-    active: boolean = true; // true
-    isUsedInTransactions: boolean = false; // false
+    readonly recordId?: number; // Optional and read-only
+    code: string;
+    description1: string;
+    description2: string;
+    itemType: string;
+    unitPrice: number;
+    issueCost: number;
+    supplierId: string;
+    itemImage: string;
+    category: string;
+    subCategory: string;
+    active: boolean;
+    isUsedInTransactions: boolean;
+    packQty: number;
+    orderQty: number;
+    weigh: boolean;
+    weight: number;
+    uom: string;
+    mfg?: string;
+    mfgItem?: string;
+    notes?: string;
+    lastIssue?: Date;
+    dateCreated?: Date;
+    createdBy?: string;
 
-    constructor(code: string,
-        description1: string, 
-        description2: string, 
-        itemType : string, 
-        unitPrice: number, 
-        issueCost: number, 
-        supplierId: string, 
-        itemImage: string, 
-        category: string, 
-        subCategory: string, 
-        active: boolean, 
-        isUsedInTransactions: boolean) {
-            this.code = code;
-            this.description1 = description1;
-            this.description2 = description2;
-            this.itemType = itemType;
-            this.unitPrice = unitPrice;
-            this.issueCost = issueCost;
-            this.supplierId = supplierId;
-            this.itemImage = itemImage;
-            this.category = category;
-            this.subCategory  = subCategory;
-            this.active = active;
-            this.isUsedInTransactions =isUsedInTransactions;
+    constructor(
+        code: string,
+        description1: string,
+        description2: string,
+        itemType: string,
+        unitPrice: number,
+        issueCost: number,
+        supplierId: string,
+        itemImage: string,
+        category: string,
+        subCategory: string,
+        active: boolean,
+        isUsedInTransactions: boolean,
+        packQty: number,
+        orderQty: number,
+        weigh: boolean,
+        weight: number,
+        uom: string,
+        mfg?: string,
+        mfgItem?: string,
+        notes?: string,
+        lastIssue?: Date,
+        dateCreated?: Date,
+        createdBy?: string
+    ) {
+        this.code = code;
+        this.description1 = description1;
+        this.description2 = description2;
+        this.itemType = itemType;
+        this.unitPrice = unitPrice;
+        this.issueCost = issueCost;
+        this.supplierId = supplierId;
+        this.itemImage = itemImage;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.active = active;
+        this.isUsedInTransactions = isUsedInTransactions;
+        this.packQty = packQty;
+        this.orderQty = orderQty;
+        this.weigh = weigh;
+        this.weight = weight;
+        this.uom = uom;
+        this.mfg = mfg;
+        this.mfgItem = mfgItem;
+        this.notes = notes;
+        this.lastIssue = lastIssue;
+        this.dateCreated = dateCreated;
+        this.createdBy = createdBy;
     }
 }
+ 

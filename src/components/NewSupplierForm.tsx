@@ -66,7 +66,7 @@ export const NewItemForm: React.FC<{
     const SUPLIER_MAX = 50;
     // URL_MAX = is unlimited Text data type in database;
     const CURRENCY_MAX = 25;
-    const CATEGORY_MAX = 50;
+    const CATEGORY_MAX = 40;
 
     const submitItem = () => {
         if (btnCaption === 'Edit') {
