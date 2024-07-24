@@ -15,6 +15,7 @@ export const ItemTableSection: React.FC<
     setIsShowEntryForm: Function,
     isShowDetail: boolean,
     setIsShowDetail: Function
+   
 }
 > = (props) => {
 
@@ -30,7 +31,7 @@ export const ItemTableSection: React.FC<
         setSortBy(e.target.value);
     }
 
-    const showDetail = (e: any) => {
+    const showingDetail = (e: any) => {
         e.preventDefault();
 
         console.log()
@@ -74,12 +75,12 @@ export const ItemTableSection: React.FC<
                                 setSelectedCode={setSelectedCode}
                             /> */}
                             
-                            <button className="btn btn-primary"
-                                onClick={showDetail}
+                            {/* <button className="btn btn-primary"
+                                onClick={showingDetail}
                                 disabled={props.isShowDetail}
                             >
                                 Show Detail
-                            </button>
+                            </button> */}
                             <div className="mt-3">
                                 <label className="form-label">Sort:</label>    
 
@@ -142,8 +143,8 @@ export const ItemTableSection: React.FC<
                                         <th style={{ padding: '10px' }} scope="col">Item Type</th>
                                         <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
                                         <th style={{ padding: '10px' }} scope="col">Category</th>
-                                        <th style={{ padding: '10px' }} scope="col">Sub Category</th>
                                         <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
+                                        <th style={{ padding: '10px' }} scope="col">View Detail</th>
                                     </tr>
                                 </thead>
                                 <ItemRows
@@ -154,7 +155,9 @@ export const ItemTableSection: React.FC<
                                     selectedCode={selectedCode}
                                     setSelectedCode={setSelectedCode}
                                     sortBy={sortBy}
-                                    />
+                                    showingDetail={showingDetail}
+                                    
+                                />
                             </table>
                         </div>
                     </div>

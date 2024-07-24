@@ -51,7 +51,7 @@ export const NewItemForm: React.FC<{
     const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
-    const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
+    // const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
 
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
@@ -121,8 +121,8 @@ export const NewItemForm: React.FC<{
         if (supplierId.length > SUPLIER_MAX)
             msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
 
-        if(subCategory.length > CATEGORY_MAX)    
-            msg = 'Category length cannot exceed ' + CATEGORY_MAX;
+        // if(subCategory.length > CATEGORY_MAX)    
+        //     msg = 'Category length cannot exceed ' + CATEGORY_MAX;
         
         if (msg.length > 0) {
             setModalTitle('Corrections Required')
@@ -149,8 +149,9 @@ export const NewItemForm: React.FC<{
                     issueCost,
                     supplierId,
                     itemImage,
-                    category,
-                    subCategory 
+                    category
+                    // ,
+                    // subCategory 
                 );
 
                 resetForm();
@@ -174,8 +175,9 @@ export const NewItemForm: React.FC<{
                 issueCost,
                 supplierId,
                 itemImage,
-                category,
-                subCategory 
+                category
+                // ,
+                // subCategory 
             );
 
             resetForm();
@@ -194,7 +196,7 @@ export const NewItemForm: React.FC<{
         setSupplierId('');
         setItemImage('');
         setCategory(ItemCategories.TOOL);
-        setSubCategory('');
+        // setSubCategory('');
     }
 
     const closeForm = () => {
@@ -329,7 +331,7 @@ export const NewItemForm: React.FC<{
 
                     </select>
                 </div>
-                <div className='mb-3'>
+                {/* <div className='mb-3'>
                     <label className='form-label'>Sub-catetory</label>
                     {(<span style={{ fontSize: '0.6rem' }}>( max length: {CATEGORY_MAX} )</span>)}
                     <input className='form-control' type='text' 
@@ -338,7 +340,7 @@ export const NewItemForm: React.FC<{
                         readOnly={isReadOnly}
                         ></input>
                 </div>
-                
+                 */}
             </form>
             <button 
                 className={btnCaption === 'Save' || btnCaption === 'Add' ? 'btn btn-success me-2' : 'btn btn-primary me-2'} 

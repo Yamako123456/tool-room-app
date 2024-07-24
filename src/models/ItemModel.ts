@@ -33,7 +33,7 @@ class ItemModel {
     supplierId: string;
     itemImage: string;
     category: string;
-    subCategory: string;
+    // subCategory: string;
     active: boolean;
     isUsedInTransactions: boolean;
     packQty: number;
@@ -58,7 +58,7 @@ class ItemModel {
         supplierId: string,
         itemImage: string,
         category: string,
-        subCategory: string,
+        // subCategory: string,
         active: boolean,
         isUsedInTransactions: boolean,
         packQty: number,
@@ -82,7 +82,7 @@ class ItemModel {
         this.supplierId = supplierId;
         this.itemImage = itemImage;
         this.category = category;
-        this.subCategory = subCategory;
+        // this.subCategory = subCategory;
         this.active = active;
         this.isUsedInTransactions = isUsedInTransactions;
         this.packQty = packQty;

@@ -6,6 +6,7 @@ import {HomeComponent} from './components/HomeComponent';
 import {AboutComponent} from './components/AboutComponent';
 import {ItemModuleComponent} from './components/ItemModuleComponent';
 import { PrintComponent } from './components/PrintComponent';
+import { NewItemForm } from './components/NewItemForm';
 
 
 
@@ -49,6 +50,7 @@ export const App = () => {
               <Route path="/about" element={<AboutComponent />} />
               <Route path="/items" element={<ItemModuleComponent />} />
               <Route path="/print/:itemCode" element={<PrintWrapper/>} />
+            
           </Routes>
         </div>
       </Router>
@@ -67,3 +69,6 @@ const PrintWrapper = () => {
 
   return <PrintComponent barcode={itemCode} />;
 };
+
+
+

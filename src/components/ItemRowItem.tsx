@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import { ItemCodeBarcode } from './ItemCodeBarcode';
+import { DetailButtonColumn } from './DetailButtonColumn';
 
 export const ItemRowItem: React.FC<{
     isDisableClick: boolean,
     index: number,
     key: string,
     item: ItemModel,
-    setSelectedCode: Function,
+    setSelectedCode:  (code: string) => void,
     selectedCode: string,
+    showingDetail:  (e: any) => void,
+    isShowDetail: boolean
     // className: string
 }> = (props) => {
 
@@ -18,7 +21,7 @@ export const ItemRowItem: React.FC<{
         currency: 'USD'
     });
 
-    const handleRowDblClick= (theIndex: number) => {
+    const handleRowClick= (theIndex: number) => {
         if (props.isDisableClick)
             return;
 
@@ -30,7 +33,7 @@ export const ItemRowItem: React.FC<{
     return (
          <tr 
             key={props.item.code}   
-            onDoubleClick={() => handleRowDblClick(props.index)}
+            onClick={() => handleRowClick(props.index)}
             style={{
                 backgroundColor: props.selectedCode === props.item.code ? 'papayawhip' : 'transparent',
                 border: props.selectedCode === props.item.code ? '2px solid #000' : 'none'
@@ -41,8 +44,16 @@ export const ItemRowItem: React.FC<{
             <td style={{ padding: '10px' }}>{props.item.itemType}</td>
             <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
             <td style={{ padding: '10px' }}>{props.item.category}</td>
-            <td style={{ padding: '10px' }}>{props.item.subCategory}</td>     
             <td style={{ padding: '10px' }}><ItemCodeBarcode selectedCode={props.item.code} /></td>     
+            <td style={{ padding: '10px' }}>
+                {/* <DetailButtonColumn selectedCode={props.item.code} /> */}
+                <button className="btn btn-primary"
+                                onClick={props.showingDetail}
+                                disabled={props.isShowDetail}
+                            >
+                                Show Detail
+                </button>  
+            </td>        
         </tr>  
     )
 }

@@ -14,10 +14,11 @@ import {ItemRowItem} from "./ItemRowItem"
 export const ItemRows: React.FC<{
     activeItems: ItemModel[],
     isShowDetail: boolean,
-    setIsSelectedCode: Function,
+    setIsSelectedCode:  (code: string) => void,
     selectedCode: string,
-    setSelectedCode: Function,
-    sortBy: string
+    setSelectedCode:  (code: string) => void,
+    sortBy: string,
+    showingDetail:  (b: boolean) => void
 }> = (props) => {
     return (
         <tbody>
@@ -37,7 +38,8 @@ export const ItemRows: React.FC<{
                         item={item} 
                         setSelectedCode={props.setSelectedCode}
                         selectedCode={props.selectedCode}
-                        // className={props.items.indexOf}
+                        isShowDetail={props.isShowDetail}
+                        showingDetail={props.showingDetail}
                     />
             ))}
         </tbody>
