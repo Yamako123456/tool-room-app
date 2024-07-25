@@ -36,7 +36,7 @@ export const HomeComponent: React.FC = () => {
 
                     </li>
                     <li>
-                        Retrieve: Employees can easily select items by double-clicking a row in the item table.
+                        Retrieve: The item's detail view will display by clicking the <i>Show Detail</i> button in the item table.
 
                     </li>
                     <li>
@@ -54,7 +54,7 @@ export const HomeComponent: React.FC = () => {
                 This application ensures efficient tool management, maintaining operational excellence on the shop floor.
                 <br/>
                 <br/>
-                To get started, Please click "Items" and setup you inventory items!
+                To get started, Please click "Items" and setup your inventory items!
                 
             </p>
             <div style={{ height: '100vh' }}>
