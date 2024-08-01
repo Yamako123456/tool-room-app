@@ -51,8 +51,7 @@ export const NewItemForm: React.FC<{
     const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
-    // const [subCategory, setSubCategory] = useState(props.isNew ? '' : selectedItem.subCategory);
-
+   
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
 
@@ -238,7 +237,7 @@ export const NewItemForm: React.FC<{
                     <input type='text' className='form-control' required 
                         value={itemCode}
                         onChange={(event) => setItemCode(event.target.value.trim())}
-                        readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
+                        readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
                         ></input>
                 </div>
                 <div className='mb-3'>
@@ -305,7 +304,7 @@ export const NewItemForm: React.FC<{
                     <input className='form-control' type='text' required
                         value={supplierId}
                         onChange={(event) => setSupplierId(event.target.value.trim())}
-                        readOnly={isReadOnly || (!props.isNew && selectedItem.isUsedInTransactions)}
+                        readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
                         ></input>
                 </div>
                 <div className='mb-3'>

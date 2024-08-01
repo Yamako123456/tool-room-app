@@ -33,9 +33,8 @@ class ItemModel {
     supplierId: string;
     itemImage: string;
     category: string;
-    // subCategory: string;
     active: boolean;
-    isUsedInTransactions: boolean;
+    assigned: boolean;//isUsedInTransactions;
     packQty: number;
     orderQty: number;
     weigh: boolean;
@@ -58,9 +57,8 @@ class ItemModel {
         supplierId: string,
         itemImage: string,
         category: string,
-        // subCategory: string,
         active: boolean,
-        isUsedInTransactions: boolean,
+        assigned: boolean,
         packQty: number,
         orderQty: number,
         weigh: boolean,
@@ -84,7 +82,7 @@ class ItemModel {
         this.category = category;
         // this.subCategory = subCategory;
         this.active = active;
-        this.isUsedInTransactions = isUsedInTransactions;
+        this.assigned = assigned; 
         this.packQty = packQty;
         this.orderQty = orderQty;
         this.weigh = weigh;
