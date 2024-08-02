@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ItemDropdownList} from "./ItemDropdownList";
@@ -18,11 +18,21 @@ export const ItemTableSection: React.FC<
    
 }
 > = (props) => {
-
+    
     const activeItems =  props.items.filter(item => item.active === true);
-
+    
     const [sortBy, setSortBy] = useState('code');
-    const [selectedCode, setSelectedCode] = useState<string>(activeItems.length > 0 ? activeItems[0].code : '');
+    const [selectedCode, setSelectedCode] = useState<string>(() => {
+        const savedCode = localStorage.getItem('selectedCode');
+        return savedCode || 
+        (activeItems.length > 0 ?  activeItems[0].code : '');
+    })
+    useEffect(() => {
+        if (selectedCode) {
+          localStorage.setItem('selectedCode', selectedCode);
+        }
+      }, [selectedCode]);
+      
     const [showModal2, setShowModal2] = useState(false);
     const [modalTitle2, setModalTitle2] = useState('')
     const [modalMsg2, setModalMsg2] = useState('') 

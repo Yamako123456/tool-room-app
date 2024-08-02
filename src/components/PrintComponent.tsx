@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import {ReactToPrint} from 'react-to-print';
+import { useNavigate } from 'react-router-dom';
 
 interface PrintComponentProps {
     barcode: string;
@@ -8,11 +9,21 @@ interface PrintComponentProps {
 export const PrintComponent: React.FC<PrintComponentProps> = ({barcode}) => {
     const componentRef = useRef<HTMLDivElement>(null);
     
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate('/items');
+    }
+
     return (
         <div>
-            <h1>Print Barcode Module {barcode}</h1>
-             <ReactToPrint
-                trigger={() => <button> Print the barcode</button>}
+            <div className='row'>
+                <h1 className='col-10'>Print Barcode Module {barcode}</h1>
+                <div className='col-2'>
+                    <button onClick={handleGoBack}>Go Back to Items</button>
+                </div>
+            </div>
+            <ReactToPrint
+                trigger={() => <button className='btn btn-primary'> Print the barcode</button>}
                 content = {() => componentRef.current}
                 documentTitle={`Barcode for ${barcode}`}
                 pageStyle="print"
