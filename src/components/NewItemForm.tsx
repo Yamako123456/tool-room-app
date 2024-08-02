@@ -24,6 +24,27 @@ export const NewItemForm: React.FC<{
         GAGE: 'Gage'
     }
 
+    const UnitOfMeasure = {
+        qty: 'qty', 
+        pack: 'pack',
+        oz: 'oz', 
+        lb: 'lb', 
+        mg: 'mg',
+        g: 'g', 
+        kg: 'kg',
+        in: 'in',
+        ft: 'ft', 
+        yd: 'yd',
+        mm: 'mm',
+        cm: 'cm',
+        m: 'm',
+        ml: 'ml',
+        L: 'L',
+        floz: 'fl oz',
+        pt: 'pt',
+        gal: 'gal'
+    }
+
     const ItemCategories = {
         TOOL: 'Tool',
         FASTENER: 'Bolts, Screws, Nails, etc',
@@ -42,6 +63,7 @@ export const NewItemForm: React.FC<{
     }   
           
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
+    
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
@@ -52,6 +74,16 @@ export const NewItemForm: React.FC<{
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
    
+    const [packQty, setPackQty] = useState(props.isNew ? 1 : selectedItem.packQty );
+    const [orderQty, setOrderQty] = useState(props.isNew ? 1 : selectedItem.orderQty);
+    const [weigh, setWeigh] = useState(props.isNew ? false : selectedItem.weigh);
+    const [weight, setWeight] = useState(props.isNew ? 0 : selectedItem.weight);
+    const [uom, setUom] = useState(props.isNew ? 'qty' : selectedItem.uom);
+    const [mfg, setMfg] = useState(props.isNew ? '' : selectedItem.mfg);
+    const [mfgItem, setMfgItem] = useState(props.isNew ? '' : selectedItem.mfgItem);
+    const [notes, setNotes] = useState(props.isNew ? '' : selectedItem.notes);
+    const [leadTime, setLeadTime] = useState(props.isNew ? 0 : selectedItem.leadTime);
+
     const [isReadOnly, setIsReadOnly] = useState(!props.isNew)
     const [btnCaption, setBtnCaption] = useState(props.caption);
 
@@ -59,6 +91,7 @@ export const NewItemForm: React.FC<{
     const [modalTitle, setModalTitle] = useState('')
     const [modalMsg, setModalMsg] = useState('')
     const [isDelete, setIsDelete] = useState(false)
+
     const CODE_MAX = 30;
     const DESCRIPTION1_MAX = 50;
     const DESCRIPTION2_MAX = 200;
@@ -73,7 +106,6 @@ export const NewItemForm: React.FC<{
             setBtnCaption('Save')
             return;
         }
-
 
         // Check if items is defined before using find
         if (!props.items) {
@@ -110,7 +142,7 @@ export const NewItemForm: React.FC<{
         if(description1.length > DESCRIPTION1_MAX) {
             msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
         }
-        if(description2.length > DESCRIPTION2_MAX) {
+        if(description2 !== undefined && description2.length > DESCRIPTION2_MAX) {
             msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
         }
     
@@ -143,14 +175,21 @@ export const NewItemForm: React.FC<{
                     itemCode,
                     description1,
                     description2,
-                    itemType,
-                    unitPrice,
+                    itemType, 
+                    unitPrice, 
                     issueCost,
                     supplierId,
                     itemImage,
-                    category
-                    // ,
-                    // subCategory 
+                    category,
+                    packQty,
+                    orderQty,
+                    weigh,
+                    weight, 
+                    uom, 
+                    mfg, 
+                    mfgItem, 
+                    notes,
+                    leadTime
                 );
 
                 resetForm();
@@ -169,14 +208,21 @@ export const NewItemForm: React.FC<{
                 itemCode,
                 description1,
                 description2,
-                itemType,
-                unitPrice,
+                itemType, 
+                unitPrice, 
                 issueCost,
                 supplierId,
                 itemImage,
-                category
-                // ,
-                // subCategory 
+                category,
+                packQty,
+                orderQty,
+                weigh,
+                weight, 
+                uom, 
+                mfg, 
+                mfgItem, 
+                notes,
+                leadTime
             );
 
             resetForm();
@@ -195,7 +241,16 @@ export const NewItemForm: React.FC<{
         setSupplierId('');
         setItemImage('');
         setCategory(ItemCategories.TOOL);
-        // setSubCategory('');
+
+        setPackQty(1);
+        setOrderQty(1);
+        setWeigh(false);
+        setWeight(0);
+        setUom('qty'); 
+        setMfg('');
+        setMfgItem(''); 
+        setNotes('');
+        setLeadTime(0);
     }
 
     const closeForm = () => {
@@ -207,130 +262,190 @@ export const NewItemForm: React.FC<{
 
     const proceedDelete = () => {
         props.deleteItem(props.selectedCode);
-        setModalTitle('')
-        setModalMsg('')
-        setIsDelete(false)
-        setShowModal(false)
-        setIsDelete(false)
+        setModalTitle('');
+        setModalMsg('');
+        setIsDelete(false);
+        setShowModal(false);
+        setIsDelete(false);
         resetForm();
         props.setIsShowEntryForm(false);
         props.setIsShowDetail(false);
     }
 
     const deleteConfirmation = () => {
-        setModalTitle('Confirm Delete')
-        setIsDelete(true)
-        setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?')
-        setShowModal(true)
+        setModalTitle('Confirm Delete');
+        setIsDelete(true);
+        setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?');
+        setShowModal(true);
   
     }
 
     return (
         <div>
             <form>
-                <div className='mb-3'>
-                    <label className='form-label'>
-                        Item Code
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
-                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
-                    </label>
-                    <input type='text' className='form-control' required 
-                        value={itemCode}
-                        onChange={(event) => setItemCode(event.target.value.trim())}
-                        readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
-                        ></input>
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>
-                        Description 1
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
-                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
-                    </label>
-                    <input className='form-control' type='text' required 
-                        value={description1}
-                        onChange={(event) => setDescription1(event.target.value.trim())}
-                        readOnly={isReadOnly}
-                        ></input>
-                    
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Description 2</label>
-                    {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
-                    <textarea className='form-control'  rows={3} 
-                        value={description2}
-                        onChange={(event) => setDescription2(event.target.value.trim())}
-                        readOnly={isReadOnly}
-                        ></textarea>
-                </div>
-                <div className='mb-3'>
-                    
-                    <label className='form-label'>Item Type</label>
-                    <select className='form-control' 
-                        value={itemType} 
-                        onChange={(event) => setItemType(event.target.value.trim())}
-                        disabled={isReadOnly}
-                        >
-                        {Object.entries(ItemTypes).map(([key, value]) =>
-                        (
-                            <option key={key} value={value}>
-                                {value}
-                            </option>        
-                        ))}
-                    </select>   
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Unit Price</label>
-                    <input className='form-control' type='number'  
-                        value={unitPrice}
-                        onChange={e => setUnitPrice(Number(e.target.value.trim()))}
+                <div className='row'>
 
-                        readOnly={isReadOnly}
-                        ></input>
+                    <div className='col-xl-4 col-lg-6 col-md-10 col-sm-12  mb-3' >
+                        <label className='form-label'>
+                            Item Code
+                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
+                            {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                        </label>
+                        <input type='text' className='form-control' required 
+                            value={itemCode}
+                            onChange={(event) => setItemCode(event.target.value.trim())}
+                            readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            ></input>
+                    </div>
+                    <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
+                        <label className='form-label'>
+                            Description 1
+                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
+                            {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                        </label>
+                        <input className='form-control' type='text' required 
+                            value={description1}
+                            onChange={(event) => setDescription1(event.target.value.trim())}
+                            readOnly={isReadOnly}
+                            ></input>
+                        
+                    </div>
+                    <div className='col-12 mb-3'>
+                        <label className='form-label'>Description 2</label>
+                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
+                        <textarea className='form-control'  rows={3} 
+                            value={description2}
+                            onChange={(event) => setDescription2(event.target.value.trim())}
+                            readOnly={isReadOnly}
+                            ></textarea>
+                    </div>
                 </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Issue Cost</label>
-                    <input className='form-control' type='number' 
-                        value={issueCost}
-                        onChange={(e) => setIssueCost(Number(e.target.value.trim()))}
-                        readOnly={isReadOnly}
-                        ></input>
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>
-                        Supplier ID
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
-                        {props.isNew && (<span className='text-danger small'> (required)</span>)}
-                    </label>
-                    <input className='form-control' type='text' required
-                        value={supplierId}
-                        onChange={(event) => setSupplierId(event.target.value.trim())}
-                        readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
-                        ></input>
-                </div>
-                <div className='mb-3'>
-                    <label className='form-label'>Item Image URL</label>
-                    <textarea className='form-control' rows={10} 
-                        value={itemImage}
-                        onChange={(event) => setItemImage(event.target.value.trim())}
-                        readOnly={isReadOnly}
-                        ></textarea>
-                </div>
-                <div className='mb-3'>
+                <div className='row'>
+                    <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
+                        
+                        <label className='form-label'>Item Type</label>
+                        <select className='form-control' 
+                            value={itemType} 
+                            onChange={(event) => setItemType(event.target.value.trim())}
+                            disabled={isReadOnly}
+                            >
+                            {Object.entries(ItemTypes).map(([key, value]) =>
+                            (
+                                <option key={key} value={value}>
+                                    {value}
+                                </option>        
+                            ))}
+                        </select>   
+                    </div>
+                    <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
+                        
+                        <label className='form-label'>UOM</label>
+                        <select className='form-control' 
+                            value={uom} 
+                            onChange={(event) => setUom(event.target.value.trim())}
+                            disabled={isReadOnly}
+                            >
+                            {Object.entries(UnitOfMeasure).map(([key, value]) =>
+                            (
+                                <option key={key} value={value}>
+                                    {value}
+                                </option>        
+                            ))}
+                        </select>   
+                    </div>
+                    <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
+                        <label className='form-label'>Unit Price</label>
+                        <input className='form-control' type='number'  
+                            value={unitPrice}
+                            onChange={e => setUnitPrice(Number(e.target.value.trim()))}
 
-                    <label className='form-label'>Category</label>
-                    <select className='form-control' 
-                        onChange={(event) => setCategory(event.target.value.trim())}
-                        disabled={isReadOnly}
-                        >
-                        {Object.entries(ItemCategories).map(([key, value]) => (
-                            <option key={key} value={value}>
-                                {value}
-                            </option>
-                        ))}
+                            readOnly={isReadOnly}
+                            ></input>
+                    </div>
+                    <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
+                        <label className='form-label'>Issue Cost</label>
+                        <input className='form-control' type='number' 
+                            value={issueCost}
+                            onChange={(e) => setIssueCost(Number(e.target.value.trim()))}
+                            readOnly={isReadOnly}
+                            ></input>
+                    </div>
 
-                    </select>
+                    <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
+                        <label className='form-label'>Pack Quantity</label>
+                        <input className='form-control' type='number' 
+                            value={packQty}
+                            onChange={(e) => setPackQty(Number(e.target.value.trim()))}
+                            readOnly={isReadOnly}
+                            ></input>
+                    </div>
+                    <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
+                        <label className='form-label'>Order Quantity</label>
+                        <input className='form-control' type='number' 
+                            value={orderQty}
+                            onChange={(e) => setOrderQty(Number(e.target.value.trim()))}
+                            readOnly={isReadOnly}
+                            ></input>
+                    </div>
+                    <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
+                        <label className='form-label'>Lead Time</label>
+                        <input className='form-control' type='number' 
+                            value={leadTime}
+                            onChange={(e) => setLeadTime(Number(e.target.value.trim()))}
+                            readOnly={isReadOnly}
+                            ></input>
+                    </div>
+
+
+
+
+                    <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
+                        <label className='form-label'>
+                            Supplier ID
+                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
+                            {props.isNew && (<span className='text-danger small'> (required)</span>)}
+                        </label>
+                        <input className='form-control' type='text' required
+                            value={supplierId}
+                            onChange={(event) => setSupplierId(event.target.value.trim())}
+                            readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            ></input>
+                    </div>
+                    <div className='mb-3'>
+                        <label className='form-label'>Item Image URL</label>
+                        <textarea className='form-control' rows={3} 
+                            value={itemImage}
+                            onChange={(event) => setItemImage(event.target.value.trim())}
+                            readOnly={isReadOnly}
+                            ></textarea>
+                    </div>                    
+                    <div className='mb-3'>
+                        <label className='form-label'>Notes</label>
+                        <textarea className='form-control' rows={3} 
+                            value={notes}
+                            onChange={(event) => setNotes(event.target.value.trim())}
+                            readOnly={isReadOnly}
+                            ></textarea>
+                    </div>
+                    <div className='col-lg-5 col-md-7 col-sm-10 col-xs-12  mb-3'>
+
+                        <label className='form-label'>Category</label>
+                        <select className='form-control' 
+                            value={category}
+                            onChange={(event) => setCategory(event.target.value.trim())}
+                            disabled={isReadOnly}
+                            >
+                            {Object.entries(ItemCategories).map(([key, value]) => (
+                                <option key={key} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+
+                        </select>
+                    </div>
+
                 </div>
-                {/* <div className='mb-3'>
+                                {/* <div className='mb-3'>
                     <label className='form-label'>Sub-catetory</label>
                     {(<span style={{ fontSize: '0.6rem' }}>( max length: {CATEGORY_MAX} )</span>)}
                     <input className='form-control' type='text' 

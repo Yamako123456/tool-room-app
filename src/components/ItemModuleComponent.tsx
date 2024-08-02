@@ -8,6 +8,7 @@ export const ItemModuleComponent = () => {
 
     const [items, setItems] = useState<ItemModel[]>([
             {
+                recordId: undefined,
                 code: "153KJ83",
                 description1: "Makita Cordless Pistol-Grip Drills",
                 description2: "Tools using lower-voltage batteries are generally lighter and more compact but less powerful than tools using higher-voltage batteries.",
@@ -29,9 +30,11 @@ export const ItemModuleComponent = () => {
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
-                createdBy:''
+                createdBy:'',
+                leadTime: 7
             },
             {
+                recordId: undefined,
                 code: "2830D20",
                 description1: "Milwaukee General Purpose Cordless Circular Saws",
                 description2: "General purpose cordless circular saws make cross, rip, and beveled cuts in wood and other materials",
@@ -53,9 +56,11 @@ export const ItemModuleComponent = () => {
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
-                createdBy:''
+                createdBy:'',
+                leadTime: 10
             },
             {
+                recordId: undefined,
                 code: "9150F44",
                 description1: "CHANNELLOCK Wrench",
                 description2: "Slim Jaw,8 Chrome, 8 in Overall Lg, 1 1/2 in Jaw Capacity",
@@ -77,7 +82,8 @@ export const ItemModuleComponent = () => {
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
-                createdBy:''
+                createdBy:'',
+                leadTime: 4
             },
     ]
     )
@@ -92,19 +98,22 @@ export const ItemModuleComponent = () => {
         supplierId: string,
         itemImage: string,
         category: string,
-        active: boolean,
-        assigned: boolean,
         packQty: number,
         orderQty: number,
+        weigh: boolean,
+        weight: number,
+        uom: string,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
+        leadTime?: number
     ) => {
             
             if (items.find(itm => itm.code === code))
                 return;
 
             const newItem = {
+                recordId: undefined,
                 code: code,
                 description1: description1,
                 description2: description2,
@@ -118,18 +127,23 @@ export const ItemModuleComponent = () => {
                 assigned: false,
                 packQty: packQty,
                 orderQty: orderQty,
-                weigh: false,
-                weight: 0.0,
-                uom: 'qyt',
+                weigh: weigh,
+                weight: weight,
+                uom: uom,
                 mfg: mfg,
                 mfgItem: mfgItem,
                 notes: notes,
                 lastIssue: undefined,
                 dateCreated: new Date(),
-                createdBy: ''
+                createdBy: '',
+                leadTime: leadTime
             }    
-
-            setItems(items => [...items, newItem])
+            
+            setItems(prevItems => [...prevItems, 
+                newItem as ItemModel 
+            ])
+            
+                // setItems(items => [...items, newItem])
     }
 
     const updateItem = (
@@ -143,13 +157,15 @@ export const ItemModuleComponent = () => {
         supplierId: string,
         itemImage: string,
         category: string,
-        active: boolean,
-        assigned: boolean,
         packQty: number,
         orderQty: number,
+        weigh: boolean,
+        weight: number,
+        uom: string,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
+        leadTime?: number
     ) => {
            
             if ( code !== originalCode && 
@@ -158,10 +174,14 @@ export const ItemModuleComponent = () => {
                 return;
             }
 
+            const originalItem: ItemModel = items.filter(
+                item => item.code === originalCode
+            )[0];
             const index = items.findIndex(itm => itm.code === originalCode);
             if (index !== -1) {
            
-                const newItem = {
+                const newItem: ItemModel = {
+                    recordId: originalItem.recordId,
                     code: code,
                     description1: description1,
                     description2: description2,
@@ -171,25 +191,26 @@ export const ItemModuleComponent = () => {
                     supplierId: supplierId,
                     itemImage: itemImage,
                     category: category,
-                    active: true,
-                    assigned: false,
+                    active: originalItem.active,
+                    assigned: originalItem.assigned,
                     packQty: packQty,
                     orderQty: orderQty,
-                    weigh: false,
-                    weight: 0.0,
-                    uom: 'qyt',
+                    weigh: weigh,
+                    weight: weight,
+                    uom: uom,
                     mfg: mfg,
                     mfgItem: mfgItem,
                     notes: notes,
-                    lastIssue: undefined,
-                    dateCreated: new Date(),
-                    createdBy: ''
+                    lastIssue: originalItem.lastIssue,
+                    dateCreated: originalItem.dateCreated,
+                    createdBy: originalItem.createdBy,
+                    leadTime: leadTime
                 }
 
                 const shallowCopiedItems: ItemModel[] = [
-                    ...items.slice(0, index), 
-                    newItem, 
-                    ...items.slice(index + 1)
+                    ...items.slice(0, index) as ItemModel[], 
+                    newItem as ItemModel, 
+                    ...items.slice(index + 1) as ItemModel[]
                 ];
 
                 setItems(shallowCopiedItems );
@@ -199,13 +220,14 @@ export const ItemModuleComponent = () => {
     const deleteItem = (originalCode: string) => {
         if (items.filter((itm) => itm.code === originalCode)[0].assigned) {
             
-            const updatedItems = items.map(item => {
+            const modifiedItems: ItemModel[] = items.map(item => {
+               
                 if (item.code === originalCode) {
-                    return { ...item, active: false };
+                    return { ...item, active: false } as ItemModel;
                 } else
                     return item;
             })
-            setItems(updatedItems)
+            setItems(modifiedItems)
             
         } else {
 
@@ -216,8 +238,8 @@ export const ItemModuleComponent = () => {
     }
 
     const inactivateItem = (code: string) => {
-        let modifiedItems = items.map(item => 
-            item.code === code ? { ...item, active: false } : item
+        const modifiedItems: ItemModel[] = items.map(item => 
+            item.code === code ? { ...item, active: false } as ItemModel : item
         );    
 
         setItems(modifiedItems);
