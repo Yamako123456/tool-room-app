@@ -22,11 +22,14 @@ export const ItemTableSection: React.FC<
     const activeItems =  props.items.filter(item => item.active === true);
     
     const [sortBy, setSortBy] = useState('code');
-    const [selectedCode, setSelectedCode] = useState<string>(() => {
-        const savedCode = localStorage.getItem('selectedCode');
-        return savedCode || 
-        (activeItems.length > 0 ?  activeItems[0].code : '');
-    })
+    const [selectedCode, setSelectedCode] = useState<string>(
+        // activeItems.length > 0 ?  activeItems[0].code : '');
+
+     () => {
+         const savedCode = localStorage.getItem('selectedCode');
+        return savedCode || (activeItems.length > 0 ?  activeItems[0].code : '');
+    });
+
     useEffect(() => {
         if (selectedCode) {
           localStorage.setItem('selectedCode', selectedCode);
