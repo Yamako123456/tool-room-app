@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } 
 import {HomeComponent} from './components/HomeComponent';
 import {AboutComponent} from './components/AboutComponent';
 import {ItemModuleComponent} from './components/ItemModuleComponent';
+import {SupplierModuleComponent} from './components/SupplierModuleComponent';
 import { PrintComponent } from './components/PrintComponent';
 import { NewItemForm } from './components/NewItemForm';
 
@@ -35,6 +36,9 @@ export const App = () => {
                   <Link to="/items" className='nav-link'>Items</Link>
                 </li>
                 <li className='nav-item'>
+                  <Link to="/suppliers" className='nav-link'>Suppliers</Link>
+                </li>
+                <li className='nav-item'>
                   <Link to="/about" className='nav-link'>About</Link>
                 </li>
               </ul>
@@ -48,6 +52,7 @@ export const App = () => {
               <Route path="/" element={<HomeComponent />} />
               <Route path="/about" element={<AboutComponent />} />
               <Route path="/items" element={<ItemModuleComponent />} />
+              <Route path="/supliers" element={<SupplierModuleComponent />} />
               <Route path="/print/:itemCode" element={<PrintWrapper/>} />
             
           </Routes>
