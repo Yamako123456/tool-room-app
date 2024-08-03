@@ -397,7 +397,7 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Lead Time</label>
                         <input className='form-control' type='number' 
                             value={leadTime}
-                            onChange={(e) => setLeadTime(Number(e.target.value.trim()))}
+                            onChange={(e) => setLeadTime(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
                             ></input>
                     </div>
