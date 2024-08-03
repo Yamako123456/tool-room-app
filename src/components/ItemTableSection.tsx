@@ -82,7 +82,7 @@ export const ItemTableSection: React.FC<
                         
                         
                         {props.isShowDetail && (
-                            <div className="card mt-3" style={{ backgroundColor: 'silver' }}>
+                            <div className="card mt-3" style={{ backgroundColor: '#E6F8DC' }}>
 
                                 <div className="card-header">Detail View</div>
                                 <div className="card-body">
