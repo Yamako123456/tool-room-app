@@ -162,10 +162,10 @@ export const ItemModuleComponent = () => {
         weigh: boolean,
         weight: number,
         uom: string,
+        leadTime: number,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
-        leadTime?: number
     ) => {
            
             if ( code !== originalCode && 
@@ -198,13 +198,13 @@ export const ItemModuleComponent = () => {
                     weigh: weigh,
                     weight: weight,
                     uom: uom,
+                    leadTime: leadTime,
                     mfg: mfg,
                     mfgItem: mfgItem,
                     notes: notes,
                     lastIssue: originalItem.lastIssue,
                     dateCreated: originalItem.dateCreated,
                     createdBy: originalItem.createdBy,
-                    leadTime: leadTime
                 }
 
                 const shallowCopiedItems: ItemModel[] = [

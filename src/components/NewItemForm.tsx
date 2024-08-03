@@ -68,8 +68,8 @@ export const NewItemForm: React.FC<{
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
     const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
-    const [unitPrice, setUnitPrice] = useState(props.isNew ? 0.00 : selectedItem.unitPrice);
-    const [issueCost, setIssueCost] = useState(props.isNew ? 0.00 : selectedItem.issueCost);
+    const [unitPrice, setUnitPrice] = useState(props.isNew ? 0: selectedItem.unitPrice);
+    const [issueCost, setIssueCost] = useState(props.isNew ? 0 : selectedItem.issueCost);
     const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
@@ -106,13 +106,13 @@ export const NewItemForm: React.FC<{
             setBtnCaption('Save')
             return;
         }
-
+        
         // Check if items is defined before using find
         if (!props.items) {
             console.log('Items prop is undefined or null in submitItem().');
             return;
         }
-
+        
         if( 
             itemCode === '' || 
             description1 === '' || 
@@ -136,26 +136,29 @@ export const NewItemForm: React.FC<{
         }   
     
         let msg = '';
-        if(itemCode.length > CODE_MAX) 
-            msg = 'Code length cannot exceed ' + CODE_MAX;
-        
-        if(description1.length > DESCRIPTION1_MAX) {
-            msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
-        }
-        if(description2 !== undefined && description2.length > DESCRIPTION2_MAX) {
-            msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
-        }
-    
+    if (isNaN(unitPrice) || isNaN(issueCost) || isNaN(packQty) || isNaN(orderQty) || isNaN(leadTime) ){
+        msg = 'Numeric value cannot be empty.';
+    }else if(itemCode.length > CODE_MAX) {
 
-        if(unitPrice.toString().length > CURRENCY_MAX || issueCost.toString().length > CURRENCY_MAX)
+            msg = 'Code length cannot exceed ' + CODE_MAX;
+        }else if(description1.length > DESCRIPTION1_MAX) {
+            msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
+        }else if(description2 !== undefined && description2.length > DESCRIPTION2_MAX) {
+            msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
+        }else if(unitPrice.toString().length > CURRENCY_MAX || issueCost.toString().length > CURRENCY_MAX) {
+
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
-        if (supplierId.length > SUPLIER_MAX)
+        
+        }else if (supplierId.length > SUPLIER_MAX) {
+
             msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
+        }
 
         // if(subCategory.length > CATEGORY_MAX)    
         //     msg = 'Category length cannot exceed ' + CATEGORY_MAX;
         
         if (msg.length > 0) {
+        alert ('erro message populated')
             setModalTitle('Corrections Required')
             setModalMsg(msg);
             setIsDelete(false)
@@ -170,6 +173,7 @@ export const NewItemForm: React.FC<{
                 setIsDelete(false);
                 setShowModal(true);
             } else {
+                alert('issueCost: ' + issueCost) 
                 props.updateItem(
                     props.selectedCode,
                     itemCode,
@@ -186,10 +190,10 @@ export const NewItemForm: React.FC<{
                     weigh,
                     weight, 
                     uom, 
+                    leadTime,
                     mfg, 
                     mfgItem, 
-                    notes,
-                    leadTime
+                    notes
                 );
 
                 resetForm();
@@ -363,7 +367,7 @@ export const NewItemForm: React.FC<{
                         <input className='form-control' type='number'  
                             value={unitPrice}
                             onChange={(e) =>  {
-                                const num = parseFloat(e.target.value.trim());
+                                const num = e.target.value.trim() === '' ? 0 : parseFloat(e.target.value.trim());
                                 setUnitPrice(Number(num.toFixed(2)));
                             }}
 

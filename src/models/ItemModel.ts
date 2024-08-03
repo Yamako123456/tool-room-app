@@ -1,51 +1,3 @@
-// enum ItemTypes {
-//     Expendable, //: 'Expendable',
-//     Durable, //: 'Durable',
-//     Perishable, //: 'Perishable',
-//     Serial, //: 'Serial',
-//     Gage //: 'Gage'
-// }
-
-// enum UnitOfMeasure {
-//     qty, 
-//     pack,
-//     oz, 
-//     lb, 
-//     mg,
-//     g, 
-//     kg,
-//     in,
-//     ft, 
-//     yd,
-//     mm,
-//     cm,
-//     m,
-//     ml,
-//     L,
-//     floz,
-//     pt,
-//     gal
-// }
-
-// enum ItemCategories {
-//     Tool, //: 'Tool',
-//     Fastener, //: 'Bolts, Screws, Nails, etc',
-//     Machinery, //: 'End Mills, Drill Bits, Threading Tools, etc',
-//     Pipe, //: 'Pipes, Hose, Tube & Fittings',
-//     Welding, //: 'Welding',
-//     Electrical, //: 'Lighting & Electrical',
-//     Plumbing, //: 'Plumbing & Pumps',
-//     Adhesive, //: 'Tape, sealants, Glue',
-//     Materialhandling, //: 'Ladder, Cart, Storage, Lift equipment',
-//     TestInstrument, //: 'Multimeters, Voltage, Power Tester',
-//     RawMaterial, //: 'Raw Material',
-//     Safty, //: 'Safty item',
-//     OfficeSupply //: 'Office Supplies',
-
-// }  
-
-
-
 class ItemModel {
     code: string;
     description1: string;
@@ -60,6 +12,7 @@ class ItemModel {
     orderQty: number;
     weigh: boolean;
     uom: string;
+    leadTime: number;
     
     private _recordId?: number; // Optional and read-only
     description2?: string;
@@ -71,7 +24,6 @@ class ItemModel {
     lastIssue?: Date;
     createdBy?: string;
     dateCreated?: Date;
-    leadTime?: number;
     
     // public set recordId(recordId: number) {
     //     this._recordId = recordId;
@@ -94,6 +46,7 @@ class ItemModel {
         orderQty: number,
         weigh: boolean,
         uom: string,
+        leadTime: number,
         
         recordId?: number, // Optional and read-only
         description2?: string,
@@ -105,7 +58,6 @@ class ItemModel {
         lastIssue?: Date,
         createdBy?: string,
         dateCreated?: Date,
-        leadTime?: number
     ) {
     
         this.code = code;
@@ -122,6 +74,7 @@ class ItemModel {
         this.weigh = weigh;
         this.uom = uom;
         this.dateCreated = dateCreated;
+        this.leadTime = leadTime;
         
         this._recordId = recordId;
         this.description2 = description2;
@@ -132,7 +85,6 @@ class ItemModel {
         this.notes = notes;
         this.lastIssue = lastIssue;
         this.createdBy = createdBy;
-        this.leadTime = leadTime;
     }
 
     public get recordId(): number | undefined {
