@@ -306,7 +306,7 @@ export const NewItemForm: React.FC<{
                         </label>
                         <input className='form-control' type='text' required 
                             value={description1}
-                            onChange={(event) => setDescription1(event.target.value.trim())}
+                            onChange={(event) => setDescription1(event.target.value)}
                             readOnly={isReadOnly}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
@@ -317,7 +317,7 @@ export const NewItemForm: React.FC<{
                         {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
                         <textarea className='form-control'  rows={3} 
                             value={description2}
-                            onChange={(event) => setDescription2(event.target.value.trim())}
+                            onChange={(event) => setDescription2(event.target.value)}
                             readOnly={isReadOnly}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></textarea>
