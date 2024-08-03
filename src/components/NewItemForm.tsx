@@ -168,12 +168,11 @@ export const NewItemForm: React.FC<{
 
         if (!props.isNew ) { //Update existed item
             if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
-                setModalMsg('Unique Code Required');
+                setModalTitle('Unique Code Required');
                 setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
                 setIsDelete(false);
                 setShowModal(true);
             } else {
-                alert('issueCost: ' + issueCost) 
                 props.updateItem(
                     props.selectedCode,
                     itemCode,
@@ -195,10 +194,16 @@ export const NewItemForm: React.FC<{
                     mfgItem, 
                     notes
                 );
+               
+                setModalTitle('Success');
+                setModalMsg(`Data Saved.`);
+                setIsDelete(false);
+                setShowModal(true);
 
-                resetForm();
-                props.setIsShowEntryForm(false);
-                props.setIsShowDetail(false);
+
+                // resetForm();
+                // props.setIsShowEntryForm(false);
+                // props.setIsShowDetail(false);
             }
 
         } else if (props.items.find(item => item.code === itemCode )) {
