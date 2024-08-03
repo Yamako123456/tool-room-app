@@ -396,9 +396,6 @@ export const NewItemForm: React.FC<{
                             ></input>
                     </div>
 
-
-
-
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
                         <label className='form-label'>
                             Supplier ID
@@ -423,7 +420,7 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Notes</label>
                         <textarea className='form-control' rows={3} 
                             value={notes}
-                            onChange={(event) => setNotes(event.target.value.trim())}
+                            onChange={(event) => setNotes(event.target.value)}
                             readOnly={isReadOnly}
                             ></textarea>
                     </div>
