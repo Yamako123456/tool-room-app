@@ -287,47 +287,51 @@ export const NewItemForm: React.FC<{
 
                     <div className='col-xl-4 col-lg-6 col-md-10 col-sm-12  mb-3' >
                         <label className='form-label'>
-                            Item Code
-                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
+                            Item Code:
+                            {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
                         <input type='text' className='form-control' required 
                             value={itemCode}
                             onChange={(event) => setItemCode(event.target.value.trim())}
                             readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                             ></input>
                     </div>
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
                         <label className='form-label'>
-                            Description 1
-                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
+                            Description 1:
+                            {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
                         <input className='form-control' type='text' required 
                             value={description1}
                             onChange={(event) => setDescription1(event.target.value.trim())}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                         
                     </div>
                     <div className='col-12 mb-3'>
-                        <label className='form-label'>Description 2</label>
-                        {(<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
+                        <label className='form-label'>Description 2:</label>
+                        {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
                         <textarea className='form-control'  rows={3} 
                             value={description2}
                             onChange={(event) => setDescription2(event.target.value.trim())}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></textarea>
                     </div>
                 </div>
                 <div className='row'>
                     <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
                         
-                        <label className='form-label'>Item Type</label>
+                        <label className='form-label'>Item Type:</label>
                         <select className='form-control' 
                             value={itemType} 
                             onChange={(event) => setItemType(event.target.value.trim())}
                             disabled={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             >
                             {Object.entries(ItemTypes).map(([key, value]) =>
                             (
@@ -339,11 +343,12 @@ export const NewItemForm: React.FC<{
                     </div>
                     <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
                         
-                        <label className='form-label'>UOM</label>
+                        <label className='form-label'>UOM:</label>
                         <select className='form-control' 
                             value={uom} 
                             onChange={(event) => setUom(event.target.value.trim())}
                             disabled={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             >
                             {Object.entries(UnitOfMeasure).map(([key, value]) =>
                             (
@@ -354,7 +359,7 @@ export const NewItemForm: React.FC<{
                         </select>   
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
-                        <label className='form-label'>Unit Price</label>
+                        <label className='form-label'>Unit Price:</label>
                         <input className='form-control' type='number'  
                             value={unitPrice}
                             onChange={(e) =>  {
@@ -363,10 +368,11 @@ export const NewItemForm: React.FC<{
                             }}
 
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
-                        <label className='form-label'>Issue Cost</label>
+                        <label className='form-label'>Issue Cost:</label>
                         <input className='form-control' type='number' 
                             value={issueCost}
                             onChange={(e) =>  {
@@ -374,69 +380,77 @@ export const NewItemForm: React.FC<{
                                 setIssueCost(Number(num.toFixed(2)));
                             }}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                     </div>
 
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
-                        <label className='form-label'>Pack Quantity</label>
+                        <label className='form-label'>Pack Quantity:</label>
                         <input className='form-control' type='number' 
                             value={packQty}
                             onChange={(e) => setPackQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
-                        <label className='form-label'>Order Quantity</label>
+                        <label className='form-label'>Order Quantity:</label>
                         <input className='form-control' type='number' 
                             value={orderQty}
                             onChange={(e) => setOrderQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                             ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
-                        <label className='form-label'>Lead Time</label>
+                        <label className='form-label'>Lead Time:</label>
                         <input className='form-control' type='number' 
                             value={leadTime}
                             onChange={(e) => setLeadTime(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                     </div>
 
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
                         <label className='form-label'>
-                            Supplier ID
-                            {(<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
+                            Supplier ID:
+                            {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
                         <input className='form-control' type='text' required
                             value={supplierId}
                             onChange={(event) => setSupplierId(event.target.value.trim())}
                             readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></input>
                     </div>
                     <div className='mb-3'>
-                        <label className='form-label'>Item Image URL</label>
+                        <label className='form-label'>Item Image URL:</label>
                         <textarea className='form-control' rows={3} 
                             value={itemImage}
                             onChange={(event) => setItemImage(event.target.value.trim())}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></textarea>
                     </div>                    
                     <div className='mb-3'>
-                        <label className='form-label'>Notes</label>
+                        <label className='form-label'>Notes:</label>
                         <textarea className='form-control' rows={3} 
                             value={notes}
                             onChange={(event) => setNotes(event.target.value)}
                             readOnly={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             ></textarea>
                     </div>
                     <div className='col-lg-5 col-md-7 col-sm-10 col-xs-12  mb-3'>
 
-                        <label className='form-label'>Category</label>
+                        <label className='form-label'>Category:</label>
                         <select className='form-control' 
                             value={category}
                             onChange={(event) => setCategory(event.target.value.trim())}
                             disabled={isReadOnly}
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
                             >
                             {Object.entries(ItemCategories).map(([key, value]) => (
                                 <option key={key} value={value}>
