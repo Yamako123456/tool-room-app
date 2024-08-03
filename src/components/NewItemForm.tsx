@@ -357,7 +357,10 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Unit Price</label>
                         <input className='form-control' type='number'  
                             value={unitPrice}
-                            onChange={e => setUnitPrice(Number(e.target.value.trim()))}
+                            onChange={(e) =>  {
+                                const num = parseFloat(e.target.value.trim());
+                                setUnitPrice(Number(num.toFixed(2)));
+                            }}
 
                             readOnly={isReadOnly}
                             ></input>
@@ -366,7 +369,10 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Issue Cost</label>
                         <input className='form-control' type='number' 
                             value={issueCost}
-                            onChange={(e) => setIssueCost(Number(e.target.value.trim()))}
+                            onChange={(e) =>  {
+                                const num = parseFloat(e.target.value.trim());
+                                setIssueCost(Number(num.toFixed(2)));
+                            }}
                             readOnly={isReadOnly}
                             ></input>
                     </div>
@@ -375,7 +381,7 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Pack Quantity</label>
                         <input className='form-control' type='number' 
                             value={packQty}
-                            onChange={(e) => setPackQty(Number(e.target.value.trim()))}
+                            onChange={(e) => setPackQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
                             ></input>
                     </div>
@@ -383,7 +389,7 @@ export const NewItemForm: React.FC<{
                         <label className='form-label'>Order Quantity</label>
                         <input className='form-control' type='number' 
                             value={orderQty}
-                            onChange={(e) => setOrderQty(Number(e.target.value.trim()))}
+                            onChange={(e) => setOrderQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
                             ></input>
                     </div>
