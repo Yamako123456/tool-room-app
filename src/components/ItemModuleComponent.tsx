@@ -25,13 +25,13 @@ export const ItemModuleComponent = () => {
                 weigh: false,
                 weight: 0.0,
                 uom: 'qyt',
+                leadTime: 7,
                 mfg: '',
                 mfgItem: '',
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
                 createdBy:'',
-                leadTime: 7
             },
             {
                 recordId: undefined,
@@ -51,13 +51,13 @@ export const ItemModuleComponent = () => {
                 weigh: false,
                 weight: 0.0,
                 uom: 'qyt',
+                leadTime: 10,
                 mfg: '',
                 mfgItem: '',
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
                 createdBy:'',
-                leadTime: 10
             },
             {
                 recordId: undefined,
@@ -77,13 +77,13 @@ export const ItemModuleComponent = () => {
                 weigh: false,
                 weight: 0.0,
                 uom: 'qyt',
+                leadTime: 4,
                 mfg: '',
                 mfgItem: '',
                 notes: '',
                 lastIssue: undefined,
                 dateCreated: undefined,
                 createdBy:'',
-                leadTime: 4
             },
     ]
     )
@@ -103,10 +103,10 @@ export const ItemModuleComponent = () => {
         weigh: boolean,
         weight: number,
         uom: string,
+        leadTime: number,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
-        leadTime?: number
     ) => {
             
             if (items.find(itm => itm.code === code))
@@ -130,13 +130,13 @@ export const ItemModuleComponent = () => {
                 weigh: weigh,
                 weight: weight,
                 uom: uom,
+                leadTime: leadTime,
                 mfg: mfg,
                 mfgItem: mfgItem,
                 notes: notes,
                 lastIssue: undefined,
                 dateCreated: new Date(),
                 createdBy: '',
-                leadTime: leadTime
             }    
             
             setItems(prevItems => [...prevItems, 
@@ -167,7 +167,7 @@ export const ItemModuleComponent = () => {
         mfgItem?: string,
         notes?: string,
     ) => {
-           
+           // Pre-verified other places and they display nice modal popup. here only for just-in-case.
             if ( code !== originalCode && 
                  items.find(itm => itm.code === code)) {
                     alert('Your new code alread exists! Update aborted. Pleas try again.')

@@ -158,7 +158,6 @@ export const NewItemForm: React.FC<{
         //     msg = 'Category length cannot exceed ' + CATEGORY_MAX;
         
         if (msg.length > 0) {
-        alert ('erro message populated')
             setModalTitle('Corrections Required')
             setModalMsg(msg);
             setIsDelete(false)
@@ -372,7 +371,7 @@ export const NewItemForm: React.FC<{
                         <input className='form-control' type='number'  
                             value={unitPrice}
                             onChange={(e) =>  {
-                                const num = e.target.value.trim() === '' ? 0 : parseFloat(e.target.value.trim());
+                                const num = parseFloat(e.target.value.trim());
                                 setUnitPrice(Number(num.toFixed(2)));
                             }}
 
