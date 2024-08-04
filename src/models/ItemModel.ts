@@ -11,13 +11,13 @@ class ItemModel {
     packQty: number;
     orderQty: number;
     weigh: boolean;
+    weight: number;
     uom: string;
     leadTime: number;
+    itemImage: string;
     
     private _recordId?: number; // Optional and read-only
     description2?: string;
-    itemImage?: string;
-    weight?: number;
     mfg?: string;
     mfgItem?: string;
     notes?: string;
@@ -45,13 +45,13 @@ class ItemModel {
         packQty: number,
         orderQty: number,
         weigh: boolean,
+        weight: number,
         uom: string,
         leadTime: number,
+        itemImage: string,
         
         recordId?: number, // Optional and read-only
         description2?: string,
-        itemImage?: string,
-        weight?: number,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
@@ -72,14 +72,14 @@ class ItemModel {
         this.packQty = packQty;
         this.orderQty = orderQty;
         this.weigh = weigh;
+        this.weight = weight;
         this.uom = uom;
         this.dateCreated = dateCreated;
         this.leadTime = leadTime;
+        this.itemImage = itemImage;
         
         this._recordId = recordId;
         this.description2 = description2;
-        this.itemImage = itemImage;
-        this.weight = weight;
         this.mfg = mfg; 
         this.mfgItem = mfgItem;
         this.notes = notes;
