@@ -23,21 +23,23 @@ class SupplierModel {
         custPoRepPath: string; //NOT NULL,
 	
         notes?: string;
-
+        
         regrinder: boolean;
         calibrator: boolean;
-
+        
         serviceFee?: number;
         stateTaxRate?: number; 
         currencyType?: string;
         
         shipMethod?: string;
         useOrdQty: boolean;
-
+        
         approval: boolean; 
         approveEmail?: string;
         authenticationAddr?: string;
- 
+        assigned: boolean; 
+        active: boolean;       
+        
 
         constructor(
                 myNo: string,
@@ -52,7 +54,8 @@ class SupplierModel {
                 calibrator: boolean,
                 useOrdQty: boolean,
                 approval: boolean,
-
+                assigned: boolean,
+                active: boolean,
                 addr1?: string, 
                 addr2?: string,
                 city?: string,
@@ -71,7 +74,7 @@ class SupplierModel {
                 currencyType?: string,
                 shipMethod?: string,
                 approveEmail?: string,
-                authenticationAddr?: string
+                authenticationAddr?: string,
         ) {
                 this.myNo = myNo;
                 this.myName = myName;
@@ -103,12 +106,14 @@ class SupplierModel {
                 this.serviceFee = serviceFee;
                 this.currencyType =currencyType;
            
-                this.shipMethod = shipMethod
-                this.useOrdQty = useOrdQty
+                this.shipMethod = shipMethod;
+                this.useOrdQty = useOrdQty;
            
                 this.approval = approval;
                 this.approveEmail = approveEmail;
-                this.authenticationAddr = authenticationAddr
+                this.authenticationAddr = authenticationAddr;
+                this.assigned = assigned;
+                this.active = active;
 	}
        
 }

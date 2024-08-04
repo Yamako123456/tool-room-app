@@ -1,256 +1,326 @@
 import React, {useState} from 'react'
-import {ItemTableSection} from "./ItemTableSection";
-import {NewItemForm} from "./NewItemForm";
+// import {ItemTableSection} from "./ItemTableSection";
+// import {NewItemForm} from "./NewItemForm";
 
 export const SupplierModuleComponent = () => {
     const [isShowEntryForm, setIsShowEntryForm] = useState(false);
     const [isShowDetail, setIsShowDetail] = useState(false);
 
-    const [items, setItems] = useState<ItemModel[]>([
+    const [suppliers, setSuppliers] = useState<SupplierModel[]>([
             {
-                recordId: undefined,
-                code: "153KJ83",
-                description1: "Makita Cordless Pistol-Grip Drills",
-                description2: "Tools using lower-voltage batteries are generally lighter and more compact but less powerful than tools using higher-voltage batteries.",
-                itemType: "Durable",
-                unitPrice: 161.54,
-                issueCost: 5.00,
-                supplierId: "XFD12Z",
-                itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
-                category: "Tool",
-                active: true,
+                recordId: undefined,       
+                myNo: "GRNGR1234",
+                myName: "Grainger",
+                addr1: "123 E. Ball Rd.",
+                addr2: "",
+                city: "Anaheim",
+                myState: "CA",  
+                zip: "92805-6312",  
+                country: "USA",
+                phone: "949-555-1234",
+                fax: "949-555-5678",
+                contact: "John Snow",
+                email: "john.snow@mygranger.com",
+                email2: "",
+                email3: "", 
+                autoPo: true,
+                faxPo: false,
+                emailPo: true,
+                blanketPo: "",
+                custPoRepPath: "",
+                notes: "rainger is America’s trusted source for MRO supplies and industrial products. ",
+                regrinder: false,
+                calibrator: false,
+                serviceFee: 0,
+                stateTaxRate: 7.25,
+                currencyType: "USD",
+                shipMethod: "",
+                useOrdQty: false,
+                approval: false, 
+                approveEmail: "",
+                authenticationAddr: "",
                 assigned: false,
-                packQty: 1,
-                orderQty: 1,
-                weigh: false,
-                weight: 0.0,
-                uom: 'qyt',
-                leadTime: 7,
-                mfg: '',
-                mfgItem: '',
-                notes: '',
-                lastIssue: undefined,
-                dateCreated: undefined,
-                createdBy:'',
+                active: true
             },
             {
-                recordId: undefined,
-                code: "2830D20",
-                description1: "Milwaukee General Purpose Cordless Circular Saws",
-                description2: "General purpose cordless circular saws make cross, rip, and beveled cuts in wood and other materials",
-                itemType: "Durable",
-                unitPrice: 318.56,
-                issueCost: 5.00,
-                supplierId: "Milwaukee",
-                itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
-                category: "Tool",
-                active: true,
+                recordId: undefined,       
+                myNo: "LANISTER12345",
+                myName: "Lanister CORP",
+                addr1: "876 Main St.",
+                addr2: "",
+                city: "Atlanta",
+                myState: "GA",  
+                zip: "30304-1234",  
+                country: "USA",
+                phone: "404-555-1234",
+                fax: "404-555-5678",
+                contact: "Tyrion Lanister",
+                email: "tyrion.lanister@mylanister.com",
+                email2: "",
+                email3: "", 
+                autoPo: true,
+                faxPo: false,
+                emailPo: true,
+                blanketPo: "",
+                custPoRepPath: "",
+                notes: "An industry leader with hundreds of thousands of productss. ",
+                regrinder: false,
+                calibrator: false,
+                serviceFee: 0,
+                stateTaxRate: 6.25,
+                currencyType: "USD",
+                shipMethod: "",
+                useOrdQty: false,
+                approval: false, 
+                approveEmail: "",
+                authenticationAddr: "",
                 assigned: false,
-                packQty: 1,
-                orderQty: 1,
-                weigh: false,
-                weight: 0.0,
-                uom: 'qyt',
-                leadTime: 10,
-                mfg: '',
-                mfgItem: '',
-                notes: '',
-                lastIssue: undefined,
-                dateCreated: undefined,
-                createdBy:'',
+                active: true
             },
             {
-                recordId: undefined,
-                code: "9150F44",
-                description1: "CHANNELLOCK Wrench",
-                description2: "Slim Jaw,8 Chrome, 8 in Overall Lg, 1 1/2 in Jaw Capacity",
-                itemType: "Durable",
-                unitPrice: 48.79,
-                issueCost: 5.00,
-                supplierId: "8SWCB",
-                itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
-                category: "Tool",
-                active: true,
-                assigned: true,
-                packQty: 1,
-                orderQty: 1,
-                weigh: false,
-                weight: 0.0,
-                uom: 'qyt',
-                leadTime: 4,
-                mfg: '',
-                mfgItem: '',
-                notes: '',
-                lastIssue: undefined,
-                dateCreated: undefined,
-                createdBy:'',
+                recordId: undefined,       
+                myNo: "STARK12345",
+                myName: "Stark CORP",
+                addr1: "876 Main St.",
+                addr2: "",
+                city: "Atlanta",
+                myState: "GA",  
+                zip: "30304-1234",  
+                country: "USA",
+                phone: "404-555-1234",
+                fax: "404-555-5678",
+                contact: "Arya Stark",
+                email: "arya.stark@mystark.com",
+                email2: "",
+                email3: "", 
+                autoPo: true,
+                faxPo: false,
+                emailPo: true,
+                blanketPo: "",
+                custPoRepPath: "",
+                notes: "Buy direct from Motion! The number one supplier of bearings, pneumatics,. ",
+                regrinder: false,
+                calibrator: false,
+                serviceFee: 0,
+                stateTaxRate: 6.25,
+                currencyType: "USD",
+                shipMethod: "",
+                useOrdQty: false,
+                approval: false, 
+                approveEmail: "",
+                authenticationAddr: "",
+                assigned: false,
+                active: true
             },
     ]
     )
 
-    const addItem = (
-        code: string,
-        description1: string,
-        description2: string,
-        itemType: string,
-        unitPrice: number,
-        issueCost: number,
-        supplierId: string,
-        itemImage: string,
-        category: string,
-        packQty: number,
-        orderQty: number,
-        weigh: boolean,
-        weight: number,
-        uom: string,
-        leadTime: number,
-        mfg?: string,
-        mfgItem?: string,
+    const addSupplier = (
+        myNo: string,
+        myName: string,
+        phone: string,
+        email: string, 
+        autoPo: boolean,
+        faxPo: boolean,
+        emailPo: boolean,
+        custPoRepPath: string, 
+        regrinder: boolean,
+        calibrator: boolean,
+        useOrdQty: boolean,
+        approval: boolean,
+
+        addr1?: string, 
+        addr2?: string,
+        city?: string,
+        myState?: string,  
+        zip?: string,
+        country?: string,
+        fax?: string,
+        contact?: string,
+        email2?: string,
+        email3?: string, 
+        blanketPo?: string,
         notes?: string,
+
+        serviceFee?: number,
+        stateTaxRate?: number, 
+        currencyType?: string,
+        shipMethod?: string,
+        approveEmail?: string,
+        authenticationAddr?: string,
     ) => {
             
-            if (items.find(itm => itm.code === code))
+            if (suppliers.find(sup => sup.myNo === myNo))
                 return;
 
-            const newItem = {
-                recordId: undefined,
-                code: code,
-                description1: description1,
-                description2: description2,
-                itemType: itemType,
-                unitPrice: unitPrice,
-                issueCost: issueCost,
-                supplierId: supplierId,
-                itemImage: itemImage,
-                category: category,
-                active: true,
-                assigned: false,
-                packQty: packQty,
-                orderQty: orderQty,
-                weigh: weigh,
-                weight: weight,
-                uom: uom,
-                leadTime: leadTime,
-                mfg: mfg,
-                mfgItem: mfgItem,
+            const newSupplier = {
+                myNo: myNo,
+                myName: myName,
+                addr1: addr1,
+                addr2: addr2,
+                city: city,
+                myState: myState,
+                zip: zip,
+                country: country,
+                phone: phone,
+                fax: fax,
+                contact: contact,
+                email: email,
+                email2: email2,
+                email3: email3,
+                autoPo: autoPo,
+                faxPo: faxPo,
+                emailPo: emailPo,
+                blanketPo: blanketPo,
+                custPoRepPath: custPoRepPath,
                 notes: notes,
-                lastIssue: undefined,
-                dateCreated: new Date(),
-                createdBy: '',
+                regrinder: regrinder,
+                calibrator: calibrator,
+                stateTaxRate: stateTaxRate,
+                serviceFee: serviceFee,
+                currencyType: currencyType,
+                shipMethod: shipMethod,
+                useOrdQty: useOrdQty,
+                approval: approval,
+                approveEmail: approveEmail,
+                authenticationAddr: authenticationAddr,
+                assigned: false,
+                active: true
             }    
             
-            setItems(prevItems => [...prevItems, 
-                newItem as ItemModel 
+            setSuppliers(prevSuppliers => [...prevSuppliers, 
+                newSupplier as SupplierModel 
             ])
             
-                // setItems(items => [...items, newItem])
     }
 
-    const updateItem = (
-        originalCode: string,
-        code: string,
-        description1: string,
-        description2: string,
-        itemType: string,
-        unitPrice: number,
-        issueCost: number,
-        supplierId: string,
-        itemImage: string,
-        category: string,
-        packQty: number,
-        orderQty: number,
-        weigh: boolean,
-        weight: number,
-        uom: string,
-        leadTime: number,
-        mfg?: string,
-        mfgItem?: string,
+    const updateSupplier = (
+        originalMyNo: string,
+        myNo: string,
+        myName: string,
+        phone: string,
+        email: string, 
+        autoPo: boolean,
+        faxPo: boolean,
+        emailPo: boolean,
+        custPoRepPath: string, 
+        regrinder: boolean,
+        calibrator: boolean,
+        useOrdQty: boolean,
+        approval: boolean,
+
+        addr1?: string, 
+        addr2?: string,
+        city?: string,
+        myState?: string,  
+        zip?: string,
+        country?: string,
+        fax?: string,
+        contact?: string,
+        email2?: string,
+        email3?: string, 
+        blanketPo?: string,
         notes?: string,
+
+        serviceFee?: number,
+        stateTaxRate?: number, 
+        currencyType?: string,
+        shipMethod?: string,
+        approveEmail?: string,
+        authenticationAddr?: string,
     ) => {
            // Pre-verified other places and they display nice modal popup. here only for just-in-case.
-            if ( code !== originalCode && 
-                 items.find(itm => itm.code === code)) {
-                    alert('Your new code alread exists! Update aborted. Pleas try again.')
+            if ( myNo !== originalMyNo && 
+                 suppliers.find(sup => sup.myNo === myNo)) {
+                    alert('Your new supplier ID alread exists! Update aborted. Pleas try again.')
                 return;
             }
 
-            const originalItem: ItemModel = items.filter(
-                item => item.code === originalCode
+            const originalSupplier: SupplierModel = suppliers.filter(
+                sup => sup.myNo === originalMyNo
             )[0];
-            const index = items.findIndex(itm => itm.code === originalCode);
+            const index = suppliers.findIndex(sup => sup.myNo === originalMyNo);
             if (index !== -1) {
            
-                const newItem: ItemModel = {
-                    recordId: originalItem.recordId,
-                    code: code,
-                    description1: description1,
-                    description2: description2,
-                    itemType: itemType,
-                    unitPrice: unitPrice,
-                    issueCost: issueCost,
-                    supplierId: supplierId,
-                    itemImage: itemImage,
-                    category: category,
-                    active: originalItem.active,
-                    assigned: originalItem.assigned,
-                    packQty: packQty,
-                    orderQty: orderQty,
-                    weigh: weigh,
-                    weight: weight,
-                    uom: uom,
-                    leadTime: leadTime,
-                    mfg: mfg,
-                    mfgItem: mfgItem,
+                const newSupplier: SupplierModel = {
+                    myNo: myNo,
+                    myName: myName,
+                    addr1: addr1,
+                    addr2: addr2,
+                    city: city,
+                    myState: myState,
+                    zip: zip,
+                    country: country,
+                    phone: phone,
+                    fax: fax,
+                    contact: contact,
+                    email: email,
+                    email2: email2,
+                    email3: email3,
+                    autoPo: autoPo,
+                    faxPo: faxPo,
+                    emailPo: emailPo,
+                    blanketPo: blanketPo,
+                    custPoRepPath: custPoRepPath,
                     notes: notes,
-                    lastIssue: originalItem.lastIssue,
-                    dateCreated: originalItem.dateCreated,
-                    createdBy: originalItem.createdBy,
+                    regrinder: regrinder,
+                    calibrator: calibrator,
+                    stateTaxRate: stateTaxRate,
+                    serviceFee: serviceFee,
+                    currencyType: currencyType,
+                    shipMethod: shipMethod,
+                    useOrdQty: useOrdQty,
+                    approval: approval,
+                    approveEmail: approveEmail,
+                    authenticationAddr: authenticationAddr,
+                    assigned: originalSupplier.assigned,
+                    active: originalSupplier.active
                 }
 
-                const shallowCopiedItems: ItemModel[] = [
-                    ...items.slice(0, index) as ItemModel[], 
-                    newItem as ItemModel, 
-                    ...items.slice(index + 1) as ItemModel[]
+                const shallowCopiedSuppliers: SupplierModel[] = [
+                    ...suppliers.slice(0, index) as SupplierModel[], 
+                    newSupplier as SupplierModel, 
+                    ...suppliers.slice(index + 1) as SupplierModel[]
                 ];
 
-                setItems(shallowCopiedItems );
+                setSuppliers(shallowCopiedSuppliers );
             }
         }
 
-    const deleteItem = (originalCode: string) => {
-        if (items.filter((itm) => itm.code === originalCode)[0].assigned) {
+    const deleteSupplier = (originalMyNo: string) => {
+        if (suppliers.filter((sup) => sup.myNo === originalMyNo)[0].assigned) {
             
-            const modifiedItems: ItemModel[] = items.map(item => {
+            const modifiedSuppliers: SupplierModel[] = suppliers.map(sup => {
                
-                if (item.code === originalCode) {
-                    return { ...item, active: false } as ItemModel;
+                if (sup.myNo === originalMyNo) {
+                    return { ...sup, active: false } as SupplierModel;
                 } else
-                    return item;
+                    return sup;
             })
-            setItems(modifiedItems)
+            setSuppliers(modifiedSuppliers)
             
         } else {
 
-            setItems(items.filter(item => item.code !== originalCode));
+            setSuppliers(suppliers.filter(sup => sup.myNo !== originalMyNo));
         }
          
     
     }
 
-    const inactivateItem = (code: string) => {
-        const modifiedItems: ItemModel[] = items.map(item => 
-            item.code === code ? { ...item, active: false } as ItemModel : item
+    const inactivateSupplier = (myNo: string) => {
+        const modifiedSuppliers: SupplierModel[] = suppliers.map(sup => 
+            sup.myNo === myNo ? { ...sup, active: false } as SupplierModel : sup
         );    
 
-        setItems(modifiedItems);
+        setSuppliers(modifiedSuppliers);
     } 
 
     return(
         <div className='mt-5 '>
             <div className="page-header">
-                <h1>Inventory Items</h1>
+                <h1>Suppliers</h1>
             </div>
-
+{/* 
             <ItemTableSection 
                 addItem={addItem}
                 updateItem={updateItem}
@@ -260,16 +330,16 @@ export const SupplierModuleComponent = () => {
                 setIsShowEntryForm={setIsShowEntryForm}
                 isShowDetail={isShowDetail}
                 setIsShowDetail={setIsShowDetail}
-            />
+            /> */}
 
             {isShowEntryForm && (
 
             <div className='card mt-5' style={{backgroundColor: 'lightblue'}}>
                 <div className='card-header'>
-                    New Item Entry Form
+                    New Supplier Entry Form
                 </div>
                 <div className='card-body'>
-                    <NewItemForm 
+                    {/* <NewItemForm 
                         isNew={true}
                         selectedCode={''}
                         addItem={addItem} 
@@ -279,7 +349,7 @@ export const SupplierModuleComponent = () => {
                         setIsShowEntryForm={setIsShowEntryForm}
                         setIsShowDetail={setIsShowDetail}
                         caption={'Add'}
-                    />
+                    /> */}
                 </div>
             </div>
 
