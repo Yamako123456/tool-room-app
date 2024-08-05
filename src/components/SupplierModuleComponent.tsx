@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-// import {ItemTableSection} from "./ItemTableSection";
+import {SupplierTableSection} from "./SupplierTableSection";
 // import {NewItemForm} from "./NewItemForm";
 
 export const SupplierModuleComponent = () => {
@@ -128,6 +128,8 @@ export const SupplierModuleComponent = () => {
         calibrator: boolean,
         useOrdQty: boolean,
         approval: boolean,
+        serviceFee: number,
+        stateTaxRate: number, 
 
         addr1?: string, 
         addr2?: string,
@@ -142,8 +144,7 @@ export const SupplierModuleComponent = () => {
         blanketPo?: string,
         notes?: string,
 
-        serviceFee?: number,
-        stateTaxRate?: number, 
+        
         currencyType?: string,
         shipMethod?: string,
         approveEmail?: string,
@@ -208,6 +209,8 @@ export const SupplierModuleComponent = () => {
         calibrator: boolean,
         useOrdQty: boolean,
         approval: boolean,
+        serviceFee: number,
+        stateTaxRate: number, 
 
         addr1?: string, 
         addr2?: string,
@@ -222,8 +225,7 @@ export const SupplierModuleComponent = () => {
         blanketPo?: string,
         notes?: string,
 
-        serviceFee?: number,
-        stateTaxRate?: number, 
+
         currencyType?: string,
         shipMethod?: string,
         approveEmail?: string,
@@ -320,17 +322,17 @@ export const SupplierModuleComponent = () => {
             <div className="page-header">
                 <h1>Suppliers</h1>
             </div>
-{/* 
-            <ItemTableSection 
-                addItem={addItem}
-                updateItem={updateItem}
-                deleteItem={deleteItem}
-                items={items} 
-                inactivateItem={inactivateItem}
+ 
+            <SupplierTableSection 
+                addSupplier={addSupplier}
+                updateSupplier={updateSupplier}
+                deleteSupplier={deleteSupplier}
+                suppliers={suppliers} 
+                inactivateSupplier={inactivateSupplier}
                 setIsShowEntryForm={setIsShowEntryForm}
                 isShowDetail={isShowDetail}
                 setIsShowDetail={setIsShowDetail}
-            /> */}
+            />
 
             {isShowEntryForm && (
 
@@ -339,13 +341,13 @@ export const SupplierModuleComponent = () => {
                     New Supplier Entry Form
                 </div>
                 <div className='card-body'>
-                    {/* <NewItemForm 
+                    {/* <NewSupplierForm 
                         isNew={true}
-                        selectedCode={''}
-                        addItem={addItem} 
-                        deleteItem={deleteItem}
-                        items={items} 
-                        updateItem={updateItem}
+                        selectedMyNo={''}
+                        addSupplier={addSupplier} 
+                        deleteSupplier={deleteSupplier}
+                        suppliers={suppliers} 
+                        updateSupplier={updateSupplier}
                         setIsShowEntryForm={setIsShowEntryForm}
                         setIsShowDetail={setIsShowDetail}
                         caption={'Add'}

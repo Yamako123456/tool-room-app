@@ -14,7 +14,7 @@ import {ItemRowItem} from "./ItemRowItem"
 export const ItemRows: React.FC<{
     activeItems: ItemModel[],
     isShowDetail: boolean,
-    setIsSelectedCode:  (code: string) => void,
+    // setIsSelectedCode:  (code: string) => void,
     selectedCode: string,
     setSelectedCode:  (code: string) => void,
     sortBy: string,

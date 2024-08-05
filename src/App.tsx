@@ -72,7 +72,7 @@ export const App = () => {
               <Route path="/" element={<HomeComponent />} />
               <Route path="/about" element={<AboutComponent />} />
               <Route path="/items" element={<ItemModuleComponent />} />
-              <Route path="/supliers" element={<SupplierModuleComponent />} />
+              <Route path="/suppliers" element={<SupplierModuleComponent />} />
               <Route path="/print/:itemCode" element={<PrintWrapper/>} />
             
           </Routes>

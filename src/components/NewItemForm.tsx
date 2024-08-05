@@ -14,7 +14,6 @@ export const NewItemForm: React.FC<{
     setIsShowDetail: Function,
     caption: string
 }> = (props) => {
-    // console.log(props.selectedItem)
     
     const ItemTypes = {
         EXPENDABLE: 'Expendable',
@@ -206,7 +205,6 @@ export const NewItemForm: React.FC<{
             }
 
         } else if (props.items.find(item => item.code === itemCode )) {
-            console.log(itemCode)
             setModalMsg('Unique Code Required');
             setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
             setIsDelete(false);
