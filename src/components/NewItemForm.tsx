@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import { Modal, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,10 +12,11 @@ export const NewItemForm: React.FC<{
     items: ItemModel[],
     setIsShowEntryForm: Function,
     setIsShowDetail: Function,
-    caption: string
+    caption: string,
+    isShowDetail: boolean
 }> = (props) => {
     // console.log(props.selectedItem)
-    
+
     const ItemTypes = {
         EXPENDABLE: 'Expendable',
         DURABLE: 'Durable',
@@ -25,15 +26,15 @@ export const NewItemForm: React.FC<{
     }
 
     const UnitOfMeasure = {
-        qty: 'qty', 
+        qty: 'qty',
         pack: 'pack',
-        oz: 'oz', 
-        lb: 'lb', 
+        oz: 'oz',
+        lb: 'lb',
         mg: 'mg',
-        g: 'g', 
+        g: 'g',
         kg: 'kg',
         in: 'in',
-        ft: 'ft', 
+        ft: 'ft',
         yd: 'yd',
         mm: 'mm',
         cm: 'cm',
@@ -60,21 +61,21 @@ export const NewItemForm: React.FC<{
         SAFTY: 'Safty item',
         OFFICE_SUPPLY: 'Office Supplies',
 
-    }   
-          
+    }
+
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
-    
+
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
     const [description1, setDescription1] = useState(props.isNew ? '' : selectedItem.description1);
     const [description2, setDescription2] = useState(props.isNew ? '' : selectedItem.description2);
     const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
-    const [unitPrice, setUnitPrice] = useState(props.isNew ? 0: selectedItem.unitPrice);
+    const [unitPrice, setUnitPrice] = useState(props.isNew ? 0 : selectedItem.unitPrice);
     const [issueCost, setIssueCost] = useState(props.isNew ? 0 : selectedItem.issueCost);
     const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
-    const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL: selectedItem.category);
-   
-    const [packQty, setPackQty] = useState(props.isNew ? 1 : selectedItem.packQty );
+    const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL : selectedItem.category);
+
+    const [packQty, setPackQty] = useState(props.isNew ? 1 : selectedItem.packQty);
     const [orderQty, setOrderQty] = useState(props.isNew ? 1 : selectedItem.orderQty);
     const [weigh, setWeigh] = useState(props.isNew ? false : selectedItem.weigh);
     const [weight, setWeight] = useState(props.isNew ? 0 : selectedItem.weight);
@@ -106,57 +107,57 @@ export const NewItemForm: React.FC<{
             setBtnCaption('Save')
             return;
         }
-        
+
         // Check if items is defined before using find
         if (!props.items) {
             console.log('Items prop is undefined or null in submitItem().');
             return;
         }
-        
-        if( 
-            itemCode === '' || 
-            description1 === '' || 
-            supplierId === '' 
-        ){
+
+        if (
+            itemCode === '' ||
+            description1 === '' ||
+            supplierId === ''
+        ) {
             if (props.isNew) {
                 setModalTitle('Incomplete Form');
-            }else
+            } else
                 setModalTitle('Update Aborted')
-            
+
             setModalMsg('Code, Description1 and SupplierId are required!')
             setIsDelete(false)
             setShowModal(true)
 
-            if (!props.isNew){
+            if (!props.isNew) {
                 resetForm();
                 props.setIsShowEntryForm(false);
                 props.setIsShowDetail(false);
             }
             return;
-        }   
-    
+        }
+
         let msg = '';
-    if (isNaN(unitPrice) || isNaN(issueCost) || isNaN(packQty) || isNaN(orderQty) || isNaN(leadTime) ){
-        msg = 'Numeric value cannot be empty.';
-    }else if(itemCode.length > CODE_MAX) {
+        if (isNaN(unitPrice) || isNaN(issueCost) || isNaN(packQty) || isNaN(orderQty) || isNaN(leadTime)) {
+            msg = 'Numeric value cannot be empty.';
+        } else if (itemCode.length > CODE_MAX) {
 
             msg = 'Code length cannot exceed ' + CODE_MAX;
-        }else if(description1.length > DESCRIPTION1_MAX) {
+        } else if (description1.length > DESCRIPTION1_MAX) {
             msg = 'Description 1 length cannot exceed ' + DESCRIPTION1_MAX;
-        }else if(description2 !== undefined && description2.length > DESCRIPTION2_MAX) {
+        } else if (description2 !== undefined && description2.length > DESCRIPTION2_MAX) {
             msg = 'Description 2 length cannot exceed ' + DESCRIPTION2_MAX;
-        }else if(unitPrice.toString().length > CURRENCY_MAX || issueCost.toString().length > CURRENCY_MAX) {
+        } else if (unitPrice.toString().length > CURRENCY_MAX || issueCost.toString().length > CURRENCY_MAX) {
 
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
-        
-        }else if (supplierId.length > SUPLIER_MAX) {
+
+        } else if (supplierId.length > SUPLIER_MAX) {
 
             msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
         }
 
         // if(subCategory.length > CATEGORY_MAX)    
         //     msg = 'Category length cannot exceed ' + CATEGORY_MAX;
-        
+
         if (msg.length > 0) {
             setModalTitle('Corrections Required')
             setModalMsg(msg);
@@ -165,8 +166,8 @@ export const NewItemForm: React.FC<{
             return;
         }
 
-        if (!props.isNew ) { //Update existed item
-            if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode )) {
+        if (!props.isNew) { //Update existed item
+            if (props.selectedCode !== itemCode && props.items.find(item => item.code === itemCode)) {
                 setModalTitle('Unique Code Required');
                 setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
                 setIsDelete(false);
@@ -177,8 +178,8 @@ export const NewItemForm: React.FC<{
                     itemCode,
                     description1,
                     description2,
-                    itemType, 
-                    unitPrice, 
+                    itemType,
+                    unitPrice,
                     issueCost,
                     supplierId,
                     itemImage,
@@ -186,14 +187,14 @@ export const NewItemForm: React.FC<{
                     packQty,
                     orderQty,
                     weigh,
-                    weight, 
-                    uom, 
+                    weight,
+                    uom,
                     leadTime,
-                    mfg, 
-                    mfgItem, 
+                    mfg,
+                    mfgItem,
                     notes
                 );
-               
+
                 setModalTitle('Success');
                 setModalMsg(`Data Saved.`);
                 setIsDelete(false);
@@ -205,7 +206,7 @@ export const NewItemForm: React.FC<{
                 // props.setIsShowDetail(false);
             }
 
-        } else if (props.items.find(item => item.code === itemCode )) {
+        } else if (props.items.find(item => item.code === itemCode)) {
             console.log(itemCode)
             setModalMsg('Unique Code Required');
             setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
@@ -216,8 +217,8 @@ export const NewItemForm: React.FC<{
                 itemCode,
                 description1,
                 description2,
-                itemType, 
-                unitPrice, 
+                itemType,
+                unitPrice,
                 issueCost,
                 supplierId,
                 itemImage,
@@ -225,10 +226,10 @@ export const NewItemForm: React.FC<{
                 packQty,
                 orderQty,
                 weigh,
-                weight, 
-                uom, 
-                mfg, 
-                mfgItem, 
+                weight,
+                uom,
+                mfg,
+                mfgItem,
                 notes,
                 leadTime
             );
@@ -236,7 +237,7 @@ export const NewItemForm: React.FC<{
             resetForm();
             props.setIsShowEntryForm(false);
             props.setIsShowDetail(false);
-        }    
+        }
     }
 
     const resetForm = () => {
@@ -254,9 +255,9 @@ export const NewItemForm: React.FC<{
         setOrderQty(1);
         setWeigh(false);
         setWeight(0);
-        setUom('qty'); 
+        setUom('qty');
         setMfg('');
-        setMfgItem(''); 
+        setMfgItem('');
         setNotes('');
         setLeadTime(0);
     }
@@ -285,12 +286,52 @@ export const NewItemForm: React.FC<{
         setIsDelete(true);
         setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?');
         setShowModal(true);
-  
+
     }
+    const [showHint, setShowHint] = useState(true);
 
     return (
         <div>
             <form>
+
+
+
+                {!props.isShowDetail && (
+                    <div className="row g-1 align-items-center">
+                        <div className="col-auto mb-3">
+                            <button className="btn btn-primary me-2" onClick={submitItem}>
+                                Pre-fill forms by Product API (optional)
+                            </button>
+                        </div>
+
+                        {showHint && (
+                            <div className="mt-2 p-2 border rounded bg-light">
+                                <div className="small mb-2">
+                                    Tip: Enter the UPC/EAN number shown on the barcode label.
+                                </div>
+                                <img
+                                    src="/img/Barcode_number_zoomup.jpg"
+                                    alt="UPC/EAN example"
+                                    style={{ maxWidth: "320px" }}
+                                />
+                            </div>
+                        )}
+
+                        <div className="col mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Item Code (UPC/EAN) for Product API (optional)"
+                                value={itemCode}
+                                onFocus={() => setShowHint(true)}
+                                onBlur={() => setShowHint(false)}
+                                onChange={(e) => setItemCode(e.target.value.trim())}
+                            />
+                        </div>
+                    </div>
+                )}
+
+
                 <div className='row'>
 
                     <div className='col-xl-4 col-lg-6 col-md-10 col-sm-12  mb-3' >
@@ -299,12 +340,12 @@ export const NewItemForm: React.FC<{
                             {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {CODE_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
-                        <input type='text' className='form-control' required 
+                        <input type='text' className='form-control' required
                             value={itemCode}
                             onChange={(event) => setItemCode(event.target.value.trim())}
                             readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
-                            ></input>
+                        ></input>
                     </div>
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
                         <label className='form-label'>
@@ -312,112 +353,112 @@ export const NewItemForm: React.FC<{
                             {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
-                        <input className='form-control' type='text' required 
+                        <input className='form-control' type='text' required
                             value={description1}
                             onChange={(event) => setDescription1(event.target.value)}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
-                        
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
+
                     </div>
                     <div className='col-12 mb-3'>
                         <label className='form-label'>Description 2:</label>
                         {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION2_MAX} )</span>)}
-                        <textarea className='form-control'  rows={3} 
+                        <textarea className='form-control' rows={3}
                             value={description2}
                             onChange={(event) => setDescription2(event.target.value)}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></textarea>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></textarea>
                     </div>
                 </div>
                 <div className='row'>
                     <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
-                        
+
                         <label className='form-label'>Item Type:</label>
-                        <select className='form-control' 
-                            value={itemType} 
+                        <select className='form-control'
+                            value={itemType}
                             onChange={(event) => setItemType(event.target.value.trim())}
                             disabled={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            >
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        >
                             {Object.entries(ItemTypes).map(([key, value]) =>
                             (
                                 <option key={key} value={value}>
                                     {value}
-                                </option>        
+                                </option>
                             ))}
-                        </select>   
+                        </select>
                     </div>
                     <div className='col-lg-2 col-md- col-sm-4 col-xs-6  mb-3'>
-                        
+
                         <label className='form-label'>UOM:</label>
-                        <select className='form-control' 
-                            value={uom} 
+                        <select className='form-control'
+                            value={uom}
                             onChange={(event) => setUom(event.target.value.trim())}
                             disabled={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            >
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        >
                             {Object.entries(UnitOfMeasure).map(([key, value]) =>
                             (
                                 <option key={key} value={value}>
                                     {value}
-                                </option>        
+                                </option>
                             ))}
-                        </select>   
+                        </select>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
                         <label className='form-label'>Unit Price:</label>
-                        <input className='form-control' type='number'  
+                        <input className='form-control' type='number'
                             value={unitPrice}
-                            onChange={(e) =>  {
+                            onChange={(e) => {
                                 const num = parseFloat(e.target.value.trim());
                                 setUnitPrice(Number(num.toFixed(2)));
                             }}
 
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
                         <label className='form-label'>Issue Cost:</label>
-                        <input className='form-control' type='number' 
+                        <input className='form-control' type='number'
                             value={issueCost}
-                            onChange={(e) =>  {
+                            onChange={(e) => {
                                 const num = parseFloat(e.target.value.trim());
                                 setIssueCost(Number(num.toFixed(2)));
                             }}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
                     </div>
 
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
                         <label className='form-label'>Pack Quantity:</label>
-                        <input className='form-control' type='number' 
+                        <input className='form-control' type='number'
                             value={packQty}
                             onChange={(e) => setPackQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
                         <label className='form-label'>Order Quantity:</label>
-                        <input className='form-control' type='number' 
+                        <input className='form-control' type='number'
                             value={orderQty}
                             onChange={(e) => setOrderQty(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
-                            ></input>
+                        ></input>
                     </div>
                     <div className='col-lg-2 col-md-3 col-sm-4 col-xs-6  mb-3'>
                         <label className='form-label'>Lead Time:</label>
-                        <input className='form-control' type='number' 
+                        <input className='form-control' type='number'
                             value={leadTime}
                             onChange={(e) => setLeadTime(parseInt(e.target.value.trim()))}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
                     </div>
 
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
@@ -430,36 +471,36 @@ export const NewItemForm: React.FC<{
                             value={supplierId}
                             onChange={(event) => setSupplierId(event.target.value.trim())}
                             readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></input>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></input>
                     </div>
                     <div className='mb-3'>
                         <label className='form-label'>Item Image URL:</label>
-                        <textarea className='form-control' rows={3} 
+                        <textarea className='form-control' rows={3}
                             value={itemImage}
                             onChange={(event) => setItemImage(event.target.value.trim())}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></textarea>
-                    </div>                    
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></textarea>
+                    </div>
                     <div className='mb-3'>
                         <label className='form-label'>Notes:</label>
-                        <textarea className='form-control' rows={3} 
+                        <textarea className='form-control' rows={3}
                             value={notes}
                             onChange={(event) => setNotes(event.target.value)}
                             readOnly={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            ></textarea>
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        ></textarea>
                     </div>
                     <div className='col-lg-5 col-md-7 col-sm-10 col-xs-12  mb-3'>
 
                         <label className='form-label'>Category:</label>
-                        <select className='form-control' 
+                        <select className='form-control'
                             value={category}
                             onChange={(event) => setCategory(event.target.value.trim())}
                             disabled={isReadOnly}
-                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none' , pointerEvents: 'none'} : {}}
-                            >
+                            style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
+                        >
                             {Object.entries(ItemCategories).map(([key, value]) => (
                                 <option key={key} value={value}>
                                     {value}
@@ -470,7 +511,7 @@ export const NewItemForm: React.FC<{
                     </div>
 
                 </div>
-                                {/* <div className='mb-3'>
+                {/* <div className='mb-3'>
                     <label className='form-label'>Sub-catetory</label>
                     {(<span style={{ fontSize: '0.6rem' }}>( max length: {CATEGORY_MAX} )</span>)}
                     <input className='form-control' type='text' 
@@ -481,14 +522,14 @@ export const NewItemForm: React.FC<{
                 </div>
                  */}
             </form>
-            <button 
-                className={btnCaption === 'Save' || btnCaption === 'Add' ? 'btn btn-success me-2' : 'btn btn-primary me-2'} 
+            <button
+                className={btnCaption === 'Save' || btnCaption === 'Add' ? 'btn btn-success me-2' : 'btn btn-primary me-2'}
                 onClick={submitItem}>
-                    {btnCaption}
+                {btnCaption}
             </button>
-            
+
             {!props.isNew && props.setIsShowDetail &&
-                <button className='btn btn-warning me-2' onClick={deleteConfirmation}>Delete</button>    
+                <button className='btn btn-warning me-2' onClick={deleteConfirmation}>Delete</button>
             }
 
             <button className='btn btn-dark' onClick={closeForm}>Close</button>
@@ -504,8 +545,8 @@ export const NewItemForm: React.FC<{
                         setModalTitle('')
                         setModalTitle('')
                     }}>
-                    {isDelete ? 'Cancel' : 'Close'}
-                    
+                        {isDelete ? 'Cancel' : 'Close'}
+
                     </Button>
 
                     {isDelete && (
