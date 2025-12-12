@@ -248,7 +248,7 @@ export const ItemModuleComponent = () => {
     return (
         <div className='mt-5 '>
             <div className="page-header">
-                <h1>Inventory Items</h1>
+                <h1>Manage Inventory Items</h1>
             </div>
 
             <ItemTableSection
