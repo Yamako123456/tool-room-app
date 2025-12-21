@@ -101,6 +101,8 @@ export const NewItemForm: React.FC<{
     const CURRENCY_MAX = 25;
     const CATEGORY_MAX = 50;
 
+    const productAPISearch = () => { console.log('productAPISearch process') }
+
     const submitItem = () => {
         if (btnCaption === 'Edit') {
             setIsReadOnly(false);
@@ -292,46 +294,42 @@ export const NewItemForm: React.FC<{
 
     return (
         <div>
-            <form>
+            {!props.isShowDetail && (
+                <div className="row g-1 align-items-center">
+                    <div className="col-auto mb-3">
+                        <button className="btn btn-primary me-2" onClick={productAPISearch}>
+                            Pre-fill Option
+                        </button>
+                    </div>
 
-
-
-                {!props.isShowDetail && (
-                    <div className="row g-1 align-items-center">
-                        <div className="col-auto mb-3">
-                            <button className="btn btn-primary me-2" onClick={submitItem}>
-                                Pre-fill forms by Product API (optional)
-                            </button>
-                        </div>
-
-                        {showHint && (
-                            <div className="mt-2 p-2 border rounded bg-light">
-                                <div className="small mb-2">
-                                    Tip: Enter the UPC/EAN number shown on the barcode label.
-                                </div>
-                                <img
-                                    src="/img/Barcode_number_zoomup.jpg"
-                                    alt="UPC/EAN example"
-                                    style={{ maxWidth: "320px" }}
-                                />
+                    {showHint && (
+                        <div className="mt-2 p-2 border rounded bg-light">
+                            <div className="small mb-2">
+                                Hint: UPC/EAN can be found under barcode.
                             </div>
-                        )}
-
-                        <div className="col mb-3">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Item Code (UPC/EAN) for Product API (optional)"
-                                value={itemCode}
-                                onFocus={() => setShowHint(true)}
-                                onBlur={() => setShowHint(false)}
-                                onChange={(e) => setItemCode(e.target.value.trim())}
+                            <img
+                                src="/img/Barcode_number_zoomup.jpg"
+                                alt="UPC/EAN example"
+                                style={{ maxWidth: "320px" }}
                             />
                         </div>
+                    )}
+
+                    <div className="col mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter UPC/EAN Here"
+                            value={itemCode}
+                            onFocus={() => setShowHint(true)}
+                            onBlur={() => setShowHint(false)}
+                            onChange={(e) => setItemCode(e.target.value.trim())}
+                        />
                     </div>
-                )}
+                </div>
+            )}
 
-
+            <form>
                 <div className='row'>
 
                     <div className='col-xl-4 col-lg-6 col-md-10 col-sm-12  mb-3' >
