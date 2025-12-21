@@ -1,16 +1,20 @@
 import './App.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
-import {HomeComponent} from './components/HomeComponent';
-import {AboutComponent} from './components/AboutComponent';
-import {ItemModuleComponent} from './components/ItemModuleComponent';
+import { HomeComponent } from './components/HomeComponent';
+import { AboutComponent } from './components/AboutComponent';
+import { ItemModuleComponent } from './components/ItemModuleComponent';
 import { PrintComponent } from './components/PrintComponent';
 import { NewItemForm } from './components/NewItemForm';
+import { initialItems } from './data/InitialItems';
 
 
 
 export const App = () => {
+
+  const [items, setItems] = useState<ItemModel[]>(initialItems);
+
   return (
 
     <div>
@@ -19,8 +23,8 @@ export const App = () => {
         <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
           <div className='container-fluid'>
             <Link className='navbar-brand' to='/'>Toolroom Management System</Link>
-          
-         
+
+
             <button className="navbar-toggler" type="button"
               data-bs-toggle="collapse"
               data-bs-target="#contents">
@@ -38,30 +42,30 @@ export const App = () => {
                   <Link to="/about" className='nav-link'>About</Link>
                 </li>
               </ul>
-            </div>           
+            </div>
 
           </div>
         </nav>
-      
+
         <div className='container mt-3'>
           <Routes>
-              <Route path="/" element={<HomeComponent />} />
-              <Route path="/about" element={<AboutComponent />} />
-              <Route path="/items" element={<ItemModuleComponent />} />
-              <Route path="/print/:itemCode" element={<PrintWrapper/>} />
-            
+            <Route path="/" element={<HomeComponent items={items} setItems={setItems} />} />
+            <Route path="/about" element={<AboutComponent />} />
+            <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
+            <Route path="/print/:itemCode" element={<PrintWrapper />} />
+
           </Routes>
         </div>
       </Router>
 
-      
+
     </div>
   );
 }
 const PrintWrapper = () => {
 
   const { itemCode } = useParams<{ itemCode: string }>();
-  
+
   if (!itemCode) {
     return <div>Item Code not found.</div>; // In case  itemCode is undefined
   }

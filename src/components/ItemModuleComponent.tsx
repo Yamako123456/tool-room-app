@@ -1,92 +1,16 @@
 import React, { useState } from 'react'
 import { ItemTableSection } from "./ItemTableSection";
 import { NewItemForm } from "./NewItemForm";
+import { initialItems } from "../data/InitialItems";
 
-export const ItemModuleComponent = () => {
+type Props = {
+    items: ItemModel[];
+    setItems: React.Dispatch<React.SetStateAction<ItemModel[]>>;
+};
+
+export const ItemModuleComponent = ({ items, setItems }: Props) => {
     const [isShowEntryForm, setIsShowEntryForm] = useState(false);
     const [isShowDetail, setIsShowDetail] = useState(false);
-
-    const [items, setItems] = useState<ItemModel[]>([
-        {
-            recordId: undefined,
-            code: "153KJ83",
-            description1: "Makita Cordless Pistol-Grip Drills",
-            description2: "Tools using lower-voltage batteries are generally lighter and more compact but less powerful than tools using higher-voltage batteries.",
-            itemType: "Durable",
-            unitPrice: 161.54,
-            issueCost: 5.00,
-            supplierId: "XFD12Z",
-            itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
-            category: "Tool",
-            active: true,
-            assigned: false,
-            packQty: 1,
-            orderQty: 1,
-            weigh: false,
-            weight: 0.0,
-            uom: 'qyt',
-            leadTime: 7,
-            mfg: '',
-            mfgItem: '',
-            notes: '',
-            lastIssue: undefined,
-            dateCreated: undefined,
-            createdBy: '',
-        },
-        {
-            recordId: undefined,
-            code: "2830D20",
-            description1: "Milwaukee General Purpose Cordless Circular Saws",
-            description2: "General purpose cordless circular saws make cross, rip, and beveled cuts in wood and other materials",
-            itemType: "Durable",
-            unitPrice: 318.56,
-            issueCost: 5.00,
-            supplierId: "Milwaukee",
-            itemImage: "https://d3jdpongi7ohqb.cloudfront.net/power-tools-circular-saw-orange.jpg",
-            category: "Tool",
-            active: true,
-            assigned: false,
-            packQty: 1,
-            orderQty: 1,
-            weigh: false,
-            weight: 0.0,
-            uom: 'qyt',
-            leadTime: 10,
-            mfg: '',
-            mfgItem: '',
-            notes: '',
-            lastIssue: undefined,
-            dateCreated: undefined,
-            createdBy: '',
-        },
-        {
-            recordId: undefined,
-            code: "9150F44",
-            description1: "CHANNELLOCK Wrench",
-            description2: "Slim Jaw,8 Chrome, 8 in Overall Lg, 1 1/2 in Jaw Capacity",
-            itemType: "Durable",
-            unitPrice: 48.79,
-            issueCost: 5.00,
-            supplierId: "8SWCB",
-            itemImage: "https://d3jdpongi7ohqb.cloudfront.net/wrench_150F44.jpg",
-            category: "Tool",
-            active: true,
-            assigned: true,
-            packQty: 1,
-            orderQty: 1,
-            weigh: false,
-            weight: 0.0,
-            uom: 'qyt',
-            leadTime: 4,
-            mfg: '',
-            mfgItem: '',
-            notes: '',
-            lastIssue: undefined,
-            dateCreated: undefined,
-            createdBy: '',
-        },
-    ]
-    )
 
     const addItem = (
         code: string,
