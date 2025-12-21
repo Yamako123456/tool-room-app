@@ -13,7 +13,7 @@ class ItemModel {
     weigh: boolean;
     uom: string;
     leadTime: number;
-    
+
     private _recordId?: number; // Optional and read-only
     description2?: string;
     itemImage?: string;
@@ -24,7 +24,7 @@ class ItemModel {
     lastIssue?: Date;
     createdBy?: string;
     dateCreated?: Date;
-    
+
     // public set recordId(recordId: number) {
     //     this._recordId = recordId;
     // }
@@ -47,7 +47,7 @@ class ItemModel {
         weigh: boolean,
         uom: string,
         leadTime: number,
-        
+
         recordId?: number, // Optional and read-only
         description2?: string,
         itemImage?: string,
@@ -59,7 +59,7 @@ class ItemModel {
         createdBy?: string,
         dateCreated?: Date,
     ) {
-    
+
         this.code = code;
         this.description1 = description1;
         this.itemType = itemType;
@@ -75,12 +75,12 @@ class ItemModel {
         this.uom = uom;
         this.dateCreated = dateCreated;
         this.leadTime = leadTime;
-        
+
         this._recordId = recordId;
         this.description2 = description2;
         this.itemImage = itemImage;
         this.weight = weight;
-        this.mfg = mfg; 
+        this.mfg = mfg;
         this.mfgItem = mfgItem;
         this.notes = notes;
         this.lastIssue = lastIssue;
@@ -94,4 +94,3 @@ class ItemModel {
         this._recordId = recordId;
     }
 }
- 

@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -42,4 +43,28 @@
   font-family: "Libre Barcode 39 Text", system-ui;
   font-weight: 400;
   font-style: normal;
+}
+
+/* Bigger click area + fully visible */
+.carousel-strong-controls .carousel-control-prev,
+.carousel-strong-controls .carousel-control-next {
+  width: 8%;
+  opacity: 1;
+}
+
+/* Big circular background behind the arrow */
+.carousel-strong-controls .carousel-control-prev-icon,
+.carousel-strong-controls .carousel-control-next-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  background-size: 70% 70%;
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.35);
+}
+
+/* Even stronger on hover */
+.carousel-strong-controls .carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-strong-controls .carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.9);
 }
