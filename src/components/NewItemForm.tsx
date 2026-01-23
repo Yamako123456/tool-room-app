@@ -290,7 +290,7 @@ export const NewItemForm: React.FC<{
         setShowModal(true);
 
     }
-    const [showHint, setShowHint] = useState(true);
+    const [showHint, setShowHint] = useState(false);
 
     return (
         <div>
@@ -298,7 +298,7 @@ export const NewItemForm: React.FC<{
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
                         <button className="btn btn-primary me-2" onClick={productAPISearch}>
-                            Pre-fill Option
+                            Fill By UPC/EAN 
                         </button>
                     </div>
 
@@ -319,7 +319,7 @@ export const NewItemForm: React.FC<{
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Enter UPC/EAN Here"
+                            placeholder="Scan or Enter UPC/EAN Here"
                             value={itemCode}
                             onFocus={() => setShowHint(true)}
                             onBlur={() => setShowHint(false)}
