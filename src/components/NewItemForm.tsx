@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 
 import { Modal, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CODE_MAX, CURRENCY_MAX, DESCRIPTION1_MAX, DESCRIPTION2_MAX, ItemCategories, ItemTypes, SUPLIER_MAX, UnitOfMeasure } from '../constants/product';
+import SearchUPC from './SearchUPC/SearchUPC';
+import { BarcodeSpiderLookupResponse } from '../data/product';
+import { searchProductByUPC } from '../api';
 
 export const NewItemForm: React.FC<{
     isNew: boolean,
@@ -14,55 +18,8 @@ export const NewItemForm: React.FC<{
     setIsShowDetail: Function,
     caption: string,
     isShowDetail: boolean
-}> = (props) => {
-    // console.log(props.selectedItem)
-
-    const ItemTypes = {
-        EXPENDABLE: 'Expendable',
-        DURABLE: 'Durable',
-        PERISHABLE: 'Perishable',
-        SERIAL: 'Serial',
-        GAGE: 'Gage'
-    }
-
-    const UnitOfMeasure = {
-        qty: 'qty',
-        pack: 'pack',
-        oz: 'oz',
-        lb: 'lb',
-        mg: 'mg',
-        g: 'g',
-        kg: 'kg',
-        in: 'in',
-        ft: 'ft',
-        yd: 'yd',
-        mm: 'mm',
-        cm: 'cm',
-        m: 'm',
-        ml: 'ml',
-        L: 'L',
-        floz: 'fl oz',
-        pt: 'pt',
-        gal: 'gal'
-    }
-
-    const ItemCategories = {
-        TOOL: 'Tool',
-        FASTENER: 'Bolts, Screws, Nails, etc',
-        MACHINERY: 'End Mills, Drill Bits, Threading Tools, etc',
-        PIPE: 'Pipes, Hose, Tube & Fittings',
-        WELDING: 'Welding',
-        ELECTRICAL: 'Lighting & Electrical',
-        PLUMBING: 'Plumbing & Pumps',
-        ADHESIVE: 'Tape, sealants, Glue',
-        MATERIAL_HANDLING: 'Ladder, Cart, Storage, Lift equipment',
-        TEST_INSTRUMENT: 'Multimeters, Voltage, Power Tester',
-        RAW_MATERIAL: 'Raw Material',
-        SAFTY: 'Safty item',
-        OFFICE_SUPPLY: 'Office Supplies',
-
-    }
-
+    }> = (props) => {
+    
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
 
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
@@ -93,13 +50,7 @@ export const NewItemForm: React.FC<{
     const [modalMsg, setModalMsg] = useState('')
     const [isDelete, setIsDelete] = useState(false)
 
-    const CODE_MAX = 30;
-    const DESCRIPTION1_MAX = 50;
-    const DESCRIPTION2_MAX = 200;
-    const SUPLIER_MAX = 50;
-    // URL_MAX = is unlimited Text data type in database;
-    const CURRENCY_MAX = 25;
-    const CATEGORY_MAX = 50;
+
 
     const productAPISearch = () => { console.log('productAPISearch process') }
 
@@ -291,44 +242,37 @@ export const NewItemForm: React.FC<{
 
     }
     const [showHint, setShowHint] = useState(false);
+    const [searchUPC, setSearchUPC] = useState<string>("");
+    const [searchUPCResult, setSearchUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
+    const [serverError, setServerError] = useState<string>("");
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchUPC(e.target.value);
+        console.log(e);
+    }
+
+    const onClick = async (e: SyntheticEvent) => {
+        const result = await searchProductByUPC(searchUPC);
+        
+        if(typeof result === "string") {
+            setServerError(result);
+        } else {
+            setSearchUPCResult(result.data);
+            console.log("searchUPCResult: ", searchUPCResult);          
+            
+        }
+    }
 
     return (
         <div>
             {!props.isShowDetail && (
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
-                        <button className="btn btn-primary me-2" onClick={productAPISearch}>
-                            Fill By UPC/EAN 
-                        </button>
-                    </div>
-
-                    {showHint && (
-                        <div className="mt-2 p-2 border rounded bg-light">
-                            <div className="small mb-2">
-                                Hint: UPC/EAN can be found under barcode.
-                            </div>
-                            <img
-                                src="/img/Barcode_number_zoomup.jpg"
-                                alt="UPC/EAN example"
-                                style={{ maxWidth: "320px" }}
-                            />
-                        </div>
-                    )}
-
-                    <div className="col mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Scan or Enter UPC/EAN Here"
-                            value={itemCode}
-                            onFocus={() => setShowHint(true)}
-                            onBlur={() => setShowHint(false)}
-                            onChange={(e) => setItemCode(e.target.value.trim())}
-                        />
+                        <SearchUPC  onClick={onClick} searchUPC={searchUPC} handleChange={handleChange}/>
                     </div>
                 </div>
-            )}
-
+            )} 
+            
             <form>
                 <div className='row'>
 

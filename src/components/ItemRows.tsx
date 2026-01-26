@@ -1,15 +1,5 @@
 import React, {useState} from 'react'
-
 import {ItemRowItem} from "./ItemRowItem"
-
-// <ItemRows
-//                                 items={props.items}
-//                                 isShowDetail={props.isShowDetail}
-//                                 setIsSelectedCode={setSelectedCode}
-//                                 selectedCode={selectedCode}
-//                                 setSelectedCode={setSelectedCode}
-//                                 sortBy={sortBy}
-//                             />
 
 export const ItemRows: React.FC<{
     activeItems: ItemModel[],
