@@ -1,17 +1,20 @@
 import React, { ChangeEvent, useState, SyntheticEvent } from 'react'
 
 interface Props {
-    onClick: (e: SyntheticEvent) => void;
+    onSearchUPCSubmit: (e: SyntheticEvent) => void;
     searchUPC: string | undefined;
-    handleChange: (e: ChangeEvent<HTMLInputElement> ) => void;
+    handleSearchUPCChange: (e: ChangeEvent<HTMLInputElement> ) => void;
 };
 
-const SearchUPC  : React.FC<Props> = ({onClick, searchUPC, handleChange}: Props): JSX.Element => {
+const SearchUPC  : React.FC<Props> = ({onSearchUPCSubmit, searchUPC, handleSearchUPCChange}: Props): JSX.Element => {
     return (
         <div>
-            <h6>Enter UPC or scan barcode (Optional): </h6>
-            <input value={searchUPC} onChange={(e) => handleChange(e)}></input>
-            <button className='btn btn-dark' onClick={(e) => onClick(e)}>API</button>
+            <form onSubmit={onSearchUPCSubmit}>
+                <h6>Enter UPC or scan barcode (Optional): </h6>
+                <input value={searchUPC} onChange={handleSearchUPCChange}></input>
+                <button className='btn btn-dark' type='submit'>Search UPC API</button>
+            </form>
+            
         </div>
     )  
   

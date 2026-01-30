@@ -246,12 +246,13 @@ export const NewItemForm: React.FC<{
     const [searchUPCResult, setSearchUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
     const [serverError, setServerError] = useState<string>("");
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleSearchUPCChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchUPC(e.target.value);
         console.log(e);
     }
 
-    const onClick = async (e: SyntheticEvent) => {
+    const onSearchUPCSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
         const result = await searchProductByUPC(searchUPC);
         
         if(typeof result === "string") {
@@ -268,7 +269,8 @@ export const NewItemForm: React.FC<{
             {!props.isShowDetail && (
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
-                        <SearchUPC  onClick={onClick} searchUPC={searchUPC} handleChange={handleChange}/>
+                        <SearchUPC  onSearchUPCSubmit={onSearchUPCSubmit} searchUPC={searchUPC} handleSearchUPCChange={handleSearchUPCChange}/>
+                        {serverError && <h1>serverError</h1>}
                     </div>
                 </div>
             )} 

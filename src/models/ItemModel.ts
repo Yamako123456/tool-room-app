@@ -17,20 +17,13 @@ class ItemModel {
     private _recordId?: number; // Optional and read-only
     description2?: string;
     itemImage?: string;
-    weight?: number;
+    weight?: string;
     mfg?: string;
     mfgItem?: string;
     notes?: string;
     lastIssue?: Date;
     createdBy?: string;
     dateCreated?: Date;
-
-    // public set recordId(recordId: number) {
-    //     this._recordId = recordId;
-    // }
-    // public get recordId(): number | undefined {
-    //     return this._recordId;
-    // }
 
     constructor(
         code: string,
@@ -51,7 +44,7 @@ class ItemModel {
         recordId?: number, // Optional and read-only
         description2?: string,
         itemImage?: string,
-        weight?: number,
+        weight?: string,
         mfg?: string,
         mfgItem?: string,
         notes?: string,
