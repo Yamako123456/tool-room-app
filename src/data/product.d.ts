@@ -6,21 +6,25 @@ export type ItemResponse = {
 }
 
 export type ItemAttributes = {
-      title: string,
-       upc: string,  // "039800108036"
-       ean: string,  //"0039800108036"
-       parent_category: string,  //"Batteries"
-       category: string,  //"Wireless Phone Accessory"
-       brand: string,  //"Eveready"
-       mpn: string,  //"4330207043"
-       manufacturer: string,   //"Eveready Battery Co Inc"
-       publisher: string,  //"Eveready Battery Co Inc"
-       asin: string,  //"B071HVKWFV"
-       color: string,  //"Black"
-       size: string,  //"All"
-       weight: string, //"0.1 Pounds"
-       image: string,  //
-       description: string,  //"https://images-na.ssl-images-amazon.com/images/I/517H6HFWLZ
+    asin: string, //"B071HVKWFV"
+    brand: string, //"Eveready"
+    category: string, //"Electronics"
+    color: string, //""
+    description: string, //""
+    ean: string, //"0039800108036"
+    highest_price?: string, //"28.59"
+    image: string, //"https://images.barcodespider.com/upcimage/039800108036.jpg"
+    is_adult: string, //"0"
+    lowest_price?: string, //"7.97"
+    manufacturer: string, //"Eveready Battery Co Inc"
+    model: string, //"4330207043"
+    mpn: string, //"E91LP-16"
+    parent_category: string, //"Electronics"
+    publisher: string, //"Eveready Battery Co Inc"
+    size: string, //""
+    title: string, //"Eveready Battery Co Inc Energizer Alkaline Battery, AA, 16/PK, BKSR"
+    upc: string, //"039800108036"
+    weight: string, //""
 }
 
 export type Store = { 
@@ -36,7 +40,7 @@ export type Store = {
 export interface BarcodeSpiderLookupResponse {
     item_response: ItemResponse;
     item_attributes: ItemAttributes;
-    stores: Store[];
+    Stores: Store[];
 };
 
 //-----------------------------------------------------------------------------------------

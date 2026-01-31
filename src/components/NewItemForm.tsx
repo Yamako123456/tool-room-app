@@ -251,6 +251,22 @@ export const NewItemForm: React.FC<{
         console.log(e);
     }
 
+    const fillItemData = () => {
+        if (searchUPCResult == null) return;
+        
+        setItemCode(searchUPCResult.item_attributes.upc);
+        setDescription1(searchUPCResult.item_attributes.title);
+        setDescription2(searchUPCResult.item_attributes.description);
+        
+        const highestPriceStr = searchUPCResult.item_attributes.highest_price;
+        const storePriceStr = searchUPCResult.Stores?.[0]?.price;
+        const priceStr =  highestPriceStr?.trim() ? highestPriceStr : storePriceStr?.trim() ? storePriceStr  : null;
+        setUnitPrice(Number(priceStr));
+        setIssueCost(Number(priceStr));
+        setItemImage(searchUPCResult.item_attributes.image);
+        setSupplierId(searchUPCResult.item_attributes.publisher);
+    }
+
     const onSearchUPCSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         const result = await searchProductByUPC(searchUPC);
@@ -258,9 +274,13 @@ export const NewItemForm: React.FC<{
         if(typeof result === "string") {
             setServerError(result);
         } else {
+            console.log("result.data", result.data);
+
             setSearchUPCResult(result.data);
-            console.log("searchUPCResult: ", searchUPCResult);          
             
+            console.log("State: searchUPCResult: ", searchUPCResult);  
+            
+            fillItemData();
         }
     }
 
@@ -270,7 +290,7 @@ export const NewItemForm: React.FC<{
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
                         <SearchUPC  onSearchUPCSubmit={onSearchUPCSubmit} searchUPC={searchUPC} handleSearchUPCChange={handleSearchUPCChange}/>
-                        {serverError && <h1>serverError</h1>}
+                        {/* {serverError && <h1>serverError</h1>} */}
                     </div>
                 </div>
             )} 

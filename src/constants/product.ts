@@ -45,7 +45,7 @@ export   const ItemCategories = {
     }
 
 export const CODE_MAX = 30;
-export const DESCRIPTION1_MAX = 50;
+export const DESCRIPTION1_MAX = 200;
 export const DESCRIPTION2_MAX = 200;
 export const SUPLIER_MAX = 50;
     // URL_MAX = is unlimited Text data type in database;
