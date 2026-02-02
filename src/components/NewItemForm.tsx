@@ -286,7 +286,7 @@ export const NewItemForm: React.FC<{
 
     return (
         <div>
-            {!props.isShowDetail && (
+            {!isReadOnly && (
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
                         <SearchUPC  onSearchUPCSubmit={onSearchUPCSubmit} searchUPC={searchUPC} handleSearchUPCChange={handleSearchUPCChange}/>
@@ -310,8 +310,9 @@ export const NewItemForm: React.FC<{
                             readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                         ></input>
+                        {isReadOnly && <img src={itemImage} alt=""  style={{ maxWidth: "200px", height: "auto" }}/>}
                     </div>
-                    <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
+                    <div className='col-12 mb-3'>    
                         <label className='form-label'>
                             Description 1:
                             {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {DESCRIPTION1_MAX} )</span>)}

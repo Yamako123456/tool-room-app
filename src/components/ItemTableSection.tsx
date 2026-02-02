@@ -47,8 +47,6 @@ export const ItemTableSection: React.FC<
     const showingDetail = (e: any) => {
         e.preventDefault();
 
-        console.log()
-        // if (props.items.filter(item => item.active === true).length < 1) {
         if (activeItems.length < 1) {
             setSelectedCode('')
             setModalTitle2('Item Not Available')
@@ -79,8 +77,6 @@ export const ItemTableSection: React.FC<
                     </div>
 
                     <div className="card-body">
-
-
                         {props.isShowDetail && (
                             <div className="card mt-3" style={{ backgroundColor: '#E6F8DC' }}>
 
@@ -109,20 +105,6 @@ export const ItemTableSection: React.FC<
                         )}
                         <hr />
                         <form>
-                            {/* <ItemDropdownList 
-                                isDisableClick={props.isShowDetail}
-                                items={props.items} 
-                                sortBy={sortBy} 
-                                selectedCode={selectedCode}
-                                setSelectedCode={setSelectedCode}
-                            /> */}
-
-                            {/* <button className="btn btn-primary"
-                                onClick={showingDetail}
-                                disabled={props.isShowDetail}
-                            >
-                                Show Detail
-                            </button> */}
                             <div className="mt-3">
                                 <label className="form-label">Sort:</label>
 
