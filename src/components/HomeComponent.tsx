@@ -1,65 +1,156 @@
-import React from 'react'
+import React from "react";
+import "./HomeComponent.css";
 
-export const HomeComponent: React.FC = () => {
+type Props = {
+    items: ItemModel[];
+    setItems: React.Dispatch<React.SetStateAction<ItemModel[]>>;
+};
+
+function chunk<T>(arr: T[], size: number): T[][] {
+    const out: T[][] = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+}
+
+
+export const HomeComponent = ({ items, setItems }: Props) => {
+    const visibleItems = items.filter(i => i.active);
+    const slides = chunk(visibleItems, 3);
     return (
         <div>
-            <div className='mb-3'>
-                <h1>Welcome to Toolroom Management System </h1>
-                <h3>Simplify, Track, and Manage Your Tools with Ease</h3>
+            <div className="container mt-4">
+                <section className="home-hero mb-4">
+                    <div className="text-center">
+                        <h1 className="home-title mb-3">
+                            Toolroom Management System
+                        </h1>
+
+                        <div className="home-image-wrapper mb-3">
+                            <div className="home-image-frame">
+                                <img
+                                    src="/img/panoramicToolroom.jpg"
+                                    alt="Toolroom dashboard"
+                                    className="img-fluid home-hero-image"
+                                />
+                            </div>
+                        </div>
+
+                        <h3 className="home-subtitle">
+                            Simplify, Track, and Manage Your Tools with Ease
+                        </h3>
+                    </div>
+                </section>
+
+                <p className="mt-4 home-text">
+                    Welcome! The Tool Room Management App helps tool room attendants in manufacturing environments
+                    efficiently track and manage the check-out(issue) of tools and parts and return of durable type items back in the toolroom by shop floor personnel.
+                    <br />
+                </p>
             </div>
 
-            {/* <div style={{ height: '100vh' }}> */}
-            <div>
-                <img src="/img/panoramicToolroom.jpg" alt="Dashboard-image" className="img-fluid" />
+
+            <div
+                id="itemsCarousel"
+                className="carousel slide e carousel-strong-controls"
+                data-bs-ride="carousel"
+
+                data-bs-touch="true"
+            >
+                <div className="carousel-inner">
+                    {slides.map((group, slideIndex) => (
+                        <div
+                            key={slideIndex}
+                            className={`carousel-item ${slideIndex === 0 ? "active" : ""}`}
+                        >
+                            <div className="container py-4">
+                                <div className="row g-3 justify-content-center">
+                                    {group.map((item) => (
+                                        <div className="col-12 col-md-4" key={item.code}>
+                                            <div className="card h-100 d-flex flex-column">
+                                                {/* fixed-height image area (shrinks image to fit, no crop) */}
+                                                <div
+                                                    style={{
+                                                        height: 220,
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        backgroundColor: "#f8f9fa",
+                                                    }}
+                                                >
+                                                    {item.itemImage ? (
+                                                        <img
+                                                            src={item.itemImage}
+                                                            alt={item.description1}
+                                                            className="img-fluid"
+                                                            style={{
+                                                                maxHeight: "100%",
+                                                                maxWidth: "100%",
+                                                                objectFit: "contain",
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <span className="text-muted">No Image</span>
+                                                    )}
+                                                </div>
+
+                                                <div className="card-body d-flex flex-column">
+                                                    <h6 className="card-title">{item.description1}</h6>
+
+                                                    {item.description2 && (
+                                                        <p className="card-text small text-muted mb-2">
+                                                            {item.description2}
+                                                        </p>
+                                                    )}
+
+                                                    {/* bottom aligned */}
+                                                    <div className="mt-auto d-flex justify-content-between align-items-center">
+                                                        <span className="badge text-bg-secondary">
+                                                            {item.category}
+                                                        </span>
+                                                        <span className="fw-bold">
+                                                            ${item.unitPrice.toFixed(2)}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {/* pad last slide so layout stays aligned */}
+                                    {group.length < 3 &&
+                                        Array.from({ length: 3 - group.length }).map((_, i) => (
+                                            <div className="col-12 col-md-4" key={`empty-${i}`} />
+                                        ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#itemsCarousel"
+                    data-bs-slide="prev"
+                >
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+
+                <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#itemsCarousel"
+                    data-bs-slide="next"
+                >
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
             </div>
 
-            <p className='mt-5'>
-                The Tool Room Management Application is designed to assist tool room attendants in manufacturing environments with efficiently managing the issuance and return of tools and parts to production team members. 
-            </p>
-            <p>
-            Printing out barcode for the item code and apllying to the item, the toolroom attendants can scan item to process issued/returned items from/to the toolroom.  
-            </p>
-            <p>
-            This comprehensive system records all transactions, monitors stock levels, and controls item issuance based on employee access permissions.
-            </p>
-            <p>
-            <h3>Key Features</h3>
-            Inventory Item Management Module empowers employees with admin rights to perform CRUD (Create, Retrieve, Update, Delete) operations on inventory items. Key functionalities include:
-            </p>
 
-           
 
-            <p>
-                <ul>
-                    <li>
-                        Create: Ensures unique, non-empty item codes, and mandates non-empty values for description and supplier ID.
 
-                    </li>
-                    <li>
-                        Retrieve: The item's detail view will display by clicking the <i>Show Detail</i> button in the item table.
-
-                    </li>
-                    <li>
-
-                        Update: Full updates are allowed for items not yet used in transactions. Once used, critical fields like item code and supplier ID cannot be altered.
-                    </li>
-                    <li>
-                        Delete: Items never used in transactions can be removed entirely; otherwise, they are marked inactive and hidden from the inventory list.
-
-                    </li>
-                    <li>
-                        By <strong>printing barcodes</strong> for item codes and applying them to the items, toolroom attendants can efficiently scan and process the issuance and return of items in the toolroom."
-                    </li>
-                </ul>
-                This application ensures efficient tool management, maintaining operational excellence on the shop floor.
-                <br/>
-                <br/>
-                To get started, Please click "Items" and setup your inventory items!
-                
-            </p>
-            <div style={{ height: '100vh' }}>
-                <img src="/img/thumbUpHelmet.jpg" alt="Dashboard-image" className="img-fluid" />
-            </div>
         </div>
-    )
-}
+    );
+};
