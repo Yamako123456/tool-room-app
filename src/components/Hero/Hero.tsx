@@ -20,14 +20,14 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
   return (
     <section id="hero">
       <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">
-        <div className="flex flex-col space-y-10 mb-44 m-10 lg:m-10 xl:m-20 lg:mt:16 lg:w-1/2 xl:mb-52">
-          <h1 className="text-5xl font-bold text-center lg:text-6xl lg:max-w-md lg:text-left">
+        <div className="flex flex-col space-y-8 mb-44 m-4 lg:m-4 xl:m-4 lg:mt-16 lg:w-1/2 xl:mb-52">
+          <h1 className="text-5xl font-bold text-left lg:text-6xl lg:max-w-md lg:text-left">
             Simply Toolroom App
           </h1>
-          <p className="text-2xl text-center text-gray-400 lg:max-w-md lg:text-left">
+          <p className="text-2xl text-left text-gray-400 lg:max-w-md lg:text-left">
             Track, and Manage Your Tools with Ease, preventing loss and saving your time!
           </p>
-          <div className="mx-auto lg:mx-0">
+          <div className="mx-0 lg:mx-0">
             <a
               href=""
               className="py-3 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
@@ -37,11 +37,11 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
           </div>
         </div>
         <div className="mb-24 mx-auto md:w-180 md:px-10 lg:mb-0 lg:w-1/2">
-          <img src={hero} alt="" />
+          <img src={hero} alt="" className="w-64 lg:w-80"/>
         </div>
       </div>
 
-       <div
+      <div
                 id="itemsCarousel"
                 className="carousel slide e carousel-strong-controls"
                 data-bs-ride="carousel"
@@ -138,7 +138,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-            </div>
+            </div> 
     </section>
   )
 }
