@@ -428,7 +428,7 @@ export const NewItemForm: React.FC<{
 
                     <div className='col-xl-7 col-lg-10 col-md-12 mb-3'>
                         <label className='form-label'>
-                            Supplier ID:
+                            Supplier:
                             {!isReadOnly && (<span style={{ fontSize: '0.6rem' }}> ( max length: {SUPLIER_MAX} )</span>)}
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>

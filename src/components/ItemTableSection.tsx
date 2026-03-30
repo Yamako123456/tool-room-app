@@ -140,7 +140,7 @@ export const ItemTableSection: React.FC<
                                         <th style={{ padding: '10px' }} scope="col">Item Code</th>
                                         <th style={{ padding: '10px' }} scope="col">Description 1</th>
                                         <th style={{ padding: '10px' }} scope="col">Item Type</th>
-                                        <th style={{ padding: '10px' }} scope="col">Supplier ID</th>
+                                        <th style={{ padding: '10px' }} scope="col">Supplier</th>
                                         <th style={{ padding: '10px' }} scope="col">Category</th>
                                         <th style={{ padding: '10px' }} scope="col">Click To Print Barcode</th>
                                         <th style={{ padding: '10px' }} scope="col">View Detail</th>

@@ -3,53 +3,35 @@ import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
 import { HomeComponent } from './components/HomeComponent';
+import MyNavbar from "./components/MyNavbar/MyNavbar";
 import { AboutComponent } from './components/AboutComponent';
 import { ItemModuleComponent } from './components/ItemModuleComponent';
 import { PrintComponent } from './components/PrintComponent';
 import { NewItemForm } from './components/NewItemForm';
 import { initialItems } from './data/InitialItems';
-
+import { initialCribs } from './data/initialCribs';
+import { initialEmps } from './data/initiahEmps';
+import Hero from './components/Hero/Hero';
 
 
 export const App = () => {
-
+  
+  const [emps, setEmps] = useState<EmpModel[]>(initialEmps);
   const [items, setItems] = useState<ItemModel[]>(initialItems);
-
+  const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
+  
   return (
 
     <div>
+      <MyNavbar />
+      
       <Router>
-
-        <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-          <div className='container-fluid'>
-            <Link className='navbar-brand' to='/'>Toolroom Management System</Link>
-
-
-            <button className="navbar-toggler" type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#contents">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className='collapse navbar-collapse' id='contents'>
-              <ul className='navbar-nav'>
-                <li className='nav-item'>
-                  <Link to="/" className='nav-link '>Home</Link>
-                </li>
-                <li className='nav-item'>
-                  <Link to="/items" className='nav-link'>Items</Link>
-                </li>
-                <li className='nav-item'>
-                  <Link to="/about" className='nav-link'>About</Link>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </nav>
+        
+      
 
         <div className='container mt-3'>
           <Routes>
-            <Route path="/" element={<HomeComponent items={items} setItems={setItems} />} />
+            <Route path="/" element={<Hero items={items} setItems={setItems} cribs={cribs} />} />
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />

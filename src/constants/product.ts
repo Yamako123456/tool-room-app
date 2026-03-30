@@ -41,7 +41,7 @@ export   const ItemCategories = {
         RAW_MATERIAL: 'Raw Material',
         SAFTY: 'Safty item',
         OFFICE_SUPPLY: 'Office Supplies',
-
+        OTHER_SUPPLY: 'Other Supplies',
     }
 
 export const CODE_MAX = 30;
