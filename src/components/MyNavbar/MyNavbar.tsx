@@ -6,11 +6,21 @@ type Props = {}
 const MyNavbar = (props: Props) => {
   return (
     <div>
-     <nav className="relative container mx-auto p-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-20">
-          <img src={logo} alt="" />
-          <div className="hidden font-bold lg:flex  space-x-6">
+      <nav className="relative container mx-auto p-6">
+       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+        {/* <div className="flex items-center justify-between"> */}
+       
+        {/* <div className="flex items-center space-x-20"> */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-20">
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-32 h-auto object-contain mb-4 lg:mb-0"
+          />
+          
+
+          {/* <div className="hidden font-bold lg:flex  space-x-6"> */}
+          <div className="flex flex-col lg:flex-row font-bold space-y-2 lg:space-y-0 lg:space-x-6">  
             <a href="" className="text-black hover:text-darkBlue">
               Dashboard
             </a>
@@ -25,16 +35,23 @@ const MyNavbar = (props: Props) => {
             </Link>
           </div>
         </div>
-        <div className="hidden lg:flex items-center space-x-6 text-black">
+
+        <div className="flex flex-col lg:flex-row mt-4 lg:mt-0 space-y-2 lg:space-y-0 lg:space-x-6 text-black">
+        {/* <div className="hidden lg:flex items-center space-x-6 text-black"> */}
           <div className="hover:text-darkBlue">Login</div>
-            <a
-              href=""
-              className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
-            >
-              Signup
-            </a>
-          </div>
+          
+          <a
+            href=""
+              className="px-6 py-2 font-bold rounded text-white bg-green-500 hover:opacity-70 w-fit"
+              // className="px-6 py-3 text-center font-bold rounded text-white bg-lightGreen hover:opacity-70"
+          >
+            Signup
+          </a>
+          
+        
         </div>
+
+       </div>
       </nav>
     </div>
   )
