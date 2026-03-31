@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useRef } from "react";
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ItemDropdownList } from "./ItemDropdownList";
 import { NewItemForm } from "./NewItemForm";
 import { ItemRows } from "./ItemRows";
+
 
 export const ItemTableSection: React.FC<
     {
@@ -44,6 +46,11 @@ export const ItemTableSection: React.FC<
         setSortBy(e.target.value);
     }
 
+    useEffect(() => {
+                    const el = document.getElementById("detail-view");
+            el?.scrollIntoView({ behavior: "smooth"});
+    })
+
     const showingDetail = (e: any) => {
         e.preventDefault();
 
@@ -57,8 +64,11 @@ export const ItemTableSection: React.FC<
             setModalTitle2('Item Selection Required')
             setModalMsg2('Please select item first')
             setShowModal2(true)
-        } else
-            props.setIsShowDetail(true);
+        } else{
+            props.setIsShowDetail(true);          
+        }
+            
+
     }
 
     const getItemByCode = (code: string) => {
@@ -67,6 +77,7 @@ export const ItemTableSection: React.FC<
             return item.code === code
         });
     }
+
 
     return (
         <div>
@@ -80,7 +91,7 @@ export const ItemTableSection: React.FC<
                         {props.isShowDetail && (
                             <div className="card mt-3" style={{ backgroundColor: '#E6F8DC' }}>
 
-                                <div className="card-header">Detail View</div>
+                                <div className="card-header" id="detai-view">Detail View</div>
                                 <div className="card-body">
                                     <h5 className="card-text">Item: {selectedCode} </h5>
                                     <div className="card-body">

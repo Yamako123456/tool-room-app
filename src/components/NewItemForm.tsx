@@ -1,5 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
-
+import { useEffect } from 'react';
 import { Modal, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CODE_MAX, CURRENCY_MAX, DESCRIPTION1_MAX, DESCRIPTION2_MAX, ItemCategories, ItemTypes, SUPLIER_MAX, UnitOfMeasure } from '../constants/product';
@@ -20,6 +20,15 @@ export const NewItemForm: React.FC<{
     isShowDetail: boolean
     }> = (props) => {
     
+useEffect(() => {
+  if (props.isShowDetail) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+}, [props.isShowDetail]);
+
     const selectedItem = props.items.filter((itm) => itm.code === props.selectedCode)[0];
 
     const [itemCode, setItemCode] = useState(props.isNew ? '' : props.selectedCode);
@@ -521,6 +530,7 @@ export const NewItemForm: React.FC<{
                     )}
                 </Modal.Footer>
             </Modal>
+
         </div>
 
     )

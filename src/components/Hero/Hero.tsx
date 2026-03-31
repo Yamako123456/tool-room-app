@@ -29,7 +29,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
           </p>
           <div className="mx-0 lg:mx-0">
             <a
-              href=""
+              href="/items"
               className="py-3 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
             >
               Get Started
