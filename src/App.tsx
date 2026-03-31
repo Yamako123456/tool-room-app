@@ -23,11 +23,11 @@ export const App = () => {
   return (
 
     <div>
-      <MyNavbar />
+      
       
       <Router>
         
-      
+        <MyNavbar />
 
         <div className='container mt-3'>
           <Routes>
