@@ -506,7 +506,7 @@ useEffect(() => {
                 <button className='btn btn-warning me-2' onClick={deleteConfirmation}>Delete</button>
             }
 
-            <button className='btn btn-dark' onClick={closeForm}>Close</button>
+            <button className='btn btn-success' onClick={closeForm}>Close</button>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>

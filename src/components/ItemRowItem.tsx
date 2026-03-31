@@ -88,7 +88,8 @@ export const ItemRowItem: React.FC<{
 
             <td style={{ padding: '10px' }}>
                 {/* <DetailButtonColumn selectedCode={props.item.code} /> */}
-                <button className="btn btn-primary"
+                <button 
+                 className={`btn ${props.isShowDetail ? 'btn-secondary' : 'btn-primary'}`}
                     onClick={props.showingDetail}
                     disabled={props.isShowDetail}
                 >
