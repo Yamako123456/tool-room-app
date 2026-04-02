@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from './logo.png'
 import { Link } from 'react-router-dom';
+
 type Props = {}
 
 const MyNavbar = (props: Props) => {
@@ -29,6 +30,9 @@ const MyNavbar = (props: Props) => {
             </Link>
             <Link to="/items" className="text-black hover:text-darkBlue">
               Items
+            </Link>
+            <Link to="/bins" className='text-black hover:text-darkBlue'>
+              Bins
             </Link>
             <Link to="/about" className="text-black hover:text-darkBlue">
               About

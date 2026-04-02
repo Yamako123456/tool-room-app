@@ -9,15 +9,17 @@ import { ItemModuleComponent } from './components/ItemModuleComponent';
 import { PrintComponent } from './components/PrintComponent';
 import { NewItemForm } from './components/NewItemForm';
 import { initialItems } from './data/InitialItems';
+import { initialBinss } from './data/initialBins';
 import { initialCribs } from './data/initialCribs';
 import { initialEmps } from './data/initiahEmps';
 import Hero from './components/Hero/Hero';
-
+import Bins from './components/Bins/Bins';
 
 export const App = () => {
   
   const [emps, setEmps] = useState<EmpModel[]>(initialEmps);
   const [items, setItems] = useState<ItemModel[]>(initialItems);
+  const [bins, setBins] = useState<BinModel[]>(initialBinss);
   const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
   
   return (
@@ -34,6 +36,7 @@ export const App = () => {
             <Route path="/" element={<Hero items={items} setItems={setItems} cribs={cribs} />} />
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
+            <Route path="/bins" element={<Bins bins={bins} setBins={setBins} items={items}/>} />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
 
           </Routes>

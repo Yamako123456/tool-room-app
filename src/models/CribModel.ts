@@ -1,12 +1,12 @@
 class CribModel {
-    code: string;
+    cribCode: string;
     description: string;
 
     constructor(
-        code: string,
+        cribCode: string,
         description1: string, 
     ) {
-        this.code = code;
+        this.cribCode = cribCode;
         this.description = description1;        
     }
 
