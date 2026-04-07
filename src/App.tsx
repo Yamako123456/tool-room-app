@@ -14,21 +14,39 @@ import { initialCribs } from './data/initialCribs';
 import { initialEmps } from './data/initiahEmps';
 import Hero from './components/Hero/Hero';
 import Bins from './components/Bins/Bins';
+import AddBin from './components/Bins/AddBin/AddBin';
+import { BinModel } from './models/BinsModel'; 
 
 export const App = () => {
-  
+
   const [emps, setEmps] = useState<EmpModel[]>(initialEmps);
   const [items, setItems] = useState<ItemModel[]>(initialItems);
   const [bins, setBins] = useState<BinModel[]>(initialBinss);
   const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
-  
+  const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
+  const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
+  const [binNumber, setBinNumber] = useState<string>("");
+  const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);
+
+  const handleAddBin = () => {
+ 
+    const cribCode = cribs.length > 0 ? cribs[0].cribCode : "001";
+    const itemCode = selectedItem?.code;
+    const newBin = new BinModel(
+      binNumber, 
+      cribCode,
+      itemCode,
+      0,
+    );
+ 
+    console.log('newBin', newBin);
+    setBins( prev => [...prev, newBin] );
+  }
+
   return (
 
     <div>
-      
-      
-      <Router>
-        
+      <Router>      
         <MyNavbar />
 
         <div className='container mt-3'>
@@ -36,8 +54,10 @@ export const App = () => {
             <Route path="/" element={<Hero items={items} setItems={setItems} cribs={cribs} />} />
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
-            <Route path="/bins" element={<Bins bins={bins} setBins={setBins} items={items}/>} />
+            <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
+            
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
+            <Route path="/bins/add" element={<AddBin items={items} bins={bins} selectedItem={selectedItem} setSelectedItem={setSelectedItem} setBinNumber={setBinNumber} handleAddBin={handleAddBin} isLookupOpen={isLookupOpen} setIsLookupOpen={setIsLookupOpen}  />} />
 
           </Routes>
         </div>

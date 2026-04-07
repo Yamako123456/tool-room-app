@@ -1,4 +1,4 @@
-class BinModel {
+export class BinModel {
     binCode: string;
     crib: string;
     item?: string;
