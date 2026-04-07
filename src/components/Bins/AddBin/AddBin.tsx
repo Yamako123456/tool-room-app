@@ -1,8 +1,9 @@
 import React, { SyntheticEvent, useState } from 'react'
 import ItemLookup from '../ItemLookup/ItemLookup';
+import { BinModel } from '../../../models/BinsModel'
+import { Navigate } from 'react-router-dom';
 
-interface Props {
- 
+interface Props { 
   items: ItemModel[];
   bins: BinModel[];
   selectedItem: ItemModel | null;
@@ -11,9 +12,10 @@ interface Props {
   handleAddBin: () => void;
   isLookupOpen: boolean;
   setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  cancelAddBin: () => void;
 }
 
-const AddBin = ({ items, bins, selectedItem, setSelectedItem, setBinNumber, handleAddBin, isLookupOpen, setIsLookupOpen }: Props) => {
+const AddBin = ({ items, bins, selectedItem, setSelectedItem, setBinNumber, handleAddBin, isLookupOpen, setIsLookupOpen, cancelAddBin }: Props) => {
   
   return (
     <div className='mb-1 block text-sm font-medium'>
@@ -71,7 +73,12 @@ const AddBin = ({ items, bins, selectedItem, setSelectedItem, setBinNumber, hand
         </div>
 
         <div className="flex justify-end gap-3">
-          <button className="px-4 py-2 border rounded-lg">Cancel</button>
+          <button 
+            className="px-4 py-2 border rounded-lg"
+            // onClick={Navigate()}
+            onClick={ cancelAddBin }
+
+          >Cancel</button>
           <button 
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
             onClick={handleAddBin}

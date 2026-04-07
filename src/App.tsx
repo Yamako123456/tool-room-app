@@ -1,7 +1,8 @@
 import './App.css';
 
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+
 import { HomeComponent } from './components/HomeComponent';
 import MyNavbar from "./components/MyNavbar/MyNavbar";
 import { AboutComponent } from './components/AboutComponent';
@@ -26,10 +27,31 @@ export const App = () => {
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
   const [binNumber, setBinNumber] = useState<string>("");
-  const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);
+  const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);  
 
+  const navigate = useNavigate();
+
+  const resetAddBin = () => {
+    setBinNumber("");
+    setSelectedItem(null);
+  }
   const handleAddBin = () => {
- 
+    if (!binNumber || binNumber.trim() === '' ) {
+      alert( "Bin Number is required");
+      return;
+    }
+    
+    if ( bins.find( (b) => b.binCode.toLowerCase() === binNumber.trim().toLocaleLowerCase() ) )  {
+      alert( "Bin Number must be unique" );
+      return;
+    }
+    
+    if (!selectedItem ) {
+      alert( "Assigning item is required");
+      return;
+    }
+    
+
     const cribCode = cribs.length > 0 ? cribs[0].cribCode : "001";
     const itemCode = selectedItem?.code;
     const newBin = new BinModel(
@@ -39,14 +61,21 @@ export const App = () => {
       0,
     );
  
-    console.log('newBin', newBin);
     setBins( prev => [...prev, newBin] );
+    resetAddBin();
+    navigate('/bins', { state: { message: 'Bin saved' } });
+  }
+
+  const cancelAddBin  = () => {
+    resetAddBin();
+    navigate('/bins', { state: { message: "Operation cancelled" }});
+
   }
 
   return (
 
     <div>
-      <Router>      
+      {/* <Router>       */}
         <MyNavbar />
 
         <div className='container mt-3'>
@@ -57,13 +86,21 @@ export const App = () => {
             <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
             
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
-            <Route path="/bins/add" element={<AddBin items={items} bins={bins} selectedItem={selectedItem} setSelectedItem={setSelectedItem} setBinNumber={setBinNumber} handleAddBin={handleAddBin} isLookupOpen={isLookupOpen} setIsLookupOpen={setIsLookupOpen}  />} />
+            <Route path="/bins/add" 
+              element={<AddBin items={items} 
+              bins={bins} 
+              selectedItem={selectedItem} 
+              setSelectedItem={setSelectedItem} 
+              setBinNumber={setBinNumber} 
+              handleAddBin={handleAddBin} 
+              isLookupOpen={isLookupOpen} 
+              setIsLookupOpen={setIsLookupOpen}  
+              cancelAddBin={cancelAddBin}
+            />} />
 
           </Routes>
         </div>
-      </Router>
-
-
+      {/* </Router> */}
     </div>
   );
 }
