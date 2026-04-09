@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import ItemLookup from '../ItemLookup/ItemLookup';
 import { BinModel } from '../../../models/BinsModel'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 interface Props { 
   items: ItemModel[];
@@ -9,25 +9,24 @@ interface Props {
   cribs: CribModel[];
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
-
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
   handleAddBin: () => void;
   isLookupOpen: boolean;
   setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cancelAddBin: () => void;
-  min: number;
-  setMin: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumber, handleAddBin, isLookupOpen, setIsLookupOpen, cancelAddBin, min, setMin }: Props) => {
-  
-  return (
+const EditBin = ({ items, bins, cribs, selectedItem, setSelectedItem, setBinNumber, handleAddBin, isLookupOpen, setIsLookupOpen, cancelAddBin }: Props) => {
+
+   const { binCode } = useParams<{ binCode: string }>();
+
+ return (
     <div className='mb-1 block text-sm font-medium'>
     
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold">Add Bin</h1>
-          <p className="text-sm text-gray-500">Create a new bin and assign an item.</p>
+          <h1 className="text-2xl font-semibold">Edit Bin</h1>
+          <p className="text-sm text-gray-500">Edit existing bin.</p>
         </div>
 
         <div className="space-y-4">
@@ -73,16 +72,7 @@ const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumb
       
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Min Qty</label>
-            <input
-              type="number"
-              
-              onChange={(e) => setMin(Number(e.target.value))}
-              className="w-full rounded-md border px-3 py-2"
-              placeholder="Enter minimum quantity"
-            />
-          </div>
+
         </div>
 
         <div className="flex justify-end gap-3">
@@ -94,12 +84,14 @@ const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumb
           >Cancel</button>
           <button 
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
-            onClick={ handleAddBin }
-          > Save Bin </button>
+            onClick={handleAddBin}
+            > Save Bin </button>
         </div>
       </div>
     </div>
   )
 }
 
-export default AddBin
+export default EditBin
+
+

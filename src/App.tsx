@@ -17,6 +17,9 @@ import Hero from './components/Hero/Hero';
 import Bins from './components/Bins/Bins';
 import AddBin from './components/Bins/AddBin/AddBin';
 import { BinModel } from './models/BinsModel'; 
+import RestockBin from './components/Bins/RestockBin/RestockBin';
+import EditBin from './components/Bins/EditBin/EditBin';
+
 
 export const App = () => {
 
@@ -24,12 +27,16 @@ export const App = () => {
   const [items, setItems] = useState<ItemModel[]>(initialItems);
   const [bins, setBins] = useState<BinModel[]>(initialBinss);
   const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
+  
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
   const [binNumber, setBinNumber] = useState<string>("");
+  const [newBin, setNewBin] = useState<BinModel | null>(null);
+  const [min, setMin] = useState<number>(5);
   const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);  
+  const [stockQty, setStockQty] = useState<number>(0);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate() ;
 
   const resetAddBin = () => {
     setBinNumber("");
@@ -51,14 +58,15 @@ export const App = () => {
       return;
     }
     
-
-    const cribCode = cribs.length > 0 ? cribs[0].cribCode : "001";
+    const cribCode = cribs !== null && cribs.length > 0 ? cribs[0].cribCode : "001";
     const itemCode = selectedItem?.code;
+
     const newBin = new BinModel(
       binNumber, 
       cribCode,
       itemCode,
       0,
+      min,
     );
  
     setBins( prev => [...prev, newBin] );
@@ -69,6 +77,10 @@ export const App = () => {
   const cancelAddBin  = () => {
     resetAddBin();
     navigate('/bins', { state: { message: "Operation cancelled" }});
+
+  }
+
+  const handleEditBin = () => {
 
   }
 
@@ -84,19 +96,40 @@ export const App = () => {
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
             <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
-            
+            <Route path="/bins/:id/edit" 
+              element={<EditBin 
+                items={items} 
+                bins={bins} 
+                cribs={cribs}
+                selectedItem={selectedItem} 
+                setSelectedItem={setSelectedItem} 
+                setBinNumber={setBinNumber} 
+                handleAddBin={handleAddBin} 
+                isLookupOpen={isLookupOpen} 
+                setIsLookupOpen={setIsLookupOpen}  
+                cancelAddBin={cancelAddBin}
+              />} 
+            />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
             <Route path="/bins/add" 
-              element={<AddBin items={items} 
-              bins={bins} 
-              selectedItem={selectedItem} 
-              setSelectedItem={setSelectedItem} 
-              setBinNumber={setBinNumber} 
-              handleAddBin={handleAddBin} 
-              isLookupOpen={isLookupOpen} 
-              setIsLookupOpen={setIsLookupOpen}  
-              cancelAddBin={cancelAddBin}
+              element={<AddBin 
+                items={items} 
+                bins={bins} 
+                cribs={cribs}
+                selectedItem={selectedItem} 
+                setSelectedItem={setSelectedItem} 
+                
+                setBinNumber={setBinNumber} 
+                handleAddBin={handleAddBin} 
+                isLookupOpen={isLookupOpen} 
+                setIsLookupOpen={setIsLookupOpen}  
+                cancelAddBin={cancelAddBin}
+                min={min}
+                setMin={setMin}
             />} />
+            <Route 
+              path="/bins/restock" 
+              element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} /> } />
 
           </Routes>
         </div>

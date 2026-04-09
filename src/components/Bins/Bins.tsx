@@ -31,11 +31,11 @@ const Bins = ({cribs, items, bins, setBins, binNumber, selectedItem}: Props) => 
   return (
     <section id="bins">
       <div className='relative flex items-center'>
-        <h2 className="absolute left-1/2 lg:-translate-x-1/2 text-xl font-semibold">
+        <h2 className="absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold">
           Manage Bins
         </h2>
         <button onClick={() => navigate("/bins/add")}
-          className='mt-2 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'>
+          className='mt-1 mb-10 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'>
           + Add Bin
         </button>
       </div>
