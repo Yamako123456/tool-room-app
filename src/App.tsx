@@ -41,34 +41,33 @@ export const App = () => {
   const resetAddBin = () => {
     setBinNumber("");
     setSelectedItem(null);
+    setMin(0);
   }
+
   const handleAddBin = () => {
+    
     if (!binNumber || binNumber.trim() === '' ) {
       alert( "Bin Number is required");
       return;
-    }
-    
+    }  
     if ( bins.find( (b) => b.binCode.toLowerCase() === binNumber.trim().toLocaleLowerCase() ) )  {
       alert( "Bin Number must be unique" );
       return;
-    }
-    
-    if (!selectedItem ) {
-      alert( "Assigning item is required");
-      return;
-    }
-    
+    }    
+    // if (!selectedItem ) {
+    //   alert( "Assigning item is required");
+    //   return;
+    // }    
     const cribCode = cribs !== null && cribs.length > 0 ? cribs[0].cribCode : "001";
     const itemCode = selectedItem?.code;
-
     const newBin = new BinModel(
       binNumber, 
       cribCode,
+      false,
       itemCode,
       0,
       min,
     );
- 
     setBins( prev => [...prev, newBin] );
     resetAddBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
@@ -96,18 +95,21 @@ export const App = () => {
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
             <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
-            <Route path="/bins/:id/edit" 
+            <Route path="/bins/:binCode/edit" 
               element={<EditBin 
                 items={items} 
                 bins={bins} 
                 cribs={cribs}
                 selectedItem={selectedItem} 
                 setSelectedItem={setSelectedItem} 
+                
                 setBinNumber={setBinNumber} 
-                handleAddBin={handleAddBin} 
+                handleEditBin={handleEditBin} 
                 isLookupOpen={isLookupOpen} 
                 setIsLookupOpen={setIsLookupOpen}  
                 cancelAddBin={cancelAddBin}
+                min={min}
+                setMin={setMin}
               />} 
             />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />

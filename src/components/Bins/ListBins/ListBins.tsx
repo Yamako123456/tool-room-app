@@ -11,7 +11,7 @@ interface Props {
 
 const ListBins = ({bins, setBins, items}: Props) => {
   const navigate = useNavigate();
-  const onEdit = (bin: BinModel) => navigate("/bins/${bin.binCode}/edit" );
+  const onEdit = (binCode: string) => navigate(`/bins/${binCode}/edit` );
 
   return (
     <section id="listBins">    

@@ -4,7 +4,7 @@ import { BinModel } from '../../../models/BinsModel';
 interface Props {
   aBin: BinModel;
   items: ItemModel[];
-  onEdit?: (bin: BinModel) => void;
+  onEdit: (binCode: string) => void;
 }
 
 const CardBin = ({aBin, items, onEdit }: Props) => {
@@ -15,7 +15,9 @@ const CardBin = ({aBin, items, onEdit }: Props) => {
     <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
-          onClick={() => onEdit?.(aBin)}
+          onClick={() => {
+            onEdit(aBin.binCode)}
+          }
           className='text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg'
           > Edit 
         </button>
@@ -28,7 +30,7 @@ const CardBin = ({aBin, items, onEdit }: Props) => {
           <span className="font-semibold">Toolroom:</span> {aBin.crib}
         </p>     
         <p>
-          <span className="font-semibold">Item Code:</span> {aBin.item}
+          <span className="font-semibold">Item Code:</span> {aBin.item ? aBin.item : "Not Assigned" }
         </p>
         {item?.description1}
         {item?.itemImage && (
