@@ -26,9 +26,9 @@ const CardBin = ({aBin, items, onEdit }: Props) => {
       <h2 className="text-xl font-bold text-gray-800 mb-4">Bin Code:  {aBin.binCode}</h2>
 
       <div className="space-y-2 text-black">
-        <p>
+        {/* <p>
           <span className="font-semibold">Toolroom:</span> {aBin.crib}
-        </p>     
+        </p>      */}
         <p>
           <span className="font-semibold">Item Code:</span> {aBin.item ? aBin.item : "Not Assigned" }
         </p>

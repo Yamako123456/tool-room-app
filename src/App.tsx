@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
@@ -28,11 +28,16 @@ export const App = () => {
   const [bins, setBins] = useState<BinModel[]>(initialBinss);
   const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
   
+  const [itemCode, setItemCode] = useState<string>("");
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
   const [binNumber, setBinNumber] = useState<string>("");
-  const [newBin, setNewBin] = useState<BinModel | null>(null);
+  const [cribNumber, setCribNumber] = useState<string>("");
   const [min, setMin] = useState<number>(5);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [qty, setQty] = useState<number>(0);
+  // const [newBin, setNewBin] = useState<BinModel | null>(null);
+
   const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);  
   const [stockQty, setStockQty] = useState<number>(0);
 
@@ -40,8 +45,12 @@ export const App = () => {
 
   const resetAddBin = () => {
     setBinNumber("");
+    setCribNumber("");
+    setItemCode("");
     setSelectedItem(null);
     setMin(0);
+    setQty(0);
+    setIsActive(false); 
   }
 
   const handleAddBin = () => {
@@ -54,19 +63,16 @@ export const App = () => {
       alert( "Bin Number must be unique" );
       return;
     }    
-    // if (!selectedItem ) {
-    //   alert( "Assigning item is required");
-    //   return;
-    // }    
-    const cribCode = cribs !== null && cribs.length > 0 ? cribs[0].cribCode : "001";
-    const itemCode = selectedItem?.code;
+
+    const cribCode = cribs.length > 0 ? cribs[0].cribCode : "";
+   
     const newBin = new BinModel(
       binNumber, 
       cribCode,
-      false,
       itemCode,
       0,
       min,
+      false,
     );
     setBins( prev => [...prev, newBin] );
     resetAddBin();
@@ -80,6 +86,26 @@ export const App = () => {
   }
 
   const handleEditBin = () => {
+    if (!binNumber) return;
+
+    const updatedBin = new BinModel(
+        binNumber,
+        cribNumber,
+        itemCode,
+        qty,
+        min,        
+        isActive,
+    );
+    
+    setBins( prev => 
+      prev.map( bin =>
+        bin.binCode === binNumber
+        ? updatedBin
+        : bin
+      )
+    );
+    resetAddBin();
+    navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
 
@@ -97,38 +123,41 @@ export const App = () => {
             <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
             <Route path="/bins/:binCode/edit" 
               element={<EditBin 
-                items={items} 
-                bins={bins} 
-                cribs={cribs}
-                selectedItem={selectedItem} 
-                setSelectedItem={setSelectedItem} 
-                
-                setBinNumber={setBinNumber} 
-                handleEditBin={handleEditBin} 
-                isLookupOpen={isLookupOpen} 
-                setIsLookupOpen={setIsLookupOpen}  
-                cancelAddBin={cancelAddBin}
-                min={min}
-                setMin={setMin}
+                  items={items}
+                  bins={bins}
+                  setBinNumber={setBinNumber}
+                  setCribNumber={setCribNumber}
+                  selectedItem={selectedItem}
+                  setSelectedItem={setSelectedItem}
+                  itemCode={itemCode}
+                  setItemCode={setItemCode}
+                  setQty={setQty}
+                  min={min}
+                  setMin={setMin}
+                  isActive={isActive}
+                  setIsActive={setIsActive}
+                  handleEditBin={handleEditBin}
+                  isLookupOpen={isLookupOpen}
+                  setIsLookupOpen={setIsLookupOpen}
+                  cancelAddBin={cancelAddBin}
               />} 
             />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
             <Route path="/bins/add" 
               element={<AddBin 
-                items={items} 
-                bins={bins} 
-                cribs={cribs}
-                selectedItem={selectedItem} 
-                setSelectedItem={setSelectedItem} 
-                
-                setBinNumber={setBinNumber} 
-                handleAddBin={handleAddBin} 
-                isLookupOpen={isLookupOpen} 
-                setIsLookupOpen={setIsLookupOpen}  
-                cancelAddBin={cancelAddBin}
-                min={min}
-                setMin={setMin}
-            />} />
+                        items={items}         
+                        itemCode={itemCode} 
+                        setItemCode={setItemCode}
+                        selectedItem={selectedItem}
+                        setSelectedItem={setSelectedItem}
+                        setBinNumber={setBinNumber}
+                        handleAddBin={handleAddBin}
+                        isLookupOpen={isLookupOpen}
+                        setIsLookupOpen={setIsLookupOpen}
+                        cancelAddBin={cancelAddBin}
+                        setMin={setMin}                
+              />} 
+            />
             <Route 
               path="/bins/restock" 
               element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} /> } />

@@ -5,21 +5,32 @@ import { Navigate } from 'react-router-dom';
 
 interface Props { 
   items: ItemModel[];
-  bins: BinModel[];
-  cribs: CribModel[];
+  itemCode: string;
+  setItemCode: React.Dispatch<React.SetStateAction<string>>;
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
-
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
   handleAddBin: () => void;
   isLookupOpen: boolean;
   setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cancelAddBin: () => void;
-  min: number;
   setMin: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumber, handleAddBin, isLookupOpen, setIsLookupOpen, cancelAddBin, min, setMin }: Props) => {
+const AddBin = ({ 
+        items,         
+        itemCode, 
+        setItemCode,
+        selectedItem,
+        setSelectedItem,  
+        setBinNumber, 
+        handleAddBin, 
+        isLookupOpen, 
+        setIsLookupOpen, 
+        cancelAddBin,         
+        setMin
+        }: Props
+      ) => {
   
   return (
     <div className='mb-1 block text-sm font-medium'>
@@ -47,14 +58,17 @@ const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumb
             <div className='flex gap-2'>
               <input
                 readOnly
-                value={selectedItem ? `${selectedItem.code }, ${selectedItem.description1}` : "" }
+                // value={selectedItem ? `${selectedItem.code }, ${selectedItem.description1}` : "" }
+                value={`${selectedItem ? selectedItem.code : " " }, ${selectedItem ? selectedItem.description1 : ""}` }
                 className="w-full rounded-md border px-3 py-2 bg-gray-50"
                 placeholder="No item selected"
               />
               <button type='button' 
                 onClick={() => setIsLookupOpen(true)}
                 className='rounded-md border px-4 py-2 hover:bg-green-100'
-              > Lookup </button>
+              > 
+                Lookup 
+              </button>
               
               <ItemLookup
                 isOpen={isLookupOpen}
@@ -62,13 +76,16 @@ const AddBin = ({ items, bins, cribs, selectedItem, setSelectedItem,  setBinNumb
                 onClose={() => setIsLookupOpen(false)}
                 onSelect={(item) => {
                   setSelectedItem(item);
+                  setItemCode(item.code);
                   setIsLookupOpen(false);
                 }}
               />
 
               <button type='button' onClick={() =>{setSelectedItem(null); setIsLookupOpen(false)}}
                 className='rounded-md border px-4 py-2  hover:bg-slate-100'
-              > Clear </button>
+              > 
+                Clear 
+              </button>
             </div>
       
           </div>
