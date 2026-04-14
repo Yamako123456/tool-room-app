@@ -18,6 +18,7 @@ interface Props {
   isActive: boolean;
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
   handleEditBin: () => void;
+  handleDeleteBin: () => void;
   isLookupOpen: boolean;
   setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cancelAddBin: () => void;
@@ -38,6 +39,7 @@ const EditBin =  ({
     isActive, 
     setIsActive, 
     handleEditBin,
+    handleDeleteBin,
     isLookupOpen, 
     setIsLookupOpen, 
     cancelAddBin, 
@@ -91,8 +93,9 @@ const EditBin =  ({
             <div className='flex gap-2'>
               <input
                 readOnly
-                value={selectedItem ? `${selectedItem.code }, ${selectedItem.description1}` : "" }
-                className="w-full rounded-md border px-3 py-2 bg-gray-50"                
+                value={ selectedItem ? `${selectedItem.code} - ${selectedItem.description1}`  : ""}
+                className="w-full rounded-md border px-3 py-2 bg-gray-50"
+                placeholder={`${!selectedItem ? "Use Lookup to select item" : "" }`}
               />
               <button type='button' 
                 disabled={isActive}
@@ -149,6 +152,25 @@ const EditBin =  ({
           </button>
         </div>
       </div>
+                
+      {/* Danger Zone */}
+      { !selectedBin.active && 
+      <div className='mt-10 border border-red-300 rounded-lgp-4 bg-red-50'>
+        <h2 className='text-red-700 text-2xl font-semibold" mb-2'>
+          Delete Unused Bin
+        </h2>
+        <p className='text-sm text-red-600 mb-4'> 
+          This bin has not been used yet and can be safely removed.
+        </p>
+        <button
+          className='px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg'
+          onClick={ () => { if (window.confirm(`Delete this unused bin: ${selectedBin.binCode}?`)) {handleDeleteBin() } } }                    
+        >
+
+        </button>
+
+      </div>      
+      }
     </div>
   )
 }

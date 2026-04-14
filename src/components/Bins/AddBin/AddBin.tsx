@@ -58,10 +58,9 @@ const AddBin = ({
             <div className='flex gap-2'>
               <input
                 readOnly
-                // value={selectedItem ? `${selectedItem.code }, ${selectedItem.description1}` : "" }
-                value={`${selectedItem ? selectedItem.code : " " }, ${selectedItem ? selectedItem.description1 : ""}` }
+                value={ selectedItem ? `${selectedItem.code} - ${selectedItem.description1}`  : ""}
                 className="w-full rounded-md border px-3 py-2 bg-gray-50"
-                placeholder="No item selected"
+                placeholder={`${!selectedItem ? "Use Lookup to select item" : "" }`}
               />
               <button type='button' 
                 onClick={() => setIsLookupOpen(true)}

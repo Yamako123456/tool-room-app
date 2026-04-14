@@ -1,6 +1,6 @@
 // import './App.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import { HomeComponent } from './components/HomeComponent';
@@ -22,11 +22,12 @@ import EditBin from './components/Bins/EditBin/EditBin';
 
 
 export const App = () => {
+  const isDemoMode = true;
 
-  const [emps, setEmps] = useState<EmpModel[]>(initialEmps);
-  const [items, setItems] = useState<ItemModel[]>(initialItems);
-  const [bins, setBins] = useState<BinModel[]>(initialBinss);
-  const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
+  const [emps, setEmps] = useState<EmpModel[]>([]);
+  const [items, setItems] = useState<ItemModel[]>([]);
+  const [bins, setBins] = useState<BinModel[]>([]);
+  const [cribs, setCribs] = useState<CribModel[]>([]);
   
   const [itemCode, setItemCode] = useState<string>("");
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
@@ -41,9 +42,19 @@ export const App = () => {
   const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);  
   const [stockQty, setStockQty] = useState<number>(0);
 
+  useEffect(() => {
+    initDemoData();
+  }, []);
+
   const navigate = useNavigate() ;
 
-  const resetAddBin = () => {
+  const initDemoData = () => {
+    setEmps(initialEmps);
+    setItems( initialItems);
+    setBins( initialBinss );
+    setCribs( initialCribs );
+  }
+  const resetBin = () => {
     setBinNumber("");
     setCribNumber("");
     setItemCode("");
@@ -75,12 +86,12 @@ export const App = () => {
       false,
     );
     setBins( prev => [...prev, newBin] );
-    resetAddBin();
+    resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
 
   const cancelAddBin  = () => {
-    resetAddBin();
+    resetBin();
     navigate('/bins', { state: { message: "Operation cancelled" }});
 
   }
@@ -104,13 +115,23 @@ export const App = () => {
         : bin
       )
     );
-    resetAddBin();
+    resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
 
-  return (
+  const handleDeleteBin = () => {
+    if (!binNumber) return;
+  
+    setBins( prev => 
+      prev.filter( bin => bin.binCode !== binNumber ) 
+    );
+    resetBin();
+    navigate('/bins', { state: { message: 'Bin saved' } })
+  }
 
+  return (
+   
     <div>
       {/* <Router>       */}
         <MyNavbar />
@@ -137,6 +158,7 @@ export const App = () => {
                   isActive={isActive}
                   setIsActive={setIsActive}
                   handleEditBin={handleEditBin}
+                  handleDeleteBin={handleDeleteBin}
                   isLookupOpen={isLookupOpen}
                   setIsLookupOpen={setIsLookupOpen}
                   cancelAddBin={cancelAddBin}
