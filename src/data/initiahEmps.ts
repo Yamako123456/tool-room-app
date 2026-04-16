@@ -15,8 +15,8 @@ export const initialEmps: EmpModel[] = [
     },
     {   
         badgeNo: "1000",
-        firstName: "Production",
-        lastName: "Manager",
+        firstName: "Padma",
+        lastName: "Patil",
         department: "prod",
         active: true,
     },
@@ -36,9 +36,24 @@ export const initialEmps: EmpModel[] = [
     },
     {   
         badgeNo: "2000",
-        firstName: "Maintenance",
-        lastName: "Manager",
+        firstName: "Hannah",
+        lastName: "Abbott",
         department: "maint",
         active: true,
     },
+    {   
+        badgeNo: "3000",
+        firstName: "Adrian",
+        lastName: "Pucey",
+        
+        active: true,
+    },
+    {   
+        badgeNo: "3001",
+        firstName: "Marcus",
+        lastName: "Flint",
+        
+        active: true,
+    },
+     
 ]

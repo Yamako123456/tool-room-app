@@ -34,6 +34,12 @@ const MyNavbar = (props: Props) => {
             <Link to="/bins" className='text-black hover:text-darkBlue'>
               Bins
             </Link>
+            <Link to="/emps" className='text-black hover:text-darkBlue'>
+              Employees
+            </Link>               
+            <Link to="/depts" className='text-black hover:text-darkBlue'>
+              Departments
+            </Link>            
             <Link to="/about" className="text-black hover:text-darkBlue">
               About
             </Link>

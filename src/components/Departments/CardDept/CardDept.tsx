@@ -23,7 +23,7 @@ const CardDept = ({aDept, emps, onEditDept} : Props) => {
         </button>
       </div>
       
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Department Code:  {aDept.deptCode}</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Department:  {aDept.deptCode}</h2>
 
       <div className="space-y-2 text-black">
         <p>

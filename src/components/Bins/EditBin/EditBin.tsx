@@ -79,7 +79,7 @@ const EditBin =  ({
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Bin Number</label>
+            <label className="block text-sm font-medium mb-1">Bin Code</label>
             <input
               readOnly
               value={binCode}

@@ -10,6 +10,7 @@ interface Props {
   selectedManager: EmpModel | null;
   setSelectedManager:  React.Dispatch<React.SetStateAction<EmpModel | null>>;
   setDeptNumber: React.Dispatch<React.SetStateAction<string>>;
+  setDeptName: React.Dispatch<React.SetStateAction<string>>;
   handleAddDept: () => void;
   isLookupEmpOpen: boolean;
   setIsLookupEmpOpen: React.Dispatch<React.SetStateAction<boolean>>; 
@@ -18,7 +19,7 @@ interface Props {
 
 const AddDepartment = ({
   emps, managerBadgeNo, setManagerBadgeNo, selectedManager, 
-  setSelectedManager, setDeptNumber, handleAddDept, isLookupEmpOpen, 
+  setSelectedManager, setDeptNumber, setDeptName, handleAddDept, isLookupEmpOpen, 
   setIsLookupEmpOpen, cancelAddDept
 }: Props) => {
 
@@ -27,13 +28,13 @@ const AddDepartment = ({
     
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold">Add Bin</h1>
-          <p className="text-sm text-gray-500">Create a new bin and assign an item.</p>
+          <h1 className="text-2xl font-semibold">Add Department</h1>
+          <p className="text-sm text-gray-500">Create a new department.</p>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Bin Number</label>
+            <label className="block text-sm font-medium mb-1">Department Code</label>
             <input
               type="text"
               
@@ -42,7 +43,16 @@ const AddDepartment = ({
               placeholder="Enter bin number"
             />
           </div>
-
+          <div>
+            <label className="block text-sm font-medium mb-1">Department Name</label>
+            <input
+              type="text"
+              
+              onChange={(e) => setDeptName(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+              placeholder="Enter bin number"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium mb-1">Assign Manager</label>
             <div className='flex gap-2'>

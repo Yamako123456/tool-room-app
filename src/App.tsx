@@ -22,6 +22,8 @@ import EditBin from './components/Bins/EditBin/EditBin';
 import { DepartmentModel } from './models/DepartmentModel';
 import { initialDepartments } from './data/initialDepartments';
 import Departments from './components/Departments/Departments';
+import Employees from './components/Employees/Employees';
+import AddDepartment from './components/Departments/AddDepartment/AddDepartment';
 
 
 export const App = () => {
@@ -35,18 +37,23 @@ export const App = () => {
   
   const [binNumber, setBinNumber] = useState<string>("");
   const [deptNumber, setDeptNumber] = useState<string>("");
+  const [empBadgeNumber, setEmpBadgeNumber] = useState<string>("");
   
   const [itemCode, setItemCode] = useState<string | undefined>(undefined);
-  const [managerBadgeNo, setManagerBadgeNo] = useState<string>("");
+  const [managerBadgeNo, setManagerBadgeNo] = useState<string | undefined >(undefined);
+  const [deptCode, setDeptCode] = useState<string>("");
 
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [selectedManager, setSelectedManager] = useState<EmpModel | null>(null);
+  const [selectedDept, setSelectedDept] = useState<DepartmentModel | null>(null);
   
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
 
   const [cribNumber, setCribNumber] = useState<string>("");
   const [min, setMin] = useState<number>(5);
   const [qty, setQty] = useState<number>(0);
+
+  const [deptName, setDeptName] = useState<string>("");
 
   const [isBinActive, setIsBinActive] = useState<boolean>(false);
   const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
@@ -72,6 +79,7 @@ export const App = () => {
     setBins( initialBinss );
     setCribs( initialCribs );
   }
+
   const resetBin = () => {
     setBinNumber("");
     setCribNumber("");
@@ -81,15 +89,29 @@ export const App = () => {
     setQty(0);
     setIsBinActive(false); 
   }
+  const resetDept = () => {
+    setDeptNumber("");
+    setDeptName("");
+    setManagerBadgeNo("");
+    setSelectedManager(null);
+    setIsDeptActive(false); 
+  }
+  const resetEmp = () => {
+    setEmpBadgeNumber("");
+    setDeptCode("");
+    setSelectedDept(null);
+    setIsEmpActive(false); 
+  }
+
 
   const handleAddBin = () => {
     
     if (!binNumber || binNumber.trim() === '' ) {
-      alert( "Bin Number is required");
+      alert( "Bin Code is required");
       return;
     }  
-    if ( bins.find( (b) => b.binCode.toLowerCase() === binNumber.trim().toLocaleLowerCase() ) )  {
-      alert( "Bin Number must be unique" );
+    if ( bins.find( (b) => b.binCode.toLowerCase() === binNumber.trim().toLowerCase() ) )  {
+      alert( "Bin code must be unique" );
       return;
     }    
 
@@ -108,11 +130,45 @@ export const App = () => {
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
 
+ const handleAddDept = () => {
+    
+    if (!deptNumber || deptNumber.trim() === '' ) {
+      alert( "Department Code is required");
+      return;
+    }  
+    if ( depts.find( (dept) => dept.deptCode.toLowerCase() === deptNumber.trim().toLowerCase() ) )  {
+      alert( "Department code must be unique" );
+      return;
+    }    
+     
+    const newDept = new DepartmentModel(
+      deptNumber,
+      deptName,
+      isDeptActive,       
+      managerBadgeNo  
+    );
+
+    setDepts( prev => [...prev, newDept] );
+    resetDept();
+    navigate('/depts', { state: { message: 'Department saved' } });
+  }
+
   const cancelBin  = () => {
     resetBin();
     navigate('/bins', { state: { message: "Operation cancelled" }});
 
   }
+  const cancelDept  = () => {
+    resetDept();
+    navigate('/depts', { state: { message: "Operation cancelled" }});
+  }
+  const cancelEmp  = () => {
+    resetEmp();
+    navigate('/emps', { state: { message: "Operation cancelled" }});
+  }
+
+ 
+
 
   const handleEditBin = () => {
     if (!binNumber) return;
@@ -156,44 +212,21 @@ export const App = () => {
 
         <div className='container mt-3'>
           <Routes>
-            <Route path="/" element={<Hero items={items} setItems={setItems} cribs={cribs} />} />
-            <Route path="/about" element={<AboutComponent />} />
-            <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
-            <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
-           
-            <Route path="/depts" 
-              element={<Departments 
-                  depts={depts}
-                  setDepts={setDepts}
-                  deptNumber={deptNumber}
-                  emps={emps}
-              />} 
+            <Route path="/" 
+              element={<Hero 
+                  items={items} setItems={setItems} cribs={cribs} />} 
             />
-           
-           
-            <Route path="/bins/:binCode/edit" 
-              element={<EditBin 
-                  items={items}
-                  bins={bins}
-                  setBinNumber={setBinNumber}
-                  setCribNumber={setCribNumber}
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
-                  itemCode={itemCode}
-                  setItemCode={setItemCode}
-                  setQty={setQty}
-                  min={min}
-                  setMin={setMin}
-                  isBinActive={isBinActive}
-                  setIsBinActive={setIsBinActive}
-                  handleEditBin={handleEditBin}
-                  handleDeleteBin={handleDeleteBin}
-                  isLookupItemOpen={isLookupItemOpen}
-                  setIsLookupItemOpen={setIsLookupItemOpen}
-                  cancelEditBin={cancelBin}
-              />} 
+            <Route path="/about" 
+              element={<AboutComponent />} 
             />
-            <Route path="/print/:itemCode" element={<PrintWrapper />} />
+            <Route path="/items" 
+              element={<ItemModuleComponent 
+                items={items} setItems={setItems} />} 
+            />
+            <Route path="/bins" 
+              element={<Bins 
+                cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} 
+            />
             <Route path="/bins/add" 
               element={<AddBin 
                         items={items}         
@@ -208,7 +241,59 @@ export const App = () => {
                         cancelAddBin={cancelBin}
                         setMin={setMin}                
               />} 
+            />  
+            <Route path="/bins/:binCode/edit" 
+              element={<EditBin 
+                        items={items}
+                        bins={bins}
+                        setBinNumber={setBinNumber}
+                        setCribNumber={setCribNumber}
+                        selectedItem={selectedItem}
+                        setSelectedItem={setSelectedItem}
+                        itemCode={itemCode}
+                        setItemCode={setItemCode}
+                        setQty={setQty}
+                        min={min}
+                        setMin={setMin}
+                        isBinActive={isBinActive}
+                        setIsBinActive={setIsBinActive}
+                        handleEditBin={handleEditBin}
+                        handleDeleteBin={handleDeleteBin}
+                        isLookupItemOpen={isLookupItemOpen}
+                        setIsLookupItemOpen={setIsLookupItemOpen}
+                        cancelEditBin={cancelBin}
+              />} 
+            />  
+                     
+            <Route path="/depts" 
+              element={<Departments 
+                depts={depts} setDepts={setDepts} deptNumber={deptNumber} emps={emps} />} 
             />
+            <Route path="/depts/add" 
+              element={<AddDepartment 
+                        emps={emps}
+                        managerBadgeNo={managerBadgeNo}
+                        setManagerBadgeNo={setManagerBadgeNo}
+                        selectedManager={selectedManager} 
+                        setSelectedManager={setSelectedManager}
+                        setDeptNumber={setDeptNumber}
+                        setDeptName={setDeptName}
+                        handleAddDept={handleAddDept}
+                        isLookupEmpOpen={isLookupEmpOpen} 
+                        setIsLookupEmpOpen={setIsLookupEmpOpen}
+                        cancelAddDept={cancelDept}   
+              />}
+            /> 
+
+            <Route path="/emps" 
+              element={<Employees 
+                emps={emps} setEmps={setEmps} depts={depts} />} 
+            />
+           
+ 
+            <Route path="/print/:itemCode" element={<PrintWrapper />} />
+
+            
             <Route 
               path="/bins/restock" 
               element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} /> } />
