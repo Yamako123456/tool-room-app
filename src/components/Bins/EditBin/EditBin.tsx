@@ -49,7 +49,6 @@ const EditBin =  ({
     const selectedBin = bins.find((bin) => bin.binCode === binCode);
 
     useEffect(() => {
-
       setBinNumber(selectedBin?.binCode ?? "");    
       setCribNumber(selectedBin?.crib ?? "");
       setItemCode(selectedBin?.item ?? "");      

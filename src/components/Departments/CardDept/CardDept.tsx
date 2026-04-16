@@ -3,14 +3,11 @@ import { DepartmentModel } from '../../../models/DepartmentModel'
 
 interface Props {
   aDept: DepartmentModel;
-  emps: EmpModel[];
   onEditDept: (empCode: string) => void;
 }
 
-const CardDept = ({aDept, emps, onEditDept} : Props) => {
+const CardDept = ({aDept, onEditDept} : Props) => {
   
-  const manager = emps.find( emp => emp.badgeNo ===  aDept.managerId);
-
   return (
       <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
@@ -23,15 +20,12 @@ const CardDept = ({aDept, emps, onEditDept} : Props) => {
         </button>
       </div>
       
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Department:  {aDept.deptCode}</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Dept. code:  {aDept.deptCode}</h2>
 
       <div className="space-y-2 text-black">
         <p>
-          <span className="font-semibold">Dept. Name:</span> {aDept.description}
-        </p>     
-        <p>
-          <span className="font-semibold">Manager:</span> {manager ? manager.firstName + " " + manager.lastName : "Not Assigned" }
-        </p>        
+          <span className="font-semibold">Dept. name:</span> {aDept.description}
+        </p>             
       </div>
     </div>  
   )

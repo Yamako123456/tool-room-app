@@ -4,23 +4,14 @@ import { useParams } from 'react-router-dom';
 import EmpLookup from '../EmpLookup/EmpLookup';
 
 interface Props {
-  emps: EmpModel[];
-  managerBadgeNo: string | undefined;
-  setManagerBadgeNo: React.Dispatch<React.SetStateAction<string | undefined>>;
-  selectedManager: EmpModel | null;
-  setSelectedManager:  React.Dispatch<React.SetStateAction<EmpModel | null>>;
   setDeptNumber: React.Dispatch<React.SetStateAction<string>>;
   setDeptName: React.Dispatch<React.SetStateAction<string>>;
   handleAddDept: () => void;
-  isLookupEmpOpen: boolean;
-  setIsLookupEmpOpen: React.Dispatch<React.SetStateAction<boolean>>; 
   cancelAddDept: () => void;
 }
 
 const AddDepartment = ({
-  emps, managerBadgeNo, setManagerBadgeNo, selectedManager, 
-  setSelectedManager, setDeptNumber, setDeptName, handleAddDept, isLookupEmpOpen, 
-  setIsLookupEmpOpen, cancelAddDept
+  setDeptNumber, setDeptName, handleAddDept, cancelAddDept
 }: Props) => {
 
   return (
@@ -36,8 +27,7 @@ const AddDepartment = ({
           <div>
             <label className="block text-sm font-medium mb-1">Department Code</label>
             <input
-              type="text"
-              
+              type="text"              
               onChange={(e) => setDeptNumber(e.target.value)}
               className="w-full rounded-md border px-3 py-2"
               placeholder="Enter bin number"
@@ -46,52 +36,12 @@ const AddDepartment = ({
           <div>
             <label className="block text-sm font-medium mb-1">Department Name</label>
             <input
-              type="text"
-              
+              type="text"              
               onChange={(e) => setDeptName(e.target.value)}
               className="w-full rounded-md border px-3 py-2"
               placeholder="Enter bin number"
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Assign Manager</label>
-            <div className='flex gap-2'>
-              <input
-                readOnly
-                value={ selectedManager ? `${selectedManager.badgeNo} - ${selectedManager.firstName + " " + selectedManager.lastName}`  : ""}
-                className="w-full rounded-md border px-3 py-2 bg-gray-50"
-                placeholder={`${!selectedManager ? "Use Lookup to select Managager" : "" }`}
-              />
-              <button type='button' 
-                onClick={() => setIsLookupEmpOpen(true)}
-                className='rounded-md border px-4 py-2 hover:bg-green-100'
-              > 
-                Lookup 
-              </button>
-              
-               <EmpLookup
-                isOpen={isLookupEmpOpen}
-                emps={emps}
-                onClose={() => setIsLookupEmpOpen(false)}
-                onSelect={(emp: EmpModel) => {
-                  setSelectedManager(emp);
-                  setManagerBadgeNo(emp.badgeNo);
-                  setIsLookupEmpOpen(false);
-                }}
-              />
-
-             <button 
-                type='button' 
-                onClick={() =>{
-                  setSelectedManager(null); 
-                  setManagerBadgeNo(undefined); 
-                  setIsLookupEmpOpen(false)}}
-                className='rounded-md border px-4 py-2'                  
-              > 
-              Clear 
-              </button>
-            </div>      
-          </div>          
+          </div>        
         </div>
 
         <div className="flex justify-end gap-3">

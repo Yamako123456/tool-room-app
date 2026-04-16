@@ -6,10 +6,9 @@ import CardDept from '../CardDept/CardDept';
 interface Props {
   depts: DepartmentModel[];
   setDepts: React.Dispatch<React.SetStateAction<DepartmentModel[]>>; 
-  emps: EmpModel[];
 }
 
-const ListDepartments = ({depts, setDepts, emps}: Props) => {
+const ListDepartments = ({depts, setDepts}: Props) => {
   const navigate = useNavigate();
   const onEditDept = (deptCode: string) => navigate(`/depts/${deptCode}/edit` );
 
@@ -20,7 +19,7 @@ const ListDepartments = ({depts, setDepts, emps}: Props) => {
           {depts.length > 0 ? (
               depts.map((aDept) => {
                 return (
-                  <CardDept aDept={aDept} emps={emps} onEditDept={onEditDept}/>
+                  <CardDept aDept={aDept} onEditDept={onEditDept}/>
                 );
               })
             ):(

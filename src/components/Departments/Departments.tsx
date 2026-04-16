@@ -7,24 +7,11 @@ interface Props {
   depts: DepartmentModel[];
   setDepts: React.Dispatch<React.SetStateAction<DepartmentModel[]>>; 
   deptNumber: string;
-  emps: EmpModel[];
-  // selectedManager: EmpModel | null;
 }
 
-const Departments = ({ depts, setDepts, deptNumber, emps}: Props) => {
+const Departments = ({ depts, setDepts, deptNumber}: Props) => {
   const navigate = useNavigate() ;
-
-  const onSearchSubmit = (e: any ) => {
-    e.preventDefault();
-    const keyword = e.target[0].value ? e.target[0].value.trim().toLowerCase() : "";
-    const result =  keyword ? emps.filter( emp => {
-      emp.firstName.toLowerCase().includes(keyword) || 
-      emp.lastName.toLowerCase().includes(keyword) ||
-      emp.badgeNo.toLowerCase().includes(keyword) 
-    }) : emps;
-  }
-
-
+ 
   return (
     <section id="departments">
       <div className='relative flex items-center'>
@@ -40,7 +27,7 @@ const Departments = ({ depts, setDepts, deptNumber, emps}: Props) => {
       <ListDepartments
         depts={depts}
         setDepts={setDepts}
-        emps={emps}    
+      
       />
     </section>
   )

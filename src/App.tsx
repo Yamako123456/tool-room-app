@@ -24,6 +24,7 @@ import { initialDepartments } from './data/initialDepartments';
 import Departments from './components/Departments/Departments';
 import Employees from './components/Employees/Employees';
 import AddDepartment from './components/Departments/AddDepartment/AddDepartment';
+import EditDepartment from './components/Departments/EditDepartment/EditDepartment';
 
 
 export const App = () => {
@@ -114,9 +115,7 @@ export const App = () => {
       alert( "Bin code must be unique" );
       return;
     }    
-
     const cribCode = cribs.length > 0 ? cribs[0].cribCode : "";
-   
     const newBin = new BinModel(
       binNumber, 
       cribCode,     
@@ -129,7 +128,6 @@ export const App = () => {
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
-
  const handleAddDept = () => {
     
     if (!deptNumber || deptNumber.trim() === '' ) {
@@ -140,14 +138,11 @@ export const App = () => {
       alert( "Department code must be unique" );
       return;
     }    
-     
     const newDept = new DepartmentModel(
       deptNumber,
       deptName,
       isDeptActive,       
-      managerBadgeNo  
     );
-
     setDepts( prev => [...prev, newDept] );
     resetDept();
     navigate('/depts', { state: { message: 'Department saved' } });
@@ -193,6 +188,24 @@ export const App = () => {
     navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
+  const handleEditDept = () => {
+    if (!deptNumber) return;
+
+    const updatedDept = new DepartmentModel(
+      deptNumber,
+      deptName,
+      isDeptActive,
+    );
+    setDepts( prev =>
+      prev.map( dept =>
+        dept.deptCode === deptNumber
+        ? updatedDept
+        : dept
+      )
+    );
+    resetDept();
+    navigate('/depts', { state: {message: 'Department saved'}})
+  }
 
   const handleDeleteBin = () => {
     if (!binNumber) return;
@@ -201,7 +214,16 @@ export const App = () => {
       prev.filter( bin => bin.binCode !== binNumber ) 
     );
     resetBin();
-    navigate('/bins', { state: { message: 'Bin saved' } })
+    navigate('/bins', { state: { message: `Bin: ${binNumber} deleted` } })
+  }
+  const handleDeleteDept = () => {
+    if (!deptNumber) return;
+
+    setDepts(prev =>
+      prev.filter(dept => dept.deptCode !== deptNumber)
+    );
+    resetDept();
+    navigate('/depts', { state: { message: `Department: ${deptNumber} deleted`}});
   }
 
   return (
@@ -213,7 +235,7 @@ export const App = () => {
         <div className='container mt-3'>
           <Routes>
             <Route path="/" 
-              element={<Hero 
+              element={<Hero  
                   items={items} setItems={setItems} cribs={cribs} />} 
             />
             <Route path="/about" 
@@ -264,35 +286,39 @@ export const App = () => {
                         cancelEditBin={cancelBin}
               />} 
             />  
-                     
             <Route path="/depts" 
               element={<Departments 
-                depts={depts} setDepts={setDepts} deptNumber={deptNumber} emps={emps} />} 
-            />
+                depts={depts} setDepts={setDepts} deptNumber={deptNumber} />} 
+            />                     
             <Route path="/depts/add" 
               element={<AddDepartment 
-                        emps={emps}
-                        managerBadgeNo={managerBadgeNo}
-                        setManagerBadgeNo={setManagerBadgeNo}
-                        selectedManager={selectedManager} 
-                        setSelectedManager={setSelectedManager}
                         setDeptNumber={setDeptNumber}
                         setDeptName={setDeptName}
                         handleAddDept={handleAddDept}
-                        isLookupEmpOpen={isLookupEmpOpen} 
-                        setIsLookupEmpOpen={setIsLookupEmpOpen}
                         cancelAddDept={cancelDept}   
               />}
+            /> 
+            <Route path="/depts/:deptCode/edit" 
+              element={<EditDepartment 
+                        depts={depts}
+                        deptNumber={deptNumber}
+                        setDeptNumber={setDeptNumber}
+                        deptName={deptName}
+                        setDeptName={setDeptName}
+                        isDeptActive={isDeptActive}
+                        setIsDeptActive={setIsDeptActive}
+                        handleEditDept={handleEditDept}
+                        handleDeleteDept={handleDeleteDept}
+                        cancelEditDept={cancelDept}
+             />}
             /> 
 
             <Route path="/emps" 
               element={<Employees 
                 emps={emps} setEmps={setEmps} depts={depts} />} 
             />
-           
  
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
-
             
             <Route 
               path="/bins/restock" 
