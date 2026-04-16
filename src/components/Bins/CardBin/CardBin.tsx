@@ -4,10 +4,10 @@ import { BinModel } from '../../../models/BinsModel';
 interface Props {
   aBin: BinModel;
   items: ItemModel[];
-  onEdit: (binCode: string) => void;
+  onEditBin: (binCode: string) => void;
 }
 
-const CardBin = ({aBin, items, onEdit }: Props) => {
+const CardBin = ({aBin, items, onEditBin }: Props) => {
 
   const item = items.find( itm => itm.code === aBin.item);
 
@@ -16,7 +16,7 @@ const CardBin = ({aBin, items, onEdit }: Props) => {
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
-            onEdit(aBin.binCode)}
+            onEditBin(aBin.binCode)}
           }
           className='text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg'
           > Edit 

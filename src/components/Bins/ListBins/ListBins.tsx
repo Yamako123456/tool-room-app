@@ -11,7 +11,7 @@ interface Props {
 
 const ListBins = ({bins, setBins, items}: Props) => {
   const navigate = useNavigate();
-  const onEdit = (binCode: string) => navigate(`/bins/${binCode}/edit` );
+  const onEditBin = (binCode: string) => navigate(`/bins/${binCode}/edit` );
 
   return (
     <section id="listBins">    
@@ -20,7 +20,7 @@ const ListBins = ({bins, setBins, items}: Props) => {
           {bins.length > 0 ? (
               bins.map((aBin) => {
                 return (
-                  <CardBin aBin={aBin} items={items} onEdit={onEdit}/>
+                  <CardBin aBin={aBin} items={items} onEditBin={onEditBin}/>
                 );
               })
             ):(

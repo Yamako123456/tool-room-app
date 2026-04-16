@@ -14,8 +14,6 @@ interface Props {
 
 const Bins = ({cribs, items, bins, setBins, binNumber, selectedItem}: Props) => {
   
-
-  
   const navigate = useNavigate() ;
  
   const onSearchSubmit = (e: any ) => {

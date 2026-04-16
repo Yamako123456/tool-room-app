@@ -19,27 +19,44 @@ import AddBin from './components/Bins/AddBin/AddBin';
 import { BinModel } from './models/BinsModel'; 
 import RestockBin from './components/Bins/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
+import { DepartmentModel } from './models/DepartmentModel';
+import { initialDepartments } from './data/initialDepartments';
+import Departments from './components/Departments/Departments';
 
 
 export const App = () => {
   const isDemoMode = true;
 
   const [emps, setEmps] = useState<EmpModel[]>([]);
+  const [depts, setDepts] = useState<DepartmentModel[]>([]);
   const [items, setItems] = useState<ItemModel[]>([]);
   const [bins, setBins] = useState<BinModel[]>([]);
   const [cribs, setCribs] = useState<CribModel[]>([]);
   
-  const [itemCode, setItemCode] = useState<string>("");
-  const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
-  const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
   const [binNumber, setBinNumber] = useState<string>("");
+  const [deptNumber, setDeptNumber] = useState<string>("");
+  
+  const [itemCode, setItemCode] = useState<string | undefined>(undefined);
+  const [managerBadgeNo, setManagerBadgeNo] = useState<string>("");
+
+  const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
+  const [selectedManager, setSelectedManager] = useState<EmpModel | null>(null);
+  
+  const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
+
   const [cribNumber, setCribNumber] = useState<string>("");
   const [min, setMin] = useState<number>(5);
-  const [isActive, setIsActive] = useState<boolean>(false);
   const [qty, setQty] = useState<number>(0);
-  // const [newBin, setNewBin] = useState<BinModel | null>(null);
 
-  const [isLookupOpen, setIsLookupOpen] = useState<boolean>(false);  
+  const [isBinActive, setIsBinActive] = useState<boolean>(false);
+  const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
+  const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
+  const [isCribActive, setIsCribActive] = useState<boolean>(false);
+  
+  const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
+  const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
+  
+ 
   const [stockQty, setStockQty] = useState<number>(0);
 
   useEffect(() => {
@@ -50,6 +67,7 @@ export const App = () => {
 
   const initDemoData = () => {
     setEmps(initialEmps);
+    setDepts(initialDepartments);
     setItems( initialItems);
     setBins( initialBinss );
     setCribs( initialCribs );
@@ -61,7 +79,7 @@ export const App = () => {
     setSelectedItem(null);
     setMin(0);
     setQty(0);
-    setIsActive(false); 
+    setIsBinActive(false); 
   }
 
   const handleAddBin = () => {
@@ -79,18 +97,18 @@ export const App = () => {
    
     const newBin = new BinModel(
       binNumber, 
-      cribCode,
-      itemCode,
+      cribCode,     
       0,
       min,
       false,
+      itemCode,
     );
     setBins( prev => [...prev, newBin] );
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
 
-  const cancelAddBin  = () => {
+  const cancelBin  = () => {
     resetBin();
     navigate('/bins', { state: { message: "Operation cancelled" }});
 
@@ -101,11 +119,11 @@ export const App = () => {
 
     const updatedBin = new BinModel(
         binNumber,
-        cribNumber,
-        itemCode,
+        cribNumber,        
         qty,
         min,        
-        isActive,
+        isBinActive,
+        itemCode,
     );
     
     setBins( prev => 
@@ -142,6 +160,17 @@ export const App = () => {
             <Route path="/about" element={<AboutComponent />} />
             <Route path="/items" element={<ItemModuleComponent items={items} setItems={setItems} />} />
             <Route path="/bins" element={<Bins cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} />
+           
+            <Route path="/depts" 
+              element={<Departments 
+                  depts={depts}
+                  setDepts={setDepts}
+                  deptNumber={deptNumber}
+                  emps={emps}
+              />} 
+            />
+           
+           
             <Route path="/bins/:binCode/edit" 
               element={<EditBin 
                   items={items}
@@ -155,13 +184,13 @@ export const App = () => {
                   setQty={setQty}
                   min={min}
                   setMin={setMin}
-                  isActive={isActive}
-                  setIsActive={setIsActive}
+                  isBinActive={isBinActive}
+                  setIsBinActive={setIsBinActive}
                   handleEditBin={handleEditBin}
                   handleDeleteBin={handleDeleteBin}
-                  isLookupOpen={isLookupOpen}
-                  setIsLookupOpen={setIsLookupOpen}
-                  cancelAddBin={cancelAddBin}
+                  isLookupItemOpen={isLookupItemOpen}
+                  setIsLookupItemOpen={setIsLookupItemOpen}
+                  cancelEditBin={cancelBin}
               />} 
             />
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
@@ -174,16 +203,16 @@ export const App = () => {
                         setSelectedItem={setSelectedItem}
                         setBinNumber={setBinNumber}
                         handleAddBin={handleAddBin}
-                        isLookupOpen={isLookupOpen}
-                        setIsLookupOpen={setIsLookupOpen}
-                        cancelAddBin={cancelAddBin}
+                        isLookupItemOpen={isLookupItemOpen}
+                        setIsLookupItemOpen={setIsLookupItemOpen}
+                        cancelAddBin={cancelBin}
                         setMin={setMin}                
               />} 
             />
             <Route 
               path="/bins/restock" 
               element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} /> } />
-
+            
           </Routes>
         </div>
       {/* </Router> */}

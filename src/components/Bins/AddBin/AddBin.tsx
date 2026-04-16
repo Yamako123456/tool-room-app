@@ -5,14 +5,14 @@ import { Navigate } from 'react-router-dom';
 
 interface Props { 
   items: ItemModel[];
-  itemCode: string;
-  setItemCode: React.Dispatch<React.SetStateAction<string>>;
+  itemCode: string | undefined;
+  setItemCode: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
   handleAddBin: () => void;
-  isLookupOpen: boolean;
-  setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLookupItemOpen: boolean;
+  setIsLookupItemOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cancelAddBin: () => void;
   setMin: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -25,8 +25,8 @@ const AddBin = ({
         setSelectedItem,  
         setBinNumber, 
         handleAddBin, 
-        isLookupOpen, 
-        setIsLookupOpen, 
+        isLookupItemOpen, 
+        setIsLookupItemOpen, 
         cancelAddBin,         
         setMin
         }: Props
@@ -63,24 +63,28 @@ const AddBin = ({
                 placeholder={`${!selectedItem ? "Use Lookup to select item" : "" }`}
               />
               <button type='button' 
-                onClick={() => setIsLookupOpen(true)}
+                onClick={() => setIsLookupItemOpen(true)}
                 className='rounded-md border px-4 py-2 hover:bg-green-100'
               > 
                 Lookup 
               </button>
               
               <ItemLookup
-                isOpen={isLookupOpen}
+                isOpen={isLookupItemOpen}
                 items={items}
-                onClose={() => setIsLookupOpen(false)}
+                onClose={() => setIsLookupItemOpen(false)}
                 onSelect={(item) => {
                   setSelectedItem(item);
                   setItemCode(item.code);
-                  setIsLookupOpen(false);
+                  setIsLookupItemOpen(false);
                 }}
               />
 
-              <button type='button' onClick={() =>{setSelectedItem(null); setIsLookupOpen(false)}}
+              <button type='button' 
+                onClick={() =>{
+                  setSelectedItem(null); 
+                  setItemCode(undefined)
+                  setIsLookupItemOpen(false)}}
                 className='rounded-md border px-4 py-2  hover:bg-slate-100'
               > 
                 Clear 

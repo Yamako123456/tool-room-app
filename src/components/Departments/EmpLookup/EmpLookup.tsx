@@ -1,18 +1,20 @@
-import React, {useState, useMemo} from 'react'
+import React, { useMemo, useState } from 'react'
 
 interface Props {
   isOpen: boolean;
-  items: ItemModel[];
+  emps: EmpModel[];
   onClose: () => void;
-  onSelect: (item: ItemModel) => void;
+  onSelect: (emp: EmpModel) => void;
 }
 
-const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
+const EmpLookup = ({ isOpen, emps, onClose, onSelect}: Props) => {
   const [keyword, setKeyword] = useState<string>("");
-  const filteredItems = useMemo(() => {
+  const filteredEmps = useMemo(() => {
     const lowerKeyword = keyword.trimEnd().toLowerCase();
-    return items.filter((item) => item.code.toLowerCase().includes(lowerKeyword) || item.description1.toLowerCase().includes(lowerKeyword) ) ;
-  }, [items, keyword] );
+    return emps.filter((emp) => emp.firstName.toLowerCase().includes(lowerKeyword)
+      || emp.lastName.toLowerCase().includes(lowerKeyword)
+      || emp.badgeNo.toLowerCase().includes(lowerKeyword) );
+  }, [emps, keyword]);
 
   if (!isOpen) return null;
 
@@ -21,7 +23,7 @@ const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
       <div className='w-full max-w-3xl rounded-xl bg-white shadow-lg'>
         <div className='flex items-center justify-between border-b px-4 py=3'>
             <h2 className='text-xl font-bold text-black'>
-              Item Lookup
+              Employee Lookup
             </h2>
             <button onClick={onClose}
               className='text-gray-500 hover:text-black'
@@ -39,22 +41,21 @@ const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
           className='w-full rounded-md border px-2 py-2'
         />
         <div className='max-h-80 overflow-y-auto border rounded-md'>
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item) => (
+          {filteredEmps.length > 0 ? (
+            filteredEmps.map((emp) => (
               <button 
-                key={item.code}
+                key={emp.badgeNo}
                 type='button'
-                onClick={() => onSelect(item)}
+                onClick={() => onSelect(emp)}
                 className='w-full text-left px-4 py-3 hover:bg-gray-50 hover:text-black    border-b'
               >
-                <div className='font-medium'> {item.code} </div>
-                {/* <div className='text-sm text-gray-500'> {item.description1} </div> */}
-                <div className='text-sm'> {item.description1} </div>
+                <div className='font-medium'> {emp.badgeNo} </div>
+                <div className='text-sm'> {emp.firstName + " " + emp.lastName} </div>
               </button>
             ))
           ) : (
             <div className='p-4 text-sm text-gray-500'>
-              No Items found
+              No Employees found
             </div>
 
           )}
@@ -68,4 +69,4 @@ const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
   )
 }
 
-export default ItemLookup
+export default EmpLookup

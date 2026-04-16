@@ -10,18 +10,18 @@ interface Props {
   setCribNumber: React.Dispatch<React.SetStateAction<string>>;
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
-  itemCode: string;
-  setItemCode:  React.Dispatch<React.SetStateAction<string>>;
+  itemCode: string | undefined;
+  setItemCode:  React.Dispatch<React.SetStateAction<string | undefined>>;
   setQty: React.Dispatch<React.SetStateAction<number>>; 
   min: number;
   setMin: React.Dispatch<React.SetStateAction<number>>;
-  isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isBinActive: boolean;
+  setIsBinActive: React.Dispatch<React.SetStateAction<boolean>>;
   handleEditBin: () => void;
   handleDeleteBin: () => void;
-  isLookupOpen: boolean;
-  setIsLookupOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  cancelAddBin: () => void;
+  isLookupItemOpen: boolean;
+  setIsLookupItemOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  cancelEditBin: () => void;
 }
 
 const EditBin =  ({ 
@@ -36,13 +36,13 @@ const EditBin =  ({
     setQty,
     min, 
     setMin, 
-    isActive, 
-    setIsActive, 
+    isBinActive, 
+    setIsBinActive, 
     handleEditBin,
     handleDeleteBin,
-    isLookupOpen, 
-    setIsLookupOpen, 
-    cancelAddBin, 
+    isLookupItemOpen, 
+    setIsLookupItemOpen, 
+    cancelEditBin, 
 }: Props) => {
  
     const { binCode } = useParams<{ binCode: string }>();
@@ -55,12 +55,12 @@ const EditBin =  ({
       setItemCode(selectedBin?.item ?? "");      
       setQty(selectedBin?.qty ?? 0);
       setMin(selectedBin?.min ?? 0);
-      setIsActive(selectedBin?.active ?? false);
+      setIsBinActive(selectedBin?.active ?? false);
 
       const foundItem = items.find((item) => item.code === selectedBin?.item);
         setSelectedItem(foundItem ?? null);
       
-  }, [selectedBin, items, setBinNumber, setCribNumber, setItemCode, setSelectedItem, setQty, setMin, setIsActive]);
+  }, [selectedBin, items, setBinNumber, setCribNumber, setItemCode, setSelectedItem, setQty, setMin, setIsBinActive]);
 
   if (!selectedBin) return;  
 
@@ -70,7 +70,7 @@ const EditBin =  ({
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div>
           <h1 className="text-2xl font-semibold">Edit Bin: {binCode}</h1>
-          {isActive && (
+          {isBinActive && (
             <p 
             className="bg-yellow-50 border border-yellow-300 text-yellow-800 px-4 py-3 rounded-md text-sm"
           >
@@ -84,7 +84,7 @@ const EditBin =  ({
               readOnly
               value={binCode}
               type="text"              
-              onChange={(e) => setBinNumber(e.target.value)}
+              // onChange={(e) => setBinNumber(e.target.value)}
               className="w-full rounded-md border px-3 py-2"              
             />
           </div>
@@ -98,29 +98,29 @@ const EditBin =  ({
                 placeholder={`${!selectedItem ? "Use Lookup to select item" : "" }`}
               />
               <button type='button' 
-                disabled={isActive}
-                onClick={() => setIsLookupOpen(true)}
+                disabled={isBinActive}
+                onClick={() => setIsLookupItemOpen(true)}
                 className={`rounded-md border px-4 py-2
-                   ${ isActive ? "opacity=50 cursor-not-allowed" : "hover:bg-green-100"}`}
+                   ${ isBinActive ? "opacity=50 cursor-not-allowed" : "hover:bg-green-100"}`}
               > 
               Lookup 
               </button>              
               <ItemLookup
-                isOpen={isLookupOpen}
+                isOpen={isLookupItemOpen}
                 items={items}
-                onClose={() => setIsLookupOpen(false)}
+                onClose={() => setIsLookupItemOpen(false)}
                 onSelect={(item) => {
                   setSelectedItem(item);
                   setItemCode(item.code);
-                  setIsLookupOpen(false);
+                  setIsLookupItemOpen(false);
                 }}
               />
               <button 
                 type='button' 
-                disabled={isActive}
-                onClick={() =>{setSelectedItem(null); setIsLookupOpen(false)}}
+                disabled={isBinActive}
+                onClick={() =>{setSelectedItem(null); setItemCode(undefined); setIsLookupItemOpen(false)}}
                 className={`rounded-md border px-4 py-2
-                  ${ isActive ? "opacity-50 cursor-not-allowed" : "hover:bg-slate-100"} `}
+                  ${ isBinActive ? "opacity-50 cursor-not-allowed" : "hover:bg-slate-100"} `}
               > 
               Clear 
               </button>
@@ -140,7 +140,7 @@ const EditBin =  ({
           <button 
             className="px-4 py-2 border rounded-lg"
             // onClick={Navigate()}
-            onClick={ cancelAddBin }
+            onClick={ cancelEditBin }
           >
             Cancel
           </button>          
