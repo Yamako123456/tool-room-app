@@ -10,9 +10,9 @@ const SearchUPC  : React.FC<Props> = ({onSearchUPCSubmit, searchUPC, handleSearc
     return (
         <div>
             <form onSubmit={onSearchUPCSubmit}>
-                <h6>Enter UPC or scan barcode (Optional): </h6>
+                <h6>Try scan barcode to see if your <strong><i>common supermarket item</i></strong> (e.g. Lysol) is listed in the external API for UPC database: </h6>
                 <input value={searchUPC} onChange={handleSearchUPCChange}></input>
-                <button className='btn btn-dark' type='submit'>Search UPC API</button>
+                <button className='btn btn-dark' type='submit'>Click here to Search in UPC API (click again if not shown up in first try.)</button>
             </form>
             
         </div>

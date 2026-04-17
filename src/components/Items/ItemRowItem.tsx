@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { ItemCodeBarcode } from './ItemCodeBarcode';
 import { DetailButtonColumn } from './DetailButtonColumn';
-
-
 import { useReactToPrint } from 'react-to-print';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { PrintComponent } from './PrintComponent';
-
+import { ItemModel } from '../../models/ItemModel';
 
 
 

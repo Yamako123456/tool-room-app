@@ -1,11 +1,12 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import { useEffect } from 'react';
 import { Modal, Button, Dropdown } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { CODE_MAX, CURRENCY_MAX, DESCRIPTION1_MAX, DESCRIPTION2_MAX, ItemCategories, ItemTypes, SUPLIER_MAX, UnitOfMeasure } from '../constants/product';
-import SearchUPC from './SearchUPC/SearchUPC';
-import { BarcodeSpiderLookupResponse } from '../data/product';
-import { searchProductByUPC } from '../api';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { CODE_MAX, CURRENCY_MAX, DESCRIPTION1_MAX, DESCRIPTION2_MAX, ItemCategories, ItemTypes, SUPLIER_MAX, UnitOfMeasure } from '../../constants/product';
+import SearchUPC from '../SearchUPC/SearchUPC';
+import { BarcodeSpiderLookupResponse } from '../../data/product';
+import { searchProductByUPC } from '../../api';
+import { ItemModel } from '../../models/ItemModel';
 
 export const NewItemForm: React.FC<{
     isNew: boolean,
@@ -169,7 +170,7 @@ useEffect(() => {
             }
 
         } else if (props.items.find(item => item.code === itemCode)) {
-            console.log(itemCode)
+            // console.log(itemCode)
             setModalMsg('Unique Code Required');
             setModalMsg(`Code: "${itemCode}" already exists. Please enter unique item code.`);
             setIsDelete(false);
@@ -232,6 +233,8 @@ useEffect(() => {
 
 
     const proceedDelete = () => {
+        if ( selectedItem.active) return;
+
         props.deleteItem(props.selectedCode);
         setModalTitle('');
         setModalMsg('');
@@ -257,7 +260,7 @@ useEffect(() => {
 
     const handleSearchUPCChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchUPC(e.target.value);
-        console.log(e);
+        // console.log("handleSearchUPCChange()'s 'e' value", e);
     }
 
     const fillItemData = () => {
@@ -266,7 +269,7 @@ useEffect(() => {
         setItemCode(searchUPCResult.item_attributes.upc);
         setDescription1(searchUPCResult.item_attributes.title);
         setDescription2(searchUPCResult.item_attributes.description);
-        
+        setCategory(ItemCategories.OFFICE_SUPPLY);
         const highestPriceStr = searchUPCResult.item_attributes.highest_price;
         const storePriceStr = searchUPCResult.Stores?.[0]?.price;
         const priceStr =  highestPriceStr?.trim() ? highestPriceStr : storePriceStr?.trim() ? storePriceStr  : null;
@@ -283,11 +286,11 @@ useEffect(() => {
         if(typeof result === "string") {
             setServerError(result);
         } else {
-            console.log("result.data", result.data);
+            // console.log("result.data", result.data);
 
             setSearchUPCResult(result.data);
             
-            console.log("State: searchUPCResult: ", searchUPCResult);  
+            // console.log("State: searchUPCResult: ", searchUPCResult);  
             
             fillItemData();
         }
@@ -316,7 +319,7 @@ useEffect(() => {
                         <input type='text' className='form-control' required
                             value={itemCode}
                             onChange={(event) => setItemCode(event.target.value.trim())}
-                            readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            readOnly={isReadOnly || (!props.isNew && selectedItem.active)}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                         ></input>
                         {isReadOnly && <img src={itemImage} alt=""  style={{ maxWidth: "200px", height: "auto" }}/>}
@@ -358,8 +361,8 @@ useEffect(() => {
                         >
                             {Object.entries(ItemTypes).map(([key, value]) =>
                             (
-                                <option key={key} value={value}>
-                                    {value}
+                                <option key={key} value={value as string}>
+                                    {value as string}
                                 </option>
                             ))}
                         </select>
@@ -375,8 +378,8 @@ useEffect(() => {
                         >
                             {Object.entries(UnitOfMeasure).map(([key, value]) =>
                             (
-                                <option key={key} value={value}>
-                                    {value}
+                                <option key={key} value={value as string}>
+                                    {value as string}
                                 </option>
                             ))}
                         </select>
@@ -444,7 +447,7 @@ useEffect(() => {
                         <input className='form-control' type='text' required
                             value={supplierId}
                             onChange={(event) => setSupplierId(event.target.value.trim())}
-                            readOnly={isReadOnly || (!props.isNew && selectedItem.assigned)}
+                            readOnly={isReadOnly || (!props.isNew && selectedItem.active)}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                         ></input>
                     </div>
@@ -476,8 +479,8 @@ useEffect(() => {
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                         >
                             {Object.entries(ItemCategories).map(([key, value]) => (
-                                <option key={key} value={value}>
-                                    {value}
+                                <option key={key} value={value as string}>
+                                    {value as string}
                                 </option>
                             ))}
 
@@ -503,7 +506,17 @@ useEffect(() => {
             </button>
 
             {!props.isNew && props.setIsShowDetail &&
-                <button className='btn btn-warning me-2' onClick={deleteConfirmation}>Delete</button>
+                <button className='btn btn-warning me-2' 
+                    onClick={ () => {
+                        if (selectedItem.active) {
+                            alert("This item is active. Delete is not allowed.");
+                            return;
+                        }
+                        deleteConfirmation();
+                    }}
+                >
+                    Delete
+                </button>
             }
 
             <button className='btn btn-success' onClick={closeForm}>Close</button>

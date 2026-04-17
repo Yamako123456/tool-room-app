@@ -1,4 +1,4 @@
-class ItemModel {
+export class ItemModel {
     code: string;
     description1: string;
     itemType: string;
@@ -7,14 +7,15 @@ class ItemModel {
     supplierId: string;
     category: string;
     active: boolean;
-    assigned: boolean;//isUsedInTransactions;
+    disabled: boolean;
+    // assigned: boolean;//isUsedInTransactions;
     packQty: number;
     orderQty: number;
     weigh: boolean;
     uom: string;
     leadTime: number;
 
-    private _recordId?: number; // Optional and read-only
+    // private _recordId?: number; // Optional and read-only
     description2?: string;
     itemImage?: string;
     weight?: string;
@@ -34,14 +35,15 @@ class ItemModel {
         supplierId: string,
         category: string,
         active: boolean,
-        assigned: boolean,//isUsedInTransactions;
+        disabled: boolean,
+        // assigned: boolean,//isUsedInTransactions;
         packQty: number,
         orderQty: number,
         weigh: boolean,
         uom: string,
         leadTime: number,
 
-        recordId?: number, // Optional and read-only
+        // recordId?: number, // Optional and read-only
         description2?: string,
         itemImage?: string,
         weight?: string,
@@ -61,7 +63,8 @@ class ItemModel {
         this.supplierId = supplierId;
         this.category = category;
         this.active = active;
-        this.assigned = assigned;//isUsedInTransactions;
+        this.disabled = disabled;
+        // this.assigned = assigned;//isUsedInTransactions;
         this.packQty = packQty;
         this.orderQty = orderQty;
         this.weigh = weigh;
@@ -69,7 +72,7 @@ class ItemModel {
         this.dateCreated = dateCreated;
         this.leadTime = leadTime;
 
-        this._recordId = recordId;
+        // this._recordId = recordId;
         this.description2 = description2;
         this.itemImage = itemImage;
         this.weight = weight;
@@ -80,10 +83,5 @@ class ItemModel {
         this.createdBy = createdBy;
     }
 
-    public get recordId(): number | undefined {
-        return this._recordId === undefined ? undefined : this._recordId;
-    }
-    public set recordId(recordId: number) {
-        this._recordId = recordId;
-    }
+
 }

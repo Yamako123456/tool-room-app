@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {ItemRowItem} from "./ItemRowItem"
+import {ItemModel} from "../../models/ItemModel"
 
 export const ItemRows: React.FC<{
     activeItems: ItemModel[],

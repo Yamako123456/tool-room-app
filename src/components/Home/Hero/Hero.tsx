@@ -1,5 +1,6 @@
-import React from "react";
-import "./HomeComponent.css";
+import React from 'react'
+import hero from "./hero.jpg"
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
     items: ItemModel[];
@@ -13,43 +14,34 @@ function chunk<T>(arr: T[], size: number): T[][] {
     return out;
 }
 
-export const HomeComponent = ({ items, setItems, cribs }: Props) => {
-    const visibleItems = items.filter(i => i.active);
-    const slides = chunk(visibleItems, 3);
-    return (
-        <div>
-            <div className="container mt-4">
-                <section className="home-hero mb-4">
-                    <div className="text-center">
-                        <h1 className="home-title mb-3">
-                            Toolroom Management System
-                        </h1>
+export const Hero = ({ items, setItems, cribs }: Props) => {
+      const visibleItems = items.filter(i => i.active);
+      const slides = chunk(visibleItems, 3);
+  return (
+    <section id="hero">
+      <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">
+        <div className="flex flex-col space-y-8 mb-44 m-4 lg:m-4 xl:m-4 lg:mt-16 lg:w-1/2 xl:mb-52">
+          <h1 className="text-5xl font-bold text-left lg:text-6xl lg:max-w-md lg:text-left">
+            Simply Toolroom App
+          </h1>
+          <p className="text-2xl text-left text-gray-400 lg:max-w-md lg:text-left">
+            Track, and Manage Your Tools with Ease, preventing loss and saving your time!
+          </p>
+          <div className="mx-0 lg:mx-0">
+            <a
+              href="/items"
+              className="py-3 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+        <div className="mb-24 mx-auto md:w-180 md:px-10 lg:mb-0 lg:w-1/2">
+          <img src={hero} alt="" className="w-64 lg:w-80"/>
+        </div>
+      </div>
 
-                        <div className="home-image-wrapper mb-3">
-                            <div className="home-image-frame">
-                                <img
-                                    src="/img/panoramicToolroom.jpg"
-                                    alt="Toolroom dashboard"
-                                    className="img-fluid home-hero-image"
-                                />
-                            </div>
-                        </div>
-
-                        <h3 className="home-subtitle">
-                            Simplify, Track, and Manage Your Tools with Ease
-                        </h3>
-                    </div>
-                </section>
-
-                <p className="mt-4 home-text">
-                    Welcome! The Tool Room Management App helps tool room attendants in manufacturing environments
-                    efficiently track and manage the check-out(issue) of tools and parts and return of durable type items back in the toolroom by shop floor personnel.
-                    <br />
-                </p>
-            </div>
-
-
-            <div
+      <div
                 id="itemsCarousel"
                 className="carousel slide e carousel-strong-controls"
                 data-bs-ride="carousel"
@@ -146,11 +138,9 @@ export const HomeComponent = ({ items, setItems, cribs }: Props) => {
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-            </div>
+            </div> 
+    </section>
+  )
+}
 
-
-
-
-        </div>
-    );
-};
+export default Hero

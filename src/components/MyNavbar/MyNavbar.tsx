@@ -22,9 +22,9 @@ const MyNavbar = (props: Props) => {
 
           {/* <div className="hidden font-bold lg:flex  space-x-6"> */}
           <div className="flex flex-col lg:flex-row font-bold space-y-2 lg:space-y-0 lg:space-x-6">  
-            <a href="" className="text-black hover:text-darkBlue">
+            {/* <a href="" className="text-black hover:text-darkBlue">
               Dashboard
-            </a>
+            </a> */}
             <Link to="/" className="text-black hover:text-darkBlue">
               Home
             </Link>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { ItemTableSection } from "./ItemTableSection";
 import { NewItemForm } from "./NewItemForm";
-import { initialItems } from "../data/InitialItems";
+import { initialItems } from "../../data/InitialItems";
+import { ItemModel } from '../../models/ItemModel';
 
 type Props = {
     items: ItemModel[];
@@ -37,7 +38,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
             return;
 
         const newItem = {
-            recordId: undefined,
+            // recordId: undefined,
             code: code,
             description1: description1,
             description2: description2,
@@ -47,8 +48,9 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
             supplierId: supplierId,
             itemImage: itemImage,
             category: category,
-            active: true,
-            assigned: false,
+            active: false,
+            disabled: false,
+            // assigned: false,
             packQty: packQty,
             orderQty: orderQty,
             weigh: weigh,
@@ -63,12 +65,16 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
             createdBy: '',
         }
 
+        // console.log('item new setItems for newItem: ', newItem);
+        
         setItems(prevItems => [...prevItems,
         newItem as ItemModel
-        ])
+        ]);
 
         // setItems(items => [...items, newItem])
     }
+    
+    // console.log("items after adding new: ", items);
 
     const updateItem = (
         originalCode: string,
@@ -105,7 +111,6 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
         if (index !== -1) {
 
             const newItem: ItemModel = {
-                recordId: originalItem.recordId,
                 code: code,
                 description1: description1,
                 description2: description2,
@@ -116,7 +121,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
                 itemImage: itemImage,
                 category: category,
                 active: originalItem.active,
-                assigned: originalItem.assigned,
+                disabled: originalItem.disabled,
                 packQty: packQty,
                 orderQty: orderQty,
                 weigh: weigh,
@@ -142,32 +147,11 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
     }
 
     const deleteItem = (originalCode: string) => {
-        if (items.filter((itm) => itm.code === originalCode)[0].assigned) {
-
-            const modifiedItems: ItemModel[] = items.map(item => {
-
-                if (item.code === originalCode) {
-                    return { ...item, active: false } as ItemModel;
-                } else
-                    return item;
-            })
-            setItems(modifiedItems)
-
-        } else {
-
-            setItems(items.filter(item => item.code !== originalCode));
-        }
-
-
-    }
-
-    const inactivateItem = (code: string) => {
-        const modifiedItems: ItemModel[] = items.map(item =>
-            item.code === code ? { ...item, active: false } as ItemModel : item
+        
+        setItems(
+            items.filter( prev => prev.code !== originalCode || prev.active  )
         );
-
-        setItems(modifiedItems);
-    }
+    }   
 
     return (
         <div className='mt-5 '>
@@ -180,7 +164,6 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
                 updateItem={updateItem}
                 deleteItem={deleteItem}
                 items={items}
-                inactivateItem={inactivateItem}
                 setIsShowEntryForm={setIsShowEntryForm}
                 isShowDetail={isShowDetail}
                 setIsShowDetail={setIsShowDetail}

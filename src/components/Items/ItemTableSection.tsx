@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useRef } from "react";
 import { Modal, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { ItemDropdownList } from "./ItemDropdownList";
 import { NewItemForm } from "./NewItemForm";
 import { ItemRows } from "./ItemRows";
-
+import { ItemModel } from '../../models/ItemModel';
 
 export const ItemTableSection: React.FC<
     {
@@ -13,11 +13,9 @@ export const ItemTableSection: React.FC<
         updateItem: Function,
         deleteItem: Function,
         items: ItemModel[],
-        inactivateItem: Function
         setIsShowEntryForm: Function,
         isShowDetail: boolean,
         setIsShowDetail: Function
-
     }
 > = (props) => {
 

@@ -3,20 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
-import { HomeComponent } from './components/HomeComponent';
+import { HomeComponent } from './components/Home/HomeComponent';
 import MyNavbar from "./components/MyNavbar/MyNavbar";
 import { AboutComponent } from './components/AboutComponent';
-import { ItemModuleComponent } from './components/ItemModuleComponent';
-import { PrintComponent } from './components/PrintComponent';
-import { NewItemForm } from './components/NewItemForm';
+import { ItemModuleComponent } from './components/Items/ItemModuleComponent';
+import { PrintComponent } from './components/Items/PrintComponent';
+import { NewItemForm } from './components/Items/NewItemForm';
 import { initialItems } from './data/InitialItems';
 import { initialBinss } from './data/initialBins';
 import { initialCribs } from './data/initialCribs';
 import { initialEmps } from './data/initiahEmps';
-import Hero from './components/Hero/Hero';
+import Hero from './components/Home/Hero/Hero';
 import Bins from './components/Bins/Bins';
 import AddBin from './components/Bins/AddBin/AddBin';
-import { BinModel } from './models/BinsModel'; 
+import { BinModel } from  './models/BinsModel'; 
+import { ItemModel } from './models/ItemModel'; 
 import RestockBin from './components/Bins/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
 import { DepartmentModel } from './models/DepartmentModel';
@@ -162,8 +163,6 @@ export const App = () => {
     navigate('/emps', { state: { message: "Operation cancelled" }});
   }
 
- 
-
 
   const handleEditBin = () => {
     if (!binNumber) return;
@@ -184,6 +183,16 @@ export const App = () => {
         : bin
       )
     );
+    
+    if (selectedItem && !selectedItem.active ) {
+      setItems( prev =>
+        prev.map( item => 
+          item.code === itemCode 
+            ? { ...item, active: true }
+            : item
+        )
+      )
+    }
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } })
 
