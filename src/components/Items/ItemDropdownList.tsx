@@ -10,7 +10,7 @@ export const ItemDropdownList: React.FC<
     setSelectedCode: Function
 }
 > = (props) => {
-    const sortedList = props.items.filter(item => item.active === true)
+    const sortedList = props.items.filter(item => !item.disabled)
                             .sort((a, b) => {
                                 if (props.sortBy === 'description1')
                                     return a.description1.localeCompare(b.description1) 

@@ -19,7 +19,7 @@ export const ItemTableSection: React.FC<
     }
 > = (props) => {
 
-    const activeItems = props.items.filter(item => item.active === true);
+    const visibleItems = props.items.filter(item => !item.disabled);
 
     const [sortBy, setSortBy] = useState('code');
     const [selectedCode, setSelectedCode] = useState<string>(
@@ -27,7 +27,7 @@ export const ItemTableSection: React.FC<
 
         () => {
             const savedCode = localStorage.getItem('selectedCode');
-            return savedCode || (activeItems.length > 0 ? activeItems[0].code : '');
+            return savedCode || (visibleItems.length > 0 ? visibleItems[0].code : '');
         });
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export const ItemTableSection: React.FC<
     const showingDetail = (e: any) => {
         e.preventDefault();
 
-        if (activeItems.length < 1) {
+        if (visibleItems.length < 1) {
             setSelectedCode('')
             setModalTitle2('Item Not Available')
             setModalMsg2('There is no item available')
@@ -71,7 +71,7 @@ export const ItemTableSection: React.FC<
 
     const getItemByCode = (code: string) => {
         // return props.items.filter((item) => { 
-        return activeItems.filter((item) => {
+        return visibleItems.filter((item) => {
             return item.code === code
         });
     }
@@ -157,7 +157,7 @@ export const ItemTableSection: React.FC<
                                 </thead>
                                 <ItemRows
                                     // items={props.items}
-                                    activeItems={activeItems}
+                                    visibleItems={visibleItems}
                                     isShowDetail={props.isShowDetail}
                                     setIsSelectedCode={setSelectedCode}
                                     selectedCode={selectedCode}

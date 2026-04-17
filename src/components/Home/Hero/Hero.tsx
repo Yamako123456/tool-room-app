@@ -15,7 +15,7 @@ function chunk<T>(arr: T[], size: number): T[][] {
 }
 
 export const Hero = ({ items, setItems, cribs }: Props) => {
-      const visibleItems = items.filter(i => i.active);
+      const visibleItems = items.filter(i => !i.disabled);
       const slides = chunk(visibleItems, 3);
   return (
     <section id="hero">

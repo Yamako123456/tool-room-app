@@ -3,7 +3,7 @@ import {ItemRowItem} from "./ItemRowItem"
 import {ItemModel} from "../../models/ItemModel"
 
 export const ItemRows: React.FC<{
-    activeItems: ItemModel[],
+    visibleItems: ItemModel[],
     isShowDetail: boolean,
     setIsSelectedCode:  (code: string) => void,
     selectedCode: string,
@@ -13,8 +13,7 @@ export const ItemRows: React.FC<{
 }> = (props) => {
     return (
         <tbody>
-            {/* {props.items.filter(item => item.active === true) */}
-            {props.activeItems
+            {props.visibleItems
                 .sort((a, b) => {
                     if (props.sortBy === 'description1')
                         return a.description1.localeCompare(b.description1) 

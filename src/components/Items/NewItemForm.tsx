@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Modal, Button, Dropdown } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { CODE_MAX, CURRENCY_MAX, DESCRIPTION1_MAX, DESCRIPTION2_MAX, ItemCategories, ItemTypes, SUPLIER_MAX, UnitOfMeasure } from '../../constants/product';
-import SearchUPC from '../SearchUPC/SearchUPC';
+import SearchUPC from './SearchUPC/SearchUPC';
 import { BarcodeSpiderLookupResponse } from '../../data/product';
 import { searchProductByUPC } from '../../api';
 import { ItemModel } from '../../models/ItemModel';
