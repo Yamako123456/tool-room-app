@@ -16,6 +16,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
+        barcode: ['"Libre Barcode 39 Text"', 'cursive'],
       },
       spacing: {
         180: "32rem",

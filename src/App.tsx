@@ -245,6 +245,18 @@ export const App = () => {
     navigate('/depts', { state: { message: `Department: ${deptNumber} deleted`}});
   }
 
+const PrintWrapper = () => {
+
+  const { itemCode } = useParams<{ itemCode: string }>();
+
+  if (!itemCode) {
+    return <div>Item Code not found.</div>; // In case  itemCode is undefined
+  }
+
+  return <PrintComponent barcode={itemCode} items={items}/>;
+};
+
+
   return (
    
     <div>
@@ -349,16 +361,6 @@ export const App = () => {
     </div>
   );
 }
-const PrintWrapper = () => {
-
-  const { itemCode } = useParams<{ itemCode: string }>();
-
-  if (!itemCode) {
-    return <div>Item Code not found.</div>; // In case  itemCode is undefined
-  }
-
-  return <PrintComponent barcode={itemCode} />;
-};
 
 
 

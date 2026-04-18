@@ -63,27 +63,6 @@ export const ItemRowItem: React.FC<{
                 border: props.selectedCode === props.item.code ? '2px solid #000' : 'none'
             }}
         >
-            <td style={{ padding: '10px' }}>{props.item.code}</td>
-
-            <td style={{ padding: '10px' }}>{props.item.description1}</td>
-            <td style={{ padding: '10px' }}>{props.item.itemType}</td>
-            <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
-            <td style={{ padding: '10px' }}>{props.item.category}</td>
-
-
-
-
-            <td style={{ padding: '10px' }}>
-                <div>
-                    <button className='libre-barcode-39-text-regular' onClick={() => { handleBarcodeClick(props.item.code) }} >
-                        {`*${props.item.code}*`}
-                    </button>
-
-                </div>
-            </td>
-
-            {/* <td style={{ padding: '10px' }}><ItemCodeBarcode selectedCode={props.item.code} setSelectedCode={props.setSelectedCode}/></td>      */}
-
             <td style={{ padding: '10px' }}>
                 {/* <DetailButtonColumn selectedCode={props.item.code} /> */}
                 <button 
@@ -95,7 +74,7 @@ export const ItemRowItem: React.FC<{
                 </button>
             </td>
 
-            <td style={{ padding: "10px", width: 60 }}>
+                        <td style={{ padding: "10px", width: 60 }}>
                 {props.item.itemImage ? (
                     <img
                         src={props.item.itemImage}
@@ -109,6 +88,31 @@ export const ItemRowItem: React.FC<{
                     />
                 ) : null}
             </td>
+
+            <td style={{ padding: '10px' }}>{props.item.code}</td>
+
+            <td style={{ padding: '10px' }}>{props.item.description1}</td>
+            <td style={{ padding: '10px' }}>{props.item.itemType}</td>
+            <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
+            <td style={{ padding: '10px' }}>{props.item.category}</td>
+
+            <td style={{ padding: '10px' }}>
+                <div>
+                    {/* <button className='libre-barcode-39-text-regular' onClick={() => { handleBarcodeClick(props.item.code) }} >
+                        {`*${props.item.code}*`}
+                    </button> */}
+                    <button className="font-barcode text-[20px]" onClick={() => { handleBarcodeClick(props.item.code) }} >
+                        {`*${props.item.code}*`}
+                    </button>
+
+                </div>
+            </td>
+
+            {/* <td style={{ padding: '10px' }}><ItemCodeBarcode selectedCode={props.item.code} setSelectedCode={props.setSelectedCode}/></td>      */}
+
+
+
+
         </tr>
     )
 }
