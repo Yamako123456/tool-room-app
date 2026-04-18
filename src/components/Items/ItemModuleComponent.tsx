@@ -147,7 +147,6 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
     }
 
     const deleteItem = (originalCode: string) => {
-        
         setItems(
             items.filter( prev => prev.code !== originalCode || prev.active  )
         );

@@ -105,6 +105,15 @@ export const App = () => {
     setIsEmpActive(false); 
   }
 
+  const setItemActive = ( itemCode: string | undefined) => {
+    if (!itemCode) return;
+
+    setItems(
+      prev =>  prev.map(item => 
+        item.code === itemCode ? {...item, active: true} : item
+      )
+    );
+  }
 
   const handleAddBin = () => {
     
@@ -126,6 +135,7 @@ export const App = () => {
       itemCode,
     );
     setBins( prev => [...prev, newBin] );
+    setItemActive(itemCode);
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
