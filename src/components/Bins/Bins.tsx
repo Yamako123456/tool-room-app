@@ -2,6 +2,7 @@ import React, { useState, SyntheticEvent } from 'react'
 import ListBins from './ListBins/ListBins';
 import { useNavigate } from 'react-router-dom';
 import { BinModel } from '../../models/BinsModel'
+import { ItemModel } from '../../models/ItemModel';
 
 interface Props {
   cribs: CribModel[];

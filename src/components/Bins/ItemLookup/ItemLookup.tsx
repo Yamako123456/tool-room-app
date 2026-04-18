@@ -1,4 +1,5 @@
 import React, {useState, useMemo} from 'react'
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
   isOpen: boolean;
@@ -47,9 +48,17 @@ const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
                 onClick={() => onSelect(item)}
                 className='w-full text-left px-4 py-3 hover:bg-gray-50 hover:text-black    border-b'
               >
-                <div className='font-medium'> {item.code} </div>
-                {/* <div className='text-sm text-gray-500'> {item.description1} </div> */}
-                <div className='text-sm'> {item.description1} </div>
+                <div className='flex items-center gap-3'>
+                  {item.itemImage && (
+                    <img
+                      src={item.itemImage}
+                      alt={item.code}
+                      className='w-10 h-10 object-cover rounded'
+                    />
+                  )}
+                  <div className='font-medium'> {item.code} </div>
+                  <div className='text-sm'> {item.description1} </div>
+                </div>             
               </button>
             ))
           ) : (

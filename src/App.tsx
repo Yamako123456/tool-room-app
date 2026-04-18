@@ -18,7 +18,7 @@ import Bins from './components/Bins/Bins';
 import AddBin from './components/Bins/AddBin/AddBin';
 import { BinModel } from  './models/BinsModel'; 
 import { ItemModel } from './models/ItemModel'; 
-import RestockBin from './components/Bins/RestockBin/RestockBin';
+import RestockBin from './components/Restock/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
 import { DepartmentModel } from './models/DepartmentModel';
 import { initialDepartments } from './data/initialDepartments';

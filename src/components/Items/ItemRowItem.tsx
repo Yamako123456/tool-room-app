@@ -70,7 +70,7 @@ export const ItemRowItem: React.FC<{
                     onClick={props.showingDetail}
                     disabled={props.isShowDetail}
                 >
-                    Show Detail
+                    Open Detail
                 </button>
             </td>
 

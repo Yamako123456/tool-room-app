@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from 'react'
 import ItemLookup from '../ItemLookup/ItemLookup';
 import { BinModel } from '../../../models/BinsModel'
 import { Navigate, useParams } from 'react-router-dom';
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props { 
   items: ItemModel[];

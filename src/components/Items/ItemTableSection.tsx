@@ -146,7 +146,7 @@ export const ItemTableSection: React.FC<
                             <table className="table-borderd">
                                 <thead>
                                     <tr>
-                                        <th style={{ padding: '10px' }} scope="col">View Detail</th>
+                                        <th style={{ padding: '10px' }} scope="col">Detail</th>
                                         <th style={{ padding: '10px' }} scope="col">View Image</th>
                                         <th style={{ padding: '10px' }} scope="col">Item Code</th>
                                         <th style={{ padding: '10px' }} scope="col">Description 1</th>

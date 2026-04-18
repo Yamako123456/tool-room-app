@@ -2,6 +2,7 @@ import React from 'react'
 import CardBin from '../CardBin/CardBin';
 import { BinModel } from '../../../models/BinsModel';
 import {useNavigate} from 'react-router-dom';
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
   bins: BinModel[];

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BinModel } from '../../../models/BinsModel';
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
   aBin: BinModel;

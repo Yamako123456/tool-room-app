@@ -1,9 +1,9 @@
 import React from 'react'
 import { BinModel } from '../../../models/BinsModel';
-
+import { ItemModel } from '../../../models/ItemModel';
 interface Props {
-  bins: BinModel[] | null;
-  items: ItemModel[] | null;
+  bins: BinModel[];
+  items: ItemModel[];
   stockQty: number;
   setStockQty: React.Dispatch<React.SetStateAction<number>>;
 }
