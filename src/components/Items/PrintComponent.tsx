@@ -56,7 +56,7 @@ export const PrintComponent: React.FC<PrintComponentProps> = ({barcode, items}) 
                     <div
                     style={{
                         fontFamily: '"Libre Barcode 39 Text", cursive',
-                        fontSize: '80px'
+                        fontSize: '50px'
                     }}
                     >
                     {`*${barcode}*`}
