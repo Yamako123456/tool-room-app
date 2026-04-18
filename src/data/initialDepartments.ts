@@ -2,12 +2,12 @@ import { DepartmentModel } from "../models/DepartmentModel";
 
 export const initialDepartments: DepartmentModel[] = [
     {
-        deptCode: "prod",
+        deptCode: "Prod",
         description: "Production",        
         active: true,        
     },
     {
-        deptCode: "maint",
+        deptCode: "Maint",
         description: "Maintenance",
         active: true,        
     },   

@@ -20,12 +20,18 @@ const CardDept = ({aDept, onEditDept} : Props) => {
         </button>
       </div>
       
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Dept. code:  {aDept.deptCode}</h2>
+      <div className="grid grid-cols-2 items-baseline gap-x-1 font-semibold text-gray-800 mb-4">
+        <span className="text-sm"> 
+          Dept. Code:
+          </span> 
+        <span className='text-2xl'>
+          {aDept.deptCode} 
+        </span> 
+      </div>
 
-      <div className="space-y-2 text-black">
-        <p>
-          <span className="font-semibold">Dept. name:</span> {aDept.description}
-        </p>             
+      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
+          <span className="text-sm font-semibold">Name:</span> 
+          <span className='text-xl'> {aDept.description}</span>
       </div>
     </div>  
   )

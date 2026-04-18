@@ -24,7 +24,14 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         </button>
       </div>
       
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Bin Code:  {aBin.binCode}</h2>
+      <div className=" text-gray-800 mb-4 font-semibol">
+        <span className='text-lg'>
+          Bin Code:
+        </span>
+        <span className='ml-1 text-2xl'>
+            {aBin.binCode}
+        </span>
+      </div>
 
       <div className="space-y-2 text-black">
         {/* <p>

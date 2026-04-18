@@ -152,7 +152,7 @@ export const App = () => {
     const newDept = new DepartmentModel(
       deptNumber,
       deptName,
-      isDeptActive,       
+      false,       
     );
     setDepts( prev => [...prev, newDept] );
     resetDept();

@@ -155,7 +155,7 @@ const EditBin =  ({
                 
       {/* Danger Zone */}
       { !selectedBin.active && 
-      <div className='mt-10 border border-red-300 rounded-lgp-4 bg-red-50'>
+      <div className='mb-5 border border-red-300 rounded-lgp-4 bg-red-50'>
         <h2 className='text-red-700 text-2xl font-semibold" mb-2'>
           Delete Unused Bin
         </h2>
@@ -163,12 +163,11 @@ const EditBin =  ({
           This bin has not been used yet and can be safely removed.
         </p>
         <button
-          className='px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg'
+          className='mx-2 mb-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg'
           onClick={ () => { if (window.confirm(`Delete this unused bin: ${selectedBin.binCode}?`)) {handleDeleteBin() } } }                    
         >
-
+          Delete Bin
         </button>
-
       </div>      
       }
     </div>
