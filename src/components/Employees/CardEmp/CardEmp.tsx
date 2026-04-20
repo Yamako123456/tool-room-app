@@ -22,16 +22,24 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
           > Edit 
         </button>
       </div>
+      <div className="grid grid-cols-2 items-baseline gap-x-1 font-semibold text-gray-800 mb-4">
+        <span className="text-sm"> 
+          Badge No.:
+        </span>  
+        <span className='text-2xl'>
+          {aEmp.badgeNo}
+        </span>
+      </div>
       
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Badge no.:  {aEmp.badgeNo}</h2>
-
-      <div className="space-y-2 text-black">
-        <p>
-          <span className="font-semibold">Name:</span> {aEmp.firstName + " " + aEmp.lastName }
-        </p>     
-        <p>
-          <span className="font-semibold">Department:</span> {dept ? dept.deptCode + " -  " + dept.description : "Not Assigned" }
-        </p>        
+      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
+          <span className="text-sm font-semibold">Name:</span> 
+          <span className='text-xl'> {aEmp.firstName + " " + aEmp.lastName }</span>
+      </div>
+      {aEmp.isSupervisor && <div className="text-sm font-semibold text-green-600">Supervisor</div>}
+      {aEmp.isStocker && <div className="text-sm font-semibold text-blue-600">Stocker</div>}
+      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
+          <span className="text-sm font-semibold">Department:</span> 
+          <span className='text-xl'> {dept ? dept.deptCode + " -  " + dept.description : "Not Assigned" }</span>
       </div>
     </div>  
   )

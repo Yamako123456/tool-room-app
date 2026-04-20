@@ -18,14 +18,16 @@ import Bins from './components/Bins/Bins';
 import AddBin from './components/Bins/AddBin/AddBin';
 import { BinModel } from  './models/BinsModel'; 
 import { ItemModel } from './models/ItemModel'; 
+import { DepartmentModel } from './models/DepartmentModel';
+import { EmpModel} from './models/EmpModel';
 import RestockBin from './components/Restock/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
-import { DepartmentModel } from './models/DepartmentModel';
 import { initialDepartments } from './data/initialDepartments';
 import Departments from './components/Departments/Departments';
 import Employees from './components/Employees/Employees';
 import AddDepartment from './components/Departments/AddDepartment/AddDepartment';
 import EditDepartment from './components/Departments/EditDepartment/EditDepartment';
+import AddEmployee from './components/Employees/AddEmployee/AddEmployee';
 
 
 export const App = () => {
@@ -42,12 +44,12 @@ export const App = () => {
   const [empBadgeNumber, setEmpBadgeNumber] = useState<string>("");
   
   const [itemCode, setItemCode] = useState<string | undefined>(undefined);
-  const [managerBadgeNo, setManagerBadgeNo] = useState<string | undefined >(undefined);
   const [deptCode, setDeptCode] = useState<string>("");
+  const [empDeptNumber, setEmpDeptNumber] = useState<string | undefined>(undefined);
 
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
-  const [selectedManager, setSelectedManager] = useState<EmpModel | null>(null);
   const [selectedDept, setSelectedDept] = useState<DepartmentModel | null>(null);
+  
   
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
 
@@ -57,6 +59,11 @@ export const App = () => {
 
   const [deptName, setDeptName] = useState<string>("");
 
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [isSupervisor, setIsSupervisor] = useState<boolean>(false);
+  const [isStocker, setIsStocker] = useState<boolean>(false);
+
   const [isBinActive, setIsBinActive] = useState<boolean>(false);
   const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
   const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
@@ -64,7 +71,7 @@ export const App = () => {
   
   const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
   const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
-  
+  const [isLookupDeptOpen, setIsLookupDeptOpen] = useState<boolean>(false);  
  
   const [stockQty, setStockQty] = useState<number>(0);
 
@@ -94,14 +101,16 @@ export const App = () => {
   const resetDept = () => {
     setDeptNumber("");
     setDeptName("");
-    setManagerBadgeNo("");
-    setSelectedManager(null);
     setIsDeptActive(false); 
   }
   const resetEmp = () => {
     setEmpBadgeNumber("");
-    setDeptCode("");
+    setEmpDeptNumber(undefined);
     setSelectedDept(null);
+    setFirstName("");
+    setLastName("");
+    setIsSupervisor(false);
+    setIsStocker( false);
     setIsEmpActive(false); 
   }
 
@@ -111,6 +120,16 @@ export const App = () => {
     setItems(
       prev =>  prev.map(item => 
         item.code === itemCode ? {...item, active: true} : item
+      )
+    );
+  }
+
+  const setDeptActive = ( deptCode: string | undefined) => {
+    if (!deptCode) return;
+
+    setDepts(
+      prev => prev.map(dept => 
+        dept.deptCode === deptCode ? {...dept, active: true} : dept
       )
     );
   }
@@ -140,23 +159,45 @@ export const App = () => {
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
  const handleAddDept = () => {
-    
-    if (!deptNumber || deptNumber.trim() === '' ) {
+    if (!deptNumber.trim().toUpperCase() || deptNumber.trim().toUpperCase() === '' ) {
       alert( "Department Code is required");
       return;
     }  
-    if ( depts.find( (dept) => dept.deptCode.toLowerCase() === deptNumber.trim().toLowerCase() ) )  {
+    if ( depts.find( (dept) => dept.deptCode.toUpperCase() === deptNumber.trim().toUpperCase() ) )  {
       alert( "Department code must be unique" );
       return;
     }    
     const newDept = new DepartmentModel(
-      deptNumber,
+      deptNumber.trimEnd().toUpperCase(),
       deptName,
       false,       
     );
     setDepts( prev => [...prev, newDept] );
     resetDept();
     navigate('/depts', { state: { message: 'Department saved' } });
+  }
+  const handleAddEmp = () => {
+    
+    if (!empBadgeNumber.trim().toLowerCase() || empBadgeNumber.trim().toLowerCase() === '' ) {
+      alert( "Employee Badge # is required");
+      return;
+    }  
+    if ( emps.find( emp => emp.badgeNo.toLowerCase() === deptNumber.trim().toLowerCase() ) )  {
+      alert( "Employee Badge # must be unique" );
+      return;
+    }    
+    const newEmp = new EmpModel(
+      empBadgeNumber,
+      firstName,
+      lastName,
+      false,       
+      isSupervisor,
+      isStocker,
+      empDeptNumber,
+    );
+    setEmps( prev => [...prev, newEmp] );
+    resetEmp();
+    navigate('/emps', { state: { message: 'Employee saved' } });
   }
 
   const cancelBin  = () => {
@@ -207,7 +248,7 @@ export const App = () => {
     navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
-  const handleEditDept = () => {
+  const handleEditEmp = () => {
     if (!deptNumber) return;
 
     const updatedDept = new DepartmentModel(
@@ -224,6 +265,28 @@ export const App = () => {
     );
     resetDept();
     navigate('/depts', { state: {message: 'Department saved'}})
+  }
+    const handleEditDept = () => {
+    if (!empBadgeNumber) return;
+
+    const updatedEmp = new EmpModel(
+      empBadgeNumber,
+      firstName,
+      lastName,
+      false,       
+      isSupervisor,
+      isStocker,
+      empDeptNumber,
+    );
+    setEmps( prev =>
+      prev.map( emp =>
+        emp.badgeNo === empBadgeNumber
+        ? updatedEmp
+        : emp
+      )
+    );
+    resetEmp();
+    navigate('/emps', { state: {message: 'Employee saved'}})
   }
 
   const handleDeleteBin = () => {
@@ -243,6 +306,15 @@ export const App = () => {
     );
     resetDept();
     navigate('/depts', { state: { message: `Department: ${deptNumber} deleted`}});
+  }
+  const handleDeleteEmp = () => {
+    if (!empBadgeNumber) return;
+
+    setEmps(prev =>
+      prev.filter(emp => emp.badgeNo !== empBadgeNumber)
+    );
+    resetEmp();
+    navigate('/emps', { state: { message: `Employee: ${empBadgeNumber} deleted`}});
   }
 
 const PrintWrapper = () => {
@@ -348,7 +420,28 @@ const PrintWrapper = () => {
               element={<Employees 
                 emps={emps} setEmps={setEmps} depts={depts} />} 
             />
- 
+            <Route path="/emps/add" 
+              element={<AddEmployee
+                emps={emps}
+                empDeptNumber={empDeptNumber}
+                setEmpDeptNumber={setEmpDeptNumber}
+                selectedDept={selectedDept}
+                setSelectedDept={setSelectedDept}
+                setEmpBadgeNumber={setEmpBadgeNumber}
+                handleAddEmp={handleAddEmp}
+                isLookupDeptOpen={isLookupDeptOpen}
+                setIsLookupDeptOpen={setIsLookupDeptOpen}
+                cancelAddEmp={cancelEmp}
+                setFirstName={setFirstName}
+                setLastName={setLastName}
+                isSupervisor={isSupervisor}
+                setIsSupervisor={setIsSupervisor}
+                isStocker={isStocker}
+                setIsStocker={setIsStocker}
+                depts={depts}
+              />} 
+            />
+
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
             
             <Route 
