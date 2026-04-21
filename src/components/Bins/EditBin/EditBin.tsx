@@ -68,8 +68,15 @@ const EditBin =  ({
     <div className='mb-1 block text-sm font-medium'>
     
       <div className="max-w-2xl mx-auto p-6 space-y-6">
+        <div className='space-x-5'>
+          <h1 className='inline text-2xl font-semibold'>
+            Edit Bin
+          </h1>
+          <p className="inline text-lg text-gray-500">
+            {selectedBin.binCode}
+          </p>
+        </div>
         <div>
-          <h1 className="text-2xl font-semibold">Edit Bin: {binCode}</h1>
           {isBinActive && (
             <p 
             className="bg-yellow-50 border border-yellow-300 text-yellow-800 px-4 py-3 rounded-md text-sm"

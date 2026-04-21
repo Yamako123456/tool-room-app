@@ -19,7 +19,7 @@ import AddBin from './components/Bins/AddBin/AddBin';
 import { BinModel } from  './models/BinsModel'; 
 import { ItemModel } from './models/ItemModel'; 
 import { DepartmentModel } from './models/DepartmentModel';
-import { EmpModel} from './models/EmpModel';
+import { EmpModel}         from './models/EmpModel';
 import RestockBin from './components/Restock/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
 import { initialDepartments } from './data/initialDepartments';
@@ -28,6 +28,7 @@ import Employees from './components/Employees/Employees';
 import AddDepartment from './components/Departments/AddDepartment/AddDepartment';
 import EditDepartment from './components/Departments/EditDepartment/EditDepartment';
 import AddEmployee from './components/Employees/AddEmployee/AddEmployee';
+import EditEmployee from './components/Employees/EditEmployee/EditEmployee';
 
 
 export const App = () => {
@@ -190,7 +191,7 @@ export const App = () => {
       empBadgeNumber,
       firstName,
       lastName,
-      false,       
+      true,       
       isSupervisor,
       isStocker,
       empDeptNumber,
@@ -249,22 +250,26 @@ export const App = () => {
 
   }
   const handleEditEmp = () => {
-    if (!deptNumber) return;
+    if (!empBadgeNumber) return;
 
-    const updatedDept = new DepartmentModel(
-      deptNumber,
-      deptName,
-      isDeptActive,
+    const updatedEmp = new EmpModel(
+      empBadgeNumber,
+      firstName,
+      lastName,
+      true,       
+      isSupervisor,
+      isStocker,
+      empDeptNumber,
     );
-    setDepts( prev =>
-      prev.map( dept =>
-        dept.deptCode === deptNumber
-        ? updatedDept
-        : dept
+    setEmps( prev =>
+      prev.map( emp =>
+        emp.badgeNo === empBadgeNumber
+        ? updatedEmp
+        : emp
       )
     );
-    resetDept();
-    navigate('/depts', { state: {message: 'Department saved'}})
+    resetEmp();
+    navigate('/emps', { state: {message: 'Employee saved'}})
   }
     const handleEditDept = () => {
     if (!empBadgeNumber) return;
@@ -439,6 +444,34 @@ const PrintWrapper = () => {
                 isStocker={isStocker}
                 setIsStocker={setIsStocker}
                 depts={depts}
+              />} 
+            />
+            <Route path="/emps/:badgeNo/edit" 
+              element={<EditEmployee
+                emps={emps}
+                empBadgeNumber={empBadgeNumber}
+                setEmpBadgeNumber={setEmpBadgeNumber}
+                depts={depts}
+                selectedDept={selectedDept}
+                setSelectedDept={setSelectedDept}
+                empDeptNumber={empDeptNumber}
+                setEmpDeptNumber={setEmpDeptNumber}
+                isLookupDeptOpen={isLookupDeptOpen}
+                setIsLookupDeptOpen={setIsLookupDeptOpen}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                isSupervisor={isSupervisor}
+                setIsSupervisor={setIsSupervisor}
+                isStocker={isStocker}
+                setIsStocker={setIsStocker}
+                handleDeleteEmp={handleDeleteEmp}
+                handleEditEmp={handleEditEmp}
+                isEmpActive={isEmpActive}
+                setIsEmpActive={setIsEmpActive}
+                cancelEditEmp={cancelEmp}
+                
               />} 
             />
 

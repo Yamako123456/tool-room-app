@@ -2,6 +2,7 @@ import React from 'react'
 import { DepartmentModel } from '../../models/DepartmentModel';
 import { useNavigate } from 'react-router-dom';
 import ListEmployees from './ListEmployees/ListEmployees';
+import { EmpModel } from '../../models/EmpModel';
 
 interface Props {
   emps: EmpModel[];

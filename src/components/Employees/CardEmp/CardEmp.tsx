@@ -1,5 +1,6 @@
 import React from 'react'
 import { DepartmentModel } from '../../../models/DepartmentModel';
+import { EmpModel } from '../../../models/EmpModel';
 
 interface Props {
   aEmp: EmpModel;
@@ -12,7 +13,7 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
   const dept = depts.find( dept => dept.deptCode === aEmp.department);
 
   return (
-      <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
