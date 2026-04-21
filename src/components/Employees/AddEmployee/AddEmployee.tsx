@@ -1,5 +1,6 @@
 import React from 'react'
 import { DepartmentModel } from '../../../models/DepartmentModel';
+import { EmpModel } from '../../../models/EmpModel';
 import DeptLookup from '../DeptLookup/DeptLookup';
 
 interface Props {

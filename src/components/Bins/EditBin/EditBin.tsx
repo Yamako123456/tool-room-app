@@ -5,10 +5,10 @@ import { Navigate, useParams } from 'react-router-dom';
 import { ItemModel } from '../../../models/ItemModel';
 
 interface Props { 
-  items: ItemModel[];
   bins: BinModel[];
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
   setCribNumber: React.Dispatch<React.SetStateAction<string>>;
+  items: ItemModel[];
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
   itemCode: string | undefined;
@@ -58,7 +58,7 @@ const EditBin =  ({
       setIsBinActive(selectedBin?.active ?? false);
 
       const foundItem = items.find((item) => item.code === selectedBin?.item);
-        setSelectedItem(foundItem ?? null);
+      setSelectedItem(foundItem ?? null);
       
   }, [selectedBin, items, setBinNumber, setCribNumber, setItemCode, setSelectedItem, setQty, setMin, setIsBinActive]);
 

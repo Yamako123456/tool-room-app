@@ -1,3 +1,4 @@
+import { EmpModel } from "../models/EmpModel"
 export const initialEmps: EmpModel[] = [
     {
         badgeNo: "1001",
@@ -72,8 +73,8 @@ export const initialEmps: EmpModel[] = [
     },
     {   
         badgeNo: "4000",
-        firstName: "Draco",
-        lastName: "Malfoy",
+        firstName: "Lee",
+        lastName: "Jordan",
         active: true,
         isSupervisor: true,
         isStocker: false,
