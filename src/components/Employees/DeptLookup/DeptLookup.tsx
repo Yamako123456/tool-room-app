@@ -29,7 +29,7 @@ const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
             <button onClick={onClose}
               className='text-gray-500 hover:text-black'
             >
-              X
+              CLOSE X
             </button>
         </div>
       </div>
@@ -38,7 +38,7 @@ const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
           type="text"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          placeholder='Search by item code or description 1'
+          placeholder='Search by department code or name 1'
           className='w-full rounded-md border px-2 py-2'
         />
         <div className='max-h-80 overflow-y-auto border rounded-md'>
@@ -51,7 +51,7 @@ const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
                 className='w-full text-left px-4 py-3 hover:bg-gray-50 hover:text-black    border-b'
               >
                 <div className='font-medium'> {dept.deptCode} </div>
-                <div className='text-sm'> {dept.deptCode + " - " + dept.description} </div>
+                <div className='text-sm'> {dept.description} </div>
               </button>
             ))
           ) : (

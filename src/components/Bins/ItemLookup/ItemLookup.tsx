@@ -27,7 +27,7 @@ const ItemLookup = ({ isOpen, items, onClose, onSelect }: Props) => {
             <button onClick={onClose}
               className='text-gray-500 hover:text-black'
             >
-              X
+              CLOSE X
             </button>
         </div>
       </div>
