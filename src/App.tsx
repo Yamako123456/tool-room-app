@@ -82,6 +82,8 @@ export const App = () => {
 
   const navigate = useNavigate() ;
 
+  // --------------Load Initial demo data ---------------------------
+
   const initDemoData = () => {
     setEmps(initialEmps);
     setDepts(initialDepartments);
@@ -90,6 +92,7 @@ export const App = () => {
     setCribs( initialCribs );
   }
 
+  // -------------- Reset States ---------------------------
   const resetBin = () => {
     setBinNumber("");
     setCribNumber("");
@@ -99,11 +102,13 @@ export const App = () => {
     setQty(0);
     setIsBinActive(false); 
   }
+
   const resetDept = () => {
     setDeptNumber("");
     setDeptName("");
     setIsDeptActive(false); 
   }
+
   const resetEmp = () => {
     setEmpBadgeNumber("");
     setEmpDeptNumber(undefined);
@@ -115,7 +120,8 @@ export const App = () => {
     setIsEmpActive(false); 
   }
 
-  const setItemActive = ( itemCode: string | undefined) => {
+  // -------------- Activate ---------------------------
+  const activateItem = ( itemCode: string | undefined) => {
     if (!itemCode) return;
 
     setItems(
@@ -125,7 +131,7 @@ export const App = () => {
     );
   }
 
-  const setDeptActive = ( deptCode: string | undefined) => {
+  const activateDept = ( deptCode: string | undefined) => {
     if (!deptCode) return;
 
     setDepts(
@@ -135,6 +141,7 @@ export const App = () => {
     );
   }
 
+// -------------- Add operations---------------------------
   const handleAddBin = () => {
     
     if (!binNumber || binNumber.trim() === '' ) {
@@ -155,7 +162,7 @@ export const App = () => {
       itemCode,
     );
     setBins( prev => [...prev, newBin] );
-    setItemActive(itemCode);
+    activateItem(itemCode);
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
@@ -177,6 +184,7 @@ export const App = () => {
     resetDept();
     navigate('/depts', { state: { message: 'Department saved' } });
   }
+
   const handleAddEmp = () => {
     
     if (!empBadgeNumber.trim().toLowerCase() || empBadgeNumber.trim().toLowerCase() === '' ) {
@@ -198,9 +206,11 @@ export const App = () => {
     );
     setEmps( prev => [...prev, newEmp] );
     resetEmp();
+    activateDept(empDeptNumber);
     navigate('/emps', { state: { message: 'Employee saved' } });
   }
 
+  // -------------- Cancel button handlers ---------------------------
   const cancelBin  = () => {
     resetBin();
     navigate('/bins', { state: { message: "Operation cancelled" }});
@@ -210,12 +220,13 @@ export const App = () => {
     resetDept();
     navigate('/depts', { state: { message: "Operation cancelled" }});
   }
+
   const cancelEmp  = () => {
     resetEmp();
     navigate('/emps', { state: { message: "Operation cancelled" }});
   }
 
-
+// -------------- Edit operations ---------------------------
   const handleEditBin = () => {
     if (!binNumber) return;
 
@@ -246,9 +257,11 @@ export const App = () => {
       )
     }
     resetBin();
+    activateItem(itemCode);
     navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
+
   const handleEditEmp = () => {
     if (!empBadgeNumber) return;
 
@@ -269,9 +282,12 @@ export const App = () => {
       )
     );
     resetEmp();
+    activateDept(empDeptNumber);
     navigate('/emps', { state: {message: 'Employee saved'}})
   }
-    const handleEditDept = () => {
+
+
+  const handleEditDept = () => {
     if (!empBadgeNumber) return;
 
     const updatedEmp = new EmpModel(
@@ -294,6 +310,7 @@ export const App = () => {
     navigate('/emps', { state: {message: 'Employee saved'}})
   }
 
+  // -------------- Delete operations ---------------------------
   const handleDeleteBin = () => {
     if (!binNumber) return;
   
@@ -303,6 +320,7 @@ export const App = () => {
     resetBin();
     navigate('/bins', { state: { message: `Bin: ${binNumber} deleted` } })
   }
+
   const handleDeleteDept = () => {
     if (!deptNumber) return;
 
@@ -312,6 +330,7 @@ export const App = () => {
     resetDept();
     navigate('/depts', { state: { message: `Department: ${deptNumber} deleted`}});
   }
+
   const handleDeleteEmp = () => {
     if (!empBadgeNumber) return;
 
@@ -322,16 +341,17 @@ export const App = () => {
     navigate('/emps', { state: { message: `Employee: ${empBadgeNumber} deleted`}});
   }
 
-const PrintWrapper = () => {
+  // -------------- Item barcode Print button handler ---------------------------
+  const PrintWrapper = () => {
 
-  const { itemCode } = useParams<{ itemCode: string }>();
+    const { itemCode } = useParams<{ itemCode: string }>();
 
-  if (!itemCode) {
-    return <div>Item Code not found.</div>; // In case  itemCode is undefined
-  }
+    if (!itemCode) {
+      return <div>Item Code not found.</div>; // In case  itemCode is undefined
+    }
 
-  return <PrintComponent barcode={itemCode} items={items}/>;
-};
+    return <PrintComponent barcode={itemCode} items={items}/>;
+  };
 
 
   return (
