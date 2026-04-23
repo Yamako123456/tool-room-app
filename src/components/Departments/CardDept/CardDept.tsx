@@ -9,7 +9,7 @@ interface Props {
 const CardDept = ({aDept, onEditDept} : Props) => {
   
   return (
-      <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
@@ -20,7 +20,7 @@ const CardDept = ({aDept, onEditDept} : Props) => {
         </button>
       </div>
       
-      <div className="grid grid-cols-2 items-baseline gap-x-1 font-semibold text-gray-800 mb-4">
+      <div className="flex gap-2 items-baseline font-semibold text-gray-800 mb-4">
         <span className="text-sm"> 
           Dept. Code:
           </span> 
@@ -29,7 +29,7 @@ const CardDept = ({aDept, onEditDept} : Props) => {
         </span> 
       </div>
 
-      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
+      <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Name:</span> 
           <span className='text-xl'> {aDept.description}</span>
       </div>

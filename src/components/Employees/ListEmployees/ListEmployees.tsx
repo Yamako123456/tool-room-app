@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import CardEmp from '../CardEmp/CardEmp';
 import { DepartmentModel } from '../../../models/DepartmentModel';
@@ -12,7 +12,11 @@ interface Props {
 
 const ListEmployees = ({emps, setEmps, depts}: Props) => {
   const navigate = useNavigate();
+  const [filterText, setFilterText] = useState<string>("");
+
   const onEditEmp = (badgeNo: string) => navigate(`/emps/${badgeNo}/edit` );
+
+  const filteredEmps = useMemo(() =>{return;}, [emps, depts, filterText]);
   
   return (
     <section id="listEmps">    

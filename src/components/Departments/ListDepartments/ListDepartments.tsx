@@ -28,7 +28,7 @@ const ListDepartments = ({depts, setDepts}: Props) => {
 
   return (
     <section id="listBins">    
-      <div>
+      <div className='max-w-6xl mx-auto px-10 mb-5 md:px-6'>
         <div className='mb-6'>
           <label className='block text-sm font-medium mb-2'>
             Filter Departments
