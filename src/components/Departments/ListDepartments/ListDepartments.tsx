@@ -41,7 +41,7 @@ const ListDepartments = ({depts, setDepts}: Props) => {
             className='w-full rounded-md border px-3 py-2'
           />
         </div>
-        <div className='relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
+        <div className='relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
             {filteredDepts.length > 0 ? (
                 filteredDepts.map((aDept) => {
                   return (
