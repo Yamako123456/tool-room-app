@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { EmpModel } from '../../../models/EmpModel';
 import { DepartmentModel } from '../../../models/DepartmentModel';
 import { useParams } from 'react-router-dom';
-import DeptLookup from '../DeptLookup/DeptLookup';
+import DeptLookup from '../../Departments/DeptLookup/DeptLookup';
 
 interface Props {
   emps: EmpModel[];

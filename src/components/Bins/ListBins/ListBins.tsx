@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import CardBin from '../CardBin/CardBin';
 import { BinModel } from '../../../models/BinsModel';
 import {useNavigate} from 'react-router-dom';
@@ -12,28 +12,53 @@ interface Props {
 
 const ListBins = ({bins, setBins, items}: Props) => {
   const navigate = useNavigate();
+  const [filterText, setFilterText] = useState<string>("");
+  
   const onEditBin = (binCode: string) => navigate(`/bins/${binCode}/edit` );
+
+  const filteredBins = useMemo(() => {
+    const keyword = filterText.trim().toLowerCase();
+    if (!keyword) return bins;
+
+    return bins.filter((bin) => {
+      const binCode = bin.binCode.toLowerCase();
+      const itemCode = ( bin.item ?? '').toLowerCase();
+      const item = items.find(item => item.code.toLowerCase() === itemCode);
+      const itemDescription = item?.description1.toLowerCase();
+      return binCode.includes(keyword) || itemCode.includes(keyword) || itemDescription?.includes(keyword);
+    });
+  }, [bins, items, filterText]);
 
   return (
     <section id="listBins">    
+      <div className='max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
+        <div className='mb-6'>
+            <label className='block text-sm font-medium mb-w'>
+              Filter Bins
+            </label>
+            <input 
+              type="text" 
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              placeholder='Search by bin code or its item'
+              className='w-full rounded-md border px-3 p-y-2'
+            />
+        </div>
+      </div>
       <div className='relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
-        <>
-          {bins.length > 0 ? (
-              bins.map((aBin) => {
-                return (
-                  <CardBin aBin={aBin} items={items} onEditBin={onEditBin}/>
-                );
-              })
-            ):(
-         
-              <h3 className='my-3 text-xl font-semibold text-center md:tex-xl'>
-                There is no bins in your Toolroom.
-              </h3> 
-            )
-          }
-
-        </>
+        {filteredBins.length > 0 ? (
+            filteredBins.map((aBin) => {
+              return (
+                <CardBin aBin={aBin} items={items} onEditBin={onEditBin}/>
+              );
+            })
+          ):(
         
+            <h3 className='my-3 text-xl font-semibold text-center md:tex-xl'>
+              There is no bins in your Toolroom.
+            </h3> 
+          )
+        }
       </div>
     </section>
   )

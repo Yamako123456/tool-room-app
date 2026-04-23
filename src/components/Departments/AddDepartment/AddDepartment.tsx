@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { DepartmentModel } from '../../../models/DepartmentModel';
 import { useParams } from 'react-router-dom';
-import EmpLookup from '../EmpLookup/EmpLookup';
+import EmpLookup from '../../Employees/EmpLookup/EmpLookup';
 
 interface Props {
   setDeptNumber: React.Dispatch<React.SetStateAction<string>>;

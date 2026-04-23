@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { EmpModel } from '../../../models/EmpModel'
 
 interface Props {
   isOpen: boolean;
