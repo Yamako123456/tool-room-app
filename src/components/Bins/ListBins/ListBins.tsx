@@ -33,7 +33,7 @@ const ListBins = ({bins, setBins, items}: Props) => {
     <section id="listBins">    
       <div className='max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
         <div className='mb-6'>
-            <label className='block text-sm font-medium mb-w'>
+            <label className='block text-sm font-medium mb-2'>
               Filter Bins
             </label>
             <input 
@@ -41,7 +41,7 @@ const ListBins = ({bins, setBins, items}: Props) => {
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
               placeholder='Search by bin code or its item'
-              className='w-full rounded-md border px-3 p-y-2'
+              className='w-full rounded-md border px-3 py-2'
             />
         </div>
       </div>
