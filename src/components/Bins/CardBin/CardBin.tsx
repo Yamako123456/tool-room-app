@@ -13,7 +13,9 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
   const item = items.find( itm => itm.code === aBin.item);
 
   return (
-    <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+      
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
@@ -24,37 +26,58 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         </button>
       </div>
       
-      <div className=" text-gray-800 mb-4 font-semibol">
-        <span className='text-lg'>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className='text-sm font-semibold '>
           Bin Code:
         </span>
-        <span className='ml-1 text-2xl'>
+        <span className='text-2xl'>
             {aBin.binCode}
         </span>
       </div>
 
-      <div className="space-y-2 text-black">
-        {/* <p>
-          <span className="font-semibold">Toolroom:</span> {aBin.crib}
-        </p>      */}
-        <p>
-          <span className="font-semibold">Item Code:</span> {aBin.item ? aBin.item : "Not Assigned" }
-        </p>
-        {item?.description1}
-        {item?.itemImage && (
-          <img
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+            Item Code:
+        </span> 
+        <span className='text-xl'>
+            {aBin.item ? aBin.item : "Not Assigned" }
+        </span>
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+          Description:
+        </span>
+        <span className='text-xl'>
+          {item?.description1}
+        </span>  
+      </div>
+      <div className="flex gap-1 items-baseline  text-gray-800">
+        <span className='m-2'>
+          {item?.itemImage && (
+            
+            <img
             src={item.itemImage}
             alt={aBin.item}
-            className="w-12 h-12 object-contain rounded border"
-          />
-        )}
-        <p>
-          <span className="font-semibold">Min Qty:</span> {aBin.min}
-        </p>
-        <p>
-          <span className="font-semibold">Quantity:</span> {aBin.qty}
-        </p>
-        
+            className="h-40 object-contain rounded border"
+            />
+          )}
+        </span>
+      </div>  
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+          Min Qty:
+        </span> 
+        <span className='text-xl'>
+          {aBin.min}
+        </span>
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+          Quantity:
+        </span> 
+        <span text-xl>
+          {aBin.qty}
+        </span>  
       </div>
     </div>
   )

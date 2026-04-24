@@ -9,7 +9,8 @@ interface Props {
 const CardDept = ({aDept, onEditDept} : Props) => {
   
   return (
-    <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {

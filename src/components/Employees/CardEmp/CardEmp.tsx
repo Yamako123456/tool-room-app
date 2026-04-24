@@ -13,7 +13,8 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
   const dept = depts.find( dept => dept.deptCode === aEmp.department);
 
   return (
-    <div className="relative max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
@@ -23,8 +24,8 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
           > Edit 
         </button>
       </div>
-      <div className="grid grid-cols-2 items-baseline gap-x-1 font-semibold text-gray-800 mb-4">
-        <span className="text-sm"> 
+      <div className="flex gap-2 items-baseline gap-x-1 font-semibold text-gray-800 mb-4">
+        <span className="text-sm font-semibol"> 
           Badge No.:
         </span>  
         <span className='text-2xl'>
@@ -32,15 +33,19 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
         </span>
       </div>
       
-      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
+      <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Name:</span> 
           <span className='text-xl'> {aEmp.firstName + " " + aEmp.lastName }</span>
       </div>
       {aEmp.isSupervisor && <div className="text-sm font-semibold text-green-600">Supervisor</div>}
       {aEmp.isStocker && <div className="text-sm font-semibold text-blue-600">Stocker</div>}
-      <div className="grid grid-cols-2 items-baseline gap-x-1 text-black">
-          <span className="text-sm font-semibold">Department:</span> 
-          <span className='text-xl'> {dept ? dept.deptCode + " -  " + dept.description : "Not Assigned" }</span>
+      <div className="flex gap-2 items-baseline gap-x-1 text-black">
+          <span className="text-sm font-semibold">Dept. Code:</span> 
+          <span className='text-xl'> {dept ? dept.deptCode : "Not Assigned" }</span>
+      </div>
+      <div className="flex gap-2 items-baseline gap-x-1 text-black">
+          <span className="text-sm font-semibold">Dept.Name:</span> 
+          <span className='text-xl'> {dept ? dept.description : "" }</span>
       </div>
     </div>  
   )

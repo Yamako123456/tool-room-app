@@ -31,21 +31,20 @@ const ListBins = ({bins, setBins, items}: Props) => {
 
   return (
     <section id="listBins">    
-      <div className='max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
-        <div className='mb-6'>
-            <label className='block text-sm font-medium mb-2'>
-              Filter Bins
-            </label>
-            <input 
-              type="text" 
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
-              placeholder='Search by bin code or its item'
-              className='w-full rounded-md border px-3 py-2'
-            />
-        </div>
+      <div className='w-full mx-auto px-10 mb-5 md:px-6 '>
+        <label className='block text-sm font-medium mb-2'>
+          Filter Bins
+        </label>
+        <input 
+          type="text" 
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+          placeholder='Search by bin code or its item'
+          className='w-full rounded-md border px-3 py-2'
+        />
       </div>
-      <div className='relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
+      {/* <div className='relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '> */}
+      <div className='relative flex flex-wrap  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
         {filteredBins.length > 0 ? (
             filteredBins.map((aBin) => {
               return (
