@@ -9,7 +9,6 @@ import { AboutComponent } from './components/AboutComponent';
 import { ItemModuleComponent } from './components/Items/ItemModuleComponent';
 import { PrintComponent } from './components/Items/PrintComponent';
 import { NewItemForm } from './components/Items/NewItemForm';
-import { initialItems } from './data/InitialItems';
 import { initialBinss } from './data/initialBins';
 import { initialCribs } from './data/initialCribs';
 import { initialEmps } from './data/initiahEmps';
@@ -33,6 +32,7 @@ import Items from './components/Items/Items';
 import AddItem from './components/Items/AddItem/AddItem';
 import EditItem from './components/Items/EditItem/EditItem';
 import { initialSuppliers } from './data/initialSuppliers';
+import { initialItems } from './data/initialItems';
 
 
 export const App = () => {
@@ -48,12 +48,12 @@ export const App = () => {
   const [binNumber, setBinNumber] = useState<string>("");
   const [deptNumber, setDeptNumber] = useState<string>("");
   const [empBadgeNumber, setEmpBadgeNumber] = useState<string>("");
+  const [empDeptNumber, setEmpDeptNumber] = useState<string | undefined>(undefined);
   const [supplierNumber, setSupplierNumber] = useState<string>("");
   const [itemNumber, setItemNumber] = useState<string>("");
   
   const [itemCode, setItemCode] = useState<string | undefined>(undefined);
   const [deptCode, setDeptCode] = useState<string | undefined>(undefined);
-  const [empDeptNumber, setEmpDeptNumber] = useState<string | undefined>(undefined);
   const [supCode, setSupCode] = useState<string | undefined>(undefined);
 
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
@@ -176,6 +176,13 @@ export const App = () => {
     setSupCode(undefined);
     setSelectedSupplier(null);
     
+
+
+
+
+
+
+
   }
 
   // -------------- Activate ---------------------------

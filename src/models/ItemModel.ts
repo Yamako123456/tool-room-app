@@ -1,83 +1,79 @@
 export class ItemModel {
     code: string;
     description1: string;
+    itemImage: string;
     itemType: string;
     unitPrice: number;
     issueCost: number;
+    uom: string;
+    packQty: number;
     supCode: string;
-    category: string;
+    mfg: string;
+    mfgItem: string;
+    leadTime: number;
+    orderQty: number;
+    dateCreated: Date;
     active: boolean;
     disabled: boolean;
-    // assigned: boolean;//isUsedInTransactions;
-    packQty: number;
-    orderQty: number;
-    weigh: boolean;
-    uom: string;
-    leadTime: number;
 
-    // private _recordId?: number; // Optional and read-only
+    // ----Obsolete---------    
     description2?: string;
-    itemImage?: string;
+    category: string;
+    weigh: boolean;
     weight?: string;
-    mfg?: string;
-    mfgItem?: string;
-    notes?: string;
     lastIssue?: Date;
+    notes?: string;
     createdBy?: string;
-    dateCreated?: Date;
-
+    
     constructor(
         code: string,
         description1: string,
+        itemImage: string,
         itemType: string,
         unitPrice: number,
         issueCost: number,
+        uom: string,
+        packQty: number,
         supCode: string,
-        category: string,
+        mfg: string,
+        mfgItem: string,
+        leadTime: number,
+        orderQty: number,
+        dateCreated: Date,
         active: boolean,
         disabled: boolean,
-        // assigned: boolean,//isUsedInTransactions;
-        packQty: number,
-        orderQty: number,
-        weigh: boolean,
-        uom: string,
-        leadTime: number,
 
-        // recordId?: number, // Optional and read-only
+        // ----Obsolete---------
+        category: string,
+        weigh: boolean,
         description2?: string,
-        itemImage?: string,
         weight?: string,
-        mfg?: string,
-        mfgItem?: string,
         notes?: string,
         lastIssue?: Date,
         createdBy?: string,
-        dateCreated?: Date,
     ) {
-
         this.code = code;
         this.description1 = description1;
+        this.itemImage = itemImage;
         this.itemType = itemType;
-        this.unitPrice = unitPrice
+        this.unitPrice = unitPrice;
         this.issueCost = issueCost;
-        this.supCode = supCode;
-        this.category = category;
+        this.uom = uom; 
+        this.packQty = packQty;
+        this.supCode = supCode; 
+        this.mfgItem = mfgItem; 
+        this.leadTime = leadTime;
+        this.orderQty = orderQty; 
+        this.dateCreated = dateCreated; 
         this.active = active;
         this.disabled = disabled;
-        // this.assigned = assigned;//isUsedInTransactions;
-        this.packQty = packQty;
-        this.orderQty = orderQty;
-        this.weigh = weigh;
-        this.uom = uom;
-        this.dateCreated = dateCreated;
-        this.leadTime = leadTime;
 
-        // this._recordId = recordId;
+        // ----Obsolete---------
+        this.category = category;
+        this.weigh = weigh;
         this.description2 = description2;
-        this.itemImage = itemImage;
         this.weight = weight;
         this.mfg = mfg;
-        this.mfgItem = mfgItem;
         this.notes = notes;
         this.lastIssue = lastIssue;
         this.createdBy = createdBy;

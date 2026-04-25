@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ItemTableSection } from "./ItemTableSection";
 import { NewItemForm } from "./NewItemForm";
-import { initialItems } from "../../data/InitialItems";
+// import { initialItems } from "../../data/InitialItems";
 import { ItemModel } from '../../models/ItemModel';
 
 type Props = {
@@ -22,7 +22,7 @@ export const ItemModuleComponent = ({ items, setItems, isShowEntryForm, setIsSho
         itemType: string,
         unitPrice: number,
         issueCost: number,
-        supCode: string,
+        supplierId: string,
         itemImage: string,
         category: string,
         packQty: number,
@@ -40,43 +40,38 @@ export const ItemModuleComponent = ({ items, setItems, isShowEntryForm, setIsSho
             return;
 
         const newItem = {
-            // recordId: undefined,
             code: code,
             description1: description1,
-            description2: description2,
+            itemImage: itemImage,
             itemType: itemType,
             unitPrice: unitPrice,
             issueCost: issueCost,
-            supCode: supCode,
-            itemImage: itemImage,
-            category: category,
+            uom: uom,
+            packQty: packQty,
+            supCode: supplierId, 
+            mfgItem: mfgItem, 
+            leadTime: leadTime,
+            orderQty: orderQty, 
+            dateCreated: new Date(),
             active: false,
             disabled: false,
-            // assigned: false,
-            packQty: packQty,
-            orderQty: orderQty,
+            
+
+            // ----Obsolete---------
+            category: category,
             weigh: weigh,
+            description2: description2,
             weight: weight,
-            uom: uom,
-            leadTime: leadTime,
             mfg: mfg,
-            mfgItem: mfgItem,
             notes: notes,
             lastIssue: undefined,
-            dateCreated: new Date(),
             createdBy: '',
-        }
 
-        // console.log('item new setItems for newItem: ', newItem);
-        
+        }
         setItems(prevItems => [...prevItems,
         newItem as ItemModel
         ]);
-
-        // setItems(items => [...items, newItem])
     }
-    
-    // console.log("items after adding new: ", items);
 
     const updateItem = (
         originalCode: string,
@@ -99,7 +94,6 @@ export const ItemModuleComponent = ({ items, setItems, isShowEntryForm, setIsSho
         mfgItem?: string,
         notes?: string,
     ) => {
-        // Pre-verified other places and they display nice modal popup. here only for just-in-case.
         if (code !== originalCode &&
             items.find(itm => itm.code === code)) {
             alert('Your new code alread exists! Update aborted. Pleas try again.')
@@ -111,30 +105,31 @@ export const ItemModuleComponent = ({ items, setItems, isShowEntryForm, setIsSho
         )[0];
         const index = items.findIndex(itm => itm.code === originalCode);
         if (index !== -1) {
-
+            
             const newItem: ItemModel = {
                 code: code,
                 description1: description1,
-                description2: description2,
+                itemImage: itemImage,
                 itemType: itemType,
                 unitPrice: unitPrice,
                 issueCost: issueCost,
+                uom: uom,
+                packQty: packQty,
                 supCode: supCode,
-                itemImage: itemImage,
-                category: category,
+                mfg: mfg ?? '',
+                mfgItem: mfgItem ?? '',
+                leadTime: leadTime,
+                orderQty: orderQty,
+                dateCreated: originalItem.dateCreated,
                 active: originalItem.active,
                 disabled: originalItem.disabled,
-                packQty: packQty,
-                orderQty: orderQty,
+                // ----Obsolete---------
+                category: category,
                 weigh: weigh,
+                description2: description2,
                 weight: weight,
-                uom: uom,
-                leadTime: leadTime,
-                mfg: mfg,
-                mfgItem: mfgItem,
                 notes: notes,
                 lastIssue: originalItem.lastIssue,
-                dateCreated: originalItem.dateCreated,
                 createdBy: originalItem.createdBy,
             }
 
