@@ -25,8 +25,6 @@ const Bins = ({cribs, items, bins, setBins, binNumber, selectedItem}: Props) => 
     }) : items;
   }
 
-
-
   return (
     <section id="bins">
       <div className='relative flex items-center'>

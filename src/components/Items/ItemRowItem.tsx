@@ -93,7 +93,7 @@ export const ItemRowItem: React.FC<{
 
             <td style={{ padding: '10px' }}>{props.item.description1}</td>
             <td style={{ padding: '10px' }}>{props.item.itemType}</td>
-            <td style={{ padding: '10px' }}>{props.item.supplierId}</td>
+            <td style={{ padding: '10px' }}>{props.item.supCode}</td>
             <td style={{ padding: '10px' }}>{props.item.category}</td>
 
             <td style={{ padding: '10px' }}>

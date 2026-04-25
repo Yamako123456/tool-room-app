@@ -38,7 +38,7 @@ useEffect(() => {
     const [itemType, setItemType] = useState(props.isNew ? ItemTypes.EXPENDABLE : selectedItem.itemType);
     const [unitPrice, setUnitPrice] = useState(props.isNew ? 0 : selectedItem.unitPrice);
     const [issueCost, setIssueCost] = useState(props.isNew ? 0 : selectedItem.issueCost);
-    const [supplierId, setSupplierId] = useState(props.isNew ? '' : selectedItem.supplierId);
+    const [supCode, setSupCode] = useState(props.isNew ? '' : selectedItem.supCode);
     const [itemImage, setItemImage] = useState(props.isNew ? '' : selectedItem.itemImage);
     const [category, setCategory] = useState(props.isNew ? ItemCategories.TOOL : selectedItem.category);
 
@@ -80,14 +80,14 @@ useEffect(() => {
         if (
             itemCode === '' ||
             description1 === '' ||
-            supplierId === ''
+            supCode === ''
         ) {
             if (props.isNew) {
                 setModalTitle('Incomplete Form');
             } else
                 setModalTitle('Update Aborted')
 
-            setModalMsg('Code, Description1 and SupplierId are required!')
+            setModalMsg('Code, Description1 and Supplier Code are required!')
             setIsDelete(false)
             setShowModal(true)
 
@@ -113,9 +113,9 @@ useEffect(() => {
 
             msg = 'Currency digits length cannot exceed ' + CURRENCY_MAX;
 
-        } else if (supplierId.length > SUPLIER_MAX) {
+        } else if (supCode.length > SUPLIER_MAX) {
 
-            msg = 'SupplierId length cannot exceed ' + SUPLIER_MAX;
+            msg = 'Supplier Code length cannot exceed ' + SUPLIER_MAX;
         }
 
         // if(subCategory.length > CATEGORY_MAX)    
@@ -144,7 +144,7 @@ useEffect(() => {
                     itemType,
                     unitPrice,
                     issueCost,
-                    supplierId,
+                    supCode,
                     itemImage,
                     category,
                     packQty,
@@ -183,7 +183,7 @@ useEffect(() => {
                 itemType,
                 unitPrice,
                 issueCost,
-                supplierId,
+                supCode,
                 itemImage,
                 category,
                 packQty,
@@ -210,7 +210,7 @@ useEffect(() => {
         setItemType(ItemTypes.EXPENDABLE);
         setUnitPrice(0.00);
         setIssueCost(0.00);
-        setSupplierId('');
+        setSupCode('');
         setItemImage('');
         setCategory(ItemCategories.TOOL);
 
@@ -276,7 +276,7 @@ useEffect(() => {
         setUnitPrice(Number(priceStr));
         setIssueCost(Number(priceStr));
         setItemImage(searchUPCResult.item_attributes.image);
-        setSupplierId(searchUPCResult.item_attributes.publisher);
+        setSupCode(searchUPCResult.item_attributes.publisher);
     }
 
     const onSearchUPCSubmit = async (e: SyntheticEvent) => {
@@ -298,6 +298,13 @@ useEffect(() => {
 
     return (
         <div>
+            {!isReadOnly &&
+                <div>
+                <h1 className="text-2xl font-semibold">Add Item</h1>
+                <p className="text-sm text-gray-500">Create a new item.</p>
+                </div>
+            } 
+
             {!isReadOnly && (
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
@@ -445,8 +452,8 @@ useEffect(() => {
                             {props.isNew && (<span className='text-danger small'> (required)</span>)}
                         </label>
                         <input className='form-control' type='text' required
-                            value={supplierId}
-                            onChange={(event) => setSupplierId(event.target.value.trim())}
+                            value={supCode}
+                            onChange={(event) => setSupCode(event.target.value.trim())}
                             readOnly={isReadOnly || (!props.isNew && selectedItem.active)}
                             style={isReadOnly ? { backgroundColor: 'transparent', border: 'none', outline: 'none', pointerEvents: 'none' } : {}}
                         ></input>
@@ -488,23 +495,8 @@ useEffect(() => {
                     </div>
 
                 </div>
-                {/* <div className='mb-3'>
-                    <label className='form-label'>Sub-catetory</label>
-                    {(<span style={{ fontSize: '0.6rem' }}>( max length: {CATEGORY_MAX} )</span>)}
-                    <input className='form-control' type='text' 
-                        value={subCategory}
-                        onChange={(event) => setSubCategory(event.target.value.trim())}
-                        readOnly={isReadOnly}
-                        ></input>
-                </div>
-                 */}
             </form>
-            <button
-                className={btnCaption === 'Save' || btnCaption === 'Add' ? 'btn btn-success me-2' : 'btn btn-primary me-2'}
-                onClick={submitItem}>
-                {btnCaption}
-            </button>
-
+            
             {!props.isNew && props.setIsShowDetail &&
                 <button className='btn btn-warning me-2' 
                     onClick={ () => {
@@ -519,7 +511,38 @@ useEffect(() => {
                 </button>
             }
 
-            <button className='btn btn-success' onClick={closeForm}>Close</button>
+           
+
+            <div className="flex justify-end gap-3">
+                <button 
+                    className="px-4 py-2 border rounded-lg"
+                     onClick={closeForm}
+                >
+                    Cancel
+                </button>
+      
+                <button 
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+                    onClick={submitItem}
+                > 
+                    {btnCaption}
+                </button>
+
+                {!props.isNew && props.setIsShowDetail &&
+                <button 
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+                    onClick={ () => {
+                        if (selectedItem.active) {
+                            alert("This item is active. Delete is not allowed.");
+                            return;
+                        }
+                        deleteConfirmation();
+                    }}
+                >
+                    Delete
+                </button>
+                }   
+            </div>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>

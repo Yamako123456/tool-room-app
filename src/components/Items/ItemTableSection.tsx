@@ -79,12 +79,17 @@ export const ItemTableSection: React.FC<
 
     return (
         <div>
-            <div className=" mt-5 ">
+            <div>
                 <div className="card">
-                    <div className="card-header">
-                        Selected Item: {selectedCode}
+                    <div className="card-header text-2xl font-semibold">
+                        Items List
                     </div>
-
+                    {/* <div className="px-4 py-3 border-b bg-gray-50 rounded-t-2xl">
+                        <p className="text-sm text-gray-500">Currently selected item</p>
+                        <p className="text-lg font-semibold text-gray-900">
+                            {selectedCode || "None selected"}
+                        </p>
+                    </div> */}
                     <div className="card-body">
                         {props.isShowDetail && (
                             <div className="card mt-3" style={{ backgroundColor: '#E6F8DC' }}>
@@ -147,7 +152,7 @@ export const ItemTableSection: React.FC<
                                 <thead>
                                     <tr>
                                         <th style={{ padding: '10px' }} scope="col">Detail</th>
-                                        <th style={{ padding: '10px' }} scope="col">View Image</th>
+                                        <th style={{ padding: '10px' }} scope="col"></th>
                                         <th style={{ padding: '10px' }} scope="col">Item Code</th>
                                         <th style={{ padding: '10px' }} scope="col">Description 1</th>
                                         <th style={{ padding: '10px' }} scope="col">Item Type</th>

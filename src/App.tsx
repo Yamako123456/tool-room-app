@@ -29,6 +29,10 @@ import AddDepartment from './components/Departments/AddDepartment/AddDepartment'
 import EditDepartment from './components/Departments/EditDepartment/EditDepartment';
 import AddEmployee from './components/Employees/AddEmployee/AddEmployee';
 import EditEmployee from './components/Employees/EditEmployee/EditEmployee';
+import Items from './components/Items/Items';
+import AddItem from './components/Items/AddItem/AddItem';
+import EditItem from './components/Items/EditItem/EditItem';
+import { initialSuppliers } from './data/initialSuppliers';
 
 
 export const App = () => {
@@ -39,18 +43,22 @@ export const App = () => {
   const [items, setItems] = useState<ItemModel[]>([]);
   const [bins, setBins] = useState<BinModel[]>([]);
   const [cribs, setCribs] = useState<CribModel[]>([]);
+  const [suppliers, setSuppliers] = useState<SupplierModel[]>([]);
   
   const [binNumber, setBinNumber] = useState<string>("");
   const [deptNumber, setDeptNumber] = useState<string>("");
   const [empBadgeNumber, setEmpBadgeNumber] = useState<string>("");
+  const [supplierNumber, setSupplierNumber] = useState<string>("");
+  const [itemNumber, setItemNumber] = useState<string>("");
   
   const [itemCode, setItemCode] = useState<string | undefined>(undefined);
-  const [deptCode, setDeptCode] = useState<string>("");
+  const [deptCode, setDeptCode] = useState<string | undefined>(undefined);
   const [empDeptNumber, setEmpDeptNumber] = useState<string | undefined>(undefined);
+  const [supCode, setSupCode] = useState<string | undefined>(undefined);
 
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [selectedDept, setSelectedDept] = useState<DepartmentModel | null>(null);
-  
+  const [selectedSupplier, setSelectedSupplier] = useState<SupplierModel | null>(null);
   
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
 
@@ -65,15 +73,37 @@ export const App = () => {
   const [isSupervisor, setIsSupervisor] = useState<boolean>(false);
   const [isStocker, setIsStocker] = useState<boolean>(false);
 
+  const [supplierName, setSupplierName] = useState<string>("");
+  const [supplierEmail, setSupplierEmail] = useState<string>("");
+  const [supplierAddr1, setSupplierAddr1] = useState<string>("");
+  const [supplierAddr2, setSupplierAddr2] = useState<string>("");
+  const [supplierCity, setSupplierCity] = useState<string>("");
+  const [supplierState, setSupplierState] = useState<string>("");
+  const [supplierZip, setSupplierZip] = useState<string>("");
+  const [supplierCountry, setSupplierCountry] = useState<string>("");
+  const [supplierCurrency, setSupplierCurrency] = useState<string>("");
+  const [supplierContact, setSupplierContact] = useState<string>("");
+  const [supplierPhone, setSupplierPhone] = useState<string>("");
+  const [supplierFax, setSupplierFax] = useState<string>("");
+  const [supplierIsGrinder, setSupplierIsGrinder] = useState<boolean>(false);
+  const [supplierIsCalibrator, setSupplierIsCalibrator] = useState<boolean>(false);
+  const [supplierServiceFee, setSupplierServiceFee] = useState<Number>(0.0);
+
+
+
   const [isBinActive, setIsBinActive] = useState<boolean>(false);
   const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
   const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
   const [isCribActive, setIsCribActive] = useState<boolean>(false);
-  
+  const [isSupActive, setIsSupActive] = useState<boolean>(false);
+  const [isItemActive, setIsItemActive] = useState<boolean>(false);
+
   const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
   const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
   const [isLookupDeptOpen, setIsLookupDeptOpen] = useState<boolean>(false);  
- 
+  const [isLookupSupOpen, setIsLookupSupOpen] = useState<boolean>(false);  
+
+  const [isShowEntryForm, setIsShowEntryForm] = useState(false);
   const [stockQty, setStockQty] = useState<number>(0);
 
   useEffect(() => {
@@ -90,6 +120,7 @@ export const App = () => {
     setItems( initialItems);
     setBins( initialBinss );
     setCribs( initialCribs );
+    setSuppliers( initialSuppliers );
   }
 
   // -------------- Reset States ---------------------------
@@ -118,6 +149,33 @@ export const App = () => {
     setIsSupervisor(false);
     setIsStocker( false);
     setIsEmpActive(false); 
+  }
+
+  const resetSupplier = () => {
+    setSupCode("");
+    setSupplierName("");
+    setSupplierName("");
+    setSupplierEmail("");
+    setSupplierAddr1("");
+    setSupplierAddr2("");
+    setSupplierCity("");
+    setSupplierState("");
+    setSupplierZip("");
+    setSupplierCountry("");
+    setSupplierCurrency("");
+    setSupplierContact("");
+    setSupplierPhone("");
+    setSupplierFax("");
+    setSupplierIsGrinder(false);
+    setSupplierIsCalibrator(false);
+    setSupplierServiceFee(0.0);
+
+  }
+  const resetItem = () => {
+    setItemNumber("")
+    setSupCode(undefined);
+    setSelectedSupplier(null);
+    
   }
 
   // -------------- Activate ---------------------------
@@ -370,8 +428,24 @@ export const App = () => {
               element={<AboutComponent />} 
             />
             <Route path="/items" 
-              element={<ItemModuleComponent 
-                items={items} setItems={setItems} />} 
+              element={<Items 
+                items={items} setItems={setItems} 
+                itemNumber={itemNumber}
+                suppliers={suppliers}
+                selectedSupplier={selectedSupplier}
+
+                isShowEntryForm={isShowEntryForm} setIsShowEntryForm={setIsShowEntryForm} />} 
+            />
+            <Route path="/items/add"
+              element={ <AddItem
+
+              />}
+            />
+            <Route path="/items/${itemCode}/edit"
+              element={ <EditItem 
+              />
+
+              }
             />
             <Route path="/bins" 
               element={<Bins 

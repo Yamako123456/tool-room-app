@@ -25,6 +25,7 @@ const ListBins = ({bins, setBins, items}: Props) => {
       const itemCode = ( bin.item ?? '').toLowerCase();
       const item = items.find(item => item.code.toLowerCase() === itemCode);
       const itemDescription = item?.description1.toLowerCase();
+     
       return binCode.includes(keyword) || itemCode.includes(keyword) || itemDescription?.includes(keyword);
     });
   }, [bins, items, filterText]);
@@ -53,8 +54,8 @@ const ListBins = ({bins, setBins, items}: Props) => {
             })
           ):(
         
-            <h3 className='my-3 text-xl font-semibold text-center md:tex-xl'>
-              There is no bins in your Toolroom.
+            <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
+              No bins to show.
             </h3> 
           )
         }

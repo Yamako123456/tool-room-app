@@ -7,10 +7,12 @@ import { ItemModel } from '../../models/ItemModel';
 type Props = {
     items: ItemModel[];
     setItems: React.Dispatch<React.SetStateAction<ItemModel[]>>;
+    isShowEntryForm: boolean;
+    setIsShowEntryForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const ItemModuleComponent = ({ items, setItems }: Props) => {
-    const [isShowEntryForm, setIsShowEntryForm] = useState(false);
+export const ItemModuleComponent = ({ items, setItems, isShowEntryForm, setIsShowEntryForm }: Props) => {
+    
     const [isShowDetail, setIsShowDetail] = useState(false);
 
     const addItem = (
@@ -20,7 +22,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
         itemType: string,
         unitPrice: number,
         issueCost: number,
-        supplierId: string,
+        supCode: string,
         itemImage: string,
         category: string,
         packQty: number,
@@ -45,7 +47,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
             itemType: itemType,
             unitPrice: unitPrice,
             issueCost: issueCost,
-            supplierId: supplierId,
+            supCode: supCode,
             itemImage: itemImage,
             category: category,
             active: false,
@@ -84,7 +86,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
         itemType: string,
         unitPrice: number,
         issueCost: number,
-        supplierId: string,
+        supCode: string,
         itemImage: string,
         category: string,
         packQty: number,
@@ -117,7 +119,7 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
                 itemType: itemType,
                 unitPrice: unitPrice,
                 issueCost: issueCost,
-                supplierId: supplierId,
+                supCode: supCode,
                 itemImage: itemImage,
                 category: category,
                 active: originalItem.active,
@@ -153,27 +155,11 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
     }   
 
     return (
-        <div className='mt-5 '>
-            <div className="page-header">
-                <h1>Manage Inventory Items</h1>
-            </div>
-
-            <ItemTableSection
-                addItem={addItem}
-                updateItem={updateItem}
-                deleteItem={deleteItem}
-                items={items}
-                setIsShowEntryForm={setIsShowEntryForm}
-                isShowDetail={isShowDetail}
-                setIsShowDetail={setIsShowDetail}
-            />
-
-            {isShowEntryForm && (
+        <div className='m-6'>
+                        {isShowEntryForm && (
 
                 <div className='card mt-5' style={{ backgroundColor: 'lightblue' }}>
-                    <div className='card-header'>
-                        New Item Entry Form
-                    </div>
+                    
                     <div className='card-body'>
                         <NewItemForm
                             isNew={true}
@@ -189,18 +175,29 @@ export const ItemModuleComponent = ({ items, setItems }: Props) => {
                         />
                     </div>
                 </div>
-
             )}
-            <div className='card mt-3'>
-                <div className='card-body'>
+            <ItemTableSection
+                addItem={addItem}
+                updateItem={updateItem}
+                deleteItem={deleteItem}
+                items={items}
+                setIsShowEntryForm={setIsShowEntryForm}
+                isShowDetail={isShowDetail}
+                setIsShowDetail={setIsShowDetail}
+            />
 
-                    <button className='btn btn-primary'
-                        onClick={() => { setIsShowEntryForm(true) }}
-                        disabled={isShowEntryForm}
-                    >Add New Item</button>
+            {/* {isShowEntryForm && (
+
+                <div className='card mt-5' style={{ backgroundColor: 'lightblue' }}>
+            
+            <div className='mb-1'>
+                <h1 className="text-2xl font-semibold">Add Item</h1>
+                 <p className="text-sm text-gray-500">Create a new item.</p>
+            </div> 
+
+
                 </div>
-            </div>
-
+            )} */}
         </div>
 
     )

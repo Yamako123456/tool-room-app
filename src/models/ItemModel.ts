@@ -4,7 +4,7 @@ export class ItemModel {
     itemType: string;
     unitPrice: number;
     issueCost: number;
-    supplierId: string;
+    supCode: string;
     category: string;
     active: boolean;
     disabled: boolean;
@@ -32,7 +32,7 @@ export class ItemModel {
         itemType: string,
         unitPrice: number,
         issueCost: number,
-        supplierId: string,
+        supCode: string,
         category: string,
         active: boolean,
         disabled: boolean,
@@ -60,7 +60,7 @@ export class ItemModel {
         this.itemType = itemType;
         this.unitPrice = unitPrice
         this.issueCost = issueCost;
-        this.supplierId = supplierId;
+        this.supCode = supCode;
         this.category = category;
         this.active = active;
         this.disabled = disabled;
