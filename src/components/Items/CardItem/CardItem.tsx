@@ -8,13 +8,14 @@ interface Props {
 }
 
 const CardItem = ({aItem, suppliers, onEditItem}: Props) => {
-  const supplier = suppliers.find(supp => supp.supCode === aItem.code);
+  const supplier = suppliers.find(supp => supp.supCode === aItem.supCode);
 
   return (
-    <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
+    <div className='relative w-[300px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
       <div className='flex justify-end mb-2'>
         <button 
           onClick={() => onEditItem(aItem.code)}
+          className='text-sm bg-blue-500 hover:border-blue-600 text-white px-3 py-1 rounded-lg'
         >
           Edit
         </button>
@@ -31,7 +32,7 @@ const CardItem = ({aItem, suppliers, onEditItem}: Props) => {
         <span className="text-sm font-semibold">
           Description:
         </span>
-        <span className='text-xl'>
+        <span className='text-sm'>
           {aItem.description1}
         </span>  
       </div>
@@ -51,15 +52,52 @@ const CardItem = ({aItem, suppliers, onEditItem}: Props) => {
         <span className="text-sm font-semibold">
           Item Type:
         </span>
-        <span className='text-xl'>
+        <span className='text-sm'>
           {aItem.itemType}
         </span>  
       </div>
       <div className="flex gap-x-1 items-baseline  text-gray-800">
         <span className="text-sm font-semibold">
+          Unit Price:
+        </span>
+        <span className='ext-sm'>
+          {aItem.unitPrice}
+        </span>  
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+          Issue Cost:
+        </span>
+        <span className='ext-sm'>
+          {aItem.issueCost}
+        </span>  
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+         UoM:
+        </span>
+        <span className='ext-sm'>
+          {aItem.uom}
+        </span>  
+      </div>
+              
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+         Pack Qty:
+        </span>
+        <span className='ext-sm'>
+          {aItem.packQty}
+        </span>  
+      </div>
+              
+        
+        
+        
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
           Supplier Code:
         </span>
-        <span className='text-xl'>
+        <span className='ext-sm'>
           {supplier?.supCode}
         </span>  
       </div>
@@ -67,8 +105,16 @@ const CardItem = ({aItem, suppliers, onEditItem}: Props) => {
         <span className="text-sm font-semibold">
           Supplier Name:
         </span>
-        <span className='text-xl'>
+        <span className='ext-sm'>
           {supplier?.name}
+        </span>  
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
+          Lead To,e:
+        </span>
+        <span className='ext-sm'>
+          {aItem.leadTime} days
         </span>  
       </div>
     </div>

@@ -5,8 +5,8 @@ import DeptLookup from '../../Departments/DeptLookup/DeptLookup';
 
 interface Props {
     emps: EmpModel[];
-    empDeptNumber: string | undefined;
-    setEmpDeptNumber: React.Dispatch<React.SetStateAction<string | undefined>>;
+    deptCode: string | undefined;
+    setDeptCode: React.Dispatch<React.SetStateAction<string | undefined>>;
     selectedDept: DepartmentModel | null;
     setSelectedDept: React.Dispatch<React.SetStateAction<DepartmentModel | null>>;
     setEmpBadgeNumber: React.Dispatch<React.SetStateAction<string>>;
@@ -25,8 +25,8 @@ interface Props {
 
 const AddEmployee = ({    
     emps,
-    empDeptNumber,
-    setEmpDeptNumber,
+    deptCode,
+    setDeptCode,
     selectedDept,
     setSelectedDept,
     setEmpBadgeNumber,
@@ -125,7 +125,7 @@ const AddEmployee = ({
                 onClose={() => setIsLookupDeptOpen(false)}
                 onSelect={(dept) => {
                   setSelectedDept(dept);
-                  setEmpDeptNumber(dept.deptCode);
+                  setDeptCode(dept.deptCode);
                   setIsLookupDeptOpen(false);
                 }}
               />
@@ -133,7 +133,7 @@ const AddEmployee = ({
               <button type='button' 
                 onClick={() =>{
                   setSelectedDept(null); 
-                  setEmpDeptNumber(undefined)
+                  setDeptCode(undefined)
                   setIsLookupDeptOpen(false)}}
                 className='rounded-md border px-4 py-2  hover:bg-slate-100'
               > 

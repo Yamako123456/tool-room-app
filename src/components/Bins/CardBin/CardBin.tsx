@@ -14,7 +14,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
 
   return (
     // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[300px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       
       <div className='flex justify-end mb-2'>
         <button
@@ -39,7 +39,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
             Item Code:
         </span> 
-        <span className='text-xl'>
+        <span className='ext-sm'>
             {aBin.item ? aBin.item : "Not Assigned" }
         </span>
       </div>
@@ -47,7 +47,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
           Description:
         </span>
-        <span className='text-xl'>
+        <span className='ext-sm'>
           {item?.description1}
         </span>  
       </div>
@@ -67,7 +67,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
           Min Qty:
         </span> 
-        <span className='text-xl'>
+        <span className='ext-sm'>
           {aBin.min}
         </span>
       </div>
@@ -75,7 +75,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
           Quantity:
         </span> 
-        <span text-xl>
+        <span ext-sm>
           {aBin.qty}
         </span>  
       </div>

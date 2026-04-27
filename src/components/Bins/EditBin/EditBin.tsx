@@ -7,7 +7,7 @@ import { ItemModel } from '../../../models/ItemModel';
 interface Props { 
   bins: BinModel[];
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
-  setCribNumber: React.Dispatch<React.SetStateAction<string>>;
+  setCribCode: React.Dispatch<React.SetStateAction<string>>;
   items: ItemModel[];
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
@@ -29,7 +29,7 @@ const EditBin =  ({
     items, 
     bins,     
     setBinNumber,
-    setCribNumber, 
+    setCribCode, 
     selectedItem, 
     setSelectedItem,  
     itemCode,
@@ -51,7 +51,7 @@ const EditBin =  ({
 
     useEffect(() => {
       setBinNumber(selectedBin?.binCode ?? "");    
-      setCribNumber(selectedBin?.crib ?? "");
+      setCribCode(selectedBin?.crib ?? "");
       setItemCode(selectedBin?.item ?? "");      
       setQty(selectedBin?.qty ?? 0);
       setMin(selectedBin?.min ?? 0);
@@ -60,7 +60,7 @@ const EditBin =  ({
       const foundItem = items.find((item) => item.code === selectedBin?.item);
       setSelectedItem(foundItem ?? null);
       
-  }, [selectedBin, items, setBinNumber, setCribNumber, setItemCode, setSelectedItem, setQty, setMin, setIsBinActive]);
+  }, [selectedBin, items, setBinNumber, setCribCode, setItemCode, setSelectedItem, setQty, setMin, setIsBinActive]);
 
   if (!selectedBin) return;  
 

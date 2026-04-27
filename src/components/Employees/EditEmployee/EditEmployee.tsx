@@ -11,8 +11,8 @@ interface Props {
   depts: DepartmentModel[];
   selectedDept: DepartmentModel | null;
   setSelectedDept: React.Dispatch<React.SetStateAction<DepartmentModel | null>>;
-  empDeptNumber: string | undefined;
-  setEmpDeptNumber: React.Dispatch<React.SetStateAction<string | undefined>>;
+  deptCode: string | undefined;
+  setDeptCode: React.Dispatch<React.SetStateAction<string | undefined>>;
   firstName: string;
   setFirstName: React.Dispatch<React.SetStateAction<string>>;
   lastName: string;
@@ -37,8 +37,8 @@ const EditEmployee = ({
   depts,
   selectedDept,
   setSelectedDept,
-  empDeptNumber,
-  setEmpDeptNumber,
+  deptCode,
+  setDeptCode,
   firstName,
   setFirstName,
   lastName,
@@ -65,7 +65,7 @@ const EditEmployee = ({
     setLastName(selectedEmp?.lastName ?? "");
     setIsSupervisor(selectedEmp?.isSupervisor ?? false);
     setIsStocker(selectedEmp?.isStocker ?? false);
-    setEmpDeptNumber(selectedEmp?.department ?? undefined);
+    setDeptCode(selectedEmp?.department ?? undefined);
     setIsEmpActive(selectedEmp?.active ?? false);
 
     const foundDept = depts.find(dept => dept.deptCode === selectedEmp?.department );
@@ -161,7 +161,7 @@ const EditEmployee = ({
               onClose={() => setIsLookupDeptOpen(false)}
               onSelect={(dept) => {
                 setSelectedDept(dept);
-                setEmpDeptNumber(dept.deptCode);
+                setDeptCode(dept.deptCode);
                 setIsLookupDeptOpen(false);
               }}
             />
@@ -169,7 +169,7 @@ const EditEmployee = ({
             <button type='button' 
               onClick={() =>{
                 setSelectedDept(null); 
-                setEmpDeptNumber(undefined)
+                setDeptCode(undefined)
                 setIsLookupDeptOpen(false)}}
               className='rounded-md border px-4 py-2  hover:bg-slate-100'
             > 

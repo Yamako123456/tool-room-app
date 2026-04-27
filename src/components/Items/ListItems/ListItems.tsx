@@ -47,7 +47,7 @@ const ListItems = ({items, setItems, suppliers}: Props) => {
         />
 
       </div>
-      <div className='relative flex flex-wrap gap-6 items-start max-w-6xl max-auto px-10 mb-5 md:px-6'>
+      <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
         {filteredItems.length > 0 ? (
           filteredItems.map(aItem => 
             <CardItem aItem={aItem} suppliers={suppliers} onEditItem={onEditItem} />

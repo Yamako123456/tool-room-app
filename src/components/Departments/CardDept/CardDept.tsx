@@ -10,7 +10,7 @@ const CardDept = ({aDept, onEditDept} : Props) => {
   
   return (
     // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[300px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
@@ -21,18 +21,18 @@ const CardDept = ({aDept, onEditDept} : Props) => {
         </button>
       </div>
       
-      <div className="flex gap-2 items-baseline font-semibold text-gray-800 mb-4">
-        <span className="text-sm"> 
+      <div className="flex gap-2 items-baseline  text-gray-800 mb-4">
+        <span className="text-sm font-semibold"> 
           Dept. Code:
           </span> 
-        <span className='text-2xl'>
+        <span className='ext-sm'>
           {aDept.deptCode} 
         </span> 
       </div>
 
       <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Name:</span> 
-          <span className='text-xl'> {aDept.description}</span>
+          <span className='ext-sm'> {aDept.description}</span>
       </div>
     </div>  
   )

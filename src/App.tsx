@@ -38,6 +38,8 @@ import { initialItems } from './data/initialItems';
 export const App = () => {
   const isDemoMode = true;
 
+  type itenTypes = "EXPENDABLE" | "DURABLE";
+
   const [emps, setEmps] = useState<EmpModel[]>([]);
   const [depts, setDepts] = useState<DepartmentModel[]>([]);
   const [items, setItems] = useState<ItemModel[]>([]);
@@ -48,13 +50,13 @@ export const App = () => {
   const [binNumber, setBinNumber] = useState<string>("");
   const [deptNumber, setDeptNumber] = useState<string>("");
   const [empBadgeNumber, setEmpBadgeNumber] = useState<string>("");
-  const [empDeptNumber, setEmpDeptNumber] = useState<string | undefined>(undefined);
   const [supplierNumber, setSupplierNumber] = useState<string>("");
   const [itemNumber, setItemNumber] = useState<string>("");
   
-  const [itemCode, setItemCode] = useState<string | undefined>(undefined);
-  const [deptCode, setDeptCode] = useState<string | undefined>(undefined);
-  const [supCode, setSupCode] = useState<string | undefined>(undefined);
+  const [binItemCode, setBinItemCode] = useState<string | undefined>(undefined);
+  const [binCribCode, setBinCribCode] = useState<string>("");
+  const [empDeptCode, setEmpDeptCode] = useState<string | undefined>(undefined);
+  const [itemSupCode, setItemSupCode] = useState<string | undefined>(undefined);
 
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [selectedDept, setSelectedDept] = useState<DepartmentModel | null>(null);
@@ -62,7 +64,6 @@ export const App = () => {
   
   const [searchResult, setSearchResult] = useState<ItemModel[]>([]); 
 
-  const [cribNumber, setCribNumber] = useState<string>("");
   const [min, setMin] = useState<number>(5);
   const [qty, setQty] = useState<number>(0);
 
@@ -87,16 +88,28 @@ export const App = () => {
   const [supplierFax, setSupplierFax] = useState<string>("");
   const [supplierIsGrinder, setSupplierIsGrinder] = useState<boolean>(false);
   const [supplierIsCalibrator, setSupplierIsCalibrator] = useState<boolean>(false);
-  const [supplierServiceFee, setSupplierServiceFee] = useState<Number>(0.0);
+  const [supplierServiceFee, setSupplierServiceFee] = useState<number>(0.0);
 
+  const [itemDescription, setItemDescription] = useState<string>("");
+  const [itemImage, setItemImage] = useState<string>("");
+  const [itemType, setItemType] = useState<itenTypes>("EXPENDABLE");
+  const [itemUnitPrice, setItemUnitPrice] = useState<number>(0.0);
+  const [itemIssueCost, setItemIssueCost] = useState<number>(0.0);
+  const [uom, setUom] = useState<string>("");
+  const [packQty, setPackQty] = useState<number>(0);
+  const [mfg, setMfg] = useState<string>("");
+  const [mfgItem, setMfgItem] = useState<string>("");
+  const [leadTime, setLeadTime] = useState<number>(0);
+  const [orderQty, setOrderQty] = useState<number>(1);
+  const [itemDateCreated, setItemDateCreated] = useState<Date>( new Date("2024-01-01"));
 
-
-  const [isBinActive, setIsBinActive] = useState<boolean>(false);
-  const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
-  const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
-  const [isCribActive, setIsCribActive] = useState<boolean>(false);
-  const [isSupActive, setIsSupActive] = useState<boolean>(false);
-  const [isItemActive, setIsItemActive] = useState<boolean>(false);
+const [isBinActive, setIsBinActive] = useState<boolean>(false);
+const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
+const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
+const [isCribActive, setIsCribActive] = useState<boolean>(false);
+const [isSupActive, setIsSupActive] = useState<boolean>(false);
+const [isItemActive, setIsItemActive] = useState<boolean>(false);
+const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
 
   const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
   const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
@@ -104,6 +117,7 @@ export const App = () => {
   const [isLookupSupOpen, setIsLookupSupOpen] = useState<boolean>(false);  
 
   const [isShowEntryForm, setIsShowEntryForm] = useState(false);
+  
   const [stockQty, setStockQty] = useState<number>(0);
 
   useEffect(() => {
@@ -126,8 +140,8 @@ export const App = () => {
   // -------------- Reset States ---------------------------
   const resetBin = () => {
     setBinNumber("");
-    setCribNumber("");
-    setItemCode("");
+    setBinCribCode("");
+    setBinItemCode("");
     setSelectedItem(null);
     setMin(0);
     setQty(0);
@@ -142,7 +156,7 @@ export const App = () => {
 
   const resetEmp = () => {
     setEmpBadgeNumber("");
-    setEmpDeptNumber(undefined);
+    setEmpDeptCode(undefined);
     setSelectedDept(null);
     setFirstName("");
     setLastName("");
@@ -152,7 +166,7 @@ export const App = () => {
   }
 
   const resetSupplier = () => {
-    setSupCode("");
+    setItemSupCode("");
     setSupplierName("");
     setSupplierName("");
     setSupplierEmail("");
@@ -173,7 +187,7 @@ export const App = () => {
   }
   const resetItem = () => {
     setItemNumber("")
-    setSupCode(undefined);
+    setItemSupCode(undefined);
     setSelectedSupplier(null);
     
 
@@ -224,14 +238,15 @@ export const App = () => {
       0,
       min,
       false,
-      itemCode,
+      binItemCode,
     );
     setBins( prev => [...prev, newBin] );
-    activateItem(itemCode);
+    activateItem(binItemCode);
     resetBin();
     navigate('/bins', { state: { message: 'Bin saved' } });
   }
- const handleAddDept = () => {
+
+  const handleAddDept = () => {
     if (!deptNumber.trim().toUpperCase() || deptNumber.trim().toUpperCase() === '' ) {
       alert( "Department Code is required");
       return;
@@ -267,12 +282,55 @@ export const App = () => {
       true,       
       isSupervisor,
       isStocker,
-      empDeptNumber,
+      empDeptCode,
     );
     setEmps( prev => [...prev, newEmp] );
     resetEmp();
-    activateDept(empDeptNumber);
+    activateDept(empDeptCode);
     navigate('/emps', { state: { message: 'Employee saved' } });
+  }
+
+  const handleAddItem = () => {
+    
+    if (!itemNumber || itemNumber.trim() === '' ) {
+      alert( "Item Code is required");
+      return;
+    }  
+    if ( items.find( (item) => item.code.toLowerCase() === itemNumber.trim().toLowerCase() ) )  {
+      alert( "Item code must be unique" );
+      return;
+    }    
+    const newItem = new ItemModel(
+        itemNumber, 
+        itemDescription,
+        itemImage,
+        itemType,
+        itemUnitPrice,
+        itemIssueCost,
+        uom,
+        packQty,
+        itemSupCode ?? "",
+        mfg,
+        mfgItem,
+        leadTime,
+        orderQty,
+        itemDateCreated,
+        false,
+        false,
+
+        // ----Obsolete---------
+        "",
+        false,
+        "",
+        "",
+        "",
+        undefined,
+        ""
+    );
+    setItems( prev => [...prev, newItem ]);
+    activateItem(binItemCode);
+    resetBin();
+    navigate('/bins', { state: { message: 'Bin saved' } });
   }
 
   // -------------- Cancel button handlers ---------------------------
@@ -291,17 +349,21 @@ export const App = () => {
     navigate('/emps', { state: { message: "Operation cancelled" }});
   }
 
+  const cancelItem = () => {
+    resetItem();
+    navigate('/items', {state: {message: "Operation canceled"}});
+  }
 // -------------- Edit operations ---------------------------
   const handleEditBin = () => {
     if (!binNumber) return;
 
     const updatedBin = new BinModel(
         binNumber,
-        cribNumber,        
+        binCribCode,        
         qty,
         min,        
         isBinActive,
-        itemCode,
+        binItemCode,
     );
     
     setBins( prev => 
@@ -315,14 +377,14 @@ export const App = () => {
     if (selectedItem && !selectedItem.active ) {
       setItems( prev =>
         prev.map( item => 
-          item.code === itemCode 
+          item.code === binItemCode 
             ? { ...item, active: true }
             : item
         )
       )
     }
     resetBin();
-    activateItem(itemCode);
+    activateItem(binItemCode);
     navigate('/bins', { state: { message: 'Bin saved' } })
 
   }
@@ -337,7 +399,7 @@ export const App = () => {
       true,       
       isSupervisor,
       isStocker,
-      empDeptNumber,
+      empDeptCode,
     );
     setEmps( prev =>
       prev.map( emp =>
@@ -347,7 +409,7 @@ export const App = () => {
       )
     );
     resetEmp();
-    activateDept(empDeptNumber);
+    activateDept(empDeptCode);
     navigate('/emps', { state: {message: 'Employee saved'}})
   }
 
@@ -362,7 +424,7 @@ export const App = () => {
       false,       
       isSupervisor,
       isStocker,
-      empDeptNumber,
+      empDeptCode,
     );
     setEmps( prev =>
       prev.map( emp =>
@@ -445,11 +507,35 @@ export const App = () => {
             />
             <Route path="/items/add"
               element={ <AddItem
+                          supliers={suppliers}
+                          itemSupCode={itemSupCode}
+                          setItemSupCode={setItemSupCode}
+                          selectedSupplier={selectedSupplier}
+                          setSelectedSupplier={setSelectedSupplier}
+                          setItemNumber={setItemNumber}
+                          handleAddItem={handleAddItem}
+                          isLookupSupOpen={isLookupSupOpen}
+                          setIsLookupSupOpen={setIsLookupSupOpen}
+                          cancelAddItem={cancelItem}
+                          setItemDescription={setItemDescription}
+                          setItemImage={setItemImage}
+                          setItemType={setItemType}
+                          setItemUnitPrice={setItemUnitPrice}
+                          setItemIssueCost={setItemIssueCost}
+                          setUom={setUom}
+                          setPackQty={setPackQty}
+                          setMfg={setMfg}
+                          setMfgItem={setMfgItem}
+                          setLeadTime={setLeadTime}
+                          setOrderQty={setOrderQty}
+                          itemDateCreated={itemDateCreated}
+                          setItemDateCreated={setItemDateCreated}
 
               />}
             />
             <Route path="/items/${itemCode}/edit"
               element={ <EditItem 
+                
               />
 
               }
@@ -461,11 +547,12 @@ export const App = () => {
             <Route path="/bins/add" 
               element={<AddBin 
                         items={items}         
-                        itemCode={itemCode} 
-                        setItemCode={setItemCode}
+                        itemCode={binItemCode} 
+                        setItemCode={setBinItemCode}
                         selectedItem={selectedItem}
                         setSelectedItem={setSelectedItem}
                         setBinNumber={setBinNumber}
+                        setCribCode={setBinCribCode}
                         handleAddBin={handleAddBin}
                         isLookupItemOpen={isLookupItemOpen}
                         setIsLookupItemOpen={setIsLookupItemOpen}
@@ -478,11 +565,11 @@ export const App = () => {
                         items={items}
                         bins={bins}
                         setBinNumber={setBinNumber}
-                        setCribNumber={setCribNumber}
+                        setCribCode={setBinCribCode}
                         selectedItem={selectedItem}
                         setSelectedItem={setSelectedItem}
-                        itemCode={itemCode}
-                        setItemCode={setItemCode}
+                        itemCode={binItemCode}
+                        setItemCode={setBinItemCode}
                         setQty={setQty}
                         min={min}
                         setMin={setMin}
@@ -529,8 +616,8 @@ export const App = () => {
             <Route path="/emps/add" 
               element={<AddEmployee
                 emps={emps}
-                empDeptNumber={empDeptNumber}
-                setEmpDeptNumber={setEmpDeptNumber}
+                deptCode={empDeptCode}
+                setDeptCode={setEmpDeptCode}
                 selectedDept={selectedDept}
                 setSelectedDept={setSelectedDept}
                 setEmpBadgeNumber={setEmpBadgeNumber}
@@ -555,8 +642,8 @@ export const App = () => {
                 depts={depts}
                 selectedDept={selectedDept}
                 setSelectedDept={setSelectedDept}
-                empDeptNumber={empDeptNumber}
-                setEmpDeptNumber={setEmpDeptNumber}
+                deptCode={empDeptCode}
+                setDeptCode={setEmpDeptCode}
                 isLookupDeptOpen={isLookupDeptOpen}
                 setIsLookupDeptOpen={setIsLookupDeptOpen}
                 firstName={firstName}

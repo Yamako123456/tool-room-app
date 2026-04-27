@@ -2,7 +2,7 @@ export class ItemModel {
     code: string;
     description1: string;
     itemImage: string;
-    itemType: string;
+    itemType: ItemType;
     unitPrice: number;
     issueCost: number;
     uom: string;
@@ -29,7 +29,7 @@ export class ItemModel {
         code: string,
         description1: string,
         itemImage: string,
-        itemType: string,
+        itemType: ItemType,
         unitPrice: number,
         issueCost: number,
         uom: string,

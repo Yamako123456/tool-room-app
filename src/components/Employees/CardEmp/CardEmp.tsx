@@ -14,7 +14,7 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
 
   return (
     // <div className="relative w-fit mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-    <div className="relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
+    <div className="relative w-[300px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100">
       <div className='flex justify-end mb-2'>
         <button
           onClick={() => {
@@ -28,24 +28,24 @@ const CardEmp = ({aEmp, depts, onEditEmp}: Props) => {
         <span className="text-sm font-semibol"> 
           Badge No.:
         </span>  
-        <span className='text-2xl'>
+        <span className='text-sm'>
           {aEmp.badgeNo}
         </span>
       </div>
       
       <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Name:</span> 
-          <span className='text-xl'> {aEmp.firstName + " " + aEmp.lastName }</span>
+          <span className='text-sm'> {aEmp.firstName + " " + aEmp.lastName }</span>
       </div>
       {aEmp.isSupervisor && <div className="text-sm font-semibold text-green-600">Supervisor</div>}
       {aEmp.isStocker && <div className="text-sm font-semibold text-blue-600">Stocker</div>}
       <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Dept. Code:</span> 
-          <span className='text-xl'> {dept ? dept.deptCode : "Not Assigned" }</span>
+          <span className='text-sm'> {dept ? dept.deptCode : "Not Assigned" }</span>
       </div>
       <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Dept.Name:</span> 
-          <span className='text-xl'> {dept ? dept.description : "" }</span>
+          <span className='text-sm'> {dept ? dept.description : "" }</span>
       </div>
     </div>  
   )

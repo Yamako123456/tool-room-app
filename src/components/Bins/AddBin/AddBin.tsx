@@ -11,6 +11,7 @@ interface Props {
   selectedItem: ItemModel | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<ItemModel | null>>;
   setBinNumber: React.Dispatch<React.SetStateAction<string>>;
+  setCribCode: React.Dispatch<React.SetStateAction<string>>;
   handleAddBin: () => void;
   isLookupItemOpen: boolean;
   setIsLookupItemOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ const AddBin = ({
         selectedItem,
         setSelectedItem,  
         setBinNumber, 
+        setCribCode,
         handleAddBin, 
         isLookupItemOpen, 
         setIsLookupItemOpen, 
