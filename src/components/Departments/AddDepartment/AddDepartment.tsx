@@ -30,7 +30,7 @@ const AddDepartment = ({
               type="text"              
               onChange={(e) => setDeptNumber(e.target.value)}
               className="w-full rounded-md border px-3 py-2"
-              placeholder="Enter bin number"
+              placeholder="Enter department code"
             />
           </div>
           <div>
@@ -39,7 +39,7 @@ const AddDepartment = ({
               type="text"              
               onChange={(e) => setDeptName(e.target.value)}
               className="w-full rounded-md border px-3 py-2"
-              placeholder="Enter bin number"
+              placeholder="Enter department namer"
             />
           </div>        
         </div>
@@ -49,7 +49,6 @@ const AddDepartment = ({
             className="px-4 py-2 border rounded-lg"
             // onClick={Navigate()}
             onClick={ cancelAddDept }
-
           >Cancel</button>
           <button 
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"

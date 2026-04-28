@@ -37,6 +37,8 @@ import { searchProductByUPC } from './api';
 
 // -------------------
 import { BarcodeSpiderLookupResponse, ItemAttributes, Store } from './data/product';
+import Suppliers from './components/Suppliers/Suppliers';
+import AddSupplier from './components/Suppliers/AddSupplier/AddSupplier';
 
 // ------------------
 
@@ -199,8 +201,8 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     setSupplierIsGrinder(false);
     setSupplierIsCalibrator(false);
     setSupplierServiceFee(0.0);
-
   }
+
   const resetItem = () => {
     setItemNumber("")
     setItemSupCode(undefined);
@@ -263,7 +265,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
   }
 
   const handleAddDept = () => {
-    if (!deptNumber.trim().toUpperCase() || deptNumber.trim().toUpperCase() === '' ) {
+    if (!deptNumber|| deptNumber.trim() === '' ) {
       alert( "Department Code is required");
       return;
     }  
@@ -283,7 +285,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
 
   const handleAddEmp = () => {
     
-    if (!empBadgeNumber.trim().toLowerCase() || empBadgeNumber.trim().toLowerCase() === '' ) {
+    if (!empBadgeNumber || empBadgeNumber.trim() === '' ) {
       alert( "Employee Badge # is required");
       return;
     }  
@@ -349,6 +351,39 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     navigate('/items', { state: { message: 'Item saved' } });
   }
 
+  const handleAddSupplier = () => {
+    if (!supplierNumber.trim() || deptNumber.trim() === '' ) {
+      alert( "Supplier Code is required");
+      return;
+    }  
+    if ( suppliers.find( (sup) => sup.supCode.toLowerCase() === supplierNumber.trim().toLowerCase() ) )  {
+      alert( "Supplier code must be unique" );
+      return;
+    }    
+    const newSupplier = new SupplierModel(
+      supplierNumber.trim(),
+      supplierName,
+      supplierEmail,
+      supplierPhone,
+      supplierFax,
+      supplierAddr1,
+      supplierAddr2,
+      supplierCity,
+      supplierState, 
+      supplierZip,
+      supplierCountry,
+      supplierCurrency,
+      supplierContact,
+      false,
+      false,
+      0.0,
+      "",
+    );
+    setSuppliers( prev => [...prev, newSupplier] );
+    resetSupplier();
+    navigate('/suppliers', { state: { message: 'Supplier saved' } });
+  }
+
   // -------------- Cancel button handlers ---------------------------
   const cancelBin  = () => {
     resetBin();
@@ -369,6 +404,13 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     resetItem();
     navigate('/items', {state: {message: "Operation canceled"}});
   }
+
+  const cancelSupplier = () => {
+    resetSupplier();
+    navigate('/suppliers', {state: {message: "Operation canceled"}});
+  }
+
+  
 // -------------- Edit operations ---------------------------
   const handleEditBin = () => {
     if (!binNumber) return;
@@ -502,22 +544,39 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     const result = await searchProductByUPC(lookupUPC); // api.tsx
         
     if(typeof result === "string") {
-        // setServerError(result);
+
     } else {
-        // console.log("result.data", result.data);
-
         setLookupUPCResult(result.data);
-        
-        // console.log("State: searchUPCResult: ", searchUPCResult);  
-        
-        // fillItemData();
     }
-    }
+  }
     
-    const handleLookupUPCChange = (e: any) => {
-        setLookupUPC(e.target.value);
-    }
+  const handleLookupUPCChange = (e: any) => {
+      setLookupUPC(e.target.value);
+  }
 
+ const fillNewItemFormWithAPIResult = () => {
+        if (lookupUPCResult == null) return;
+        
+        setItemNumber(lookupUPCResult.item_attributes.upc);
+        setItemDescription(lookupUPCResult.item_attributes.title);
+        const highestPriceStr = lookupUPCResult.item_attributes.highest_price;
+        const storePriceStr = lookupUPCResult.Stores?.[0]?.price;
+        const priceStr =  highestPriceStr?.trim() ? highestPriceStr : storePriceStr?.trim() ? storePriceStr  : null;
+        setItemUnitPrice(Number(priceStr));
+        setItemIssueCost(Number(priceStr));
+        setItemImage(lookupUPCResult.item_attributes.image);
+
+        const supCode = lookupUPCResult.item_attributes.publisher;
+        
+        setSelectedSupplier(suppliers.find(sup => sup.supCode === supCode) ?? null );
+        if (selectedSupplier === null ) {
+          
+        }
+        
+        setItemSupCode(selectedSupplier?.supCode);
+  }
+
+    //=================================================================================
   return (
    
     <div>
@@ -702,6 +761,49 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
                 setIsEmpActive={setIsEmpActive}
                 cancelEditEmp={cancelEmp}
                 
+              />} 
+            />
+            <Route path="/suppliers" 
+              element={<Suppliers 
+                
+              />} 
+            />
+            <Route path="/suppliers/add" 
+              element={<AddSupplier
+              //  supplierNumber,
+                setSupplierNumber={setSupplierNumber}
+                //supplierName
+                setSupplierName={setSupplierName}
+                //supplierEmail
+                setSupplierEmail={setSupplierEmail}
+                //supplierAddr1
+                setSupplierAddr1={setSupplierAddr1}
+                // supplierAddr2
+                setSupplierAddr2={setSupplierAddr2}
+                //supplierCity
+                setSupplierCity={setSupplierCity}
+                // supplierState
+                setSupplierState={setSupplierState}
+                // supplierZip
+                setSupplierZip={setSupplierZip}
+                // supplierCountry
+                setSupplierCountry={setSupplierCountry}
+                // supplierCurrency
+                setSupplierCurrency={setSupplierCurrency}
+                // supplierContact
+                setSupplierContact={setSupplierContact}
+                // supplierPhone
+                setSupplierPhone={setSupplierPhone}
+                // supplierFax
+                setSupplierFax={setSupplierFax}
+                // supplierIsGrinder
+                setSupplierIsGrinder={setSupplierIsGrinder}
+                // supplierIsCalibrator
+                setSupplierIsCalibrator={setSupplierIsCalibrator}
+                // supplierServiceFee
+                setSupplierServiceFee={setSupplierServiceFee}
+                handleAddSupplier={handleAddSupplier}
+                cancellAddSupplier={cancelSupplier}
               />} 
             />
 
