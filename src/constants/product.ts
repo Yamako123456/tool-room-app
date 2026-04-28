@@ -1,9 +1,11 @@
-export const ItemTypes = {
+export const ITEM_TYPES = ["EXPENDABLE", "DURABLE"] as const;
+
+export const ItemTypes = { // used in obsolete modules.
         EXPENDABLE: 'Expendable',
         DURABLE: 'Durable',
-        PERISHABLE: 'Perishable',
-        SERIAL: 'Serial',
-        GAGE: 'Gage'
+        // PERISHABLE: 'Perishable',
+        // SERIAL: 'Serial',
+        // GAGE: 'Gage'
     }
 
 export  const UnitOfMeasure = {

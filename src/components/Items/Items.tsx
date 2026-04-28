@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ItemModel } from '../../models/ItemModel';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ItemModuleComponent } from './ItemModuleComponent';
 import ListItems from './ListItems/ListItems';
 
@@ -18,8 +18,18 @@ interface Props {
 const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier,  
   isShowEntryForm, setIsShowEntryForm}: Props) => {
 
-  const navigate = useNavigate() ;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const message = location.state?.message;
+  const [showMessage, setShowMessage] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+      setTimeout(() => setShowMessage(false), 3000);
+    }
+  }, [message]);
+    
   const onSearchSubmit = (e: any) => {
     e.preventDefault();
     const keyword = e.target[0].value ? e.target[0].value.trim().toLowerCase() : "";
@@ -30,6 +40,12 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier,
 
   return (
     <section id="items">
+      {showMessage && (
+        <div className='mb-4 rounnded-md bg-green-100 px-4 py-2 text-green-700 shadow-lg animate-bounce'>
+          {message}
+        </div>
+      )}
+
       <div className='relative flex items-center'>
         <h2 className='absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold'>
           Manage Items

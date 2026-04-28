@@ -1,6 +1,6 @@
 // import './App.css';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import { HomeComponent } from './components/Home/HomeComponent';
@@ -33,6 +33,13 @@ import AddItem from './components/Items/AddItem/AddItem';
 import EditItem from './components/Items/EditItem/EditItem';
 import { initialSuppliers } from './data/initialSuppliers';
 import { initialItems } from './data/initialItems';
+import { searchProductByUPC } from './api';
+
+// -------------------
+import { BarcodeSpiderLookupResponse, ItemAttributes, Store } from './data/product';
+
+// ------------------
+
 
 
 export const App = () => {
@@ -95,11 +102,11 @@ export const App = () => {
   const [itemType, setItemType] = useState<itenTypes>("EXPENDABLE");
   const [itemUnitPrice, setItemUnitPrice] = useState<number>(0.0);
   const [itemIssueCost, setItemIssueCost] = useState<number>(0.0);
-  const [uom, setUom] = useState<string>("");
-  const [packQty, setPackQty] = useState<number>(0);
+  const [uom, setUom] = useState<string>("qty");
+  const [packQty, setPackQty] = useState<number>(1);
   const [mfg, setMfg] = useState<string>("");
   const [mfgItem, setMfgItem] = useState<string>("");
-  const [leadTime, setLeadTime] = useState<number>(0);
+  const [leadTime, setLeadTime] = useState<number>(1);
   const [orderQty, setOrderQty] = useState<number>(1);
   const [itemDateCreated, setItemDateCreated] = useState<Date>( new Date("2024-01-01"));
 
@@ -119,6 +126,15 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
   const [isShowEntryForm, setIsShowEntryForm] = useState(false);
   
   const [stockQty, setStockQty] = useState<number>(0);
+
+  const [lookupUPC, setLookupUPC] = useState<string>("");
+  type productResponse = {
+       code: number,   //200
+       status: string,  //"OK"
+       message: string,  //"Data returned"
+}
+  
+  const [lookupUPCResult, setLookupUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
 
   useEffect(() => {
     initDemoData();
@@ -329,8 +345,8 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     );
     setItems( prev => [...prev, newItem ]);
     activateItem(binItemCode);
-    resetBin();
-    navigate('/bins', { state: { message: 'Bin saved' } });
+    resetItem();
+    navigate('/items', { state: { message: 'Item saved' } });
   }
 
   // -------------- Cancel button handlers ---------------------------
@@ -480,6 +496,27 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     return <PrintComponent barcode={itemCode} items={items}/>;
   };
 
+//------------------------ UPC API ---------------------------------------------
+  const onLookupUPCSubmit = async (e: any) => {
+    e.preventDefault();
+    const result = await searchProductByUPC(lookupUPC); // api.tsx
+        
+    if(typeof result === "string") {
+        // setServerError(result);
+    } else {
+        // console.log("result.data", result.data);
+
+        setLookupUPCResult(result.data);
+        
+        // console.log("State: searchUPCResult: ", searchUPCResult);  
+        
+        // fillItemData();
+    }
+    }
+    
+    const handleLookupUPCChange = (e: any) => {
+        setLookupUPC(e.target.value);
+    }
 
   return (
    
@@ -519,9 +556,11 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
                           cancelAddItem={cancelItem}
                           setItemDescription={setItemDescription}
                           setItemImage={setItemImage}
+                          itemType={itemType}
                           setItemType={setItemType}
                           setItemUnitPrice={setItemUnitPrice}
                           setItemIssueCost={setItemIssueCost}
+                          uom={uom}
                           setUom={setUom}
                           setPackQty={setPackQty}
                           setMfg={setMfg}
@@ -530,6 +569,9 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
                           setOrderQty={setOrderQty}
                           itemDateCreated={itemDateCreated}
                           setItemDateCreated={setItemDateCreated}
+                          onLookupUPCSubmit={onLookupUPCSubmit}
+                          lookupUPC={lookupUPC}
+                          handleLookupUPCChange={handleLookupUPCChange}
 
               />}
             />

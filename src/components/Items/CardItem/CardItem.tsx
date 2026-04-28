@@ -111,10 +111,10 @@ const CardItem = ({aItem, suppliers, onEditItem}: Props) => {
       </div>
       <div className="flex gap-x-1 items-baseline  text-gray-800">
         <span className="text-sm font-semibold">
-          Lead To,e:
+          Lead Time:
         </span>
         <span className='ext-sm'>
-          {aItem.leadTime} days
+          {aItem.leadTime} {aItem.leadTime > 1 ? "days" : "day"}
         </span>  
       </div>
     </div>

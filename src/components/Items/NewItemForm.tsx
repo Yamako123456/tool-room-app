@@ -251,7 +251,6 @@ useEffect(() => {
         setIsDelete(true);
         setModalMsg('Are you sure you want to delete the item "' + props.selectedCode + '"?');
         setShowModal(true);
-
     }
     const [showHint, setShowHint] = useState(false);
     const [searchUPC, setSearchUPC] = useState<string>("");
@@ -260,7 +259,6 @@ useEffect(() => {
 
     const handleSearchUPCChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchUPC(e.target.value);
-        // console.log("handleSearchUPCChange()'s 'e' value", e);
     }
 
     const fillItemData = () => {
@@ -309,7 +307,6 @@ useEffect(() => {
                 <div className="row g-1 align-items-center">
                     <div className="col-auto mb-3">
                         <SearchUPC  onSearchUPCSubmit={onSearchUPCSubmit} searchUPC={searchUPC} handleSearchUPCChange={handleSearchUPCChange}/>
-                        {/* {serverError && <h1>serverError</h1>} */}
                     </div>
                 </div>
             )} 
