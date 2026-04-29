@@ -19,7 +19,7 @@ export const NewItemForm: React.FC<{
     setIsShowDetail: Function,
     caption: string,
     isShowDetail: boolean
-    }> = (props) => {
+}> = (props) => {
     
 useEffect(() => {
   if (props.isShowDetail) {

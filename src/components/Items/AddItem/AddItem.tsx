@@ -9,26 +9,35 @@ interface Props {
   setItemSupCode: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedSupplier: SupplierModel | null;  
   setSelectedSupplier: React.Dispatch<React.SetStateAction<SupplierModel | null>>;
+  itemNumber: string;
   setItemNumber: React.Dispatch<React.SetStateAction<string>>;
   handleAddItem: () => void;
   isLookupSupOpen: boolean;
   setIsLookupSupOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cancelAddItem: () => void;
+  itemDescription: string;
   setItemDescription: React.Dispatch<React.SetStateAction<string>>;
+  itemImage: string;
   setItemImage: React.Dispatch<React.SetStateAction<string>>;
   itemType: ItemType;
   setItemType: React.Dispatch<React.SetStateAction<ItemType>>;
+  itemUnitPrice: number;
   setItemUnitPrice: React.Dispatch<React.SetStateAction<number>>;
+  itemIssueCost: number;
   setItemIssueCost: React.Dispatch<React.SetStateAction<number>>;
   uom: string;
   setUom: React.Dispatch<React.SetStateAction<string>>;
+  packQty: number;
   setPackQty: React.Dispatch<React.SetStateAction<number>>;
+  mfg: string;
   setMfg: React.Dispatch<React.SetStateAction<string>>;
+  mfgItem: string;
   setMfgItem: React.Dispatch<React.SetStateAction<string>>;
+  leadTime: number;
   setLeadTime: React.Dispatch<React.SetStateAction<number>>;
+  orderQty: number;
   setOrderQty: React.Dispatch<React.SetStateAction<number>>;
-  itemDateCreated: Date;
-  setItemDateCreated: React.Dispatch<React.SetStateAction<Date>>;
+  // itemDateCreated: Date;
   onLookupUPCSubmit: (e: any) => void;
   lookupUPC: string;
   handleLookupUPCChange: (e: any) => void;
@@ -40,26 +49,35 @@ const AddItem = ({
   setItemSupCode,
   selectedSupplier,
   setSelectedSupplier,
+  itemNumber,
   setItemNumber,
   handleAddItem,
   isLookupSupOpen,
   setIsLookupSupOpen,
   cancelAddItem,
+  itemDescription,
   setItemDescription,
+  itemImage,
   setItemImage,
   itemType,
   setItemType,
+  itemUnitPrice,
   setItemUnitPrice,
+  itemIssueCost,
   setItemIssueCost,
   uom,
   setUom,
+  packQty, 
   setPackQty,
+  mfg,
   setMfg,
+  mfgItem,
   setMfgItem,
+  leadTime,
   setLeadTime,
+  orderQty,
   setOrderQty,
-  itemDateCreated,
-  setItemDateCreated,
+  // itemDateCreated,
   onLookupUPCSubmit,
   lookupUPC,
   handleLookupUPCChange,
@@ -76,7 +94,6 @@ const AddItem = ({
             create an new item and assign a supplier.
           </p>
         </div>
-
         <SearchUPC  
           onSearchUPCSubmit={onLookupUPCSubmit} 
           searchUPC={lookupUPC} 
@@ -89,6 +106,7 @@ const AddItem = ({
             </label>
             <input
               type="text"
+              value={itemNumber}
               onChange={(e) => setItemNumber(e.target.value) }
               placeholder='Enter item code'
               className='w-full rounded-md border px-3 py-2'
@@ -100,6 +118,7 @@ const AddItem = ({
             </label>
             <input
               type="text"
+              value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value) }
               placeholder='Enter item description'
               className='w-full rounded-md border px-3 py-2'
@@ -111,6 +130,7 @@ const AddItem = ({
             </label>
             <input
               type="text"
+              value={itemImage}
               onChange={(e) => setItemImage(e.target.value)}
               placeholder='Enter URL for item image'
               className='w-full rounded-md border px-3 py-2'
@@ -189,6 +209,7 @@ const AddItem = ({
             </label>
             <input
               type="number"
+              value={itemUnitPrice}
               onChange={(e) => setItemUnitPrice(Number(e.target.value))}
               placeholder='Enter unit price'
               className='w-full rounded-md border px-3 py-2'
@@ -201,6 +222,7 @@ const AddItem = ({
             </label>
             <input
               type="number"
+              value={itemIssueCost}
               onChange={(e) => setItemIssueCost(Number(e.target.value))}
               placeholder='Enter issue cost'
               className='w-full rounded-md border px-3 py-2'
@@ -212,6 +234,7 @@ const AddItem = ({
             </label>
             <input
               type="number"
+              value={packQty}
               onChange={(e) => setPackQty(Number(e.target.value))}
               placeholder='Enter pack quantity'
               className='w-full rounded-md border px-3 py-2'
@@ -255,6 +278,7 @@ const AddItem = ({
             </label>
             <input
               type="text"
+              value={mfg}
               onChange={(e) => setMfg(e.target.value)}
               placeholder="Enter manufacturer name"
               
@@ -264,10 +288,11 @@ const AddItem = ({
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">
-              Manufacturer Item
+              Manufacturer Item /UPC code
             </label>
             <input
               type="text"
+              value={mfgItem}
               onChange={(e) => setMfgItem(e.target.value)}
               placeholder='Enter item code used in the manufacturer'
               className='w-full rounded-md border px-3 py-2'
@@ -280,6 +305,7 @@ const AddItem = ({
             </label>
             <input
               type="number"
+              value={leadTime}
              onChange={(e) => setLeadTime(Number(e.target.value))}
               placeholder='Enter number of days of lead time'
               className='w-full rounded-md border px-3 py-2'
@@ -291,6 +317,7 @@ const AddItem = ({
             </label>
             <input
               type="number"
+              value={orderQty}
               onChange={(e) => setOrderQty(Number(e.target.value))}
               placeholder='Enter order quantity'
               className='w-full rounded-md border px-3 py-2'

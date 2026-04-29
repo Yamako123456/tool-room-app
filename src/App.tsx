@@ -125,11 +125,12 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
   const [isLookupDeptOpen, setIsLookupDeptOpen] = useState<boolean>(false);  
   const [isLookupSupOpen, setIsLookupSupOpen] = useState<boolean>(false);  
 
-  const [isShowEntryForm, setIsShowEntryForm] = useState(false);
+  // const [isShowEntryForm, setIsShowEntryForm] = useState(false);
   
   const [stockQty, setStockQty] = useState<number>(0);
 
   const [lookupUPC, setLookupUPC] = useState<string>("");
+
   type productResponse = {
        code: number,   //200
        status: string,  //"OK"
@@ -137,6 +138,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
 }
   
   const [lookupUPCResult, setLookupUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
+  const [apiServerError, setApiServerError] = useState<string>("");
 
   useEffect(() => {
     initDemoData();
@@ -207,14 +209,21 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     setItemNumber("")
     setItemSupCode(undefined);
     setSelectedSupplier(null);
-    
+        
+    setItemDescription("");
+    setItemImage("");
+    setItemType("EXPENDABLE");
+    setItemUnitPrice(0.0);
+    setItemIssueCost(0.0);
+    setUom("qty");
+    setPackQty(1);
+    setMfg("");
+    setMfgItem("");
+    setLeadTime(1);
+    setOrderQty(1);
+    setItemDateCreated( new Date("2024-01-01"));
 
-
-
-
-
-
-
+    setLookupUPC("");
   }
 
   // -------------- Activate ---------------------------
@@ -539,15 +548,27 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
   };
 
 //------------------------ UPC API ---------------------------------------------
-  const onLookupUPCSubmit = async (e: any) => {
+  const onLookupUPCSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const result = await searchProductByUPC(lookupUPC); // api.tsx
-        
+    const result = await searchProductByUPC(lookupUPC);
+    console.log("result = ", result);
     if(typeof result === "string") {
-
+        setApiServerError(result);
     } else {
         setLookupUPCResult(result.data);
+        
+        fillNewItemFormWithAPIResult();
     }
+    
+    // e.preventDefault();
+    // const result = await searchProductByUPC(lookupUPC); // api.tsx
+        
+    // if(typeof result === "string") {
+
+    // } else {
+    //     setLookupUPCResult(result.data);
+    //     fillNewItemFormWithAPIResult();
+    // }
   }
     
   const handleLookupUPCChange = (e: any) => {
@@ -555,26 +576,33 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
   }
 
  const fillNewItemFormWithAPIResult = () => {
-        if (lookupUPCResult == null) return;
-        
-        setItemNumber(lookupUPCResult.item_attributes.upc);
-        setItemDescription(lookupUPCResult.item_attributes.title);
-        const highestPriceStr = lookupUPCResult.item_attributes.highest_price;
-        const storePriceStr = lookupUPCResult.Stores?.[0]?.price;
-        const priceStr =  highestPriceStr?.trim() ? highestPriceStr : storePriceStr?.trim() ? storePriceStr  : null;
-        setItemUnitPrice(Number(priceStr));
-        setItemIssueCost(Number(priceStr));
-        setItemImage(lookupUPCResult.item_attributes.image);
+    if (lookupUPCResult == null) return;
 
-        const supCode = lookupUPCResult.item_attributes.publisher;
-        
-        setSelectedSupplier(suppliers.find(sup => sup.supCode === supCode) ?? null );
-        if (selectedSupplier === null ) {
-          
-        }
-        
-        setItemSupCode(selectedSupplier?.supCode);
+    setMfgItem(lookupUPCResult.item_attributes.upc);
+    setMfg(lookupUPCResult.item_attributes.manufacturer);
+    setItemDescription(lookupUPCResult.item_attributes.title);
+    const highestPriceStr = lookupUPCResult.item_attributes.highest_price;
+    const storePriceStr = lookupUPCResult.Stores?.[0]?.price;
+    const priceStr =  highestPriceStr?.trim() ? highestPriceStr : storePriceStr?.trim() ? storePriceStr  : null;
+    setItemUnitPrice(Number(priceStr));
+    setItemIssueCost(Number(priceStr));
+    setItemImage(lookupUPCResult.item_attributes.image);
+
+    // const supCode = lookupUPCResult.item_attributes.publisher;
+    // setSelectedSupplier(suppliers.find(sup => sup.supCode === supCode) ?? null );
+    // if (selectedSupplier === null ) {
+    // }
+        // setItemSupCode(selectedSupplier?.supCode);
   }
+
+  //--------------------------------------------------
+  const formatDate = (date: Date | string) =>
+    new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+  });
+
 
     //=================================================================================
   return (
@@ -598,8 +626,8 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
                 itemNumber={itemNumber}
                 suppliers={suppliers}
                 selectedSupplier={selectedSupplier}
-
-                isShowEntryForm={isShowEntryForm} setIsShowEntryForm={setIsShowEntryForm} />} 
+                formatDate={formatDate}
+              />} 
             />
             <Route path="/items/add"
               element={ <AddItem
@@ -608,26 +636,35 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
                           setItemSupCode={setItemSupCode}
                           selectedSupplier={selectedSupplier}
                           setSelectedSupplier={setSelectedSupplier}
+                          itemNumber={itemNumber}
                           setItemNumber={setItemNumber}
                           handleAddItem={handleAddItem}
                           isLookupSupOpen={isLookupSupOpen}
                           setIsLookupSupOpen={setIsLookupSupOpen}
                           cancelAddItem={cancelItem}
+                          itemDescription={itemDescription}
                           setItemDescription={setItemDescription}
+                          itemImage={itemImage}
                           setItemImage={setItemImage}
                           itemType={itemType}
                           setItemType={setItemType}
+                          itemUnitPrice={itemUnitPrice}
                           setItemUnitPrice={setItemUnitPrice}
+                          itemIssueCost={itemIssueCost}
                           setItemIssueCost={setItemIssueCost}
                           uom={uom}
                           setUom={setUom}
+                          packQty={packQty}
                           setPackQty={setPackQty}
+                          mfg={mfg}
                           setMfg={setMfg}
+                          mfgItem={mfgItem}
                           setMfgItem={setMfgItem}
+                          leadTime={leadTime}
                           setLeadTime={setLeadTime}
+                          orderQty={orderQty}
                           setOrderQty={setOrderQty}
-                          itemDateCreated={itemDateCreated}
-                          setItemDateCreated={setItemDateCreated}
+                          // itemDateCreated={itemDateCreated}
                           onLookupUPCSubmit={onLookupUPCSubmit}
                           lookupUPC={lookupUPC}
                           handleLookupUPCChange={handleLookupUPCChange}
@@ -637,7 +674,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
             <Route path="/items/${itemCode}/edit"
               element={ <EditItem 
                 
-              />
+            />
 
               }
             />

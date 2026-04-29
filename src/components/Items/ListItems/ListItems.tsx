@@ -7,9 +7,10 @@ interface Props {
   items: ItemModel[];
   setItems:React.Dispatch<React.SetStateAction<ItemModel[]>>; 
   suppliers: SupplierModel[];
+  formatDate: (date: Date | string) => string;
 }
 
-const ListItems = ({items, setItems, suppliers}: Props) => {
+const ListItems = ({items, setItems, suppliers, formatDate}: Props) => {
   const navigate = useNavigate();
   const [filterText, setFilterText] = useState<string>("");
 
@@ -50,7 +51,7 @@ const ListItems = ({items, setItems, suppliers}: Props) => {
       <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
         {filteredItems.length > 0 ? (
           filteredItems.map(aItem => 
-            <CardItem aItem={aItem} suppliers={suppliers} onEditItem={onEditItem} />
+            <CardItem aItem={aItem} suppliers={suppliers} onEditItem={onEditItem} formatDate={formatDate}/>
           )
         ) : (
           <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>

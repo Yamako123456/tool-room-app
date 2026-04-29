@@ -10,13 +10,10 @@ interface Props {
   itemNumber: string;
   suppliers: SupplierModel[];
   selectedSupplier: SupplierModel | null;
-
-  isShowEntryForm: boolean;
-  setIsShowEntryForm: React.Dispatch<React.SetStateAction<boolean>>;
+  formatDate: (date: Date | string) => string;
 }
 
-const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier,  
-  isShowEntryForm, setIsShowEntryForm}: Props) => {
+const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, formatDate }: Props) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,18 +59,8 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier,
         items={items}
         setItems={setItems}
         suppliers={suppliers}
+        formatDate={formatDate}
       />
-
-        {/* <button 
-          onClick={() => { setIsShowEntryForm(true) }}
-          disabled={isShowEntryForm}
-          className='mt-1 mb-10 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'
-          >
-            + Add Item
-        </button>
-
-      <ItemModuleComponent items={items} setItems={setItems} isShowEntryForm={isShowEntryForm} setIsShowEntryForm={setIsShowEntryForm} /> */}
-
     </section>
   )
 }
