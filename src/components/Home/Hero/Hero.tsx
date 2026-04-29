@@ -1,5 +1,7 @@
 import React from 'react'
 import hero from "./hero.jpg"
+import hero2 from "../../toolRoom_dexHound.png"
+
 import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
@@ -37,7 +39,8 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
           </div>
         </div>
         <div className="mb-24 mx-auto md:w-180 md:px-10 lg:mb-0 lg:w-1/2">
-          <img src={hero} alt="" className="w-64 lg:w-80"/>
+          {/* <img src={hero} alt="" className="w-64 lg:w-80"/> */}
+          <img src={hero2} alt="" className="w-64 lg:w-80"/>
         </div>
       </div>
 

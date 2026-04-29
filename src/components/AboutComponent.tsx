@@ -1,45 +1,113 @@
-import React from 'react'
+import React from "react";
+import toolRoomPic from "./toolRoom_dexHound.png";
 
 export const AboutComponent = () => {
-    return (
-        <div className="container-m-5">
-            <h1>
+  return (
+    <main className="min-h-screen bg-slate-50">
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-blue-600">
+              About DexHound
+            </p>
 
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
+              Professional Toolroom Management Software
             </h1>
-            <div>
-                <img src="/img/new-empty-warehouse.jpg" alt="warehouse" className="img-fluid" />
+
+            <p className="mb-8 text-lg leading-8 text-slate-600">
+              DexHound helps companies manage toolroom operations with a
+              simple, organized, and efficient software system. It supports both
+              administrative setup and daily toolroom activities, helping teams
+              reduce manual work and improve accuracy.
+            </p>
+
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <a
+                href="#features"
+                className="rounded-xl bg-blue-600 px-6 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-blue-700"
+              >
+                Explore Features
+              </a>
             </div>
-            <p className="lead mt-3">
-                <h2>About Developer</h2>
-                Hello! I'm Miyoko Yamakawa, a Software Developer based in Irvine, CA. With a rich background spanning over a decades, I have honed my skills across various domains of the software development lifecycle. My expertise lies in developing robust backend using Object Oriented technologies like Java, Delphi, Spring Boot, and ASP.Net, as well as crafting dynamic and user-friendly frontend applications with React.js, Vue.js, and TypeScript.
-            </p>
-            <p className='container mt-5'>
+          </div>
 
-                <h2> About Items Module Features</h2>
-
-
-                <h5>Create New Items</h5>
-                The system enforces that an item code to be unique and non-empty. Also, the description 1 and the supplier ID must be non-empty values.
-
-                <br /><br />
-                <h5>Update Items' Detail</h5>
-                Modification of the selected item properties is available from the item's detail view. It allows full-update only on the item that hasn't been used in any transaction. Once a item's used, the item code and the supplier ID can not be changed. If the item is getting supplied from a different vendor, a new item entry must be created.
-
-                <br /><br />
-                <h5>Delete Items</h5>
-                It removes the item from the system only if the item has never been used in any transactions; otherwise, it would turn the "active" flag to false and not show it on the inventory item list.
-
-                <br /><br />
-                <h5>Print Out Item Barcodes</h5>
-                By Create item barcode stickers and put them of items so that toolroom attendants can use scanner to process  issuance and return of items out/in the toolroom."
-                <br />
-                <div className="d-flex justify-content-center">
-                    <img src="/img/thumbUpHelmet.jpg" alt="Dashboard-image" className="img-fluid"
-                        style={{ maxWidth: "50%", height: "auto" }} />
-                </div>
-            </p>
-
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
+            <img
+              src={toolRoomPic}
+              alt="DexHound toolroom workspace"
+              className="h-full w-full object-cover"
+            />
+          </div>
         </div>
-    )
-}
 
+        <section id="features" className="mt-20">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold text-slate-900">
+              What DexHound Does
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+              DexHound is designed to support the complete workflow of a modern
+              toolroom, from setup and inventory management to issuing and
+              returning items.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+              <h3 className="mb-3 text-xl font-semibold text-slate-900">
+                Administration
+              </h3>
+              <p className="text-slate-600">
+                Create and manage employees, departments, suppliers, items,
+                bins, and other key records. Each module supports listing,
+                adding, editing, and deleting records.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+              <h3 className="mb-3 text-xl font-semibold text-slate-900">
+                Toolroom Operations
+              </h3>
+              <p className="text-slate-600">
+                Support daily toolroom tasks such as restocking, physical
+                counts, issuing items to employees, and accepting returned
+                durable items.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+              <h3 className="mb-3 text-xl font-semibold text-slate-900">
+                Barcode Assistance
+              </h3>
+              <p className="text-slate-600">
+                For office and cleaning supplies, users can scan a barcode and
+                retrieve basic product information from a UPC database API to
+                prefill the new item form.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 rounded-3xl bg-slate-900 px-6 py-12 text-center text-white shadow-xl">
+          <h2 className="mb-4 text-3xl font-bold">
+            Built for Accuracy and Efficiency
+          </h2>
+          <p className="mx-auto max-w-3xl text-slate-300">
+            DexHound helps toolroom attendants work faster, keeps inventory
+            records organized, and gives administrators a reliable way to manage
+            daily operations.
+          </p>
+
+          <div className="mt-8 flex justify-center">
+            <img
+              src="/img/thumbUpHelmet.jpg"
+              alt="Worker giving thumbs up"
+              className="w-full max-w-md rounded-2xl object-cover shadow-lg"
+            />
+          </div>
+        </section>
+      </section>
+    </main>
+  );
+};
