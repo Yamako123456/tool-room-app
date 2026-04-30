@@ -1,8 +1,8 @@
-import React from 'react'
-import hero from "./hero.jpg"
-import hero2 from "../../Femail_attendant3.png"
-
+import React from 'react';
+import hero from "./hero.jpg";
+import hero2 from "../../Femail_attendant3.png";
 import { ItemModel } from '../../../models/ItemModel';
+import "./Hero.css";
 
 interface Props {
     items: ItemModel[];
@@ -39,8 +39,28 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
           </div>
         </div>
         <div className="mb-24 mx-auto md:w-180 md:px-10 lg:mb-0 lg:w-1/2">
-          {/* <img src={hero} alt="" className="w-64 lg:w-80"/> */}
-          <img src={hero2} alt="" className="w-64 lg:w-80"/>
+          {/* <img
+            src={hero2}
+            alt=""
+            className="w-64 lg:w-80 rounded-2xl 
+                        shadow-[0_20px_60px_rgba(0,0,0,0.4)] 
+                        hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]
+                        hover:-translate-y-2 hover:scale-105
+                        transition-all duration-500 ease-out"
+            /> */}
+            <img
+                src={hero2}
+                alt=""
+                className="w-64 lg:w-80 rounded-3xl 
+                            bg-white/5 backdrop-blur-md
+                        border border-white/10
+                        shadow-[0_25px_80px_rgba(0,0,0,0.5)]
+                        hover:shadow-[0_40px_120px_rgba(59,130,246,0.4)]
+                        hover:scale-105 hover:-translate-y-2
+                        transition-all duration-500"
+            />
+
+
         </div>
       </div>
 

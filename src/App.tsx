@@ -631,7 +631,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
             />
             <Route path="/items/add"
               element={ <AddItem
-                          supliers={suppliers}
+                          suppliers={suppliers}
                           itemSupCode={itemSupCode}
                           setItemSupCode={setItemSupCode}
                           selectedSupplier={selectedSupplier}

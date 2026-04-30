@@ -5,7 +5,7 @@ interface Props {
   isOpen: boolean;
   depts: DepartmentModel[];
   onClose: () => void;
-  onSelect: (emp: DepartmentModel) => void;
+  onSelect: (dept: DepartmentModel) => void;
 }
 
 const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
@@ -20,7 +20,7 @@ const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
   if (!isOpen) return null;
   
   return (
-     <div className='fixed inset-0 z-50flex items-center justify-center bg-black/90 text-white'>
+     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/90 text-white'>
       <div className='w-full max-w-3xl rounded-xl bg-white shadow-lg'>
         <div className='flex items-center justify-between border-b px-4 py=3'>
             <h2 className='text-xl font-bold text-black'>
@@ -39,9 +39,9 @@ const DeptLookup = ({isOpen, depts, onClose, onSelect}: Props) => {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder='Search by department code or name 1'
-          className='w-full rounded-md border px-2 py-2'
+          className='w-full rounded-md border px-2 py-2 text-black'
         />
-        <div className='max-h-80 overflow-y-auto border rounded-md'>
+        <div className='max-h-180 overflow-y-auto border rounded-md'>
           {filteredDepts.length > 0 ? (
             filteredDepts.map((dept) => (
               <button 

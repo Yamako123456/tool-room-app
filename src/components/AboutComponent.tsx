@@ -32,7 +32,7 @@ export const AboutComponent = () => {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200 ">
             <img
               src={toolRoomPic}
               alt="DexHound toolroom workspace"

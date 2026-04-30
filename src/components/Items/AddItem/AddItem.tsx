@@ -4,7 +4,7 @@ import { ITEM_TYPES } from '../../../constants/product';
 import SearchUPC from '../SearchUPC/SearchUPC';
 
 interface Props {
-  supliers: SupplierModel[];
+  suppliers: SupplierModel[];
   itemSupCode: string | undefined;
   setItemSupCode: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedSupplier: SupplierModel | null;  
@@ -44,7 +44,7 @@ interface Props {
 }
 
 const AddItem = ({
-  supliers,
+  suppliers,
   itemSupCode,
   setItemSupCode,
   selectedSupplier,
@@ -244,33 +244,45 @@ const AddItem = ({
             <label className="block text-sm font-medium mb-1">
               Assign supplier
             </label>
-            <input
-              readOnly
-              value={ selectedSupplier ? `${selectedSupplier.supCode} - ${selectedSupplier.name}` : "" }
-              
-              className='w-full rounded-md border px-3 py-2'
-              placeholder={`${!selectedSupplier ? "Use Lookup to select supplier" : ""}`}
-              /> 
-              <button
-                type='button'
-                onClick={() => setIsLookupSupOpen(true)}
-              >
-                Lookup
-              </button>
+            <div className='flex gap-2'>
+              <input
+                readOnly
+                value={ selectedSupplier ? `${selectedSupplier.supCode} - ${selectedSupplier.name}` : "" }
+                
+                className='w-full rounded-md border px-3 py-2'
+                placeholder={`${!selectedSupplier ? "Use Lookup to select supplier" : ""}`}
+                /> 
+                <button
+                  type='button'
+                  onClick={() => setIsLookupSupOpen(true)}
+                  className='rounded-md border px-4 py-2 hover:bg-green-100'
+                  >
+                  Lookup
+                </button>
 
-              <SupplierLookup
-              />
-              <button 
-                type='button'
-                onClick={() =>{
-                  setSelectedSupplier(null);
-                  setItemSupCode(undefined);
-                  setIsLookupSupOpen(false);
-                }}
-                className='rounded-md border px-4 py-2 hover:bg-slate-100'
-              >
-                Clear
-              </button>  
+                <SupplierLookup
+                  isOpen={isLookupSupOpen} 
+                  suppliers={suppliers} 
+                  onClose={() => setIsLookupSupOpen(false)} 
+                  onSelect={ (sup) => {
+                    setSelectedSupplier(sup);
+                    setItemSupCode(sup.supCode);
+                    setIsLookupSupOpen(false);
+                  }
+                }
+                />
+                <button 
+                  type='button'
+                  onClick={() =>{
+                    setSelectedSupplier(null);
+                    setItemSupCode(undefined);
+                    setIsLookupSupOpen(false);
+                  }}
+                  className='rounded-md border px-4 py-2 hover:bg-slate-100'
+                  >
+                  Clear
+                </button>  
+              </div>
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">
