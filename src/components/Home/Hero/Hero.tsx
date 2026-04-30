@@ -1,6 +1,6 @@
 import React from 'react'
 import hero from "./hero.jpg"
-import hero2 from "../../toolRoom_dexHound.png"
+import hero2 from "../../Femail_attendant3.png"
 
 import { ItemModel } from '../../../models/ItemModel';
 

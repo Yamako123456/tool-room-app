@@ -1,5 +1,5 @@
 import React from "react";
-import toolRoomPic from "./toolRoom_dexHound.png";
+import toolRoomPic from "./toolRoom_dexHound2.png";
 
 export const AboutComponent = () => {
   return (
