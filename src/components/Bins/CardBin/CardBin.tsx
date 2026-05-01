@@ -47,7 +47,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
           Description:
         </span>
-        <span className='ext-sm'>
+        <span className='text-sm'>
           {item?.description1}
         </span>  
       </div>

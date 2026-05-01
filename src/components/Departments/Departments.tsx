@@ -7,9 +7,10 @@ interface Props {
   depts: DepartmentModel[];
   setDepts: React.Dispatch<React.SetStateAction<DepartmentModel[]>>; 
   deptNumber: string;
+  resetDept: () => void;
 }
 
-const Departments = ({ depts, setDepts, deptNumber}: Props) => {
+const Departments = ({ depts, setDepts, deptNumber, resetDept}: Props) => {
   const navigate = useNavigate() ;
  
   return (
@@ -18,7 +19,7 @@ const Departments = ({ depts, setDepts, deptNumber}: Props) => {
         <h2 className="absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold">
           Manage Departments
         </h2>
-        <button onClick={() => navigate("/depts/add")}
+        <button onClick={() => {resetDept(); navigate("/depts/add");}}
           className='mt-1 mb-10 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'>
           + Add Department
         </button>

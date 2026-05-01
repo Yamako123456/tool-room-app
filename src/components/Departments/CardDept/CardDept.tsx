@@ -25,14 +25,14 @@ const CardDept = ({aDept, onEditDept} : Props) => {
         <span className="text-sm font-semibold"> 
           Dept. Code:
           </span> 
-        <span className='ext-sm'>
+        <span className='top-0 text-sm'>
           {aDept.deptCode} 
         </span> 
       </div>
 
       <div className="flex gap-2 items-baseline gap-x-1 text-black">
           <span className="text-sm font-semibold">Name:</span> 
-          <span className='ext-sm'> {aDept.description}</span>
+          <span className='text-sm'> {aDept.description}</span>
       </div>
     </div>  
   )

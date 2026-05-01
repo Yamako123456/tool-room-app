@@ -11,9 +11,10 @@ interface Props {
   suppliers: SupplierModel[];
   selectedSupplier: SupplierModel | null;
   formatDate: (date: Date | string) => string;
+  resetItem: () => void;
 }
 
-const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, formatDate }: Props) => {
+const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, formatDate, resetItem }: Props) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +48,7 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, format
         <h2 className='absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold'>
           Manage Items
         </h2>
-        <button onClick={() => navigate("/items/add")}
+        <button onClick={() => { resetItem(); navigate("/items/add")}}
           className='mt-1, mb-10 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'
         >
           + Add Item  

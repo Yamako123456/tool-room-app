@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SupplierLookup from '../../Suppliers/SupplierLookup/SupplierLookup';
 import { ITEM_TYPES } from '../../../constants/product';
 import SearchUPC from '../SearchUPC/SearchUPC';
@@ -83,6 +83,9 @@ const AddItem = ({
   handleLookupUPCChange,
 
 }: Props) => {
+
+  const [imageError, setImageError] = useState<boolean>(false);
+
   return (
     <div className='mb-1 block text-sm font-medium'>
       <div className='max-w-2xl mx-auto p-6 space-y-6'>
@@ -132,10 +135,25 @@ const AddItem = ({
             <input
               type="text"
               value={itemImage}
-              onChange={(e) => setItemImage(e.target.value)}
+              onChange={(e) => {setItemImage(e.target.value);  setImageError(false);}}
               placeholder='Enter URL for item image'
               className='w-full rounded-md border px-3 py-2'
             />
+          </div>
+          <div className="flex gap-1 items-baseline  text-gray-800">
+            <span className='m-2'>
+              {itemImage && !imageError ? (
+                
+                <img
+                src={itemImage}
+                alt={itemNumber}
+                className=
+                   "h-full w-full object-contain rounded"
+                onLoad={() => setImageError(false)}
+                onError={() => setImageError(true)}
+                />
+              ) : "No Image"}
+            </span>
           </div>
           <div className='flex gap-3 items-baseline'>
             <label className="block text-sm font-medium mb-1">

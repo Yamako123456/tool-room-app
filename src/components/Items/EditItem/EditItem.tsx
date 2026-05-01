@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ItemModel } from '../../../models/ItemModel';
 import { useParams } from 'react-router-dom';
 import SearchUPC from '../SearchUPC/SearchUPC';
@@ -107,6 +107,7 @@ const EditItem = ({
   
 }: Props) => {
 
+  const [imageError, setImageError] = useState<boolean>(false);
   const { itemCode } = useParams<{itemCode: string}>();
   const selectedItem = items.find(item => item.code === itemCode);
   
@@ -158,7 +159,7 @@ const EditItem = ({
         </div>
         <div>
             <h2 className='text-xl font-semibold'>
-            Switch different office supply item by API
+            Switch to different household item by API lookup.
           </h2>
           <SearchUPC  
             onSearchUPCSubmit={onLookupUPCSubmit} 
@@ -202,6 +203,33 @@ const EditItem = ({
               className='w-full rounded-md border px-3 py-2'
             />
           </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Image URL
+            </label>
+            <input
+              type="text"
+              value={itemImage}
+              onChange={(e) => {setItemImage(e.target.value);  setImageError(false);}}
+              placeholder='Enter URL for item image'
+              className='w-full rounded-md border px-3 py-2'
+            />
+          </div>
+          <div className="flex gap-1 items-baseline  text-gray-800">
+            <span className='m-2'>
+              {itemImage && !imageError ? (
+                
+                <img
+                src={itemImage}
+                alt={itemNumber}
+                className="h-40 object-contain rounded border"
+                onLoad={() => setImageError(false)}
+                onError={() => setImageError(true)}
+                />
+              ) : "No Image"}
+            </span>
+          </div>
+
           <div className='flex gap-3 items-baseline'>
             <label className="block text-sm font-medium mb-1">
               Item Type: 

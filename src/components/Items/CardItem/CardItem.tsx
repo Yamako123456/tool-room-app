@@ -132,6 +132,14 @@ const CardItem = ({aItem, suppliers, onEditItem, formatDate}: Props) => {
       </div>
       <div className="flex gap-x-1 items-baseline  text-gray-800">
         <span className="text-sm font-semibold">
+          Order Qty:
+        </span>
+        <span className='text-sm'>
+          {aItem.orderQty}
+        </span>  
+      </div>
+      <div className="flex gap-x-1 items-baseline  text-gray-800">
+        <span className="text-sm font-semibold">
           Date Created:
         </span>
         <span className='text-sm'>

@@ -133,6 +133,17 @@ const EditBin =  ({
               </button>
             </div>  
           </div>
+          <div className="flex gap-1 items-baseline  text-gray-800">
+            <span className='m-2'>
+              {selectedItem ? (
+                <img
+                src={selectedItem.itemImage}
+                alt={itemCode}
+                className="h-40 object-contain rounded border"
+                />
+              ) : "No Item Image"}   
+            </span>
+          </div>
           <div>
             <label className="block text-sm font-medium mb-1">Min Qty</label>
             <input              

@@ -93,9 +93,18 @@ const AddBin = ({
                 Clear 
               </button>
             </div>
-      
           </div>
-
+          <div className="flex gap-1 items-baseline  text-gray-800">
+            <span className='m-2'>
+              {selectedItem ? (
+                <img
+                src={selectedItem.itemImage}
+                alt={itemCode}
+                className="h-40 object-contain rounded border"
+                />
+              ) : "No Item Image"}   
+            </span>
+          </div>
           <div>
             <label className="block text-sm font-medium mb-1">Min Qty</label>
             <input
@@ -107,7 +116,6 @@ const AddBin = ({
             />
           </div>
         </div>
-
         <div className="flex justify-end gap-3">
           <button 
             className="px-4 py-2 border rounded-lg"

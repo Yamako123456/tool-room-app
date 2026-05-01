@@ -8,9 +8,10 @@ interface Props {
   emps: EmpModel[];
   setEmps: React.Dispatch<React.SetStateAction<EmpModel[]>>; 
   depts: DepartmentModel[];
+  resetEmp: () => void;
 }
 
-const Employees = ({emps, setEmps, depts}: Props) => {
+const Employees = ({emps, setEmps, depts, resetEmp}: Props) => {
   
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const Employees = ({emps, setEmps, depts}: Props) => {
         <h2 className="absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold">
           Manage Employees
         </h2>
-        <button onClick={() => navigate("/emps/add")}
+        <button onClick={() => {resetEmp();  navigate("/emps/add"); }}
           className='mt-1 mb-10 lg:mt-0 lg:ml-auto bg-blue-500 text-white px-4 py-2 rounded'>
           + Add Employee
         </button>

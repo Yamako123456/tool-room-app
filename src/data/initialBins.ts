@@ -6,7 +6,7 @@ export const initialBinss: BinModel[] = [
         crib: "001", 
         active: true,
         item: "153KJ83",
-        qty: 100,
+        qty: 15,
         min: 5,
     },
     {
@@ -14,7 +14,7 @@ export const initialBinss: BinModel[] = [
         crib: "001", 
         active: true,
         item: "2830D20",
-        qty: 100,
+        qty: 20,
         min: 5,
     },
     {
@@ -22,7 +22,7 @@ export const initialBinss: BinModel[] = [
         crib: "001", 
         active: true,
         item: "9150F44",
-        qty: 100,
+        qty: 25,
         min: 5,
     },
     {
@@ -30,7 +30,7 @@ export const initialBinss: BinModel[] = [
         crib: "001", 
         active: true,
         item: "H9289",
-        qty: 100,
+        qty: 30,
         min: 5,
     },
     

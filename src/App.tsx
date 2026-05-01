@@ -584,14 +584,14 @@ export const App = () => {
 
     const theItem = items.find(itm => itm.code === itemNumber);
     if ( !theItem ) return;
-    
+
     if ( isItemAssignedToBin(itemNumber) ){
       alert(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
       console.log(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
       return;
-      setItems(prev => prev.filter(item => item.code !== itemNumber));
     }
-
+    
+    setItems(prev => prev.filter(item => item.code !== itemNumber));
     resetItem();
     navigate('/items', { state: { message: `Item: ${itemNumber} deleted` }});
 
@@ -711,6 +711,7 @@ export const App = () => {
                 suppliers={suppliers}
                 selectedSupplier={selectedSupplier}
                 formatDate={formatDate}
+                resetItem={resetItem}
               />} 
             />
             <Route path="/items/add"
@@ -812,7 +813,7 @@ export const App = () => {
             />
             <Route path="/bins" 
               element={<Bins 
-                cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem}/>} 
+                cribs={cribs} items={items} bins={bins} setBins={setBins} binNumber={binNumber} selectedItem={selectedItem} resetBin={resetBin}/>} 
             />
             <Route path="/bins/add" 
               element={<AddBin 
@@ -854,7 +855,7 @@ export const App = () => {
             />  
             <Route path="/depts" 
               element={<Departments 
-                depts={depts} setDepts={setDepts} deptNumber={deptNumber} />} 
+                depts={depts} setDepts={setDepts} deptNumber={deptNumber} resetDept={resetDept}/>} 
             />                     
             <Route path="/depts/add" 
               element={<AddDepartment 
@@ -881,7 +882,7 @@ export const App = () => {
 
             <Route path="/emps" 
               element={<Employees 
-                emps={emps} setEmps={setEmps} depts={depts} />} 
+                emps={emps} setEmps={setEmps} depts={depts} resetEmp={resetEmp}/>} 
             />
             <Route path="/emps/add" 
               element={<AddEmployee
