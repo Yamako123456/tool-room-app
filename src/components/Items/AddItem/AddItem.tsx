@@ -118,6 +118,7 @@ const AddItem = ({
             </label>
             <input
               type="text"
+              autoComplete="off"
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value) }
               placeholder='Enter item description'

@@ -7,7 +7,6 @@ interface Props {
 };
 
 const SearchUPC  : React.FC<Props> = ({onSearchUPCSubmit, searchUPC, handleSearchUPCChange}: Props): JSX.Element => {
- 
     return (
         <div className="max-w-md mx-auto mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
         <form onSubmit={onSearchUPCSubmit} className="space-y-4">
@@ -38,6 +37,7 @@ const SearchUPC  : React.FC<Props> = ({onSearchUPCSubmit, searchUPC, handleSearc
                 id="upc-input"
                 name="upc"
                 type="text"
+                autoComplete='off'
                 value={searchUPC}
                 onChange={handleSearchUPCChange}
                 placeholder="Enter or scan UPC code"

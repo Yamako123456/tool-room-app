@@ -112,13 +112,13 @@ export const App = () => {
   const [orderQty, setOrderQty] = useState<number>(1);
   const [itemDateCreated, setItemDateCreated] = useState<Date>( new Date("2024-01-01"));
 
-const [isBinActive, setIsBinActive] = useState<boolean>(false);
-const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
-const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
-const [isCribActive, setIsCribActive] = useState<boolean>(false);
-const [isSupActive, setIsSupActive] = useState<boolean>(false);
-const [isItemActive, setIsItemActive] = useState<boolean>(false);
-const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
+  const [isBinActive, setIsBinActive] = useState<boolean>(false);
+  const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
+  const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
+  const [isCribActive, setIsCribActive] = useState<boolean>(false);
+  const [isSupActive, setIsSupActive] = useState<boolean>(false);
+  const [isItemActive, setIsItemActive] = useState<boolean>(false);
+  const [isItemDisabled, setIsItemDisabled] = useState<boolean>(false);
 
   const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
   const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
@@ -135,7 +135,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
        code: number,   //200
        status: string,  //"OK"
        message: string,  //"Data returned"
-}
+  }
   
   const [lookupUPCResult, setLookupUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
   const [apiServerError, setApiServerError] = useState<string>("");
@@ -221,8 +221,12 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     setMfgItem("");
     setLeadTime(1);
     setOrderQty(1);
-    setItemDateCreated( new Date("2024-01-01"));
+    setItemDateCreated( new Date("2000-01-01"));
 
+    setIsItemActive(false);
+    setIsItemDisabled(false);
+    setIsLookupItemOpen(false);  
+    
     setLookupUPC("");
   }
 
@@ -341,7 +345,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
         mfgItem,
         leadTime,
         orderQty,
-        itemDateCreated,
+        new Date(),
         false,
         false,
 
@@ -392,6 +396,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     resetSupplier();
     navigate('/suppliers', { state: { message: 'Supplier saved' } });
   }
+
 
   // -------------- Cancel button handlers ---------------------------
   const cancelBin  = () => {
@@ -504,6 +509,45 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     navigate('/emps', { state: {message: 'Employee saved'}})
   }
 
+  const handleEditItem = () => {
+    console.log("inside handleEditItem as App.tsx: itemNumber = ", itemNumber)
+    if (!itemNumber) return;
+
+    const updatedItem = new ItemModel(
+        itemNumber, 
+        itemDescription,
+        itemImage,
+        itemType,
+        itemUnitPrice,
+        itemIssueCost,
+        uom,
+        packQty,
+        itemSupCode ?? "",
+        mfg,
+        mfgItem,
+        leadTime,
+        orderQty,
+        itemDateCreated,
+        isItemActive,
+        isItemDisabled,
+
+        // ----Obsolete---------
+        "",
+        false,
+        "",
+        "",
+        "",
+        undefined,
+        ""
+    );
+
+    setItems(prev => prev.map(item => item.code === itemNumber ? updatedItem : item));
+
+    resetItem();
+    navigate('/items', { state: { message: `Item: ${itemNumber} saved.` }});
+
+  }
+
   // -------------- Delete operations ---------------------------
   const handleDeleteBin = () => {
     if (!binNumber) return;
@@ -535,6 +579,45 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
     navigate('/emps', { state: { message: `Employee: ${empBadgeNumber} deleted`}});
   }
 
+  const handleDeleteItem = () => {
+    if (!itemNumber) return
+
+    const theItem = items.find(itm => itm.code === itemNumber);
+    if ( !theItem ) return;
+    
+    if ( isItemAssignedToBin(itemNumber) ){
+      alert(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
+      console.log(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
+      return;
+      setItems(prev => prev.filter(item => item.code !== itemNumber));
+    }
+
+    resetItem();
+    navigate('/items', { state: { message: `Item: ${itemNumber} deleted` }});
+
+  }
+
+  const isItemAssignedToBin = (itemCode: string) => {
+    const binsWith = bins.filter(bin => bin.item === itemCode);
+    return binsWith.length > 0;
+  }
+
+  const disableItem = (itemCode: string) => {
+    if (!itemCode) return;
+
+    const theItem = items.find(itm => itm.code === itemCode);
+    if ( !theItem ) return;
+    if ( isItemAssignedToBin(itemCode) ){
+      alert(`Can not disable item: ${itemCode} - ${theItem.description1}. It is still assigned to bin(s).`);
+      console.log(`Can not disable item: ${itemCode} - ${theItem.description1}. It is still assigned to bin(s).`);
+      return;
+    }
+    const updatedItem = {...theItem, disabled : true};
+    const updatedArrayOfItems = items.map(item => {
+      return item.code === itemCode ? updatedItem : item;
+    });
+  }
+
   // -------------- Item barcode Print button handler ---------------------------
   const PrintWrapper = () => {
 
@@ -550,6 +633,7 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
 //------------------------ UPC API ---------------------------------------------
   const onLookupUPCSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    console.log("onLookupUPCSubmit got triggerd.");
     const result = await searchProductByUPC(lookupUPC);
     console.log("result = ", result);
     if(typeof result === "string") {
@@ -671,9 +755,57 @@ const [itemIsDisabled, setItemIsDisabled] = useState<boolean>(false);
 
               />}
             />
-            <Route path="/items/${itemCode}/edit"
+            <Route path="/items/:itemCode/edit"
               element={ <EditItem 
-                
+                          items={items}
+                          suppliers={suppliers}
+                          itemNumber={itemNumber}
+                          setItemNumber={setItemNumber}
+                          selectedSupplier={selectedSupplier}
+                          setSelectedSupplier={setSelectedSupplier}
+                          itemSupCode={itemSupCode}
+                          setItemSupCode={setItemSupCode}
+                          
+                          itemDescription={itemDescription}
+                          setItemDescription={setItemDescription}
+                          itemImage={itemImage}
+                          setItemImage={setItemImage}
+                          itemType={itemType}
+                          setItemType={setItemType}
+                          itemUnitPrice={itemUnitPrice}
+                          setItemUnitPrice={setItemUnitPrice}
+                          itemIssueCost={itemIssueCost}
+                          setItemIssueCost={setItemIssueCost}
+                          uom={uom}
+                          setUom={setUom}
+                          packQty={packQty}
+                          setPackQty={setPackQty}
+                          mfg={mfg}
+                          setMfg={setMfg}
+                          mfgItem={mfgItem}
+                          setMfgItem={setMfgItem}
+                          leadTime={leadTime}
+                          setLeadTime={setLeadTime}
+                          orderQty={orderQty}
+                          setOrderQty={setOrderQty}
+                          
+                          lookupUPC={lookupUPC}
+                          setLookupUPC={setLookupUPC}
+                          isLookupSupOpen={isLookupSupOpen}
+                          setIsLookupSupOpen={setIsLookupSupOpen}
+                          isItemActive={isItemActive}
+                          setIsItemActive={setIsItemActive}
+                          onLookupUPCSubmit={onLookupUPCSubmit}
+                          handleEditItem={handleEditItem}
+                          handleDeleteItem={handleDeleteItem}
+                          handleLookupUPCChange={handleLookupUPCChange}
+                          cancelEditItem={cancelItem}
+                          itemDateCreated={itemDateCreated}
+                          setItemDateCreated={setItemDateCreated}
+                          isItemDisabled={isItemDisabled}
+                          setIsItemDisabled={setIsItemDisabled}
+                          isItemAssignedToBin={isItemAssignedToBin}
+                          disableItem={disableItem}
             />
 
               }

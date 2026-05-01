@@ -14,7 +14,7 @@ const ListItems = ({items, setItems, suppliers, formatDate}: Props) => {
   const navigate = useNavigate();
   const [filterText, setFilterText] = useState<string>("");
 
-  const onEditItem = (itemCode: string) => navigate('/items/${itemCode}/edit');
+  const onEditItem = (itemCode: string) => navigate(`/items/${itemCode}/edit`);
 
   const filteredItems = useMemo( () => {
     const keyword = filterText.trim().toLowerCase();
@@ -51,7 +51,7 @@ const ListItems = ({items, setItems, suppliers, formatDate}: Props) => {
       <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
         {filteredItems.length > 0 ? (
           filteredItems.map(aItem => 
-            <CardItem aItem={aItem} suppliers={suppliers} onEditItem={onEditItem} formatDate={formatDate}/>
+            !aItem.disabled && <CardItem aItem={aItem} suppliers={suppliers} onEditItem={onEditItem} formatDate={formatDate}/>
           )
         ) : (
           <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
