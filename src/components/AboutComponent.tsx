@@ -5,7 +5,7 @@ export const AboutComponent = () => {
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-6 lg:grid-cols-[1fr_2fr]">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-blue-600">
               About DexHound
@@ -32,7 +32,7 @@ export const AboutComponent = () => {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200 ">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
             <img
               src={toolRoomPic}
               alt="DexHound toolroom workspace"

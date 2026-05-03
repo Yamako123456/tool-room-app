@@ -24,8 +24,6 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, format
 
   useEffect(() => {
     
-    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
-    
     if (!message || toastShowRef.current) return;
   
     toastShowRef.current = true;
@@ -38,15 +36,6 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, format
 
   } , [message, navigate, location.pathname] );
   
-  // const [showMessage, setShowMessage] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   if (message) {
-  //     setShowMessage(true);
-  //     setTimeout(() => setShowMessage(false), 3000);
-  //   }
-  // }, [message]);
-    
   const onSearchSubmit = (e: any) => {
     e.preventDefault();
     const keyword = e.target[0].value ? e.target[0].value.trim().toLowerCase() : "";

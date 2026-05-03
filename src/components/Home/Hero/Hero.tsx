@@ -3,6 +3,7 @@ import hero from "./hero.jpg";
 import hero2 from "../../Femail_attendant3.png";
 import { ItemModel } from '../../../models/ItemModel';
 import "./Hero.css";
+import {useNavigate} from 'react-router-dom';
 
 interface Props {
     items: ItemModel[];
@@ -17,8 +18,11 @@ function chunk<T>(arr: T[], size: number): T[][] {
 }
 
 export const Hero = ({ items, setItems, cribs }: Props) => {
-      const visibleItems = items.filter(i => !i.disabled);
-      const slides = chunk(visibleItems, 3);
+      
+    const visibleItems = items.filter(i => !i.disabled);
+    const slides = chunk(visibleItems, 3);
+    const navigate = useNavigate();
+
   return (
     <section id="hero">
       <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">
@@ -57,7 +61,9 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
                         shadow-[0_25px_80px_rgba(0,0,0,0.5)]
                         hover:shadow-[0_40px_120px_rgba(59,130,246,0.4)]
                         hover:scale-105 hover:-translate-y-2
-                        transition-all duration-500"
+                        transition-all duration-500
+                        cursor-pointer"
+                onClick={() => navigate("/about")}
             />
 
 

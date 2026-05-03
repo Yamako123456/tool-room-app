@@ -39,7 +39,11 @@ const MyNavbar = (props: Props) => {
             </Link>               
             <Link to="/depts" className='text-black hover:text-darkBlue'>
               Departments
-            </Link>            
+            </Link>   
+            <Link to="/suppliers" className='text-black hover:text-darkBlue'>
+              Suppliers
+            </Link>   
+                     
             <Link to="/about" className="text-black hover:text-darkBlue">
               About
             </Link>

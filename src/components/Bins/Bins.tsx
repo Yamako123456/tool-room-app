@@ -17,14 +17,12 @@ interface Props {
 
 const Bins = ({cribs, items, bins, setBins, binNumber, selectedItem, resetBin}: Props) => {
   
-  const navigate = useNavigate() ;
+  const navigate = useNavigate();
   const location = useLocation();
   const message = location.state?.message;
   const toastShowRef = useRef(false);
 
   useEffect(() => {
-    
-    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
     
     if (!message || toastShowRef.current) return;
   

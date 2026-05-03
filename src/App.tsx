@@ -186,7 +186,7 @@ export const App = () => {
     setIsEmpActive(false); 
   }
 
-  const resetSupplier = () => {
+  const resetSup = () => {
     setItemSupCode("");
     setSupplierName("");
     setSupplierName("");
@@ -394,7 +394,7 @@ export const App = () => {
       "",
     );
     setSuppliers( prev => [...prev, newSupplier] );
-    resetSupplier();
+    resetSup();
     navigate('/suppliers', { state: { message: 'Supplier saved' } });
   }
 
@@ -421,7 +421,7 @@ export const App = () => {
   }
 
   const cancelSupplier = () => {
-    resetSupplier();
+    resetSup();
     navigate('/suppliers', {state: {message: "Operation canceled"}});
   }
 
@@ -936,7 +936,10 @@ export const App = () => {
             />
             <Route path="/suppliers" 
               element={<Suppliers 
-                
+                suppliers={suppliers} 
+                setSuppliers={setSuppliers} 
+                supplierNumber={supplierNumber}
+                resetSup={resetSup}
               />} 
             />
             <Route path="/suppliers/add" 

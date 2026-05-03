@@ -39,7 +39,7 @@ const CardBin = ({aBin, items, onEditBin }: Props) => {
         <span className="text-sm font-semibold">
             Item Code:
         </span> 
-        <span className='ext-sm'>
+        <span className='text-sm'>
             {aBin.item ? aBin.item : "Not Assigned" }
         </span>
       </div>

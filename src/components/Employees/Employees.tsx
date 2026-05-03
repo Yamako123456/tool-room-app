@@ -21,8 +21,6 @@ const Employees = ({emps, setEmps, depts, resetEmp}: Props) => {
 
   useEffect(() => {
     
-    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
-    
     if (!message || toastShowRef.current) return;
   
     toastShowRef.current = true;

@@ -19,8 +19,6 @@ const Departments = ({ depts, setDepts, deptNumber, resetDept}: Props) => {
 
   useEffect(() => {
     
-    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
-    
     if (!message || toastShowRef.current) return;
   
     toastShowRef.current = true;
