@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ItemModel } from '../../models/ItemModel';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ItemModuleComponent } from './ItemModuleComponent';
 import ListItems from './ListItems/ListItems';
+import toast from 'react-hot-toast';
 
 interface Props {
   items: ItemModel[];
@@ -19,14 +20,32 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, format
   const navigate = useNavigate();
   const location = useLocation();
   const message = location.state?.message;
-  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const toastShowRef = useRef(false);
 
   useEffect(() => {
-    if (message) {
-      setShowMessage(true);
-      setTimeout(() => setShowMessage(false), 3000);
-    }
-  }, [message]);
+    
+    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
+    
+    if (!message || toastShowRef.current) return;
+  
+    toastShowRef.current = true;
+    toast.success(message);
+    
+    navigate(location.pathname,{ // navigate to this pageitself.
+      replace: true,// Replace current history
+      state: {}, // Clear navigation state.
+    })
+
+  } , [message, navigate, location.pathname] );
+  
+  // const [showMessage, setShowMessage] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   if (message) {
+  //     setShowMessage(true);
+  //     setTimeout(() => setShowMessage(false), 3000);
+  //   }
+  // }, [message]);
     
   const onSearchSubmit = (e: any) => {
     e.preventDefault();
@@ -38,12 +57,12 @@ const Items = ({items, setItems, itemNumber, suppliers, selectedSupplier, format
 
   return (
     <section id="items">
-      {showMessage && (
+      {/* {showMessage && (
         <div className='mb-4 rounnded-md bg-green-100 px-4 py-2 text-green-700 shadow-lg animate-bounce'>
           {message}
         </div>
-      )}
-
+      )} */}
+      
       <div className='relative flex items-center'>
         <h2 className='absolute left-1/2 lg:-translate-x-1/2 text-2xl font-semibold'>
           Manage Items

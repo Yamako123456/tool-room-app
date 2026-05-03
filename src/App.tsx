@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { toast, Toaster } from "react-hot-toast"; 
 
 import { HomeComponent } from './components/Home/HomeComponent';
 import MyNavbar from "./components/MyNavbar/MyNavbar";
@@ -255,11 +256,11 @@ export const App = () => {
   const handleAddBin = () => {
     
     if (!binNumber || binNumber.trim() === '' ) {
-      alert( "Bin Code is required");
+      toast.error( "Bin Code is required");
       return;
     }  
     if ( bins.find( (b) => b.binCode.toLowerCase() === binNumber.trim().toLowerCase() ) )  {
-      alert( "Bin code must be unique" );
+      toast.error( "Bin code must be unique" );
       return;
     }    
     const cribCode = cribs.length > 0 ? cribs[0].cribCode : "";
@@ -279,11 +280,11 @@ export const App = () => {
 
   const handleAddDept = () => {
     if (!deptNumber|| deptNumber.trim() === '' ) {
-      alert( "Department Code is required");
+      toast.error( "Department Code is required");
       return;
     }  
     if ( depts.find( (dept) => dept.deptCode.toUpperCase() === deptNumber.trim().toUpperCase() ) )  {
-      alert( "Department code must be unique" );
+      toast.error( "Department code must be unique" );
       return;
     }    
     const newDept = new DepartmentModel(
@@ -299,11 +300,11 @@ export const App = () => {
   const handleAddEmp = () => {
     
     if (!empBadgeNumber || empBadgeNumber.trim() === '' ) {
-      alert( "Employee Badge # is required");
+      toast.error( "Employee Badge # is required");
       return;
     }  
     if ( emps.find( emp => emp.badgeNo.toLowerCase() === deptNumber.trim().toLowerCase() ) )  {
-      alert( "Employee Badge # must be unique" );
+      toast.error( "Employee Badge # must be unique" );
       return;
     }    
     const newEmp = new EmpModel(
@@ -324,11 +325,11 @@ export const App = () => {
   const handleAddItem = () => {
     
     if (!itemNumber || itemNumber.trim() === '' ) {
-      alert( "Item Code is required");
+      toast.error( "Item Code is required");
       return;
     }  
     if ( items.find( (item) => item.code.toLowerCase() === itemNumber.trim().toLowerCase() ) )  {
-      alert( "Item code must be unique" );
+      toast.error( "Item code must be unique" );
       return;
     }    
     const newItem = new ItemModel(
@@ -366,11 +367,11 @@ export const App = () => {
 
   const handleAddSupplier = () => {
     if (!supplierNumber.trim() || deptNumber.trim() === '' ) {
-      alert( "Supplier Code is required");
+      toast.error( "Supplier Code is required");
       return;
     }  
     if ( suppliers.find( (sup) => sup.supCode.toLowerCase() === supplierNumber.trim().toLowerCase() ) )  {
-      alert( "Supplier code must be unique" );
+      toast.error( "Supplier code must be unique" );
       return;
     }    
     const newSupplier = new SupplierModel(
@@ -586,8 +587,7 @@ export const App = () => {
     if ( !theItem ) return;
 
     if ( isItemAssignedToBin(itemNumber) ){
-      alert(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
-      console.log(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
+      toast(`Can not delete item: ${itemNumber} - ${theItem.description1}. It is still assigned to bin(s).`);
       return;
     }
     
@@ -608,8 +608,7 @@ export const App = () => {
     const theItem = items.find(itm => itm.code === itemCode);
     if ( !theItem ) return;
     if ( isItemAssignedToBin(itemCode) ){
-      alert(`Can not disable item: ${itemCode} - ${theItem.description1}. It is still assigned to bin(s).`);
-      console.log(`Can not disable item: ${itemCode} - ${theItem.description1}. It is still assigned to bin(s).`);
+      toast(`Can not disable item: ${itemCode} - ${theItem.description1}. It is still assigned to bin(s).`);
       return;
     }
     const updatedItem = {...theItem, disabled : true};
@@ -692,6 +691,8 @@ export const App = () => {
   return (
    
     <div>
+      <Toaster position="top-right" />
+      
       {/* <Router>       */}
         <MyNavbar />
 

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { DepartmentModel } from '../../models/DepartmentModel';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ListEmployees from './ListEmployees/ListEmployees';
 import { EmpModel } from '../../models/EmpModel';
+import toast from 'react-hot-toast';
 
 interface Props {
   emps: EmpModel[];
@@ -14,6 +15,25 @@ interface Props {
 const Employees = ({emps, setEmps, depts, resetEmp}: Props) => {
   
   const navigate = useNavigate();
+  const location = useLocation();
+  const message = location.state?.message;
+  const toastShowRef = useRef(false);
+
+  useEffect(() => {
+    
+    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
+    
+    if (!message || toastShowRef.current) return;
+  
+    toastShowRef.current = true;
+    toast.success(message);
+    
+    navigate(location.pathname,{ // navigate to this pageitself.
+      replace: true,// Replace current history
+      state: {}, // Clear navigation state.
+    })
+
+  } , [message, navigate, location.pathname] );
 
   const onSearchSubmit = (e: any) => {
     e.preventDefault();

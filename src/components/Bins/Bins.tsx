@@ -1,8 +1,9 @@
-import React, { useState, SyntheticEvent } from 'react'
+import React, { useState, SyntheticEvent, useRef, useEffect } from 'react'
 import ListBins from './ListBins/ListBins';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BinModel } from '../../models/BinsModel'
 import { ItemModel } from '../../models/ItemModel';
+import toast from 'react-hot-toast';
 
 interface Props {
   cribs: CribModel[];
@@ -17,6 +18,25 @@ interface Props {
 const Bins = ({cribs, items, bins, setBins, binNumber, selectedItem, resetBin}: Props) => {
   
   const navigate = useNavigate() ;
+  const location = useLocation();
+  const message = location.state?.message;
+  const toastShowRef = useRef(false);
+
+  useEffect(() => {
+    
+    console.log("items.tsx useEffect: toastShowRef.current = ", toastShowRef.current)
+    
+    if (!message || toastShowRef.current) return;
+  
+    toastShowRef.current = true;
+    toast.success(message);
+    
+    navigate(location.pathname,{ // navigate to this pageitself.
+      replace: true,// Replace current history
+      state: {}, // Clear navigation state.
+    })
+
+  } , [message, navigate, location.pathname] );
  
   const onSearchSubmit = (e: any ) => {
     e.preventDefault();
