@@ -60,7 +60,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
                         border border-white/10
                         shadow-[0_25px_80px_rgba(0,0,0,0.5)]
                         hover:shadow-[0_40px_120px_rgba(59,130,246,0.4)]
-                        hover:scale-105 hover:-translate-y-2
+                        hover:scale-125 hover:-translate-y-2
                         transition-all duration-500
                         cursor-pointer"
                 onClick={() => navigate("/about")}
