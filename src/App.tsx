@@ -6,7 +6,7 @@ import { toast, Toaster } from "react-hot-toast";
 
 import { HomeComponent } from './components/Home/HomeComponent';
 import MyNavbar from "./components/MyNavbar/MyNavbar";
-import { AboutComponent } from './components/AboutComponent';
+import { AboutComponent } from './components/About/AboutComponent';
 import { ItemModuleComponent } from './components/Items/ItemModuleComponent';
 import { PrintComponent } from './components/Items/PrintComponent';
 import { NewItemForm } from './components/Items/NewItemForm';

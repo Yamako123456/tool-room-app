@@ -1,6 +1,6 @@
 import React from 'react';
-import hero from "./hero.jpg";
-import hero2 from "../../Femail_attendant3.png";
+// import hero from "./Femail_attendant3.png";
+import hero from "./Femail_attendant3.png";
 import { ItemModel } from '../../../models/ItemModel';
 import "./Hero.css";
 import {useNavigate} from 'react-router-dom';
@@ -53,7 +53,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
                         transition-all duration-500 ease-out"
             /> */}
             <img
-                src={hero2}
+                src={hero}
                 alt=""
                 className="w-64 lg:w-80 rounded-3xl 
                             bg-white/5 backdrop-blur-md

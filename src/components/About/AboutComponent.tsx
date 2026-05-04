@@ -1,11 +1,13 @@
 import React from "react";
-import toolRoomPic from "./toolRoom_dexHound2.png";
+import toolRoomPic from "./dexHound_room.png";
+import bottomPic from "./thumbUpHelmet.jpg";
+
 
 export const AboutComponent = () => {
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid items-center gap-6 lg:grid-cols-[1fr_2fr]">
+        <div className="grid items-center gap-6 lg:grid-cols-3[1fr_2fr]">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-blue-600">
               About DexHound
@@ -101,7 +103,7 @@ export const AboutComponent = () => {
 
           <div className="mt-8 flex justify-center">
             <img
-              src="/img/thumbUpHelmet.jpg"
+              src={bottomPic}
               alt="Worker giving thumbs up"
               className="w-full max-w-md rounded-2xl object-cover shadow-lg"
             />
