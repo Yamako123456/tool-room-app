@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ItemModuleComponent } from './ItemModuleComponent';
 import ListItems from './ListItems/ListItems';
 import toast from 'react-hot-toast';
+import { SupplierModel } from '../../models/SupplierModel';
 
 interface Props {
   items: ItemModel[];
