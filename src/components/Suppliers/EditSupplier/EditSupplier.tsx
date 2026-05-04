@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { SupplierModel } from '../../../models/SupplierModel';
+import { useParams } from 'react-router-dom';
 
 interface Props {
     suppliers: SupplierModel[];
@@ -29,17 +31,17 @@ interface Props {
       setSupplierPhone: React.Dispatch<React.SetStateAction<string>>;
       supplierFax: string;
       setSupplierFax: React.Dispatch<React.SetStateAction<string>>;
-      supplierIsGrinder: boolean;
-      setSupplierIsGrinder: React.Dispatch<React.SetStateAction<boolean>>;
-      supplierIsCalibrator: boolean;
-      setSupplierIsCalibrator: React.Dispatch<React.SetStateAction<boolean>>;
+      isRegrinder: boolean;
+      setIsRegrinder: React.Dispatch<React.SetStateAction<boolean>>;
+      isCalibrator: boolean;
+      setIsCalibrator: React.Dispatch<React.SetStateAction<boolean>>;
       supplierServiceFee: number;
       setSupplierServiceFee: React.Dispatch<React.SetStateAction<number>>;
     //--------------
     isSupplierActive: boolean;
     setIsSupplierActive: React.Dispatch<React.SetStateAction<boolean>>;
 
-    handleEditSuppliert: () => void;
+    handleEditSupplier: () => void;
     handleDeleteSupplier: () => void;
     cancelEditSupplier: () => void;
 }
@@ -73,24 +75,220 @@ const EditSupplier = ({
       setSupplierPhone,
       supplierFax,
       setSupplierFax,
-      supplierIsGrinder,
-      setSupplierIsGrinder,
-      supplierIsCalibrator,
-      setSupplierIsCalibrator,
+      isRegrinder,
+      setIsRegrinder,
+      isCalibrator,
+      setIsCalibrator,
       supplierServiceFee,
       setSupplierServiceFee,
     //--------------
     isSupplierActive,
     setIsSupplierActive,
 
-    handleEditSuppliert,
+    handleEditSupplier,
     handleDeleteSupplier,
     cancelEditSupplier,
 
 }: Props) => {
+
+  const { supCode } = useParams<{ supCode: string}>();
+  const selectedSup = suppliers.find(sup => sup.supCode === supCode);
+
+  useEffect( () => {
+  setSupplierNumber(selectedSup?.supCode ?? "")
+  setSupplierName(selectedSup?.name ?? "");
+  setSupplierEmail(selectedSup?.email ?? "");
+  setSupplierAddr1(selectedSup?.addr1 ?? "");
+  setSupplierAddr2(selectedSup?.addr1 ?? "");
+  setSupplierCity(selectedSup?.city ?? "");
+  setSupplierState(selectedSup?.state ?? "");
+  setSupplierZip(selectedSup?.zip ?? "");
+  setSupplierCountry(selectedSup?.country ?? "");
+  setSupplierCurrency(selectedSup?.currencyType ?? "");
+  setSupplierContact(selectedSup?.contact ?? "");
+  setSupplierPhone(selectedSup?.phone ?? "");
+  setSupplierFax(selectedSup?.fax ?? "");
+  setIsRegrinder(selectedSup?.regrinder ?? false);
+  setIsCalibrator(selectedSup?.calibrator ?? false);
+  setSupplierServiceFee(selectedSup?.serviceFee ?? 0);
+  setIsSupplierActive(selectedSup?.active ?? false);
+  }, [selectedSup, suppliers]  );
+
   return (
-    <div>
-      EditSupplier
+    <div className='mb-1 block text-sm font-medium'>
+    
+      <div className="max-w-2xl mx-auto p-6 space-y-6">
+        <div>
+          <h1 className="text-2xl font-semibold">Edit Supplier</h1>
+          <p className="text-sm text-gray-500">Edit  a new supplier.</p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Supplier Code</label>
+            <input
+              readOnly
+              type="text"    
+              value={selectedSup?.supCode}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Supplier Name</label>
+            <input
+              type="text"   
+              value={supplierName}           
+              onChange={(e) => setSupplierName(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>     
+          <div>
+            <label className="block text-sm font-medium mb-1"> Email </label>
+            <input
+              type="text"    
+              value={supplierEmail}          
+              onChange={(e) => setSupplierEmail(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Street Addr-1</label>
+            <input
+              type="text"              
+              value={supplierAddr1}
+              onChange={(e) => setSupplierAddr1(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Street Addr-2</label>
+            <input
+              type="text"              
+              value={supplierAddr2}
+              onChange={(e) => setSupplierAddr2(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> City </label>
+            <input
+              type="text"   
+              value={supplierCity}           
+              onChange={(e) => setSupplierCity(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> State </label>
+            <input
+              type="text"              
+              value={supplierState}
+              onChange={(e) => setSupplierState(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Zip Code </label>
+            <input
+              type="text"              
+              value={supplierZip}
+              onChange={(e) => setSupplierZip(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Country </label>
+            <input
+              type="text"   
+              value={supplierCountry}
+              onChange={(e) => setSupplierCountry(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Currency Type</label>
+            <input
+              type="text"   
+              value={supplierCurrency}         
+              onChange={(e) => setSupplierCurrency(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Contact Name </label>
+            <input
+              type="text"   
+              value={supplierContact}
+              onChange={(e) => setSupplierContact(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Phone </label>
+            <input
+              type="text"   
+              value={supplierPhone}
+              onChange={(e) => setSupplierPhone(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+          <div>
+            <label className="block text-sm font-medium mb-1"> Fax </label>
+            <input
+              type="text"   
+              value={supplierFax}
+              onChange={(e) => setSupplierFax(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>  
+
+          <div className='flex gap-6'>
+            <label className='flex items-center gap-2'>
+              <input 
+                type='checkbox'
+                checked={isRegrinder}
+                onChange={(e) => setIsRegrinder(e.target.checked)}
+                className='h-4 w-4'
+              >
+              </input>
+              <span></span>
+            </label>
+            <label className='flex items-center gap-2'>
+              <input
+                type='checkbox'
+                checked={isCalibrator}
+                onChange={(e) => setIsCalibrator(e.target.checked)}
+                className='h-4 w-4'
+              >
+
+              </input>
+              <span></span>
+            </label>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1"> Service fee </label>
+            <input
+              type="number"   
+              value={supplierServiceFee}
+              onChange={(e) => setSupplierServiceFee(Number(e.target.value))}
+              className="w-full rounded-md border px-3 py-2"
+            />
+          </div>    
+        </div>
+{/* //============================================================================ */}
+        <div className="flex justify-end gap-3">
+          <button 
+            className="px-4 py-2 border rounded-lg"
+            // onClick={Navigate()}
+            onClick={ cancelEditSupplier }
+          >Cancel</button>
+          <button 
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+            onClick={ handleEditSupplier }
+          > Save Supplier </button>
+        </div>
+      </div>
     </div>
   )
 }

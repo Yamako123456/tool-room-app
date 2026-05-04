@@ -17,7 +17,7 @@ export class SupplierModel {
         regrinder: boolean;
         calibrator: boolean;
         serviceFee: number;
-        
+        active: boolean;
         notes?: string;
 
         constructor(
@@ -38,7 +38,7 @@ export class SupplierModel {
                 regrinder: boolean,
                 calibrator: boolean,
                 serviceFee: number,
-                
+                active: boolean,
                 notes: string,
         ) {
                 this.supCode = supCode;
@@ -58,7 +58,7 @@ export class SupplierModel {
                 this.regrinder = regrinder;
                 this.calibrator = calibrator;
                 this.serviceFee = serviceFee;
-                
+                this.active = active;
                 this.notes = notes;
 	}
        

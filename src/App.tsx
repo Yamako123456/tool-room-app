@@ -392,6 +392,7 @@ export const App = () => {
       isRegrinder,
       isCalibrator,
       supplierServiceFee,
+      false,
       "",
     );
     
@@ -547,6 +548,38 @@ export const App = () => {
   }
 
   const handleEditSupplier = () => {
+    if (!supplierNumber) return;
+
+    const updatedSupplier = new SupplierModel(
+         supplierNumber,
+         supplierName,
+         supplierEmail,
+         supplierPhone,
+         supplierFax,
+         supplierAddr1,
+         supplierAddr2,
+         supplierCity,
+         supplierState,
+         supplierZip,
+         supplierCountry,
+         supplierCurrency,
+         supplierContact,
+         isRegrinder,
+         isCalibrator,
+         supplierServiceFee,
+         isSupplierActive,
+         "",       
+    );
+
+    setSuppliers( prev =>
+      prev.map( sup =>
+        sup.supCode === supplierNumber
+        ? updatedSupplier
+        : sup
+      )
+    );
+    resetSup();
+    navigate('/suppliers', { state: {message: 'Supplier saved'}})
 
   }
 
@@ -1042,15 +1075,15 @@ export const App = () => {
                 setSupplierPhone={setSupplierPhone}
                 supplierFax={supplierFax}
                 setSupplierFax={setSupplierFax}
-                supplierIsGrinder={isRegrinder}
-                setSupplierIsGrinder={setIsRegrinder}
-                supplierIsCalibrator={isCalibrator}
-                setSupplierIsCalibrator={setIsCalibrator}
+                isRegrinder={isRegrinder}
+                setIsRegrinder={setIsRegrinder}
+                isCalibrator={isCalibrator}
+                setIsCalibrator={setIsCalibrator}
                 supplierServiceFee={supplierServiceFee}
                 setSupplierServiceFee={setSupplierServiceFee}
                 isSupplierActive={isSupplierActive}
                 setIsSupplierActive={setIsSupplierActive}
-                handleEditSuppliert={handleEditSupplier}
+                handleEditSupplier={handleEditSupplier}
                 handleDeleteSupplier={handleDeleteSupplier}
                 cancelEditSupplier={cancelSupplier}
               />}

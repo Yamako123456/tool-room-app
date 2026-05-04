@@ -19,6 +19,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": false,
     "serviceFee": 0,
+    "active": true,
     "notes": "Office supplies, paper, toner, general consumables"
   },
   {
@@ -38,6 +39,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": false,
     "serviceFee": 0,
+    "active": true,
     "notes": "Bolts, screws, nuts, washers, MRO supplies"
   },
   {
@@ -57,6 +59,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": false,
     "serviceFee": 0,
+    "active": true,
     "notes": "Industrial parts, safety equipment, fasteners"
   },
   {
@@ -76,6 +79,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": false,
     "serviceFee": 150.5,
+    "active": true,
     "notes": "Preferred supplier for cutting tools"
   },
   {
@@ -95,6 +99,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": true,
     "serviceFee": 200.0,
+    "active": true,
     "notes": "Calibration certified ISO 17025"
   },
   {
@@ -114,6 +119,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": false,
     "serviceFee": 120.75,
+    "active": true,
     "notes": ""
   },
   {
@@ -133,6 +139,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": true,
     "serviceFee": 175.0,
+    "active": true,
     "notes": "Handles both regrind and calibration"
   },
   {
@@ -152,6 +159,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": false,
     "serviceFee": 90.0,
+    "active": true,
     "notes": "General supply vendor"
   },
   {
@@ -171,6 +179,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": false,
     "serviceFee": 110.0,
+    "active": true,
     "notes": "Quick turnaround service"
   },
   {
@@ -190,6 +199,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": true,
     "serviceFee": 210.25,
+    "active": true,
     "notes": ""
   },
   {
@@ -209,6 +219,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": false,
     "serviceFee": 130.0,
+    "active": true,
     "notes": ""
   },
   {
@@ -228,6 +239,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": false,
     "calibrator": true,
     "serviceFee": 195.5,
+    "active": true,
     "notes": "High precision instruments"
   },
   {
@@ -247,6 +259,7 @@ export const initialSuppliers: SupplierModel[] = [
     "regrinder": true,
     "calibrator": true,
     "serviceFee": 160.0,
+    "active": true,
     "notes": "Full-service provider"
   },
 ]

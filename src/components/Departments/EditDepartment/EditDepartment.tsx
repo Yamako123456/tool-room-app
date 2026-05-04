@@ -37,7 +37,7 @@ const EditDepartment = ({
     
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold">Edit Department: {deptCode}</h1>
+          <h1 className="text-2xl font-semibold">Edit Department: {deptCode} - {selectedDept.description}</h1>
         </div>
         <div className="space-y-4">
           <div>
