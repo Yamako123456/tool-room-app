@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   isOpen: boolean;
