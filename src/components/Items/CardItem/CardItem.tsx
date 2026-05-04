@@ -1,5 +1,6 @@
 import React from 'react'
 import { ItemModel } from '../../../models/ItemModel'
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   aItem: ItemModel;

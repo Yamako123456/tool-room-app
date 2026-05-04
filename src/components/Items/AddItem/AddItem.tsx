@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SupplierLookup from '../../Suppliers/SupplierLookup/SupplierLookup';
 import { ITEM_TYPES } from '../../../constants/product';
 import SearchUPC from '../SearchUPC/SearchUPC';
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   suppliers: SupplierModel[];
