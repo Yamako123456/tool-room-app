@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { ItemModel } from '../../../models/ItemModel'
 import { useNavigate } from 'react-router-dom';
 import CardItem from '../CardItem/CardItem';
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   items: ItemModel[];
