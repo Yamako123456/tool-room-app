@@ -1,3 +1,5 @@
+import { SupplierModel } from "../models/SupplierModel";
+
 // import { SupplierModel } from "../models/SupplierModel"
 export const initialSuppliers: SupplierModel[] = [
    {

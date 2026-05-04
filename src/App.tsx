@@ -20,6 +20,7 @@ import { BinModel } from  './models/BinsModel';
 import { ItemModel } from './models/ItemModel'; 
 import { DepartmentModel } from './models/DepartmentModel';
 import { EmpModel}         from './models/EmpModel';
+import { SupplierModel } from './models/SupplierModel';
 import RestockBin from './components/Restock/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
 import { initialDepartments } from './data/initialDepartments';
@@ -40,6 +41,7 @@ import { searchProductByUPC } from './api';
 import { BarcodeSpiderLookupResponse, ItemAttributes, Store } from './data/product';
 import Suppliers from './components/Suppliers/Suppliers';
 import AddSupplier from './components/Suppliers/AddSupplier/AddSupplier';
+import EditSupplier from './components/Suppliers/EditSupplier/EditSupplier';
 
 // ------------------
 
@@ -91,13 +93,13 @@ export const App = () => {
   const [supplierCity, setSupplierCity] = useState<string>("");
   const [supplierState, setSupplierState] = useState<string>("");
   const [supplierZip, setSupplierZip] = useState<string>("");
-  const [supplierCountry, setSupplierCountry] = useState<string>("");
-  const [supplierCurrency, setSupplierCurrency] = useState<string>("");
+  const [supplierCountry, setSupplierCountry] = useState<string>("USA");
+  const [supplierCurrency, setSupplierCurrency] = useState<string>("USD");
   const [supplierContact, setSupplierContact] = useState<string>("");
   const [supplierPhone, setSupplierPhone] = useState<string>("");
   const [supplierFax, setSupplierFax] = useState<string>("");
-  const [supplierIsGrinder, setSupplierIsGrinder] = useState<boolean>(false);
-  const [supplierIsCalibrator, setSupplierIsCalibrator] = useState<boolean>(false);
+  const [isRegrinder, setIsRegrinder] = useState<boolean>(false);
+  const [isCalibrator, setIsCalibrator] = useState<boolean>(false);
   const [supplierServiceFee, setSupplierServiceFee] = useState<number>(0.0);
 
   const [itemDescription, setItemDescription] = useState<string>("");
@@ -117,10 +119,9 @@ export const App = () => {
   const [isDeptActive, setIsDeptActive] = useState<boolean>(false);
   const [isEmpActive, setIsEmpActive] = useState<boolean>(false);
   const [isCribActive, setIsCribActive] = useState<boolean>(false);
-  const [isSupActive, setIsSupActive] = useState<boolean>(false);
+  const [isSupplierActive, setIsSupplierActive] = useState<boolean>(false);
   const [isItemActive, setIsItemActive] = useState<boolean>(false);
   const [isItemDisabled, setIsItemDisabled] = useState<boolean>(false);
-
   const [isLookupItemOpen, setIsLookupItemOpen] = useState<boolean>(false);  
   const [isLookupEmpOpen, setIsLookupEmpOpen] = useState<boolean>(false);  
   const [isLookupDeptOpen, setIsLookupDeptOpen] = useState<boolean>(false);  
@@ -196,13 +197,13 @@ export const App = () => {
     setSupplierCity("");
     setSupplierState("");
     setSupplierZip("");
-    setSupplierCountry("");
-    setSupplierCurrency("");
+    setSupplierCountry("USA");
+    setSupplierCurrency("USD");
     setSupplierContact("");
     setSupplierPhone("");
     setSupplierFax("");
-    setSupplierIsGrinder(false);
-    setSupplierIsCalibrator(false);
+    setIsRegrinder(false);
+    setIsCalibrator(false);
     setSupplierServiceFee(0.0);
   }
 
@@ -366,7 +367,7 @@ export const App = () => {
   }
 
   const handleAddSupplier = () => {
-    if (!supplierNumber.trim() || deptNumber.trim() === '' ) {
+    if (!supplierNumber.trim() || supplierNumber.trim() === '' ) {
       toast.error( "Supplier Code is required");
       return;
     }  
@@ -388,11 +389,12 @@ export const App = () => {
       supplierCountry,
       supplierCurrency,
       supplierContact,
-      false,
-      false,
-      0.0,
+      isRegrinder,
+      isCalibrator,
+      supplierServiceFee,
       "",
     );
+    
     setSuppliers( prev => [...prev, newSupplier] );
     resetSup();
     navigate('/suppliers', { state: { message: 'Supplier saved' } });
@@ -486,28 +488,23 @@ export const App = () => {
     navigate('/emps', { state: {message: 'Employee saved'}})
   }
 
-
   const handleEditDept = () => {
-    if (!empBadgeNumber) return;
+    if (!deptNumber) return;
 
-    const updatedEmp = new EmpModel(
-      empBadgeNumber,
-      firstName,
-      lastName,
-      false,       
-      isSupervisor,
-      isStocker,
-      empDeptCode,
+    const updatedDept = new DepartmentModel(
+      deptNumber,
+      deptName,
+      isDeptActive
     );
-    setEmps( prev =>
-      prev.map( emp =>
-        emp.badgeNo === empBadgeNumber
-        ? updatedEmp
-        : emp
+    setDepts( prev =>
+      prev.map( dept =>
+        dept.deptCode === deptNumber
+        ? updatedDept
+        : dept
       )
     );
-    resetEmp();
-    navigate('/emps', { state: {message: 'Employee saved'}})
+    resetDept();
+    navigate('/depts', { state: {message: 'Department saved'}})
   }
 
   const handleEditItem = () => {
@@ -546,6 +543,10 @@ export const App = () => {
 
     resetItem();
     navigate('/items', { state: { message: `Item: ${itemNumber} saved.` }});
+
+  }
+
+  const handleEditSupplier = () => {
 
   }
 
@@ -616,6 +617,38 @@ export const App = () => {
       return item.code === itemCode ? updatedItem : item;
     });
   }
+
+  const handleDeleteSupplier = () => {
+    
+  }
+  const confirmDelete = ( recType: string, number: string, handler: () => void ) => {
+    toast( (t) => (
+      <div>
+        <span>
+          Delete this unused {recType}: {number}?
+        </span>
+        <div className='flex justify-end gap-2'>
+          <button
+            className='px-3 py-1 rounded bg-gray-200'
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+          <button
+            className='px-3 py-1 rounded bg-red-500 text-white'
+            onClick={ () => {
+              handler();
+              toast.dismiss(t.id);
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    )
+  );
+  }
+
 
   // -------------- Item barcode Print button handler ---------------------------
   const PrintWrapper = () => {
@@ -960,9 +993,9 @@ export const App = () => {
                 setSupplierState={setSupplierState}
                 // supplierZip
                 setSupplierZip={setSupplierZip}
-                // supplierCountry
+                supplierCountry={supplierCountry}
                 setSupplierCountry={setSupplierCountry}
-                // supplierCurrency
+                supplierCurrency={supplierCurrency}
                 setSupplierCurrency={setSupplierCurrency}
                 // supplierContact
                 setSupplierContact={setSupplierContact}
@@ -970,15 +1003,57 @@ export const App = () => {
                 setSupplierPhone={setSupplierPhone}
                 // supplierFax
                 setSupplierFax={setSupplierFax}
-                // supplierIsGrinder
-                setSupplierIsGrinder={setSupplierIsGrinder}
-                // supplierIsCalibrator
-                setSupplierIsCalibrator={setSupplierIsCalibrator}
-                // supplierServiceFee
+                isRegrinder={isRegrinder}
+                setIsRegrinder={setIsRegrinder}
+                isCalibrator={isCalibrator}
+                setIsCalibrator={setIsCalibrator}
+                supplierServiceFee={supplierServiceFee}
                 setSupplierServiceFee={setSupplierServiceFee}
                 handleAddSupplier={handleAddSupplier}
                 cancellAddSupplier={cancelSupplier}
               />} 
+            />
+            <Route path="/suppliers/:supCode/edit"
+              element={<EditSupplier
+                suppliers={suppliers}
+                supplierNumber={supplierNumber}
+                setSupplierNumber={setSupplierNumber}
+                supplierName={supplierName}
+                setSupplierName={setSupplierName}
+                supplierEmail={supplierEmail}
+                setSupplierEmail={setSupplierEmail}
+                supplierAddr1={supplierAddr1}
+                setSupplierAddr1={setSupplierAddr1}
+                supplierAddr2={supplierAddr2}
+                setSupplierAddr2={setSupplierAddr2}
+                supplierCity={supplierCity}
+                setSupplierCity={setSupplierCity}
+                supplierState={supplierState}
+                setSupplierState={setSupplierState}
+                supplierZip={supplierZip}
+                setSupplierZip={setSupplierZip}
+                supplierCountry={supplierCountry}
+                setSupplierCountry={setSupplierCountry}
+                supplierCurrency={supplierCurrency}
+                setSupplierCurrency={setSupplierCurrency}
+                supplierContact={supplierContact}
+                setSupplierContact={setSupplierContact}
+                supplierPhone={supplierPhone}
+                setSupplierPhone={setSupplierPhone}
+                supplierFax={supplierFax}
+                setSupplierFax={setSupplierFax}
+                supplierIsGrinder={isRegrinder}
+                setSupplierIsGrinder={setIsRegrinder}
+                supplierIsCalibrator={isCalibrator}
+                setSupplierIsCalibrator={setIsCalibrator}
+                supplierServiceFee={supplierServiceFee}
+                setSupplierServiceFee={setSupplierServiceFee}
+                isSupplierActive={isSupplierActive}
+                setIsSupplierActive={setIsSupplierActive}
+                handleEditSuppliert={handleEditSupplier}
+                handleDeleteSupplier={handleDeleteSupplier}
+                cancelEditSupplier={cancelSupplier}
+              />}
             />
 
             <Route path="/print/:itemCode" element={<PrintWrapper />} />

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ListSuppliers from './ListSuppliers/ListSuppliers';
+import { SupplierModel } from '../../models/SupplierModel';
 
 interface Props {
   suppliers: SupplierModel[];

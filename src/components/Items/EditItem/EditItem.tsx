@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import SearchUPC from '../SearchUPC/SearchUPC';
 import { ITEM_TYPES } from '../../../constants/product';
 import SupplierLookup from '../../Suppliers/SupplierLookup/SupplierLookup';
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   items: ItemModel[];
@@ -476,6 +477,7 @@ const EditItem = ({
         </p>
         <button
           className='mx-2 mb-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg'
+          // onClick={ () => { if (window.confirm(`Disable this unassigned item: ${selectedItem.code}?`)) {disableItem(itemNumber) } } }                    
           onClick={ () => { if (window.confirm(`Disable this unassigned item: ${selectedItem.code}?`)) {disableItem(itemNumber) } } }                    
         >
           Disabled Item

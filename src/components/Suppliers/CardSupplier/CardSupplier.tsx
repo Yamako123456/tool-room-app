@@ -1,4 +1,5 @@
 import React from 'react'
+import { SupplierModel } from '../../../models/SupplierModel';
 
 interface Props {
   aSupplier: SupplierModel;
@@ -20,7 +21,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
         </button>
       </div>
       
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Supplier Code:
         </span>    
@@ -28,7 +29,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.supCode}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Name:
         </span>    
@@ -36,7 +37,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.name}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Email:   
         </span>    
@@ -44,7 +45,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.email}
         </span>
       </div>
-        <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+        <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Strret Addr-1:
         </span>    
@@ -52,7 +53,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.addr1}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Strret Addr-2:    
         </span>    
@@ -60,7 +61,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.addr2}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           City:
         </span>    
@@ -68,7 +69,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.city}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           State:          
         </span>    
@@ -76,7 +77,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.state}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Zip Code:
         </span>    
@@ -84,7 +85,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.zip}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Country:          
         </span>    
@@ -92,7 +93,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.country}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Currency Type:          
         </span>    
@@ -100,15 +101,15 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.currencyType}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
-          Contact Person:          
+          Contact Name:          
         </span>    
         <span className='text-sm'>
           {aSupplier.contact}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Phone:          
         </span>    
@@ -116,7 +117,7 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.phone}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           Fax:          
         </span>    
@@ -124,23 +125,19 @@ const CardSupplier = ({aSupplier, onEditSup}: Props) => {
           {aSupplier.fax}
         </span>
       </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
-        <span className='text-sm font-semibold'>
-          Regrinder:          
-        </span>    
-        <span className='text-sm'>
-          {aSupplier.regrinder}
+      {aSupplier.regrinder && (
+        <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
+        <span className='text-sm font-semibold  text-blue-800'>
+          Regrinder 
         </span>
-      </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
-        <span className='text-sm font-semibold'>
-          Calibrator:          
-        </span>    
-        <span className='text-sm'>
-          {aSupplier.calibrator}
-        </span>
-      </div>
-      <div className='flex gap-2 items-baseline text-gray-800 mb-4'>
+      </div> )}
+      {aSupplier.calibrator && (
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
+          <span className='text-sm font-semibold  text-green-800'>
+            Calibrator
+          </span>    
+      </div> ) }
+      <div className='flex gap-2 items-baseline text-gray-800 mb-2'>
         <span className='text-sm font-semibold'>
           ServiceFee:          
         </span>    

@@ -1,5 +1,5 @@
 
-class SupplierModel {
+export class SupplierModel {
         supCode: string; 
         name: string; 
         email: string
@@ -49,6 +49,7 @@ class SupplierModel {
                 this.addr1 = addr1;
                 this.addr2 = addr2;
                 this.city = city;
+                this.state = state;
                 this.zip = zip;
                 this.country = country;
                 this.currencyType =currencyType;
