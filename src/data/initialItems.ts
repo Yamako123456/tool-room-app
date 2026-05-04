@@ -3,7 +3,7 @@ import { ItemModel } from "../models/ItemModel";
 export const initialItems: ItemModel[] = [
   {
     code: "153KJ83",
-    description1: "Makita Cordless Pistol-Grip Drills",
+    description1: "Makita Cordless Pistol-Grip Drill",
     itemImage: "https://d3jdpongi7ohqb.cloudfront.net/drill_codeless_green.jpg",
     itemType: "DURABLE",
     unitPrice: 161.54,
