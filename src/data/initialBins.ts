@@ -63,7 +63,7 @@ export const initialBinss: BinModel[] = [
     crib: "001",
     active: true,
     item: "DR-5MM-HSS",
-    qty: 40,
+    qty: 2,
     min: 30,
   },
   {
@@ -79,7 +79,7 @@ export const initialBinss: BinModel[] = [
     crib: "001",
     active: true,
     item: "DR-3MM-HSS",
-    qty: 80,
+    qty: 13,
     min: 40,
   },
   {
@@ -95,7 +95,7 @@ export const initialBinss: BinModel[] = [
     crib: "001",
     active: true,
     item: "SF-BT40-12MM",
-    qty: 50,
+    qty: 3,
     min: 20,
   },
   {
@@ -180,5 +180,21 @@ export const initialBinss: BinModel[] = [
     qty: 20,
     min: 5,
   },
+  {
+    binCode: "A023",
+    crib: "001",
+    active: true,
+    item: "GW-8X1-60G",
+    qty: 0,
+    min: 6,
+  },
+  {
+  binCode: "A024",
+  crib: "001",
+  active: true,
+  item: "MP-1IN-60G",
+  qty: 0,
+  min: 30,
+ },
 ];
 
