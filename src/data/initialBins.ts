@@ -122,5 +122,63 @@ export const initialBinss: BinModel[] = [
     qty: 10,
     min: 5,
   },
+
+
+    {
+    binCode: "A016",
+    crib: "001",
+    active: true,
+    item: "7712A11",
+    qty: 15,
+    min: 5,
+  },
+  {
+    binCode: "A017",
+    crib: "001",
+    active: true,
+    item: "8821B55",
+    qty: 10,
+    min: 5,
+  },
+  {
+    binCode: "A018",
+    crib: "001",
+    active: true,
+    item: "5533C77",
+    qty: 50,
+    min: 20,
+  },
+  {
+    binCode: "A019",
+    crib: "001",
+    active: true,
+    item: "9912D88",
+    qty: 12,
+    min: 5,
+  },
+  {
+    binCode: "A020",
+    crib: "001",
+    active: true,
+    item: "1100E22",
+    qty: 10,
+    min: 5,
+  },
+  {
+    binCode: "A021",
+    crib: "001",
+    active: true,
+    item: "6677F99",
+    qty: 40,
+    min: 15,
+  },
+  {
+    binCode: "A022",
+    crib: "001",
+    active: true,
+    item: "2244G11",
+    qty: 20,
+    min: 5,
+  },
 ];
 
