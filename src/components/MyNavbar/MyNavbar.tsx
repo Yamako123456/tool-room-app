@@ -43,17 +43,15 @@ const MyNavbar = (props: Props) => {
             <Link to="/suppliers" className='text-black hover:text-darkBlue'>
               Suppliers
             </Link>   
-                     
+            <Link to="/restocklist" className='text-black hover:text-darkBlue'>
+              Inventory
+            </Link>     
             <Link to="/about" className="text-black hover:text-darkBlue">
               About
             </Link>
           </div>
         </div>
-
-        <div className="flex flex-col lg:flex-row mt-4 lg:mt-0 space-y-2 lg:space-y-0 lg:space-x-6 text-black">
-        {/* <div className="hidden lg:flex items-center space-x-6 text-black"> */}
-          <div className="hover:text-darkBlue">Login</div>
-          
+        {/* <div className="hover:text-darkBlue">Login</div>
           <a
             href=""
               className="px-6 py-2 font-bold rounded text-white bg-green-500 hover:opacity-70 w-fit"
@@ -61,10 +59,7 @@ const MyNavbar = (props: Props) => {
           >
             Signup
           </a>
-          
-        
-        </div>
-
+        </div>  */}
        </div>
       </nav>
     </div>

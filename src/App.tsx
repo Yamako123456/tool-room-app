@@ -42,6 +42,7 @@ import { BarcodeSpiderLookupResponse, ItemAttributes, Store } from './data/produ
 import Suppliers from './components/Suppliers/Suppliers';
 import AddSupplier from './components/Suppliers/AddSupplier/AddSupplier';
 import EditSupplier from './components/Suppliers/EditSupplier/EditSupplier';
+import RestockOrderList from './components/RestockList/RestockList';
 
 // ------------------
 
@@ -1087,6 +1088,14 @@ export const App = () => {
                 handleDeleteSupplier={handleDeleteSupplier}
                 cancelEditSupplier={cancelSupplier}
               />}
+            />
+            <Route 
+              path="/restocklist"
+              element={<RestockOrderList
+              bins={bins}
+              items={items}
+              suppliers={suppliers}
+            />}
             />
 
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
