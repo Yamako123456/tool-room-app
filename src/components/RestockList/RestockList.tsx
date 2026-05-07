@@ -9,11 +9,12 @@ interface Props {
   bins: BinModel[];
   items: ItemModel[];
   suppliers: SupplierModel[];
+  handleOrderExport: (orders: restockObjType[]) => void;
 }
 
-const RestockList = ({ bins, items, suppliers }: Props) => {
+const RestockList = ({ bins, items, suppliers, handleOrderExport }: Props) => {
   
-  const itemRows = items
+  const itemRows: restockObjType[] = items
     .map((item) => {
       const itemBins = bins.filter(
         (bin) => bin.active && bin.item === item.code
@@ -32,7 +33,7 @@ const RestockList = ({ bins, items, suppliers }: Props) => {
         supplierName: supplier?.name ?? "Unknown Supplier",
         supplierCode: item.supCode,
 
-        bins: itemBins.map( (bin) => bin.binCode )
+        binsStr: itemBins.map( (bin) => bin.binCode )
           .join(", "),
         totalQty,
         totalMin,
@@ -44,8 +45,9 @@ const RestockList = ({ bins, items, suppliers }: Props) => {
       };
     });
     // .filter((row) => row.needsRestock);
-    const needRestock = itemRows.filter((ir) => ir.status !== "IN STOCK");
-    const sortedRows = itemRows.sort((a, b) => a.criticalNumber - b.criticalNumber);
+    const needRestock: restockObjType[] = itemRows.filter((ir) => ir.status !== "IN STOCK");
+    const sortedRows: restockObjType[] = itemRows.sort((a, b) => a.criticalNumber - b.criticalNumber);
+
   return (
     <div className="w-full mx-auto px-6 py-6">
       <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
@@ -59,9 +61,16 @@ const RestockList = ({ bins, items, suppliers }: Props) => {
               {/* Sum of stocked quantities and minimum quantities of all the bins with each item. */}
             </p>
           </div>
-
-          <div className="text-sm font-semibold bg-red-100 text-red-700 px-3 py-1 rounded-full">
-            {needRestock.length} Items Restock Needed
+          <div className="flex gap-2">
+            <div className="text-sm font-semibold bg-red-100 text-red-700 px-3 py-1 rounded-full">
+              {needRestock.length} Items Need Restock
+            </div>
+            <button 
+              onClick={() => handleOrderExport(needRestock)}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-semibold"
+            >
+              Export to CSV / Excel
+            </button>
           </div>
         </div>
 
@@ -93,7 +102,7 @@ const RestockList = ({ bins, items, suppliers }: Props) => {
                         className={`px-2 py-1 rounded-full text-xs font-bold ${
                           row.status === "OUT OF STOCK"
                             ? "bg-red-100 text-red-700"
-                            : row.status == "LOW STOCK" ? "bg-yellow-100 text-yellow-700" 
+                            : row.status === "LOW STOCK" ? "bg-yellow-100 text-yellow-700" 
                             : "bg-green-100 text-green-700" 
                         }`}
                       >
@@ -111,7 +120,7 @@ const RestockList = ({ bins, items, suppliers }: Props) => {
                     </td>
 
                     <td className="px-6 py-4 text-gray-700">
-                      {row.bins}
+                      {row.binsStr}
                     </td>
 
                     <td className="px-6 py-4">

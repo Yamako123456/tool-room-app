@@ -5,4 +5,18 @@ export {};
 declare global {
   type ItemType = typeof ITEM_TYPES[number]; //"EXPENDABLE" | "DURABLE";
   
+  type restockObjType = {
+        itemCode: string,
+        description: string,
+        supplierName: string,
+        supplierCode: string,
+        binsStr: string,
+        totalQty: number,
+        totalMin: number,
+        orderQty: number,
+        needsRestock: boolean,
+        status: String,
+        criticalNumber: number,
+        shortage: number,
+  };
 }

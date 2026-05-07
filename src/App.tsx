@@ -43,10 +43,8 @@ import Suppliers from './components/Suppliers/Suppliers';
 import AddSupplier from './components/Suppliers/AddSupplier/AddSupplier';
 import EditSupplier from './components/Suppliers/EditSupplier/EditSupplier';
 import RestockOrderList from './components/RestockList/RestockList';
-
+import * as XLSX from "xlsx";  
 // ------------------
-
-
 
 export const App = () => {
   const isDemoMode = true;
@@ -746,6 +744,8 @@ export const App = () => {
   }
 
   //--------------------------------------------------
+
+
   const formatDate = (date: Date | string) =>
     new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
@@ -753,8 +753,45 @@ export const App = () => {
       day: "numeric",
   });
 
+  //-------------- RestockList ---------------------------------------------
+  const handleOrderExport = (orders: restockObjType[] ) => {
+    const grouped: Record< string, restockObjType[]> = {};
 
+    orders.forEach(ord => {
+      if ( !grouped[ ord.supplierCode ] ) {
+        grouped[ ord.supplierCode ] = [];
+      }
+
+      grouped[ ord.supplierCode ].push(ord);
+    });
+
+    const workbook  = XLSX.utils.book_new();
+
+    Object.keys(grouped).forEach( supplier => {
+
+      const sheetData = grouped[supplier].map( ord =>(
+        {
+          Item: ord.description,
+          Qty: ord.totalQty,
+          Min: ord.totalMin,
+          "Shortage Qty": ord.shortage,
+          "Set Order Qty": ord.orderQty,
+        }
+      ));
+
+      const ws = XLSX.utils.json_to_sheet(sheetData);
+      
+      XLSX.utils.book_append_sheet(workbook, ws, supplier);
+      
+    });
+
+    XLSX.writeFile(workbook, "restock_by_supplier.xlsx")
+  };
+    
     //=================================================================================
+
+
+
   return (
    
     <div>
@@ -1095,6 +1132,7 @@ export const App = () => {
               bins={bins}
               items={items}
               suppliers={suppliers}
+              handleOrderExport={handleOrderExport}
             />}
             />
 
