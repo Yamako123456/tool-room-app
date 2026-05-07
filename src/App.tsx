@@ -754,8 +754,8 @@ export const App = () => {
   });
 
   //-------------- RestockList ---------------------------------------------
-  const handleOrderExport = (orders: restockObjType[] ) => {
-    const grouped: Record< string, restockObjType[]> = {};
+  const handleOrderExport = (orders: RestockObjType[] ) => {
+    const grouped: Record< string, RestockObjType[]> = {};
 
     orders.forEach(ord => {
       if ( !grouped[ ord.supplierCode ] ) {
@@ -787,7 +787,7 @@ export const App = () => {
 
     XLSX.writeFile(workbook, "restock_by_supplier.xlsx")
   };
-    
+
     //=================================================================================
 
 

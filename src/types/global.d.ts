@@ -5,7 +5,7 @@ export {};
 declare global {
   type ItemType = typeof ITEM_TYPES[number]; //"EXPENDABLE" | "DURABLE";
   
-  type restockObjType = {
+  type RestockObjType = {
         itemCode: string,
         description: string,
         supplierName: string,
@@ -19,4 +19,15 @@ declare global {
         criticalNumber: number,
         shortage: number,
   };
+
+  type TransactionType =
+    | "ISSUE"
+    | "RETURN"
+    | "STOCK"
+    | "PHYSICAL_COUNT";
+
+  type ReturnToType =
+    | "BIN"
+    | "REGRIND"  ;
+    
 }

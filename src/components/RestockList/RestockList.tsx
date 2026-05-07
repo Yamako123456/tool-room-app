@@ -9,12 +9,12 @@ interface Props {
   bins: BinModel[];
   items: ItemModel[];
   suppliers: SupplierModel[];
-  handleOrderExport: (orders: restockObjType[]) => void;
+  handleOrderExport: (orders: RestockObjType[]) => void;
 }
 
 const RestockList = ({ bins, items, suppliers, handleOrderExport }: Props) => {
   
-  const itemRows: restockObjType[] = items
+  const itemRows: RestockObjType[] = items
     .map((item) => {
       const itemBins = bins.filter(
         (bin) => bin.active && bin.item === item.code
@@ -45,8 +45,8 @@ const RestockList = ({ bins, items, suppliers, handleOrderExport }: Props) => {
       };
     });
     // .filter((row) => row.needsRestock);
-    const needRestock: restockObjType[] = itemRows.filter((ir) => ir.status !== "IN STOCK");
-    const sortedRows: restockObjType[] = itemRows.sort((a, b) => a.criticalNumber - b.criticalNumber);
+    const needRestock: RestockObjType[] = itemRows.filter((ir) => ir.status !== "IN STOCK");
+    const sortedRows: RestockObjType[] = itemRows.sort((a, b) => a.criticalNumber - b.criticalNumber);
 
   return (
     <div className="w-full mx-auto px-6 py-6">
