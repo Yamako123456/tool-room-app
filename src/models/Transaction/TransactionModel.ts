@@ -7,6 +7,7 @@ class TransactionModel {
   empCode: string;
   qty: number;
   transDate: Date;
+  returnTo?: ReturnToType;
   notes?: string;
 
   constructor(
@@ -15,6 +16,7 @@ class TransactionModel {
     binCode: string,
     empCode: string,
     qty: number,
+    returnTo?: ReturnToType,
     notes?: string,
   ){
     // this.transId = TransactionModel.nextId++;
@@ -25,6 +27,7 @@ class TransactionModel {
     this.empCode = empCode;
     this.qty = qty; 
     this.transDate = new Date();
+    this.returnTo = returnTo;
     this.notes = notes;
   }
 };
