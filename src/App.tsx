@@ -21,7 +21,6 @@ import { ItemModel } from './models/ItemModel';
 import { DepartmentModel } from './models/DepartmentModel';
 import { EmpModel}         from './models/EmpModel';
 import { SupplierModel } from './models/SupplierModel';
-import RestockBin from './components/Restock/RestockBin/RestockBin';
 import EditBin from './components/Bins/EditBin/EditBin';
 import { initialDepartments } from './data/initialDepartments';
 import Departments from './components/Departments/Departments';
@@ -46,17 +45,15 @@ import RestockOrderList from './components/RestockList/RestockList';
 import * as XLSX from "xlsx";  
 import Login from './components/Login/Login';
 import MainMenu from './components/MainMenu/MainMenu';
+import Issue from './components/Issue/Issue';
+import Return from './components/Return/Return';
+import Stock from './components/Stock/Stock';
+import PhysicalCount from './components/PhysicalCount/PhysicalCount';
 // ------------------
 
 export const App = () => {
 
   const isDemoMode = true;
-  //-----------------------------------------------------
-  const [scannedBadgeNo, setScannedBadgeNo] = useState("");
-  const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
-  const [error, setError] = useState("");
-  const [issues, setIssues] = useState<IssueModel[]>([]);
-  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
 
   //-----------------------------------------------------
   type itenTypes = "EXPENDABLE" | "DURABLE";
@@ -142,6 +139,69 @@ export const App = () => {
 
   const [lookupUPC, setLookupUPC] = useState<string>("");
 
+
+  //-----------------------------------------------------
+  const [scannedBadgeNo, setScannedBadgeNo] = useState("");
+  const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
+  const [error, setError] = useState("");
+  const [issues, setIssues] = useState<IssueModel[]>([]);
+  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
+  const [hasOpenIssue, setHasOpenIssue] = useState<boolean>(false);
+  //====================================================================
+
+  // -------------------- Main Menu -----------------------------
+  const handleLogOut = () => {
+    setLoggedInEmp(undefined);
+    setScannedBadgeNo("");
+    setHasOpenIssue(false);
+    navigate("/login");
+  
+  }
+
+  //--------------------- Badge Scan ----------------------------
+  const handleBadgeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!scannedBadgeNo.trim()) {
+      setError("Please scan or enter a badge number.");
+      return;
+    }
+    const emp = emps.find(emp => emp.badgeNo === scannedBadgeNo);
+    console.log("emp", emp)
+    if (!emp) {
+      setError(`Employee badge: ${scannedBadgeNo} was not found.`);
+      return;
+    } else {
+      setLoggedInEmp(emps.find(emp => emp.badgeNo === scannedBadgeNo)); 
+      setError("");
+      navigate('/main-menu');
+    }
+    
+    //--------------------- issue ---------------------------------
+  };
+
+
+
+//   const hasOpenIssue = issues.some( issue =>
+//     issue.badgeNo === selectedEmployee?.badgeNo &&
+    
+// );
+
+// const canReturn = hasOpenIssue;
+// const canStock = selectedEmployee?.isStocker || selectedEmployee?.isSupervisor;
+// const canPhysicalCount = selectedEmployee?.isSupervisor;
+  
+
+  //--------------------- Return --------------------------------
+  //--------------------- Stock ---------------------------------
+  //--------------------- Physical Count ------------------------
+  //--------------------- Transaction --------------------------
+
+
+
+
+
+
+
   type productResponse = {
        code: number,   //200
        status: string,  //"OK"
@@ -155,7 +215,7 @@ export const App = () => {
     initDemoData();
   }, []);
 
-  const navigate = useNavigate() ;
+  const navigate = useNavigate();
 
   // --------------Load Initial demo data ---------------------------
 
@@ -798,52 +858,6 @@ export const App = () => {
     XLSX.writeFile(workbook, "restock_by_supplier.xlsx")
   };
 
-  //--------------------- Badge Scan ----------------------------
-  const handleBadgeSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!scannedBadgeNo.trim()) {
-      setError("Please scan or enter a badge number.");
-      return;
-    }
-    const emp = emps.find(emp => emp.badgeNo === scannedBadgeNo);
-    // setLoggedInEmp(emps.find(emp => emp.badgeNo === scannedBadgeNo));
-    setLoggedInEmp(emp);
-    
-    if (!loggedInEmp) {
-      setError("Employee badge was not found.");
-      return;
-    } else {
-      setError("");
-      navigate('/main-menu');
-    }
-
-
-
-  };
-
-
-
-//   const hasOpenIssue = issues.some( issue =>
-//     issue.badgeNo === selectedEmployee?.badgeNo &&
-    
-// );
-
-// const canReturn = hasOpenIssue;
-// const canStock = selectedEmployee?.isStocker || selectedEmployee?.isSupervisor;
-// const canPhysicalCount = selectedEmployee?.isSupervisor;
-  // -------------------- Main Menu -----------------------------
-  //--------------------- issue ---------------------------------
-  
-
-  //--------------------- Return --------------------------------
-  //--------------------- Stock ---------------------------------
-  //--------------------- Physical Count ------------------------
-  //--------------------- Transaction --------------------------
-
-
-
-
 
 
 //=================================================================================
@@ -853,7 +867,7 @@ export const App = () => {
       <Toaster position="top-right" />
       
       {/* <Router>       */}
-        <MyNavbar />
+        {!loggedInEmp &&<MyNavbar />}
 
         <div className='container mt-3'>
           <Routes>
@@ -1192,12 +1206,7 @@ export const App = () => {
             />
 
             <Route path="/print/:itemCode" element={<PrintWrapper />} />
-            
-            <Route 
-              path="/bins/restock" 
-              element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} 
-              /> } 
-            />
+  
 
             <Route
               path="/login"
@@ -1217,10 +1226,39 @@ export const App = () => {
               path='/main-menu'
               element={<MainMenu 
                 loggedInEmp={loggedInEmp}
-                
+                handleLogOut={handleLogOut}
+                hasOpenIssue={hasOpenIssue}  
+                setHasOpenIssue={setHasOpenIssue}
               />}
             />
             
+            <Route 
+              path='/issue'
+              element={< Issue
+              
+              />}
+            />
+            
+            <Route 
+              path='/return'
+              element={<Return
+                 />}
+            />
+
+            <Route 
+              path='/stock'
+              element={<Stock 
+              
+              />}
+            />
+            
+            <Route 
+              path='/physical-count'
+              element={<PhysicalCount 
+              />}
+            />
+
+            <Route />
           </Routes>
         </div>
       {/* </Router> */}

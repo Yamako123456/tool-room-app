@@ -62,31 +62,10 @@ const Login = ({
             type="submit"
             className="w-full rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium py-3"
           >
-            Login
+            Log In
           </button>
         </form>
 
-        {/* {loggedInEmp && !error && (
-          <div className="mt-8 border-t pt-6">
-            <h2 className="text-xl font-semibold text-gray-900">
-              Welcome, {loggedInEmp.firstName} {loggedInEmp.lastName}
-            </h2>
-
-            <p className="text-gray-500 text-sm mt-1">
-              Badge: {loggedInEmp.badgeNo}
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
-              <button className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3">
-                Issue Tool
-              </button>
-
-              <button className="rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white py-3">
-                Return Tool
-              </button>
-            </div>
-          </div>
-        )} */}
       </div>
     </section>
   );

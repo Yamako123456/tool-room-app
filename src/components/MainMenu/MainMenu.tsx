@@ -1,11 +1,18 @@
 import React from 'react'
 import { EmpModel } from '../../models/EmpModel'
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   loggedInEmp: EmpModel | undefined;
+  handleLogOut: () => void;
+  hasOpenIssue: boolean;
+  setHasOpenIssue: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MainMenu = ({loggedInEmp}: Props) => {
+const MainMenu = ({loggedInEmp, handleLogOut, hasOpenIssue, setHasOpenIssue}: Props) => {
+
+  const navigate = useNavigate();
+
   return (
     <section id="main-menu">
       <div className='relative flex items-center'>
@@ -24,12 +31,41 @@ const MainMenu = ({loggedInEmp}: Props) => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
-          <button className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3">
+          <button 
+            onClick={() => navigate('/issue')}
+            className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
+          >
             Issue
           </button>
 
-          <button className="rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white py-3">
+          {hasOpenIssue &&<button 
+            onClick={() => navigate('/return')}
+            className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
+          >
             Return
+          </button>
+          }  
+            {(loggedInEmp?.isStocker || loggedInEmp?.isSupervisor) &&
+            <button 
+              onClick={() => navigate('/stock')}
+              className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
+            >
+              Stock
+            </button>
+            }
+            
+            {loggedInEmp?.isSupervisor &&
+            <button 
+              onClick={() => navigate("/physical-count")}
+              className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3">
+              Physical Count
+            </button>
+            }
+          <button 
+            type='button'
+            onClick={handleLogOut}
+            className="rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white py-3">
+            Log Out
           </button>
         </div>
       </div>      
