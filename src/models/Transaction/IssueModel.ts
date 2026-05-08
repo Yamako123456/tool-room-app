@@ -19,4 +19,5 @@ class IssueModel {
       this.qty = qty;
       this.issueDate = new Date();
   };
+
 };

@@ -44,11 +44,21 @@ import AddSupplier from './components/Suppliers/AddSupplier/AddSupplier';
 import EditSupplier from './components/Suppliers/EditSupplier/EditSupplier';
 import RestockOrderList from './components/RestockList/RestockList';
 import * as XLSX from "xlsx";  
+import Login from './components/Login/Login';
+import MainMenu from './components/MainMenu/MainMenu';
 // ------------------
 
 export const App = () => {
-  const isDemoMode = true;
 
+  const isDemoMode = true;
+  //-----------------------------------------------------
+  const [scannedBadgeNo, setScannedBadgeNo] = useState("");
+  const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
+  const [error, setError] = useState("");
+  const [issues, setIssues] = useState<IssueModel[]>([]);
+  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
+
+  //-----------------------------------------------------
   type itenTypes = "EXPENDABLE" | "DURABLE";
 
   const [emps, setEmps] = useState<EmpModel[]>([]);
@@ -788,10 +798,55 @@ export const App = () => {
     XLSX.writeFile(workbook, "restock_by_supplier.xlsx")
   };
 
-    //=================================================================================
+  //--------------------- Badge Scan ----------------------------
+  const handleBadgeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!scannedBadgeNo.trim()) {
+      setError("Please scan or enter a badge number.");
+      return;
+    }
+    const emp = emps.find(emp => emp.badgeNo === scannedBadgeNo);
+    // setLoggedInEmp(emps.find(emp => emp.badgeNo === scannedBadgeNo));
+    setLoggedInEmp(emp);
+    
+    if (!loggedInEmp) {
+      setError("Employee badge was not found.");
+      return;
+    } else {
+      setError("");
+      navigate('/main-menu');
+    }
 
 
 
+  };
+
+
+
+//   const hasOpenIssue = issues.some( issue =>
+//     issue.badgeNo === selectedEmployee?.badgeNo &&
+    
+// );
+
+// const canReturn = hasOpenIssue;
+// const canStock = selectedEmployee?.isStocker || selectedEmployee?.isSupervisor;
+// const canPhysicalCount = selectedEmployee?.isSupervisor;
+  // -------------------- Main Menu -----------------------------
+  //--------------------- issue ---------------------------------
+  
+
+  //--------------------- Return --------------------------------
+  //--------------------- Stock ---------------------------------
+  //--------------------- Physical Count ------------------------
+  //--------------------- Transaction --------------------------
+
+
+
+
+
+
+//=================================================================================
   return (
    
     <div>
@@ -1140,7 +1195,31 @@ export const App = () => {
             
             <Route 
               path="/bins/restock" 
-              element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} /> } />
+              element={<RestockBin  bins={bins} items={items} stockQty={stockQty} setStockQty={setStockQty} 
+              /> } 
+            />
+
+            <Route
+              path="/login"
+              element={<Login  
+                emps={emps}
+                scannedBadgeNo={scannedBadgeNo} 
+                setScannedBadgeNo={setScannedBadgeNo}
+                loggedInEmp={loggedInEmp}
+                setLoggedInEmp={setLoggedInEmp}
+                handleBadgeSubmit={handleBadgeSubmit}
+                error={error}
+                setError={setError}
+              />}
+            />
+
+            <Route 
+              path='/main-menu'
+              element={<MainMenu 
+                loggedInEmp={loggedInEmp}
+                
+              />}
+            />
             
           </Routes>
         </div>
