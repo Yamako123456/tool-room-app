@@ -49,6 +49,7 @@ import Issue from './components/Issue/Issue';
 import Return from './components/Return/Return';
 import Stock from './components/Stock/Stock';
 import PhysicalCount from './components/PhysicalCount/PhysicalCount';
+import IssueQtyForm from './components/Issue/IssueQtyForm/IssueQtyForm';
 // ------------------
 
 export const App = () => {
@@ -141,19 +142,29 @@ export const App = () => {
 
 
   //-----------------------------------------------------
+  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
+  const [issues, setIssues] = useState<IssueModel[]>([]);
+  
   const [scannedBadgeNo, setScannedBadgeNo] = useState("");
   const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
   const [error, setError] = useState("");
-  const [issues, setIssues] = useState<IssueModel[]>([]);
-  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
   const [hasOpenIssue, setHasOpenIssue] = useState<boolean>(false);
+
+  const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
+  const [availableQty, setAvailableQty] = useState<number>(0);
+  const [issueQty, setIssueQty] = useState<number>(0);
   //====================================================================
 
   // -------------------- Main Menu -----------------------------
   const handleLogOut = () => {
-    setLoggedInEmp(undefined);
     setScannedBadgeNo("");
+    setLoggedInEmp(undefined);
+    setError("");
     setHasOpenIssue(false);
+    setIssueItem(undefined);
+    setAvailableQty(0);
+    setIssueQty(0);
+
     navigate("/login");
   
   }
@@ -176,10 +187,21 @@ export const App = () => {
       navigate('/main-menu');
     }
     
-    //--------------------- issue ---------------------------------
   };
+  
+  //--------------------- issue ---------------------------------
+  const onCloseQtyForm = () => {
+    console.log("onCloseQtyForm hasn't been implemented")
+  }
+  
+  const hadleIssueNow = () => {
+    console.log("hadleIssueNow hasn't been implemented")
 
+  }
+  const handleAddToCart = () => {
+    console.log("hadleAddToCart hasn't been implemented")
 
+  }
 
 //   const hasOpenIssue = issues.some( issue =>
 //     issue.badgeNo === selectedEmployee?.badgeNo &&
@@ -1235,10 +1257,28 @@ export const App = () => {
             <Route 
               path='/issue'
               element={< Issue
-              
+                items={items}
+                bins={bins}
+                handleLogOut={handleLogOut}
+                  
               />}
             />
             
+            <Route 
+              path='/issue/:itemCode/qty-form'
+              element={< IssueQtyForm
+                items={items}
+                issueItem={issueItem}
+                setIssueItem={setIssueItem}
+                bins={bins}
+                onClose={onCloseQtyForm}
+                issueQty={issueQty}
+                setIssueQty={setIssueQty}
+                handleIssueNow={hadleIssueNow}
+                handleAddToCart={handleAddToCart}
+              />}
+            />
+
             <Route 
               path='/return'
               element={<Return

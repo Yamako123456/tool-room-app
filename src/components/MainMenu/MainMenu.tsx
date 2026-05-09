@@ -15,12 +15,11 @@ const MainMenu = ({loggedInEmp, handleLogOut, hasOpenIssue, setHasOpenIssue}: Pr
 
   return (
     <section id="main-menu">
-      <div className='relative flex items-center'>
-        <h2 className='absolute left-1/2 lg:-translate-x-1/2 font-semibold'>
-          Main Menu
-        </h2>
-      </div>
-      
+      <div className='absolute left-1/2 lg:-translate-x-1/2'>
+          <h2 className=' text-2xl font-semibold'>
+            Main Menu
+          </h2>
+        </div>
       <div className="mt-8 border-t pt-6">
         <h2 className="text-xl font-semibold text-gray-900">
           Welcome, {loggedInEmp?.firstName} {loggedInEmp?.lastName}

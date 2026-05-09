@@ -17,7 +17,7 @@ const CardItem = ({aItem, suppliers, onEditItem, formatDate}: Props) => {
       <div className='flex justify-end mb-2'>
         <button 
           onClick={() => onEditItem(aItem.code)}
-          className='text-sm bg-blue-500 hover:border-blue-600 text-white px-3 py-1 rounded-lg'
+          className='text-sm bg-blue-500 hover:bg-blue-600 border text-white px-3 py-1 rounded-lg'
         >
           Edit
         </button>
