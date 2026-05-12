@@ -27,6 +27,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
 
   }, [items, filterText]);
 
+
   return (
     <section id="issue">
       <div className='relative flex items-center justify-between mb-10'>

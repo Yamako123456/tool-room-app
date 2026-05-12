@@ -141,7 +141,7 @@ export const App = () => {
   const [lookupUPC, setLookupUPC] = useState<string>("");
 
 
-  //-----------------------------------------------------
+  //-------------------- Operations ------------------------------------------------------
   const [transactions, setTransactions] = useState<TransactionModel[]>([]);
   const [issues, setIssues] = useState<IssueModel[]>([]);
   
@@ -150,9 +150,29 @@ export const App = () => {
   const [error, setError] = useState("");
   const [hasOpenIssue, setHasOpenIssue] = useState<boolean>(false);
 
-  const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
-  const [availableQty, setAvailableQty] = useState<number>(0);
-  const [issueQty, setIssueQty] = useState<number>(0);
+  // const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
+  // const [availableQty, setAvailableQty] = useState<number>(0);
+  // const [issueQty, setIssueQty] = useState<number>(0);
+
+// 　 ＿/＼／＼／ヽ_
+// 　｜ (＞――＜) ｜
+// `／ ／ ヽ｜ノ ＼ ＼
+// ｜ /　● ⊥ ●　ﾍ /
+// / ｜　 ／ｏ＼　 ｜＼
+// ＼｜　(＿人＿)　｜／
+// `｜＼　　||　　／｜
+// 　￣~＞―Ｕ―＜~￣
+// 　 ／　/　　 ヽ＼
+// 　(　-<　＿　 |　)
+// 　 ＼／)(||)　|／
+// 　 ∠ﾚ<＿二＿ノ＝≦ﾐ
+// 　　　/　| | ヽ
+// 　　 /　 | |　ヽ
+// 　 ∠ZZﾆノ ヽﾆZZ＞
+
+
+
+
   //====================================================================
 
   // -------------------- Main Menu -----------------------------
@@ -161,9 +181,9 @@ export const App = () => {
     setLoggedInEmp(undefined);
     setError("");
     setHasOpenIssue(false);
-    setIssueItem(undefined);
-    setAvailableQty(0);
-    setIssueQty(0);
+    // setIssueItem(undefined);
+    // setAvailableQty(0);
+    // setIssueQty(0);
 
     navigate("/login");
   
@@ -1264,7 +1284,7 @@ export const App = () => {
               />}
             />
             
-            <Route 
+            {/* <Route 
               path='/issue/:itemCode/qty-form'
               element={< IssueQtyForm
                 items={items}
@@ -1277,7 +1297,7 @@ export const App = () => {
                 handleIssueNow={hadleIssueNow}
                 handleAddToCart={handleAddToCart}
               />}
-            />
+            /> */}
 
             <Route 
               path='/return'
