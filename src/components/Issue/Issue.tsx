@@ -10,11 +10,21 @@ interface Props {
   handleLogOut: () => void;
 }
 
+interface CartItem {
+  item: ItemModel;
+  qty: number;
+}
+
 const Issue = ({ items, bins, handleLogOut}: Props) => {
 
   const navigate = useNavigate();
 
   const [filterText, setFilterText] = useState<string>(""); 
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const totalCartQty = cartItems.reduce(
+    (sum, cartItem) => sum + cartItem.qty, 0
+  );
 
   const filteredItems = useMemo(() => {
     const keyword = filterText.trim().toLowerCase();
@@ -27,6 +37,26 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
 
   }, [items, filterText]);
 
+  const addtoCart = (newItem: ItemModel) => {
+    let exists = false;
+    const updatedCartItems = cartItems.map(cartItem => {
+      if (cartItem.item.code === newItem.code) {
+        const updatedCartItem: CartItem  = {
+          item: newItem,
+          qty: cartItem.qty ++,
+        }
+        exists = true;
+        return updatedCartItem;
+      } else return cartItem;
+    });
+
+    if (exists) {
+      setCartItems(updatedCartItems);
+    } else {
+      
+    }
+    
+  }
 
   return (
     <section id="issue">
@@ -64,19 +94,39 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
         />
       </div>
 
-      <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
-        {filteredItems.length > 0 ? (
-          filteredItems.map(aItem => 
-            !aItem.disabled && aItem.active &&
-            <CardIssueItem aItem={aItem} bins={bins} />
-          )
-        ) : (
-          <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
-            No items to show.
-          </h3>
-        )
-        }
+      <div className='grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 px-10 md:px-6 mb-5'>
+        <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
+
+          {filteredItems.length > 0 ? (
+            filteredItems.map(aItem => 
+              !aItem.disabled && aItem.active &&
+              <CardIssueItem aItem={aItem} bins={bins} />
+            )
+            ) : (
+              <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
+                No items to show.
+              </h3>
+            )
+          }
+        </div>
+
+         {/* cart */}
+        <aside className='rounded-xl border bg-white p-4 shadow-sm h-fit lg:sticky lg:top-6'>
+          <div className='flex items-center justify-between mb-4'>
+            <h3 className='text-xl font-se'>
+              Issue Cart
+            </h3>
+
+            <span>
+              {totalCartQty} items
+            </span>
+          </div>
+
+        </aside>
+
       </div>
+
+     
     </section>
 
   )
