@@ -11,23 +11,17 @@ interface Props {
   setSelectedIssueQty: React.Dispatch<React.SetStateAction<number>>;
   addItemtoCart: (newItem: ItemModel, qty: number) => void;
   issueItems: (newItem: ItemModel, qty: number) => void;
+  remainingQty: number;
 }
 
 const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty,
-  addItemtoCart,
-  issueItems
+  addItemtoCart, issueItems, remainingQty
   }: Props) => {
 
   const navigate = useNavigate();
-  const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
-  const [availableQty, setAvailableQty] = useState<number>(0);
-  const [issueQty, setIssueQty] = useState<number>(0);
   const [isQtyOpen, setIsQtyOpen] = useState<boolean>(false);
-
-  const itemBins = bins.filter(
-    (bin) => bin.active && bin.item === aItem.code
-  );
-  const totalAvailableQty = itemBins.reduce((sum, bin) => sum + bin.qty, 0);
+  const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
+  const [issueQty, setIssueQty] = useState<number>(0);
 
   const handleIssueNow = () => {
     console.log("handleIssueNow hasn't been inplemented");
@@ -40,16 +34,16 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
       setIssueQty(0);
     }
   }
+
   return (
     <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
       
-      {totalAvailableQty > 0 ? (<div className='flex justify-end mb-2'>
+      {remainingQty > 0 ? (<div className='flex justify-end mb-2'>
         <button 
           // onClick={() => navigate(`/issue/${aItem.code}/qty-form`)  }
           onClick={() => {
             setIssueItem(aItem);
             setIssueQty(0);
-            setAvailableQty(totalAvailableQty);
             setIsQtyOpen(true);
           }}
           className='text-sm bg-green-500 hover:bg-green-600 border text-white px-3 py-1 rounded-lg'
@@ -103,10 +97,10 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
       
       <div className="flex gap-x-1 items-baseline  text-gray-800">
         <span className="text-sm font-semibold">
-          Available Qty:
+          Remaining available Qty:
         </span>
         <span className='text-sm'>
-          {totalAvailableQty > 0 ? totalAvailableQty : "Out of Stock"}
+          {remainingQty > 0 ? remainingQty : "Out of Stock"}
         </span>  
       </div>
 
@@ -114,7 +108,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
               isQtyOpen={isQtyOpen}
               setIsQtyOpen={setIsQtyOpen}
               aItem={aItem}
-              availableQty={availableQty}
+              remainingQty={remainingQty}
               issueQty={issueQty}
               setIssueQty={setIssueQty}
               handleIssueNow={handleIssueNow}

@@ -9,7 +9,7 @@ interface Props {
       isQtyOpen: boolean;
       setIsQtyOpen: React.Dispatch<React.SetStateAction<boolean>>;
       aItem: ItemModel;
-      availableQty: number;
+      remainingQty: number;
       // setIssueItem: React.Dispatch<React.SetStateAction<ItemModel | undefined>>; 
       // bins: BinModel[];
       // onClose: () => void;
@@ -20,7 +20,7 @@ interface Props {
     }
     // const IssueQtyForm = ({items, issueItem, setIssueItem, bins, onClose, 
     //     issueQty, setIssueQty, handleIssueNow, handleAddToCart}: Props) => {
-const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, availableQty, issueQty, setIssueQty, handleIssueNow, handleAddToCart}: Props) => {
+const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, setIssueQty, handleIssueNow, handleAddToCart}: Props) => {
   
   if ( !isQtyOpen ) return null;
   
@@ -59,12 +59,12 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, availableQty, issueQty, 
 
             <div className="grid grid-cols-[auto-1fr] gap-x-3 gap-y-3 items-center">
               <span className="text-sm font-semibold">
-                Available Qty:
+                Remaining available Qty:
               </span>
 
-              {availableQty > 0 ? (
+              {remainingQty > 0 ? (
                 <span className='text-sm'>
-                  {availableQty}
+                  {remainingQty}
                 </span>  
               ) : (
                 <span className='w-fit rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700'>
@@ -103,7 +103,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, availableQty, issueQty, 
                   handleIssueNow();
                 }}
                 className='rounded-lg bg-green-600 text-white px-4 py-2 hover:bg-green-700 disabled:opacity-50'
-                disabled={availableQty <= 0}
+                disabled={remainingQty <= 0}
               >
                 Issue Now
               </button>
@@ -114,7 +114,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, availableQty, issueQty, 
                   handleAddToCart();
                 }}
                 className='rounded-lg bg-blue-600 text-white px-4 py-2  hover:bg-blue-700 disabled:opacity-50'
-                disabled={availableQty <= 0}
+                disabled={remainingQty <= 0}
               >
                 Add to Cart
               </button>

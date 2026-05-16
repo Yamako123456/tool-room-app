@@ -113,13 +113,27 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
         <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
 
           {filteredItems.length > 0 ? (
-            filteredItems.map(aItem => 
-              !aItem.disabled && aItem.active &&
-              <CardIssueItem aItem={aItem} bins={bins} 
+
+            filteredItems.map( aItem => {
+              if (aItem.disabled || !aItem.active) return null;
+              
+              const itemBins = bins.filter(
+                (bin) => bin.active && bin.item === aItem.code
+              );
+              const totalAvailableQty = itemBins.reduce((sum, bin) => sum + bin.qty, 0);
+              
+              const aCartItem = cartItems.find(
+                cartItem => cartItem.item.code === aItem.code
+              );
+              const aCartItemQty = aCartItem?.qty ?? 0;
+              const remainingQty = totalAvailableQty - aCartItemQty;
+              
+              return <CardIssueItem aItem={aItem} bins={bins} 
                 setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
                 addItemtoCart={addItemtoCart}
                 issueItems={issueItems}
-              />
+                remainingQty={remainingQty}
+              />}
             )
             ) : (
               <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
