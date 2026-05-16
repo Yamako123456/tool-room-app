@@ -182,8 +182,8 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
                      
                       
                     </p>
-                    <p className='text-sm text-gray-500'>
-                      {cartItem.qty}
+                    <p className='text-sm font-semibold text-gray-500'>
+                      Qty: {cartItem.qty}
 
                     </p>
                   </div>
