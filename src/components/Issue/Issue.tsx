@@ -21,6 +21,8 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
 
   const [filterText, setFilterText] = useState<string>(""); 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [selectedIssueItem, setSelectedIssueItem] = useState<ItemModel | undefined>(undefined);
+  const [selectedIssueQty, setSelectedIssueQty] = useState<number>(0);
 
   const totalCartQty = cartItems.reduce(
     (sum, cartItem) => sum + cartItem.qty, 0
@@ -37,13 +39,13 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
 
   }, [items, filterText]);
 
-  const addtoCart = (newItem: ItemModel) => {
+  const addItemtoCart = (newItem: ItemModel, qty: number) => {
     let exists = false;
     const updatedCartItems = cartItems.map(cartItem => {
       if (cartItem.item.code === newItem.code) {
         const updatedCartItem: CartItem  = {
           item: newItem,
-          qty: cartItem.qty ++,
+          qty: cartItem.qty + qty,
         }
         exists = true;
         return updatedCartItem;
@@ -53,9 +55,22 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
     if (exists) {
       setCartItems(updatedCartItems);
     } else {
-      
+      const newCartItem: CartItem = {
+        item: newItem, 
+        qty: qty,
+      };
+      setCartItems([...cartItems, newCartItem]);
     }
-    
+  }
+
+  // const handleAddToCart = () => {
+  //   if (selectedIssueItem && selectedIssueQty > 0) {
+  //     addItemtoCart(selectedIssueItem, selectedIssueQty);
+  //   }
+  // }
+
+  const issueItems = () => {
+    console.log("handleIssue hasn't been inmplemented yet.");
   }
 
   return (
@@ -100,7 +115,11 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
           {filteredItems.length > 0 ? (
             filteredItems.map(aItem => 
               !aItem.disabled && aItem.active &&
-              <CardIssueItem aItem={aItem} bins={bins} />
+              <CardIssueItem aItem={aItem} bins={bins} 
+                setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
+                addItemtoCart={addItemtoCart}
+                issueItems={issueItems}
+              />
             )
             ) : (
               <h3 className='my-3 text-xl font-semibold text-center md:text-xl'>
@@ -121,6 +140,45 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
               {totalCartQty} items
             </span>
           </div>
+          {cartItems.length === 0 ? (
+            <p>
+              No items in cart
+            </p>
+          ) : (
+            <div className='space-y-4'>
+              {cartItems.map((cartItem) => (
+                <div 
+                  key={cartItem.item.code}
+                  className='border-b pb-3'
+                >
+                  <div>
+                    <p className='font-medium'>
+                      {cartItem.item.code}
+                    </p>
+                    <p className='text-sm text-gray-500'>
+                      {cartItem.item.description1}
+                      
+                    </p>
+                    <img
+                      src={cartItem.item.itemImage}
+                      alt={cartItem.item.description1 || cartItem.item.code}
+                      className='h-16 w-16 rounded-md object-cover border'
+                    />
+                    <p className='text-sm text-gray-500'>
+                     
+                      
+                    </p>
+                    <p className='text-sm text-gray-500'>
+                      {cartItem.qty}
+
+                    </p>
+                  </div>
+                </div>  
+              )
+
+              )}
+            </div>
+          )}
 
         </aside>
 

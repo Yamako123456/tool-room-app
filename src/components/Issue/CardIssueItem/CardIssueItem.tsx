@@ -7,9 +7,16 @@ import IssueQtyForm from '../IssueQtyForm/IssueQtyForm';
 interface Props {
   aItem: ItemModel;
   bins: BinModel[];
+  setSelectedIssueItem: React.Dispatch<React.SetStateAction<ItemModel | undefined>>;
+  setSelectedIssueQty: React.Dispatch<React.SetStateAction<number>>;
+  addItemtoCart: (newItem: ItemModel, qty: number) => void;
+  issueItems: (newItem: ItemModel, qty: number) => void;
 }
 
-const CardIssueItem = ({aItem, bins}: Props) => {
+const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty,
+  addItemtoCart,
+  issueItems
+  }: Props) => {
 
   const navigate = useNavigate();
   const [issueItem, setIssueItem] = useState<ItemModel | undefined>(undefined);
@@ -28,10 +35,11 @@ const CardIssueItem = ({aItem, bins}: Props) => {
   };
 
   const handleAddToCart = () => {
-    console.log("handleAddToCart hasn't been inplemented");
-
-  };
-
+    if ( issueQty > 0) {
+      addItemtoCart(aItem, issueQty);
+      setIssueQty(0);
+    }
+  }
   return (
     <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
       
