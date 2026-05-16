@@ -145,7 +145,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
               No items in cart
             </p>
           ) : (
-            <div className='space-y-4'>
+            <div className='max-h-[70vh] overflow-y-auto space-y-4'>
               {cartItems.map((cartItem) => (
                 <div 
                   key={cartItem.item.code}
