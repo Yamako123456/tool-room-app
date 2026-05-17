@@ -63,15 +63,58 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
     }
   }
 
-  // const handleAddToCart = () => {
-  //   if (selectedIssueItem && selectedIssueQty > 0) {
-  //     addItemtoCart(selectedIssueItem, selectedIssueQty);
-  //   }
-  // }
-
   const issueItems = () => {
     console.log("handleIssue hasn't been inmplemented yet.");
   }
+
+  const incrementCartItemQty = (target: CartItem) => {
+    const updatedCartItems: CartItem[] = cartItems.map((prev) => {
+      if (prev.item.code === target.item.code) {
+        return {
+          ...prev,
+          qty: Math.min( getRemainingAvailableQty(target.item), prev.qty + 1) ,
+        }
+      } else {
+        return prev;
+      }  
+    });
+
+    setCartItems(updatedCartItems);
+    
+  }
+
+
+  const decrementCartItemQty = (target: CartItem) => {
+   
+    const updatedCartItems: CartItem[] = cartItems.map((prev) => {
+      if (prev.item.code === target.item.code) {
+        return {
+          ...prev,
+          qty: Math.max(1, prev.qty - 1),
+        }
+      } else {
+        return prev;
+      }  
+    });
+
+    setCartItems(updatedCartItems);
+    
+  }
+
+  const getRemainingAvailableQty = (aItem: ItemModel) => {
+    const itemBins = bins.filter(
+      (bin) => bin.active && bin.item === aItem.code
+    );
+    const totalAvailableQty = itemBins.reduce((sum, bin) => sum + bin.qty, 0);
+              
+    const aCartItem = cartItems.find(
+      cartItem => cartItem.item.code === aItem.code
+    );
+    const aCartItemQty = aCartItem?.qty ?? 0;
+
+    return totalAvailableQty - aCartItemQty;
+  }
+
 
   return (
     <section id="issue">
@@ -117,16 +160,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
             filteredItems.map( aItem => {
               if (aItem.disabled || !aItem.active) return null;
               
-              const itemBins = bins.filter(
-                (bin) => bin.active && bin.item === aItem.code
-              );
-              const totalAvailableQty = itemBins.reduce((sum, bin) => sum + bin.qty, 0);
-              
-              const aCartItem = cartItems.find(
-                cartItem => cartItem.item.code === aItem.code
-              );
-              const aCartItemQty = aCartItem?.qty ?? 0;
-              const remainingQty = totalAvailableQty - aCartItemQty;
+              const remainingQty = getRemainingAvailableQty(aItem);
               
               return <CardIssueItem aItem={aItem} bins={bins} 
                 setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
@@ -178,14 +212,28 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
                       alt={cartItem.item.description1 || cartItem.item.code}
                       className='h-16 w-16 rounded-md object-cover border'
                     />
-                    <p className='text-sm text-gray-500'>
-                     
-                      
-                    </p>
+
+                    <button
+                      type='button'
+                      onClick={() => decrementCartItemQty(cartItem) }
+                      className='h-7 w-7 flex items-center justify-center text-3xl font-bold rounded border hover:bg-gray-100'
+                      >
+                      -
+                    </button>
+
+
                     <p className='text-sm font-semibold text-gray-500'>
                       Qty: {cartItem.qty}
-
                     </p>
+
+                    <button
+                      type='button'
+                      onClick={() => incrementCartItemQty(cartItem) }
+                      className='h-7 w-7 flex items-center justify-center text-1xl font-bold rounded border hover:bg-gray-100'
+                      >
+                      +
+                    </button>
+
                   </div>
                 </div>  
               )
