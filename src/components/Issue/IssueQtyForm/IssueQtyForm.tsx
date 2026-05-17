@@ -84,7 +84,12 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
             <input 
               type="number"
               value={issueQty}
-              onChange={(e) => setIssueQty(Number(e.target.value))}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                const validQty = Math.max(0, Math.min(remainingQty, value));
+                setIssueQty(Number(validQty))
+
+              }}
               placeholder='Quantity you need'
               className='w-full rounded-md border px-2 py-2 text-black'
             />

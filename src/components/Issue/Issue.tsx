@@ -218,27 +218,28 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
                       alt={cartItem.item.description1 || cartItem.item.code}
                       className='h-16 w-16 rounded-md object-cover border'
                     />
+        
+                    <div className='flex items-center gap-3'>
+                      <button
+                        type='button'
+                        onClick={() => decrementCartItemQty(cartItem) }
+                        className='h-7 w-7 flex items-center justify-center text-3xl font-bold rounded border hover:bg-gray-100'
+                        >
+                        -
+                      </button>
 
-                    <button
-                      type='button'
-                      onClick={() => decrementCartItemQty(cartItem) }
-                      className='h-7 w-7 flex items-center justify-center text-3xl font-bold rounded border hover:bg-gray-100'
-                      >
-                      -
-                    </button>
+                      <p className='text-sm font-semibold text-gray-500'>
+                        Qty: {cartItem.qty}
+                      </p>
 
-
-                    <p className='text-sm font-semibold text-gray-500'>
-                      Qty: {cartItem.qty}
-                    </p>
-
-                    <button
-                      type='button'
-                      onClick={() => incrementCartItemQty(cartItem) }
-                      className='h-7 w-7 flex items-center justify-center text-1xl font-bold rounded border hover:bg-gray-100'
-                      >
-                      +
-                    </button>
+                      <button
+                        type='button'
+                        onClick={() => incrementCartItemQty(cartItem) }
+                        className='h-7 w-7 flex items-center justify-center text-1xl font-bold rounded border hover:bg-gray-100'
+                        >
+                        +
+                      </button>
+                    </div>
 
                   </div>
                 </div>  
