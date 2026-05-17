@@ -11,11 +11,12 @@ interface Props {
   setSelectedIssueQty: React.Dispatch<React.SetStateAction<number>>;
   addItemtoCart: (newItem: ItemModel, qty: number) => void;
   issueItems: (newItem: ItemModel, qty: number) => void;
-  remainingQty: number;
+  totalAvailableQty: number;
+  remainingAvailableQty: number;
 }
 
 const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty,
-  addItemtoCart, issueItems, remainingQty
+  addItemtoCart, issueItems, totalAvailableQty, remainingAvailableQty
   }: Props) => {
 
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
   return (
     <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
       
-      {remainingQty > 0 ? (<div className='flex justify-end mb-2'>
+      {remainingAvailableQty > 0 ? (<div className='flex justify-end mb-2'>
         <button 
           // onClick={() => navigate(`/issue/${aItem.code}/qty-form`)  }
           onClick={() => {
@@ -51,10 +52,16 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
           Issue
         </button>
       </div>)
-      : (
+      : totalAvailableQty < 1 ? (
       <div className='flex justify-end pt-3'>  
         <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full">
           Out of Stock
+        </span>
+      </div>
+      ) : (
+        <div className='flex justify-end pt-3'>  
+        <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full">
+          No Remaining
         </span>
       </div>
       )}
@@ -100,7 +107,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
           Remaining available Qty:
         </span>
         <span className='text-sm'>
-          {remainingQty > 0 ? remainingQty : "Out of Stock"}
+          {totalAvailableQty > 0 ? remainingAvailableQty : "Out of Stock"}
         </span>  
       </div>
 
@@ -108,7 +115,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
               isQtyOpen={isQtyOpen}
               setIsQtyOpen={setIsQtyOpen}
               aItem={aItem}
-              remainingQty={remainingQty}
+              remainingQty={remainingAvailableQty}
               issueQty={issueQty}
               setIssueQty={setIssueQty}
               handleIssueNow={handleIssueNow}

@@ -72,7 +72,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
       if (prev.item.code === target.item.code) {
         return {
           ...prev,
-          qty: Math.min( getRemainingAvailableQty(target.item), prev.qty + 1) ,
+          qty: Math.min( getTotalAvailableQty(target.item), prev.qty + 1) ,
         }
       } else {
         return prev;
@@ -101,18 +101,22 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
     
   }
 
-  const getRemainingAvailableQty = (aItem: ItemModel) => {
+  const getTotalAvailableQty = (aItem: ItemModel) => {
     const itemBins = bins.filter(
       (bin) => bin.active && bin.item === aItem.code
     );
-    const totalAvailableQty = itemBins.reduce((sum, bin) => sum + bin.qty, 0);
-              
+    return itemBins.reduce((sum, bin) => sum + bin.qty, 0);
+  }   
+  
+
+  const getRemainingAvailableQty = (aItem: ItemModel) => {
+   
     const aCartItem = cartItems.find(
       cartItem => cartItem.item.code === aItem.code
     );
     const aCartItemQty = aCartItem?.qty ?? 0;
 
-    return totalAvailableQty - aCartItemQty;
+    return getTotalAvailableQty(aItem) - aCartItemQty;
   }
 
 
@@ -161,12 +165,14 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
               if (aItem.disabled || !aItem.active) return null;
               
               const remainingQty = getRemainingAvailableQty(aItem);
-              
+              const totalQty = getTotalAvailableQty(aItem);
+
               return <CardIssueItem aItem={aItem} bins={bins} 
                 setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
                 addItemtoCart={addItemtoCart}
                 issueItems={issueItems}
-                remainingQty={remainingQty}
+                totalAvailableQty={totalQty}
+                remainingAvailableQty={remainingQty}
               />}
             )
             ) : (
