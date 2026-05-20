@@ -12,6 +12,7 @@ export const initialBinss: BinModel[] = [
   new BinModel("A009", "001", 60, 40, true, "DR-10MM-COBALT"),
   new BinModel("A010", "001", 13, 40, true, "DR-3MM-HSS"),
   new BinModel("A011", "001", 40, 20, true, "SF-HSK63A-1IN"),
+  new BinModel("A111", "001", 40, 20, true, "SF-HSK63A-1IN"),
   new BinModel("A012", "001", 3, 20, true, "SF-BT40-12MM"),
   new BinModel("A013", "001", 15, 10, true, "84CutDia"),
   new BinModel("A014", "001", 10, 5, true, "4cutdia"),

@@ -44,7 +44,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
           // onClick={() => navigate(`/issue/${aItem.code}/qty-form`)  }
           onClick={() => {
             setIssueItem(aItem);
-            setIssueQty(0);
+            setIssueQty(1);
             setIsQtyOpen(true);
           }}
           className='text-sm bg-green-500 hover:bg-green-600 border text-white px-3 py-1 rounded-lg'

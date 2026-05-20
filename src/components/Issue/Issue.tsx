@@ -3,6 +3,7 @@ import { ItemModel } from '../../models/ItemModel';
 import { BinModel } from '../../models/BinsModel';
 import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
+import { getTotalQtyForItem } from '../Bins/BinService/BinService';
 
 interface Props {
   items: ItemModel[];
@@ -24,7 +25,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
   const [selectedIssueItem, setSelectedIssueItem] = useState<ItemModel | undefined>(undefined);
   const [selectedIssueQty, setSelectedIssueQty] = useState<number>(0);
 
-  const totalCartQty = cartItems.reduce(
+  const totalCartQty =   cartItems.reduce(
     (sum, cartItem) => sum + cartItem.qty, 0
   );
 
@@ -72,7 +73,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
       if (prev.item.code === target.item.code) {
         return {
           ...prev,
-          qty: Math.min( getTotalAvailableQty(target.item), prev.qty + 1) ,
+          qty: Math.min( getTotalQtyForItem(target.item.code, bins), prev.qty + 1) ,
         }
       } else {
         return prev;
@@ -99,15 +100,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
 
     setCartItems(updatedCartItems);
     
-  }
-
-  const getTotalAvailableQty = (aItem: ItemModel) => {
-    const itemBins = bins.filter(
-      (bin) => bin.active && bin.item === aItem.code
-    );
-    return itemBins.reduce((sum, bin) => sum + bin.qty, 0);
-  }   
-  
+  }  
 
   const getRemainingAvailableQty = (aItem: ItemModel) => {
    
@@ -116,9 +109,23 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
     );
     const aCartItemQty = aCartItem?.qty ?? 0;
 
-    return getTotalAvailableQty(aItem) - aCartItemQty;
+    return getTotalQtyForItem(aItem.code, bins) - aCartItemQty;
   }
 
+  const deleteFromCart = (deleteItemCode: string) => {
+    if (!deleteItemCode || deleteItemCode.length < 1) {
+      return;
+    }
+
+     setCartItems(
+      cartItems.filter(cItem => cItem.item.code !== deleteItemCode)
+    );
+    
+  }
+
+  const handleCheckOut = () => {
+    console.log('handleCheckOut has not been implemented yet.');
+  }
 
   return (
     <section id="issue">
@@ -165,7 +172,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
               if (aItem.disabled || !aItem.active) return null;
               
               const remainingQty = getRemainingAvailableQty(aItem);
-              const totalQty = getTotalAvailableQty(aItem);
+              const totalQty = getTotalQtyForItem(aItem.code, bins);
 
               return <CardIssueItem aItem={aItem} bins={bins} 
                 setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
@@ -190,20 +197,22 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
               Issue Cart
             </h3>
 
-            <span>
-              {totalCartQty} items
-            </span>
+            {totalCartQty > 0 && (
+              <span>
+                {totalCartQty} items
+              </span>
+            )} 
           </div>
           {cartItems.length === 0 ? (
             <p>
-              No items in cart
+              Cart is empty
             </p>
           ) : (
             <div className='max-h-[70vh] overflow-y-auto space-y-4'>
               {cartItems.map((cartItem) => (
                 <div 
                   key={cartItem.item.code}
-                  className='border-b pb-3'
+                  className='border-t pt-3'
                 >
                   <div>
                     <p className='font-medium'>
@@ -216,7 +225,7 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
                     <img
                       src={cartItem.item.itemImage}
                       alt={cartItem.item.description1 || cartItem.item.code}
-                      className='h-16 w-16 rounded-md object-cover border'
+                      className='h-16 w-16 rounded-md object-contain border my-2'
                     />
         
                     <div className='flex items-center gap-3'>
@@ -242,20 +251,34 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
                     </div>
 
                   </div>
-                </div>  
-              )
 
-              )}
+                  <button 
+                    type='button'
+                    onClick={() => deleteFromCart(cartItem.item.code) }
+                    className='rounded p-2 text-red-500 hover:border-t-red-50 hover:text-red-700 text-2xl'
+                    aria-label={`Remove ${cartItem.item.code} from cart`}
+                  >
+                    🗑
+                  </button>
+                </div>  
+              ))}
             </div>
           )}
-
+        
+          <div className='mt-4 border-t pt-4'>
+            <button
+              type='button'
+              onClick={handleCheckOut}
+              disabled={cartItems.length === 0}
+              className='w-full rounded-lg bg-green-600 px-4 py-2 font-semibold text-white
+                enabled:hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-slate-200'
+            >
+              Check Out
+            </button>
+          </div>
         </aside>
-
       </div>
-
-     
     </section>
-
   )
 }
 

@@ -25,6 +25,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
   if ( !isQtyOpen ) return null;
   
   const onClose = () => setIsQtyOpen(false);
+  // setIssueQty(1);
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4'>
@@ -52,7 +53,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
               <img
               src={aItem.itemImage}
               alt={aItem.code}
-              className='w-20 h-20 object-cover rounded-lg border p-1'
+              className='w-20 h-20 object-contain rounded-lg border p-1'
               />
             )}
 
@@ -87,10 +88,11 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
               onChange={(e) => {
                 const value = Number(e.target.value);
                 const validQty = Math.max(0, Math.min(remainingQty, value));
+                
                 setIssueQty(Number(validQty))
 
               }}
-              placeholder='Quantity you need'
+              placeholder='Enter quantity you need'
               className='w-full rounded-md border px-2 py-2 text-black'
             />
           </div>
