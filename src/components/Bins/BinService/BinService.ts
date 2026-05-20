@@ -18,3 +18,39 @@ export const getBinsForItem = (
     (bin) => bin.active && bin.item === itemCode
   );
 }
+
+export const decreaseBinQty = (
+  itemCode: string, 
+  bins: BinModel[],
+  qty: number,
+) => {
+  const itemBins = getBinsForItem(itemCode, bins);
+  let issueQty = qty;
+
+  itemBins.map( (itemBin) => {
+    if (itemBin.qty >= issueQty) {
+      issueQty = 0;
+    } else {
+      issueQty -= itemBin.qty;
+    }
+  }
+
+  );
+}
+
+export const updateBinQty = (
+  bins: BinModel[],
+  setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
+  binCode: string,
+  qty: number,
+) => {
+  const updatedBins = bins.map( (bin) => {
+
+    if (bin.binCode === binCode) {
+      return {...bin, qty: bin.qty + qty};;
+    }
+    return bin;
+  
+  })
+  setBins(updatedBins);
+}

@@ -22,24 +22,6 @@ export class BinModel {
         this.item = item;
     }
 
-    decreaseQty(qty: number): void {
-        if (qty <= 0 ) {
-            throw new Error("Quantity must be greater than zero.")
-        }
-
-        if (this.qty > qty ) {
-            throw new Error("Insufficient bin quantity.")
-        }
-
-        this.qty -= qty;
-    };
-
-    increaseQty(qty: number): void {
-        if (qty <= 0 ) {
-            throw new Error("Quantity must be greater than zero.")
-        }
-
-        this.qty += qty;
-    };
+   
 
 }
