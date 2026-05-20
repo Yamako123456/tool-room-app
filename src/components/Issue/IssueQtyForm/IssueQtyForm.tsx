@@ -4,28 +4,21 @@ import { BinModel } from '../../../models/BinsModel';
 import { useParams } from 'react-router-dom';
 
 interface Props {
-  // items: ItemModel[];
-  // issueItem: ItemModel | undefined;
+
       isQtyOpen: boolean;
       setIsQtyOpen: React.Dispatch<React.SetStateAction<boolean>>;
       aItem: ItemModel;
       remainingQty: number;
-      // setIssueItem: React.Dispatch<React.SetStateAction<ItemModel | undefined>>; 
-      // bins: BinModel[];
-      // onClose: () => void;
       issueQty: number;
       setIssueQty: React.Dispatch<React.SetStateAction<number>>;
       handleIssueNow: () => void;
       handleAddToCart: () => void;
     }
-    // const IssueQtyForm = ({items, issueItem, setIssueItem, bins, onClose, 
-    //     issueQty, setIssueQty, handleIssueNow, handleAddToCart}: Props) => {
 const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, setIssueQty, handleIssueNow, handleAddToCart}: Props) => {
   
   if ( !isQtyOpen ) return null;
   
   const onClose = () => setIsQtyOpen(false);
-  // setIssueQty(1);
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4'>

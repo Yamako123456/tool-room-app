@@ -1,4 +1,4 @@
-class IssueModel {
+export class IssueModel {
   issueId: number;
   itemCode: string;
   binCode: string;
@@ -12,7 +12,7 @@ class IssueModel {
     empCode: string,
     qty: number,
   ) {
-      this.issueId = Date.now();
+      this.issueId = Date.now();// Timestamp for uniqueness
       this.itemCode = itemCode;
       this.binCode = binCode;
       this.empCode= empCode;

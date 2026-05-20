@@ -50,6 +50,9 @@ import Return from './components/Return/Return';
 import Stock from './components/Stock/Stock';
 import PhysicalCount from './components/PhysicalCount/PhysicalCount';
 import IssueQtyForm from './components/Issue/IssueQtyForm/IssueQtyForm';
+import { TransactionModel } from './models/Transaction/TransactionModel';
+import { IssueModel } from './models/Transaction/IssueModel';
+import Transactions from './components/Transactions/Transactions';
 // ------------------
 
 export const App = () => {
@@ -142,8 +145,8 @@ export const App = () => {
 
 
   //-------------------- Operations ------------------------------------------------------
-  const [transactions, setTransactions] = useState<TransactionModel[]>([]);
-  const [issues, setIssues] = useState<IssueModel[]>([]);
+  const [tranRecords, setTranRecords] = useState<TransactionModel[]>([]);
+  const [issuesRecords, setIssuesRecords] = useState<IssueModel[]>([]);
   
   const [scannedBadgeNo, setScannedBadgeNo] = useState("");
   const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
@@ -1279,25 +1282,20 @@ export const App = () => {
               element={< Issue
                 items={items}
                 bins={bins}
+                setBins={setBins}
                 handleLogOut={handleLogOut}
-                  
+                empCode={scannedBadgeNo}
+                tranRecords={tranRecords}
+                setTranRecords={setTranRecords}  
               />}
             />
             
-            {/* <Route 
-              path='/issue/:itemCode/qty-form'
-              element={< IssueQtyForm
-                items={items}
-                issueItem={issueItem}
-                setIssueItem={setIssueItem}
-                bins={bins}
-                onClose={onCloseQtyForm}
-                issueQty={issueQty}
-                setIssueQty={setIssueQty}
-                handleIssueNow={hadleIssueNow}
-                handleAddToCart={handleAddToCart}
+            <Route 
+              path='/transactions'
+              element={< Transactions
+                tranRecords={tranRecords}
               />}
-            /> */}
+            />
 
             <Route 
               path='/return'

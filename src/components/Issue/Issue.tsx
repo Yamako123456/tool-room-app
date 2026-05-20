@@ -3,12 +3,18 @@ import { ItemModel } from '../../models/ItemModel';
 import { BinModel } from '../../models/BinsModel';
 import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
-import { getTotalQtyForItem } from '../Bins/BinService/BinService';
+import { getTotalQtyForItem, issueItemQtyFromBins } from '../Bins/BinService/BinService';
+import { TransactionModel } from '../../models/Transaction/TransactionModel';
+// import { appendTranRecordForIssue } from '../TransactionService/IssueService';
 
 interface Props {
   items: ItemModel[];
   bins: BinModel[];
+  setBins: React.Dispatch<React.SetStateAction<BinModel[]>>;
   handleLogOut: () => void;
+  empCode: string;
+  tranRecords: TransactionModel[];
+  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>
 }
 
 interface CartItem {
@@ -16,7 +22,7 @@ interface CartItem {
   qty: number;
 }
 
-const Issue = ({ items, bins, handleLogOut}: Props) => {
+const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTranRecords}: Props) => {
 
   const navigate = useNavigate();
 
@@ -120,11 +126,30 @@ const Issue = ({ items, bins, handleLogOut}: Props) => {
      setCartItems(
       cartItems.filter(cItem => cItem.item.code !== deleteItemCode)
     );
-    
   }
 
   const handleCheckOut = () => {
-    console.log('handleCheckOut has not been implemented yet.');
+
+    if (cartItems.length === 0){
+      console.log("cartItems is empty.");
+      return;
+    }
+
+    cartItems.map(cartItem =>  {
+
+      issueItemQtyFromBins(
+        cartItem.item,
+        bins,
+        setBins,
+        cartItem.qty,
+        empCode,
+        tranRecords,
+        setTranRecords
+      );
+    });
+
+    setCartItems([]);
+    
   }
 
   return (

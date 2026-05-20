@@ -18,17 +18,24 @@ declare global {
         status: String,
         criticalNumber: number,
         shortage: number,
-  };
+    };
 
-  type TransactionType =
-    | "ISSUE"
-    | "RETURN"
-    | "STOCK"
-    | "PHYSICAL_COUNT";
+  // export enum TransactionType {
+  //   ISSUE = "ISSUE",
+  //   RETURN = "RETURN",
+  //   STOCK = "STOCK",
+  //   PHYSICAL_COUNT = "PHYSICAL_COUNT",
+  // }
 
-  type ReturnToType =
+  export type ReturnToType = //Union type
     | "BIN"
     | "REGRIND"
     | "SCRAP";
-
 }
+
+  export enum TransactionType {
+    ISSUE = "ISSUE",
+    RETURN = "RETURN",
+    STOCK = "STOCK",
+    PHYSICAL_COUNT = "PHYSICAL_COUNT",
+  }

@@ -1,12 +1,13 @@
-class TransactionModel {
-  // private static nextId = 1;
-  transId: number;
-  transType: TransactionType;
+import { TransactionType } from "../../types/global";
+
+export class TransactionModel {
+  tranId: number;
+  tranType: TransactionType;
   itemCode: string;
   binCode: string;
   empCode: string;
   qty: number;
-  transDate: Date;
+  tranDate: Date;
   returnTo?: ReturnToType;
   notes?: string;
 
@@ -19,14 +20,13 @@ class TransactionModel {
     returnTo?: ReturnToType,
     notes?: string,
   ){
-    // this.transId = TransactionModel.nextId++;
-    this.transId = Date.now(); // Timestamp for uniqueness
-    this.transType = transType;
+    this.tranId = Date.now(); // Timestamp for uniqueness
+    this.tranType = transType;
     this.itemCode = itemCode;
     this.binCode = binCode;
     this.empCode = empCode;
     this.qty = qty; 
-    this.transDate = new Date();
+    this.tranDate = new Date();
     this.returnTo = returnTo;
     this.notes = notes;
   }
