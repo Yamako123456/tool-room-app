@@ -38,7 +38,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
               href="/login"
               className="py-3 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
             >
-              Get Started with Operations
+              Try Demo badge 1002
             </a>
           </div>
         </div>

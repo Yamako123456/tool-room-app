@@ -53,6 +53,7 @@ import IssueQtyForm from './components/Issue/IssueQtyForm/IssueQtyForm';
 import { TransactionModel } from './models/Transaction/TransactionModel';
 import { IssueModel } from './models/Transaction/IssueModel';
 import Transactions from './components/Transactions/Transactions';
+import { initialTrans } from './data/initialTrans';
 // ------------------
 
 export const App = () => {
@@ -271,6 +272,7 @@ export const App = () => {
     setBins( initialBinss );
     setCribs( initialCribs );
     setSuppliers( initialSuppliers );
+    setTranRecords(initialTrans);
   }
 
   // -------------- Reset States ---------------------------

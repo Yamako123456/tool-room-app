@@ -26,4 +26,5 @@ export const initialBinss: BinModel[] = [
   new BinModel("A022", "001", 20, 5, true, "2244G11"),
   new BinModel("A023", "001", 0, 6, true, "GW-8X1-60G"),
   new BinModel("A024", "001", 0, 30, true, "MP-1IN-60G"),
+  new BinModel("C001", "001", 29, 30, true, "CL-123"),
 ];
