@@ -8,6 +8,7 @@ declare global {
   type RestockObjType = {
         itemCode: string,
         description: string,
+        itemImage: string,
         supplierName: string,
         supplierCode: string,
         binsStr: string,
@@ -20,14 +21,7 @@ declare global {
         shortage: number,
     };
 
-  // export enum TransactionType {
-  //   ISSUE = "ISSUE",
-  //   RETURN = "RETURN",
-  //   STOCK = "STOCK",
-  //   PHYSICAL_COUNT = "PHYSICAL_COUNT",
-  // }
-
-  export type ReturnToType = //Union type
+  type ReturnToType = //Union type
     | "BIN"
     | "REGRIND"
     | "SCRAP";

@@ -29,6 +29,7 @@ const RestockList = ({ bins, items, suppliers, handleOrderExport }: Props) => {
 
       return {
         itemCode: item.code,
+        itemImage: item.itemImage,
         description: item.description1,
         supplierName: supplier?.name ?? "Unknown Supplier",
         supplierCode: item.supCode,
@@ -111,12 +112,19 @@ const RestockList = ({ bins, items, suppliers, handleOrderExport }: Props) => {
                     </td>
 
                     <td className="px-6 py-4">
+                      <div className="flex gap-2 items-center">
+                        <div className="text-xs text-gray-500">
+                          {row.itemCode}
+                        </div>
+                        <img 
+                          src={row.itemImage}
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
                       <div className="font-semibold text-gray-800">
                         {row.description}
                       </div>
-                      <div className="text-xs text-gray-500">
-                        {row.itemCode}
-                      </div>
+                     
                     </td>
 
                     <td className="px-6 py-4 text-gray-700">
