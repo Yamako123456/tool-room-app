@@ -31,6 +31,8 @@ const Transactions = ({tranRecords}: Props) => {
           tran => tran.tranDate >= startDate
         );
         return list;
+      } else {
+        return tranRecords;
       }
     }, [tranRecords, daysBack]
   );
