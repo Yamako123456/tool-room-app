@@ -1,4 +1,6 @@
-import { TransactionType } from "../../types/global";
+// import { TransactionType } from "../../types/global";
+
+import { TransactionType } from "../../types/transactionTypes";
 
 export class TransactionModel {
   tranId: number;
