@@ -85,8 +85,8 @@ export const issueItemQtyFromBins = (
 
       const takeQtyFromThisBin = Math.min(bin.qty, remaining);
       remaining -= takeQtyFromThisBin;
-      
-      appendTranRecordForIssue( tranRecords, setTranRecords, itemCode, bin.binCode, empCode, issueQty);
+
+      appendTranRecordForIssue( tranRecords, setTranRecords, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
 
       return {...bin, qty: bin.qty - takeQtyFromThisBin}
   });
