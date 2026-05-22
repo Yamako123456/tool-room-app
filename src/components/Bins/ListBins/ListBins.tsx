@@ -45,7 +45,7 @@ const ListBins = ({bins, setBins, items}: Props) => {
         />
       </div>
       {/* <div className='relative grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '> */}
-      <div className='relative flex flex-wrap  gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
+      <div className='relative flex flex-wrap gap-6 items-start max-w-6xl mx-auto px-10 mb-5 md:px-6 '>
         {filteredBins.length > 0 ? (
             filteredBins.map((aBin) => {
               return (

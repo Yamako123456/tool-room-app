@@ -87,7 +87,7 @@ export const issueItemQtyFromBins = (
       remaining -= takeQtyFromThisBin;
 
       appendTranRecordForIssue( tranRecords, setTranRecords, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
-
+      
       return {...bin, qty: bin.qty - takeQtyFromThisBin}
   });
 

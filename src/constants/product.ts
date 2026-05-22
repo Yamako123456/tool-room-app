@@ -1,4 +1,4 @@
-export const ITEM_TYPES = ["EXPENDABLE", "DURABLE"] as const;
+// export const ITEM_TYPES = ["EXPENDABLE", "DURABLE"] as const; Moved 
 
 export const ItemTypes = { // used in obsolete modules.
         EXPENDABLE: 'Expendable',

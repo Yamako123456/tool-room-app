@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { ItemModel } from '../../../models/ItemModel';
 import { useParams } from 'react-router-dom';
 import SearchUPC from '../SearchUPC/SearchUPC';
-import { ITEM_TYPES } from '../../../constants/product';
 import SupplierLookup from '../../Suppliers/SupplierLookup/SupplierLookup';
 import { SupplierModel } from '../../../models/SupplierModel';
+import { ItemType } from '../../../types/ItemTypes';
 
 interface Props {
   items: ItemModel[];
@@ -241,12 +241,12 @@ const EditItem = ({
                 onChange={(e) => setItemType(e.target.value as ItemType)}
                 className='w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500'
               >         
-                {ITEM_TYPES.map((type) => (
+                {Object.values(itemType).map((type) => (
                   <option
                     key={type}
                     value={type}
                   >
-                    {type.charAt(0) + type.slice(1).toLowerCase() }
+                    {type }
                   </option>
                 ))}
               </select>

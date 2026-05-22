@@ -1,3 +1,5 @@
+import { ItemType } from "../types/ItemTypes";
+
 export class ItemModel {
     code: string;
     description1: string;

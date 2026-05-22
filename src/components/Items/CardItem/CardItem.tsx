@@ -13,7 +13,7 @@ const CardItem = ({aItem, suppliers, onEditItem, formatDate}: Props) => {
   const supplier = suppliers.find(supp => supp.supCode === aItem.supCode);
 
   return (
-    <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
+    <div className='relative w-[300px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
       <div className='flex justify-end mb-2'>
         <button 
           onClick={() => onEditItem(aItem.code)}

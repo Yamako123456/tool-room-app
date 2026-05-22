@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import SupplierLookup from '../../Suppliers/SupplierLookup/SupplierLookup';
-import { ITEM_TYPES } from '../../../constants/product';
 import SearchUPC from '../SearchUPC/SearchUPC';
 import { SupplierModel } from '../../../models/SupplierModel';
+import { ItemType } from '../../../types/ItemTypes';
 
 interface Props {
   suppliers: SupplierModel[];
@@ -166,12 +166,14 @@ const AddItem = ({
                 onChange={(e) => setItemType(e.target.value as ItemType)}
                 className='w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500'
               >         
-                {ITEM_TYPES.map((type) => (
+                {/* {ItemType.map((type) => ( */}
+                {Object.values(ItemType).map((type) => (
                   <option
                     key={type}
                     value={type}
                   >
-                    {type.charAt(0) + type.slice(1).toLowerCase() }
+                    {/* {type.charAt(0) + type.slice(1).toLowerCase() } */}
+                    {type}
                   </option>
                 ))}
               </select>

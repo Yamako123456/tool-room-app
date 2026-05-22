@@ -1,9 +1,9 @@
-import { ITEM_TYPES } from "../constants/product";
+// import { ITEM_TYPES } from "../constants/product";
 
 export {};
 
 declare global {
-  type ItemType = typeof ITEM_TYPES[number]; //"EXPENDABLE" | "DURABLE";
+  // type ItemType = typeof ITEM_TYPES[number]; //"EXPENDABLE" | "DURABLE";
   
   type RestockObjType = {
         itemCode: string,
@@ -25,5 +25,13 @@ declare global {
     | "BIN"
     | "REGRIND"
     | "SCRAP";
+
+  const ItemTypes = { // used in obsolete modules.
+        EXPENDABLE: 'Expendable',
+        DURABLE: 'Durable',
+        // PERISHABLE: 'Perishable',
+        // SERIAL: 'Serial',
+        // GAGE: 'Gage'
+    }  
 }
 

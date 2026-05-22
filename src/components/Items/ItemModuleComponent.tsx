@@ -3,6 +3,7 @@ import { ItemTableSection } from "./ItemTableSection";
 import { NewItemForm } from "./NewItemForm";
 // import { initialItems } from "../../data/InitialItems";
 import { ItemModel } from '../../models/ItemModel';
+import { ItemType } from '../../types/ItemTypes';
 
 type Props = {
     items: ItemModel[];

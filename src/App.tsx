@@ -54,6 +54,7 @@ import { TransactionModel } from './models/Transaction/TransactionModel';
 import { IssueModel } from './models/Transaction/IssueModel';
 import Transactions from './components/Transactions/Transactions';
 import { initialTrans } from './data/initialTrans';
+import { ItemType } from './types/ItemTypes';
 // ------------------
 
 export const App = () => {
@@ -115,7 +116,7 @@ export const App = () => {
 
   const [itemDescription, setItemDescription] = useState<string>("");
   const [itemImage, setItemImage] = useState<string>("");
-  const [itemType, setItemType] = useState<itenTypes>("EXPENDABLE");
+  const [itemType, setItemType] = useState<ItemType>(ItemType.EXPENDABLE);
   const [itemUnitPrice, setItemUnitPrice] = useState<number>(0.0);
   const [itemIssueCost, setItemIssueCost] = useState<number>(0.0);
   const [uom, setUom] = useState<string>("qty");
@@ -330,7 +331,7 @@ export const App = () => {
         
     setItemDescription("");
     setItemImage("");
-    setItemType("EXPENDABLE");
+    setItemType(ItemType.EXPENDABLE);
     setItemUnitPrice(0.0);
     setItemIssueCost(0.0);
     setUom("qty");
