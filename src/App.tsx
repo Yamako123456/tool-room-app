@@ -55,6 +55,7 @@ import { IssueModel } from './models/Transaction/IssueModel';
 import Transactions from './components/Transactions/Transactions';
 import { initialTrans } from './data/initialTrans';
 import { ItemType } from './types/ItemTypes';
+import { IssueRecordsState, TranRecordsState } from './types/transactionTypes';
 // ------------------
 
 export const App = () => {
@@ -147,10 +148,19 @@ export const App = () => {
 
 
   //-------------------- Operations ------------------------------------------------------
-  const [tranRecords, setTranRecords] = useState<TransactionModel[]>([]);
-  const [issuesRecords, setIssuesRecords] = useState<IssueModel[]>([]);
+
+  const [tranRecords, setTranRecords] = useState<TranRecordsState>({
+    nextTranId: 1,
+    records: []
+  });
+
+  const [issueRecords, setIssueRecords] = useState<IssueRecordsState>({
+    nextIssueId: 1,
+    records: []
+  });
   
   const [scannedBadgeNo, setScannedBadgeNo] = useState("");
+
   const [loggedInEmp, setLoggedInEmp] = useState<EmpModel | undefined >(undefined);
   const [error, setError] = useState("");
   const [hasOpenIssue, setHasOpenIssue] = useState<boolean>(false);
@@ -273,7 +283,7 @@ export const App = () => {
     setBins( initialBinss );
     setCribs( initialCribs );
     setSuppliers( initialSuppliers );
-    setTranRecords(initialTrans);
+    setTranRecords({nextTranId: 5, records: initialTrans});
   }
 
   // -------------- Reset States ---------------------------
@@ -1290,6 +1300,8 @@ export const App = () => {
                 empCode={scannedBadgeNo}
                 tranRecords={tranRecords}
                 setTranRecords={setTranRecords}  
+                issueRecords={issueRecords}
+                setIssueRecords={setIssueRecords}
               />}
             />
             

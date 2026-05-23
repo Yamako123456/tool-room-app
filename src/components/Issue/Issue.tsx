@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
 import { getTotalQtyForItem, issueItemQtyFromBins } from '../Bins/BinService/BinService';
 import { TransactionModel } from '../../models/Transaction/TransactionModel';
+import { IssueModel } from '../../models/Transaction/IssueModel';
+import { IssueRecordsState, TranRecordsState } from '../../types/transactionTypes';
 // import { appendTranRecordForIssue } from '../TransactionService/IssueService';
 
 interface Props {
@@ -13,8 +15,10 @@ interface Props {
   setBins: React.Dispatch<React.SetStateAction<BinModel[]>>;
   handleLogOut: () => void;
   empCode: string;
-  tranRecords: TransactionModel[];
-  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>
+  tranRecords: TranRecordsState;
+  setTranRecords: React.Dispatch<React.SetStateAction<TranRecordsState>>;
+  issueRecords: IssueRecordsState,
+  setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
 }
 
 interface CartItem {
@@ -22,7 +26,7 @@ interface CartItem {
   qty: number;
 }
 
-const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTranRecords}: Props) => {
+const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTranRecords, issueRecords, setIssueRecords}: Props) => {
 
   const navigate = useNavigate();
 
@@ -144,7 +148,9 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTr
         cartItem.qty,
         empCode,
         tranRecords,
-        setTranRecords
+        setTranRecords,
+        issueRecords,
+        setIssueRecords
       );
     });
 

@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { TransactionModel } from '../../models/Transaction/TransactionModel'
+import { TranRecordsState } from '../../types/transactionTypes';
 
 interface Props {
-  tranRecords: TransactionModel[];
+  tranRecords: TranRecordsState;
 }
 
 const dateRangeOptions = [ //Dropdown list options
@@ -20,19 +21,19 @@ const Transactions = ({tranRecords}: Props) => {
   const filteredTrans = useMemo(
     () => {
       const today = new Date();
-      let list: TransactionModel[] = tranRecords;
+      let filteredList: TransactionModel[] = tranRecords.records;
 
       if (daysBack !== -1) { // If Not { label: "All", days: -1 },
         const startDate = new Date();
         startDate.setHours(0, 0, 0, 0);
         startDate.setDate(today.getDate() - daysBack );
 
-        list = tranRecords.filter(
+        filteredList = tranRecords.records.filter(
           tran => tran.tranDate >= startDate
         );
-        return list;
+        return filteredList;
       } else {
-        return tranRecords;
+        return tranRecords.records;
       }
     }, [tranRecords, daysBack]
   );
@@ -76,6 +77,7 @@ const Transactions = ({tranRecords}: Props) => {
           <table className='w-full text-sm'>
             <thead className='bg-gray-100 text-gray-700'>
               <tr>
+                <th className='px-4 py-3 text-right'>Tran Id</th>
                 <th className='px-4 py-3 text-left'>Date</th>
                 <th className='px-4 py-3 text-left'>Type</th>
                 <th className='px-4 py-3 text-left'>Item</th>
@@ -91,7 +93,8 @@ const Transactions = ({tranRecords}: Props) => {
                   <tr
                     key={tran.tranId} 
                     className='border-t hover:bg-gray-50'
-                  >
+                    >
+                    <td className='px-4 py-3 text-right'>{tran.tranId}</td>
                     <td className='px-4 py-3'>{new Date(tran.tranDate).toLocaleString()}</td>
                     <td className='px-4 py-3'>{tran.tranType}</td>
                     <td className='px-4 py-3'>{tran.itemCode}</td>

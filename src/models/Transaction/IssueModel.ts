@@ -7,12 +7,14 @@ export class IssueModel {
   issueDate: Date;
 
   constructor(
+    issueId: number,
     itemCode: string,
     binCode: string,
     empCode: string,
     qty: number,
   ) {
-      this.issueId = Date.now();// Timestamp for uniqueness
+      // this.issueId = Date.now();// Timestamp for uniqueness
+      this.issueId = issueId;
       this.itemCode = itemCode;
       this.binCode = binCode;
       this.empCode= empCode;

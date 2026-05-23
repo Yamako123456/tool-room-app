@@ -9,7 +9,7 @@ const getDateDaysAgo = (days: number): Date => {
 
 export const initialTrans: TransactionModel[] = [
   {
-      tranId: 555,
+      tranId: 1,
       tranType: TransactionType.ISSUE,
       itemCode: "CL-123",
       binCode: "C001",
@@ -20,7 +20,7 @@ export const initialTrans: TransactionModel[] = [
       notes: "",
   },
     {
-      tranId: 555,
+      tranId: 2,
       tranType: TransactionType.ISSUE,
       itemCode: "CL-123",
       binCode: "C001",
@@ -31,7 +31,7 @@ export const initialTrans: TransactionModel[] = [
       notes: "",
   },
       {
-      tranId: 555,
+      tranId: 3,
       tranType: TransactionType.ISSUE,
       itemCode: "CL-123",
       binCode: "C001",
@@ -42,7 +42,7 @@ export const initialTrans: TransactionModel[] = [
       notes: "",
   },
         {
-      tranId: 555,
+      tranId: 4,
       tranType: TransactionType.ISSUE,
       itemCode: "CL-123",
       binCode: "C001",

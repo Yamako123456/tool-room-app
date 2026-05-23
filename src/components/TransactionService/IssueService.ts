@@ -1,12 +1,12 @@
 import React from "react";
 import { IssueModel } from "../../models/Transaction/IssueModel";
 import { TransactionModel } from "../../models/Transaction/TransactionModel";
-import { TransactionType } from "../../types/transactionTypes";
+import { IssueRecordsState, TranRecordsState, TransactionType } from "../../types/transactionTypes";
 
 
 export const appendIssueRecord = (
-  issueRecords: IssueModel[],
-  setIssueRecords: React.Dispatch<React.SetStateAction<IssueModel[]>>,
+  issueRecords: IssueRecordsState,
+  setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
   itemCode: string,
   binCode: string,
   empCode: string,
@@ -17,15 +17,17 @@ export const appendIssueRecord = (
     console.log("recordIssueRecord(): valid input value missing");
     return;
   }  
-
-  const newRec = new IssueModel(itemCode, binCode, empCode, qty);
   
-  setIssueRecords( prev => [...prev, newRec]);
+  setIssueRecords( (prev) => {
+    const newRec = new IssueModel(prev.nextIssueId, itemCode, binCode, empCode, qty);
+    
+    return {nextIssueId: prev.nextIssueId + 1, records: [...prev.records, newRec]} 
+  });
 }
 
 export const appendTranRecordForIssue = (
-  tranRecords: TransactionModel[],
-  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
+  tranRecords: TranRecordsState,
+  setTranRecords: React.Dispatch<React.SetStateAction<TranRecordsState>>,
   itemCode: string,
   binCode: string,
   empCode: string,
@@ -38,13 +40,18 @@ export const appendTranRecordForIssue = (
     return;
   }  
 
-  const newRec = new TransactionModel(
-    TransactionType.ISSUE,
-    itemCode,
-    binCode,
-    empCode,
-    qty,
-  );  
+  setTranRecords( (prev) => {
     
-  setTranRecords( prev => [...prev, newRec]);    
+    const newRec = new TransactionModel(
+      prev.nextTranId,
+      TransactionType.ISSUE,
+      itemCode,
+      binCode,
+      empCode,
+      qty,
+    );  
+
+    return {nextTranId: prev.nextTranId + 1, records: [...prev.records, newRec]};    
+  });
+    
 }

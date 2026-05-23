@@ -14,6 +14,7 @@ export class TransactionModel {
   notes?: string;
 
   constructor(
+    tranId: number,
     transType: TransactionType,
     itemCode: string,
     binCode: string,
@@ -22,7 +23,7 @@ export class TransactionModel {
     returnTo?: ReturnToType,
     notes?: string,
   ){
-    this.tranId = Date.now(); // Timestamp for uniqueness
+    this.tranId = tranId;
     this.tranType = transType;
     this.itemCode = itemCode;
     this.binCode = binCode;

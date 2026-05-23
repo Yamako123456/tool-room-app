@@ -1,8 +1,8 @@
 import { BinModel } from "../models/BinsModel";
 
 export const initialBinss: BinModel[] = [
-  new BinModel("A001", "001", 15, 5, true, "153KJ83"),
-  new BinModel("A002", "001", 20, 5, true, "2830D20"),
+  new BinModel("A001", "001", 15, 5, true, "EM-12MM-4F"),
+  new BinModel("A002", "001", 20, 5, true, "7712A11"),
   new BinModel("A003", "001", 25, 5, true, "9150F44"),
   new BinModel("A004", "001", 5, 30, true, "H9289"),
   new BinModel("A005", "001", 40, 20, true, "EM-10MM-4F"),
@@ -17,7 +17,7 @@ export const initialBinss: BinModel[] = [
   new BinModel("A013", "001", 15, 10, true, "84CutDia"),
   new BinModel("A014", "001", 10, 5, true, "4cutdia"),
   new BinModel("A015", "001", 10, 5, true, "FM-125MM-10T"),
-  new BinModel("A016", "001", 15, 5, true, "7712A11"),
+  new BinModel("A016", "001", 15, 5, true, "153KJ83"),
   new BinModel("A017", "001", 10, 5, true, "8821B55"),
   new BinModel("A018", "001", 50, 20, true, "5533C77"),
   new BinModel("A019", "001", 12, 5, true, "9912D88"),

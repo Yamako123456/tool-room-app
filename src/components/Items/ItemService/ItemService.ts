@@ -5,6 +5,10 @@ export const getItemType = (items: ItemModel[], itemCode: string)  => {
     console.log("getItemType() got invalid input");
     return;
 
-    return 
+    const aItem = items.find(item => item.code === itemCode);
+    if (!aItem) {
+      console.log("getItemType() got non-existing itemcode", itemCode);
+    }
+    return aItem?.itemType;
   }
 }
