@@ -8,10 +8,10 @@ import { TransactionModel } from "../models/Transaction/TransactionModel";
     PHYSICAL_COUNT = "PHYSICAL_COUNT",
   }
 
-    export interface TranRecordsState {
-      nextTranId: number;
-      records: TransactionModel[];
-    }
+    // export interface TranRecordsState {
+    //   nextTranId: number;
+    //   records: TransactionModel[];
+    // }
 
     export interface IssueRecordsState {
       nextIssueId: number;

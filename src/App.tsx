@@ -55,22 +55,25 @@ import { IssueModel } from './models/Transaction/IssueModel';
 import Transactions from './components/Transactions/Transactions';
 import { initialTrans } from './data/initialTrans';
 import { ItemType } from './types/ItemTypes';
-import { IssueRecordsState, TranRecordsState } from './types/transactionTypes';
+// import { IssueRecordsState, TranRecordsState } from './types/transactionTypes';
+import { IssueRecordsState,  } from './types/transactionTypes';
 // ------------------
 
 export const App = () => {
 
   const isDemoMode = true;
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  
   //-----------------------------------------------------
-  type itenTypes = "EXPENDABLE" | "DURABLE";
+  // type itenTypes = "EXPENDABLE" | "DURABLE";
 
-  const [emps, setEmps] = useState<EmpModel[]>([]);
-  const [depts, setDepts] = useState<DepartmentModel[]>([]);
-  const [items, setItems] = useState<ItemModel[]>([]);
-  const [bins, setBins] = useState<BinModel[]>([]);
-  const [cribs, setCribs] = useState<CribModel[]>([]);
-  const [suppliers, setSuppliers] = useState<SupplierModel[]>([]);
+  const [emps, setEmps] = useState<EmpModel[]>(initialEmps);
+  const [depts, setDepts] = useState<DepartmentModel[]>(initialDepartments);
+  const [items, setItems] = useState<ItemModel[]>(initialItems);
+  const [bins, setBins] = useState<BinModel[]>(initialBinss);
+  const [cribs, setCribs] = useState<CribModel[]>(initialCribs);
+  const [suppliers, setSuppliers] = useState<SupplierModel[]>(initialSuppliers);
   
   const [binNumber, setBinNumber] = useState<string>("");
   const [deptNumber, setDeptNumber] = useState<string>("");
@@ -149,15 +152,12 @@ export const App = () => {
 
   //-------------------- Operations ------------------------------------------------------
 
-  const [tranRecords, setTranRecords] = useState<TranRecordsState>({
-    nextTranId: 1,
-    records: []
-  });
+  const [nextTranId, setNextTranId] = useState<number>(1);
+  const [nextIssueId, setNIssueTranId] = useState<number>(1);
 
-  const [issueRecords, setIssueRecords] = useState<IssueRecordsState>({
-    nextIssueId: 1,
-    records: []
-  });
+  const [tranRecords, setTranRecords] = useState<TransactionModel[]>(initialTrans);
+
+  const [issueRecords, setIssueRecords] = useState<IssueRecordsState>({nextIssueId: 1, records: []});
   
   const [scannedBadgeNo, setScannedBadgeNo] = useState("");
 
@@ -212,7 +212,7 @@ export const App = () => {
       return;
     }
     const emp = emps.find(emp => emp.badgeNo === scannedBadgeNo);
-    console.log("emp", emp)
+    
     if (!emp) {
       setError(`Employee badge: ${scannedBadgeNo} was not found.`);
       return;
@@ -268,10 +268,6 @@ export const App = () => {
   const [lookupUPCResult, setLookupUPCResult] = useState<BarcodeSpiderLookupResponse | null>(null);
   const [apiServerError, setApiServerError] = useState<string>("");
 
-  useEffect(() => {
-    initDemoData();
-  }, []);
-
   const navigate = useNavigate();
 
   // --------------Load Initial demo data ---------------------------
@@ -283,7 +279,8 @@ export const App = () => {
     setBins( initialBinss );
     setCribs( initialCribs );
     setSuppliers( initialSuppliers );
-    setTranRecords({nextTranId: 5, records: initialTrans});
+    setTranRecords(initialTrans);
+    setNextTranId(5);
   }
 
   // -------------- Reset States ---------------------------
@@ -636,7 +633,6 @@ export const App = () => {
   }
 
   const handleEditItem = () => {
-    console.log("inside handleEditItem as App.tsx: itemNumber = ", itemNumber)
     if (!itemNumber) return;
 
     const updatedItem = new ItemModel(
@@ -917,6 +913,59 @@ export const App = () => {
   };
 
 
+useEffect(() => {
+  const savedAppData = localStorage.getItem("toolroomAppData");
+
+  if (savedAppData) {
+    const parsed = JSON.parse(savedAppData);
+
+    setEmps(parsed.emps);
+    setDepts(parsed.depts);
+    setItems(parsed.items);
+    setBins(parsed.bins);
+    setCribs(parsed.cribs);
+    setSuppliers(parsed.suppliers);
+
+  const loadedTranRecords = Array.isArray(parsed.tranRecords)
+    ? parsed.tranRecords.map((tran: any) => ({
+        ...tran,
+        tranId: Number(tran.tranId),
+        qty: Number(tran.qty),
+        tranDate: new Date(tran.tranDate),
+      }))
+    : initialTrans;
+
+    setTranRecords(loadedTranRecords);
+
+    setNextTranId(parsed.nextIssueId);
+    
+    // setIssueRecords(parsed.issueRecords);
+  } else {
+    initDemoData();
+  }
+
+  setIsLoaded(true);
+}, []);
+
+useEffect(() => {
+  if (!isLoaded) return;
+
+  const appData = {
+    emps,
+    depts,
+    items,
+    bins,
+    cribs,
+    suppliers,
+    tranRecords,
+    nextTranId,
+    // issueRecords,
+  };
+
+  localStorage.setItem("toolroomAppData", JSON.stringify(appData));
+
+// }, [isLoaded, emps, depts, items, bins, cribs, suppliers, tranRecords, nextTranId, issueRecords]);
+}, [isLoaded, emps, depts, items, bins, cribs, suppliers, tranRecords, nextTranId, ]);
 
 //=================================================================================
   return (
@@ -1299,6 +1348,8 @@ export const App = () => {
                 handleLogOut={handleLogOut}
                 empCode={scannedBadgeNo}
                 tranRecords={tranRecords}
+                nextTranId={nextTranId}
+                setNextTranId={setNextTranId}
                 setTranRecords={setTranRecords}  
                 issueRecords={issueRecords}
                 setIssueRecords={setIssueRecords}

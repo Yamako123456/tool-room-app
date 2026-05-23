@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { TransactionModel } from '../../models/Transaction/TransactionModel'
-import { TranRecordsState } from '../../types/transactionTypes';
+// import { TranRecordsState } from '../../types/transactionTypes';
 
 interface Props {
-  tranRecords: TranRecordsState;
+  tranRecords: TransactionModel[];
 }
 
 const dateRangeOptions = [ //Dropdown list options
@@ -21,19 +21,19 @@ const Transactions = ({tranRecords}: Props) => {
   const filteredTrans = useMemo(
     () => {
       const today = new Date();
-      let filteredList: TransactionModel[] = tranRecords.records;
+      let filteredList: TransactionModel[] = tranRecords;
 
       if (daysBack !== -1) { // If Not { label: "All", days: -1 },
         const startDate = new Date();
         startDate.setHours(0, 0, 0, 0);
         startDate.setDate(today.getDate() - daysBack );
 
-        filteredList = tranRecords.records.filter(
+        filteredList = tranRecords.filter(
           tran => tran.tranDate >= startDate
         );
         return filteredList;
       } else {
-        return tranRecords.records;
+        return tranRecords;
       }
     }, [tranRecords, daysBack]
   );

@@ -1,7 +1,8 @@
 import React from "react";
 import { IssueModel } from "../../models/Transaction/IssueModel";
 import { TransactionModel } from "../../models/Transaction/TransactionModel";
-import { IssueRecordsState, TranRecordsState, TransactionType } from "../../types/transactionTypes";
+// import { IssueRecordsState, TranRecordsState, TransactionType } from "../../types/transactionTypes";
+import { IssueRecordsState,  TransactionType } from "../../types/transactionTypes";
 
 
 export const appendIssueRecord = (
@@ -26,8 +27,10 @@ export const appendIssueRecord = (
 }
 
 export const appendTranRecordForIssue = (
-  tranRecords: TranRecordsState,
-  setTranRecords: React.Dispatch<React.SetStateAction<TranRecordsState>>,
+  tranRecords: TransactionModel[],
+  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
+  nextTranId: number,
+  setNextTranId: React.Dispatch<React.SetStateAction<number>>,
   itemCode: string,
   binCode: string,
   empCode: string,
@@ -40,18 +43,16 @@ export const appendTranRecordForIssue = (
     return;
   }  
 
-  setTranRecords( (prev) => {
-    
-    const newRec = new TransactionModel(
-      prev.nextTranId,
+  const newRec = new TransactionModel(
+      nextTranId,
       TransactionType.ISSUE,
       itemCode,
       binCode,
       empCode,
       qty,
-    );  
-
-    return {nextTranId: prev.nextTranId + 1, records: [...prev.records, newRec]};    
-  });
+  );  
+console.log("tranRecords, ", tranRecords);
+  setTranRecords( (prev) => [...prev, newRec] );    
+  setNextTranId(nextTranId + 1);
     
 }

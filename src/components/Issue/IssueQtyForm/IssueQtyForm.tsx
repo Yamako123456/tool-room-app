@@ -102,7 +102,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
               Cancel
             </button>
 
-            <button
+            {/* <button
               type='button'
               disabled={issueQty < 1 || remainingQty <= 0}
               onClick={() => {
@@ -112,7 +112,7 @@ const IssueQtyForm = ({ isQtyOpen, setIsQtyOpen, aItem, remainingQty, issueQty, 
               className='rounded-lg bg-green-600 text-white px-4 py-2 hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50'
             >
               Issue Now
-            </button>
+            </button> */}
 
             <button
               type='button'
