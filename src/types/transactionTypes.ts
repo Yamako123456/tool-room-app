@@ -1,3 +1,4 @@
+import { ItemModel } from "../models/ItemModel";
 import { IssueModel } from "../models/Transaction/IssueModel";
 import { TransactionModel } from "../models/Transaction/TransactionModel";
 
@@ -24,4 +25,9 @@ import { TransactionModel } from "../models/Transaction/TransactionModel";
 
     export interface NextIssueIdType {
       id: number;
+    }
+
+    export interface CartItem {
+      item: ItemModel;
+      qty: number;
     }

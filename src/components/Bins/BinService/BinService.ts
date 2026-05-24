@@ -2,12 +2,11 @@ import React from "react";
 import { BinModel } from "../../../models/BinsModel";
 import { ItemModel } from "../../../models/ItemModel";
 import { TransactionModel } from "../../../models/Transaction/TransactionModel";
-import { appendIssueRecord, appendTranRecordForIssue } from "../../TransactionService/IssueService";
 import { getItemType } from "../../Items/ItemService/ItemService";
 import { ItemType } from "../../../types/ItemTypes";
 import { IssueModel } from "../../../models/Transaction/IssueModel";
 // import { IssueRecordsState, TranRecordsState } from "../../../types/transactionTypes";
-import { IssueRecordsState, NextTranIdType, } from "../../../types/transactionTypes";
+import { CartItem, IssueRecordsState, NextTranIdType, TransactionType, } from "../../../types/transactionTypes";
 
 export const getTotalQtyForItem = (
   itemCode: string,
@@ -67,10 +66,9 @@ export const addBinQty = (
 }
 
 export const issueItemQtyFromBins = (
-  item: ItemModel, 
+  cartItems: CartItem[],
   bins: BinModel[],
   setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
-  issueQty: number,
   empCode: string,
   tranRecords: TransactionModel[],
   setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
@@ -79,29 +77,60 @@ export const issueItemQtyFromBins = (
   issueRecords: IssueRecordsState,
   setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
 ) => {
-  
-  if (issueQty <= 0) {
-    console.log("issueItemQty() got non-positive issueQty");
-    return;
-  }
-  let remaining = issueQty;
-  const itemCode = item.code;
 
-  const updatedBins = bins.map((bin) => {
+  const newTranRecords: TransactionModel[] = [];
+  const newIssueRecords: IssueModel[] = [];
+  let tranCounter = nextTranId.id;
+  let issueCounter = issueRecords.nextIssueId;
 
-      if (remaining === 0 || !bin.active || bin.item !== itemCode || bin.qty <= 0 )
-        return bin;
+  cartItems.forEach((cartItem) => {
+    const item: ItemModel = cartItem.item;
+    const issueQty: number = cartItem.qty;
+    if (issueQty <= 0) {
+      console.log("issueItemQty() got non-positive issueQty");
+      return;;
+    }
 
-      const takeQtyFromThisBin = Math.min(bin.qty, remaining);
-      remaining -= takeQtyFromThisBin;
+    let remaining = issueQty;
+    const itemCode = item.code;
 
-      appendTranRecordForIssue( tranRecords, setTranRecords, nextTranId, setNextTranId, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
+    const updatedBins = bins.map((bin) => {
+
+        if (remaining === 0 || !bin.active || bin.item !== itemCode || bin.qty <= 0 )
+          return bin;
+
+        const takeQtyFromThisBin = Math.min(bin.qty, remaining);
+        remaining -= takeQtyFromThisBin;
+
+        // appendTranRecordForIssue( tranRecords, setTranRecords, nextTranId, setNextTranId, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
+        const newTran = new TransactionModel(
+          tranCounter,
+          TransactionType.ISSUE,
+          itemCode, 
+          bin.binCode,
+          empCode,takeQtyFromThisBin,
+        );
+        newTranRecords.push(newTran);
+        tranCounter++;
+
+        if (item.itemType === ItemType.DURABLE ){
+          const newIssue = new IssueModel( issueCounter, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
+          newIssueRecords.push(newIssue);
+          issueCounter++;
+        }  
+        return {...bin, qty: bin.qty - takeQtyFromThisBin}
+    });
+
+    setBins(updatedBins);
+  }); //cartItems
+
+  setTranRecords( (prev) => [...prev, ...newTranRecords] );  
       
-      if (item.itemType === ItemType.DURABLE ){
-        appendIssueRecord (issueRecords, setIssueRecords, itemCode, bin.binCode, empCode, takeQtyFromThisBin );
-      }
-      return {...bin, qty: bin.qty - takeQtyFromThisBin}
-  });
+  setNextTranId({id: tranCounter});
 
-  setBins(updatedBins);
+  setIssueRecords((prev) => ({
+    nextIssueId: issueCounter,
+    records: [...prev.records, ...newIssueRecords],
+  }));
+  
 }

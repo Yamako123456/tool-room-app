@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
 import { getTotalQtyForItem, issueItemQtyFromBins } from '../Bins/BinService/BinService';
 import { IssueModel } from '../../models/Transaction/IssueModel';
-import { IssueRecordsState, NextTranIdType,  } from '../../types/transactionTypes';
+import { CartItem, IssueRecordsState, NextTranIdType,  } from '../../types/transactionTypes';
 import { TransactionModel } from '../../models/Transaction/TransactionModel';
 
 interface Props {
@@ -20,11 +20,6 @@ interface Props {
   setNextTranId: React.Dispatch<React.SetStateAction<NextTranIdType>>;
   issueRecords: IssueRecordsState,
   setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
-}
-
-interface CartItem {
-  item: ItemModel;
-  qty: number;
 }
 
 const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTranRecords, nextTranId, setNextTranId, issueRecords, setIssueRecords}: Props) => {
@@ -140,23 +135,20 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTr
       return;
     }
 
-    cartItems.map(cartItem =>  {
+    issueItemQtyFromBins(
+      cartItems,
 
-      issueItemQtyFromBins(
-        cartItem.item,
-        bins,
-        setBins,
-        cartItem.qty,
-        empCode,
-        tranRecords,
-        setTranRecords,
-        nextTranId,
-        setNextTranId,
-        issueRecords,
-        setIssueRecords
-      );
-    });
+      bins,
+      setBins,
 
+      empCode,
+      tranRecords,
+      setTranRecords,
+      nextTranId,
+      setNextTranId,
+      issueRecords,
+      setIssueRecords
+    );
     setCartItems([]);
     
   }
