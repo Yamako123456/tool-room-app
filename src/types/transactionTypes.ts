@@ -17,3 +17,11 @@ import { TransactionModel } from "../models/Transaction/TransactionModel";
       nextIssueId: number;
       records: IssueModel[];
     }
+
+    export interface NextTranIdType {
+      id: number;
+    }
+
+    export interface NextIssueIdType {
+      id: number;
+    }

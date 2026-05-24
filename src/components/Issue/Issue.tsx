@@ -4,11 +4,9 @@ import { BinModel } from '../../models/BinsModel';
 import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
 import { getTotalQtyForItem, issueItemQtyFromBins } from '../Bins/BinService/BinService';
-import { TransactionModel } from '../../models/Transaction/TransactionModel';
 import { IssueModel } from '../../models/Transaction/IssueModel';
-// import { IssueRecordsState, TranRecordsState } from '../../types/transactionTypes';
-import { IssueRecordsState,  } from '../../types/transactionTypes';
-// import { appendTranRecordForIssue } from '../TransactionService/IssueService';
+import { IssueRecordsState, NextTranIdType,  } from '../../types/transactionTypes';
+import { TransactionModel } from '../../models/Transaction/TransactionModel';
 
 interface Props {
   items: ItemModel[];
@@ -18,8 +16,8 @@ interface Props {
   empCode: string;
   tranRecords: TransactionModel[];
   setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
-  nextTranId: number;
-  setNextTranId: React.Dispatch<React.SetStateAction<number>>;
+  nextTranId: NextTranIdType;
+  setNextTranId: React.Dispatch<React.SetStateAction<NextTranIdType>>;
   issueRecords: IssueRecordsState,
   setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
 }
@@ -158,7 +156,7 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTr
         setIssueRecords
       );
     });
-console.log("After cart items were issued, issueRecords = ", issueRecords);
+
     setCartItems([]);
     
   }

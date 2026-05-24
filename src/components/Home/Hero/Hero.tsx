@@ -4,6 +4,7 @@ import hero from "./Femail_attendant3.png";
 import { ItemModel } from '../../../models/ItemModel';
 import "./Hero.css";
 import {useNavigate} from 'react-router-dom';
+import { NextTranIdType } from '../../../types/transactionTypes';
 
 interface Props {
     items: ItemModel[];
@@ -17,7 +18,7 @@ function chunk<T>(arr: T[], size: number): T[][] {
     return out;
 }
 
-export const Hero = ({ items, setItems, cribs }: Props) => {
+export const Hero = ({ items, setItems, cribs,  }: Props) => {
       
     const visibleItems = items.filter(i => !i.disabled);
     const slides = chunk(visibleItems, 3);
@@ -29,6 +30,7 @@ export const Hero = ({ items, setItems, cribs }: Props) => {
         <div className="flex flex-col space-y-8 mb-44 m-4 lg:m-4 xl:m-4 lg:mt-16 lg:w-1/2 xl:mb-52">
           <h1 className="text-5xl font-bold text-left lg:text-6xl lg:max-w-md lg:text-left">
             Simply Toolroom App
+       
           </h1>
           <p className="text-2xl text-left text-gray-400 lg:max-w-md lg:text-left">
             Track, and Manage Your Tools with Ease, preventing loss and saving your time!

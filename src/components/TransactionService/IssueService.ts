@@ -2,7 +2,7 @@ import React from "react";
 import { IssueModel } from "../../models/Transaction/IssueModel";
 import { TransactionModel } from "../../models/Transaction/TransactionModel";
 // import { IssueRecordsState, TranRecordsState, TransactionType } from "../../types/transactionTypes";
-import { IssueRecordsState,  TransactionType } from "../../types/transactionTypes";
+import { IssueRecordsState,  NextTranIdType,  TransactionType } from "../../types/transactionTypes";
 
 
 export const appendIssueRecord = (
@@ -29,8 +29,8 @@ export const appendIssueRecord = (
 export const appendTranRecordForIssue = (
   tranRecords: TransactionModel[],
   setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
-  nextTranId: number,
-  setNextTranId: React.Dispatch<React.SetStateAction<number>>,
+  nextTranId: NextTranIdType,
+  setNextTranId: React.Dispatch<React.SetStateAction<NextTranIdType>>,
   itemCode: string,
   binCode: string,
   empCode: string,
@@ -39,20 +39,25 @@ export const appendTranRecordForIssue = (
 
   if ( !itemCode || !binCode || !empCode || !qty 
       || itemCode === ""|| binCode === "" || empCode === "" || qty < 1) {
-    console.log("appendIssueTranRecord(): valid input value missing");
+    console.log("appendIssueTranRecord(): invalid input or value missing");
     return;
   }  
 
+  if (!nextTranId){
+    console.log("nextTranId undefine at appendTranRecordForIssue ()");
+    return;
+  }
+
   const newRec = new TransactionModel(
-      nextTranId,
+      nextTranId.id,
       TransactionType.ISSUE,
       itemCode,
       binCode,
       empCode,
       qty,
   );  
-console.log("tranRecords, ", tranRecords);
+  
   setTranRecords( (prev) => [...prev, newRec] );    
-  setNextTranId(nextTranId + 1);
+  setNextTranId( { id: nextTranId.id + 1 } );
     
 }

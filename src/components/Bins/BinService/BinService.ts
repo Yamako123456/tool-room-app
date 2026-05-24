@@ -7,7 +7,7 @@ import { getItemType } from "../../Items/ItemService/ItemService";
 import { ItemType } from "../../../types/ItemTypes";
 import { IssueModel } from "../../../models/Transaction/IssueModel";
 // import { IssueRecordsState, TranRecordsState } from "../../../types/transactionTypes";
-import { IssueRecordsState, } from "../../../types/transactionTypes";
+import { IssueRecordsState, NextTranIdType, } from "../../../types/transactionTypes";
 
 export const getTotalQtyForItem = (
   itemCode: string,
@@ -74,8 +74,8 @@ export const issueItemQtyFromBins = (
   empCode: string,
   tranRecords: TransactionModel[],
   setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
-  nextTranId: number,
-  setNextTranId:  React.Dispatch<React.SetStateAction<number>>,
+  nextTranId: NextTranIdType,
+  setNextTranId:  React.Dispatch<React.SetStateAction<NextTranIdType>>,
   issueRecords: IssueRecordsState,
   setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
 ) => {
@@ -96,6 +96,7 @@ export const issueItemQtyFromBins = (
       remaining -= takeQtyFromThisBin;
 
       appendTranRecordForIssue( tranRecords, setTranRecords, nextTranId, setNextTranId, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
+      
       if (item.itemType === ItemType.DURABLE ){
         appendIssueRecord (issueRecords, setIssueRecords, itemCode, bin.binCode, empCode, takeQtyFromThisBin );
       }

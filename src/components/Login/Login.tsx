@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { EmpModel } from "../../models/EmpModel";
+import { NextTranIdType } from "../../types/transactionTypes";
 
 interface Props {
+   nextTranId: NextTranIdType,
   emps: EmpModel[];
   scannedBadgeNo: string;
   setScannedBadgeNo: React.Dispatch<React.SetStateAction<string>>;
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const Login = ({
+  nextTranId,
   emps, 
   scannedBadgeNo, 
   setScannedBadgeNo, 
@@ -28,6 +31,9 @@ const Login = ({
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
             Toolroom Operation
+            
+             { (!nextTranId) ? (<p>nextTranId undefined</p>) : null}
+  
           </h1>
           <p className="text-gray-500 mt-2">
             Scan your employee badge to continue.

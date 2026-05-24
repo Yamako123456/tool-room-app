@@ -56,7 +56,7 @@ import Transactions from './components/Transactions/Transactions';
 import { initialTrans } from './data/initialTrans';
 import { ItemType } from './types/ItemTypes';
 // import { IssueRecordsState, TranRecordsState } from './types/transactionTypes';
-import { IssueRecordsState,  } from './types/transactionTypes';
+import { IssueRecordsState, NextIssueIdType, NextTranIdType,  } from './types/transactionTypes';
 // ------------------
 
 export const App = () => {
@@ -152,8 +152,8 @@ export const App = () => {
 
   //-------------------- Operations ------------------------------------------------------
 
-  const [nextTranId, setNextTranId] = useState<number>(1);
-  const [nextIssueId, setNIssueTranId] = useState<number>(1);
+  const [nextIssueId, setNIssueTranId] = useState<NextIssueIdType>({id: 1});
+  const [nextTranId, setNextTranId] = useState<NextTranIdType>( {id: 5} );
 
   const [tranRecords, setTranRecords] = useState<TransactionModel[]>(initialTrans);
 
@@ -273,6 +273,7 @@ export const App = () => {
   // --------------Load Initial demo data ---------------------------
 
   const initDemoData = () => {
+    setNextTranId({id: 5});
     setEmps(initialEmps);
     setDepts(initialDepartments);
     setItems( initialItems);
@@ -280,7 +281,6 @@ export const App = () => {
     setCribs( initialCribs );
     setSuppliers( initialSuppliers );
     setTranRecords(initialTrans);
-    setNextTranId(5);
   }
 
   // -------------- Reset States ---------------------------
@@ -912,12 +912,21 @@ export const App = () => {
     XLSX.writeFile(workbook, "restock_by_supplier.xlsx")
   };
 
-
+// Parsing
 useEffect(() => {
   const savedAppData = localStorage.getItem("toolroomAppData");
 
   if (savedAppData) {
     const parsed = JSON.parse(savedAppData);
+
+    if (!parsed.nextTranId)
+      console.log("Just Parsed undefined parsed.nextTranId");
+      
+    setNextTranId(parsed.nextTranId);
+    console.log("parsed.nextTranId: ", parsed.nextTranId);
+    console.log("parsed.tranRecords: ", parsed.tranRecords);
+    // const tranIdObj: NextTranIdType = {id: parsed.nextTranId.id };
+    // setNextTranId(tranIdObj);
 
     setEmps(parsed.emps);
     setDepts(parsed.depts);
@@ -926,20 +935,15 @@ useEffect(() => {
     setCribs(parsed.cribs);
     setSuppliers(parsed.suppliers);
 
-  const loadedTranRecords = Array.isArray(parsed.tranRecords)
-    ? parsed.tranRecords.map((tran: any) => ({
-        ...tran,
-        tranId: Number(tran.tranId),
-        qty: Number(tran.qty),
-        tranDate: new Date(tran.tranDate),
-      }))
-    : initialTrans;
+    const newTranRecords = parsed.tranRecords.map( (rec:TransactionModel) => {
+      const strTranDate = rec.tranDate;
+      console.log("strTranDate: ", strTranDate);
+      return {...rec, tranDate: new Date(strTranDate)}
+    });
+    setTranRecords(newTranRecords);    
 
-    setTranRecords(loadedTranRecords);
-
-    setNextTranId(parsed.nextIssueId);
-    
     // setIssueRecords(parsed.issueRecords);
+
   } else {
     initDemoData();
   }
@@ -947,10 +951,13 @@ useEffect(() => {
   setIsLoaded(true);
 }, []);
 
+
+// Saving
 useEffect(() => {
   if (!isLoaded) return;
 
   const appData = {
+    nextTranId,
     emps,
     depts,
     items,
@@ -958,11 +965,15 @@ useEffect(() => {
     cribs,
     suppliers,
     tranRecords,
-    nextTranId,
+    
     // issueRecords,
   };
 
   localStorage.setItem("toolroomAppData", JSON.stringify(appData));
+
+  if (!nextTranId )
+    console.log("undefined nextTranId was saved");
+    
 
 // }, [isLoaded, emps, depts, items, bins, cribs, suppliers, tranRecords, nextTranId, issueRecords]);
 }, [isLoaded, emps, depts, items, bins, cribs, suppliers, tranRecords, nextTranId, ]);
@@ -1318,6 +1329,7 @@ useEffect(() => {
             <Route
               path="/login"
               element={<Login  
+                nextTranId={nextTranId}
                 emps={emps}
                 scannedBadgeNo={scannedBadgeNo} 
                 setScannedBadgeNo={setScannedBadgeNo}

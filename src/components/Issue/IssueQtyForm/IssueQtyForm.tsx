@@ -1,7 +1,6 @@
 import React from 'react'
-import { ItemModel } from '../../../models/ItemModel';
-import { BinModel } from '../../../models/BinsModel';
 import { useParams } from 'react-router-dom';
+import { ItemModel } from '../../../models/ItemModel';
 
 interface Props {
 
