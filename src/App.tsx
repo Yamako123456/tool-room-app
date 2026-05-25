@@ -1384,7 +1384,7 @@ useEffect(() => {
             <Route 
               path='/stock'
               element={<Stock 
-              
+                handleLogOut={handleLogOut}
               />}
             />
             

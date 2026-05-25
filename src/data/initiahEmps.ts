@@ -16,7 +16,7 @@ export const initialEmps: EmpModel[] = [
         lastName: "Diggory",
         active: true,
         isSupervisor: false,
-        isStocker: false,
+        isStocker: true,
         department: "PROD",
     },
     {   
