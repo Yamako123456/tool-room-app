@@ -2,39 +2,18 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-   handleLogOut: () => void;
+   
    scanItemCode: string;
    setScanItemCode:React.Dispatch<React.SetStateAction<string>>;
 }
 
-const StockItemScan = ({handleLogOut, scanItemCode, setScanItemCode}: Props) => {
+const StockItemScan = ({scanItemCode, setScanItemCode}: Props) => {
   
   const navigate = useNavigate();
-  
-  
 
 return (
     <section id='stockItemScan'>
-      <div className='relative flex items-center justify-between mb-10'>
-        <div className='flex gap-3'>
-          <button 
-            onClick={handleLogOut}
-            className='mt-1, mb-10 lg:mt-0 lg:ml-auto bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded'
-          >
-            Log Out  
-          </button>  
-          <button onClick={() => navigate('/main-menu')}
-            className='mt-1, mb-10 lg:mt-0 lg:ml-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded'
-          >
-            Main Menu  
-          </button>
-        </div>  
-        <div className='absolute left-1/2 lg:-translate-x-1/2'>
-          <h2 className=' text-2xl font-semibold'>
-            Issue Items
-          </h2>
-        </div>
-      </div>
+
       <div className='max-w-3xl mx-auto px-6  py-8'>
         <div className='bg-white rounded-xl shadow-lg border p-6'>
           <h1 className='text-2xl font-bold mb-2'>
