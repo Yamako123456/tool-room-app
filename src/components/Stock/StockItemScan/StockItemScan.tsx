@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
    
-   scanItemCode: string;
-   setScanItemCode:React.Dispatch<React.SetStateAction<string>>;
+   scannedItemCode: string;
+   setScannedItemCode:React.Dispatch<React.SetStateAction<string>>;
+   searchItemHandler: () => void;
 }
 
-const StockItemScan = ({scanItemCode, setScanItemCode}: Props) => {
+const StockItemScan = ({scannedItemCode, setScannedItemCode, searchItemHandler}: Props) => {
   
   const navigate = useNavigate();
 
@@ -27,15 +28,15 @@ return (
           </label>
           <input 
             type='text'
-            value={scanItemCode}
-            onChange={(e) => setScanItemCode(e.target.value)}
+            value={scannedItemCode}
+            onChange={(e) => setScannedItemCode(e.target.value)}
             placeholder='Scan or enter item code'
             className='w-full rounded=md border px-4 py-3 text-lg'
             autoFocus
           />
           <button
-            className='mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg'
-            
+            className='mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg'
+            onClick={searchItemHandler}
           >
             Search Item
           </button>

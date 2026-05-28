@@ -5,12 +5,15 @@ import { BinModel } from '../../models/BinsModel';
 import StockItemScan from './StockItemScan/StockItemScan';
 import StockQtyEntry from './StockQtyEntry/StockQtyEntry';
 import StockBinSelect from './StockBinSelect/StockBinSelect';
+import StockConfirm from './StockConfirm/StockConfirm';
+import ScannedItemNotFound from './ScannedItemNotFound/ScannedItemNotFound';
 
 interface Props {
   handleLogOut: () => void;
+  items: ItemModel[];
 }
 
-type StockStep =  
+export type StockStep =  
 | "scanItem"
 | "selectBin"
 | "notFound"
@@ -18,15 +21,39 @@ type StockStep =
 | "confirm"
 | "success";
 
-const Stock = ({handleLogOut,}: Props) => {
+const Stock = ({items, handleLogOut,}: Props) => {
 
   const navigate = useNavigate();
 
   const [step, setStep] = useState<StockStep>("scanItem");
-  const [scanItemCode, setScanItemCode] = useState<string>("");
+  const [scannedItemCode, setScannedItemCode] = useState<string>("");
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [selectedBin, setSelectedBin] = useState<BinModel | null>(null);
   const [stockQty, setStockQty] = useState<number>(0);
+
+  const searchItemHandler =  () => {
+    if (scannedItemCode === "")
+        return;
+
+    const aItem = items.find((item) => 
+      item.code.toLowerCase() === scannedItemCode.trim().toLowerCase()
+    )
+
+    console.log("searchItemHandler(), aItem", aItem);
+    if (aItem) {
+      setSelectedItem(aItem);
+      setStep("selectBin");
+
+    } else {
+      setStep("notFound");
+    }
+
+
+  }
+
+  // const onScanAgain = () => {
+
+  // }
 
   return (
 
@@ -52,8 +79,18 @@ const Stock = ({handleLogOut,}: Props) => {
       {step === "scanItem" && (
         <StockItemScan
           
-          scanItemCode={scanItemCode}
-          setScanItemCode={setScanItemCode}
+          scannedItemCode={scannedItemCode}
+          setScannedItemCode={setScannedItemCode}
+          searchItemHandler={searchItemHandler}
+        />
+      )}
+
+      {step === "notFound" && (
+        <ScannedItemNotFound 
+          scannedItemCode={scannedItemCode}
+          setScannedItemCode={setScannedItemCode}
+          setStep={setStep}
+          // onScanAgain={onScanAgain}
         />
       )}
 
@@ -67,6 +104,12 @@ const Stock = ({handleLogOut,}: Props) => {
         <StockQtyEntry
           
 
+        />
+      )}
+
+      {step === 'confirm' && (
+        <StockConfirm
+        
         />
       )}
     </section>
