@@ -7,21 +7,24 @@ import StockQtyEntry from './StockQtyEntry/StockQtyEntry';
 import StockBinSelect from './StockBinSelect/StockBinSelect';
 import StockConfirm from './StockConfirm/StockConfirm';
 import ScannedItemNotFound from './ScannedItemNotFound/ScannedItemNotFound';
+import StockNoBinForItem from './StockNoBinForItem/StockNoBinForItem';
 
 interface Props {
   handleLogOut: () => void;
   items: ItemModel[];
+  bins: BinModel[];
 }
 
 export type StockStep =  
 | "scanItem"
 | "selectBin"
-| "notFound"
+| "itemNotFound"
+| "noBinForItem"
 | "enterQty"
 | "confirm"
 | "success";
 
-const Stock = ({items, handleLogOut,}: Props) => {
+const Stock = ({items, bins, handleLogOut,}: Props) => {
 
   const navigate = useNavigate();
 
@@ -32,23 +35,28 @@ const Stock = ({items, handleLogOut,}: Props) => {
   const [stockQty, setStockQty] = useState<number>(0);
 
   const searchItemHandler =  () => {
+    const iCode = scannedItemCode.trim();
     if (scannedItemCode === "")
         return;
 
     const aItem = items.find((item) => 
-      item.code.toLowerCase() === scannedItemCode.trim().toLowerCase()
+      item.code.toLowerCase() === iCode.toLowerCase()
     )
-
-    console.log("searchItemHandler(), aItem", aItem);
+    // console.log("searchItemHandler(), aItem", aItem);
     if (aItem) {
       setSelectedItem(aItem);
-      setStep("selectBin");
+      const itemBins: BinModel[] = bins.filter((bin) => (bin.item ?? "").toLowerCase() === iCode.toLowerCase());
+      if (itemBins.length === 0) {
+        // console.log("Before set to noBinForItem: iCode", iCode)
+        setStep("noBinForItem");
+      } else {
+        setStep("selectBin");
+      }
 
     } else {
-      setStep("notFound");
+      
+      setStep("itemNotFound");
     }
-
-
   }
 
   // const onScanAgain = () => {
@@ -85,13 +93,20 @@ const Stock = ({items, handleLogOut,}: Props) => {
         />
       )}
 
-      {step === "notFound" && (
+      {step === "itemNotFound" && (
         <ScannedItemNotFound 
           scannedItemCode={scannedItemCode}
           setScannedItemCode={setScannedItemCode}
           setStep={setStep}
-          // onScanAgain={onScanAgain}
         />
+      )}
+
+      {step === "noBinForItem" && (
+        <StockNoBinForItem
+          scannedItemCode={scannedItemCode}
+          setScannedItemCode={setScannedItemCode}
+          setStep={setStep}
+        ></StockNoBinForItem>  
       )}
 
       {step === "selectBin" && (

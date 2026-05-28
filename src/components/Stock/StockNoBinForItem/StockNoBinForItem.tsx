@@ -2,14 +2,16 @@ import React from 'react'
 import { StockStep } from '../Stock';
 
 interface Props {
-  scannedItemCode: string;
-  setScannedItemCode:  React.Dispatch<React.SetStateAction<string>>;
-  setStep: React.Dispatch<React.SetStateAction<StockStep>>;
+    scannedItemCode: string;
+    setScannedItemCode: React.Dispatch<React.SetStateAction<string>>;
+    setStep: React.Dispatch<React.SetStateAction<StockStep>>;
 }
 
-const ScannedItemNotFound = ({scannedItemCode, setScannedItemCode, setStep}: Props) => {
+const StockNoBinForItem = ({scannedItemCode, setScannedItemCode, setStep}: Props) => {
+  console.log("Inside of StockNoBinForItem")
+
   return (
-    <section id='scannedItemNotFound'
+    <section id='stockNoBinForItem'
       className='max-w-2xl mx-auto px-6 py-8'  
     >
       <div
@@ -20,16 +22,16 @@ const ScannedItemNotFound = ({scannedItemCode, setScannedItemCode, setStep}: Pro
           !
         </div>
         <h1 className='text-2xl font-bold mb-2'>
-          Item Not Found
+          Item Not Assigned To Bin
         </h1>
         <p className='text-gray-600 mb-2'>
-          DexHound could not find an item for this scanned item code:
+          There is no bin assigned with the item for this scanned item code:
         </p>
         <div>
           {scannedItemCode}
         </div>
         <p className='text-sm text-gray-500 mb-6'>
-          This item must be created before it can be stocked. Log out, then click "Items" from the top navigation bar to create it.
+          This item must be assigned to bin before it can be stocked. Log out, then click "Bins" from the top navigation bar to create it.
         </p>
       </div>
 
@@ -50,4 +52,4 @@ const ScannedItemNotFound = ({scannedItemCode, setScannedItemCode, setStep}: Pro
   )
 }
 
-export default ScannedItemNotFound
+export default StockNoBinForItem

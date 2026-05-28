@@ -4,7 +4,9 @@ interface Props {}
 
 const StockBinSelect = (props: Props) => {
   return (
-    <div>StockBinSelect</div>
+    <section id='stockbinSelect'>
+
+    </section>
   )
 }
 

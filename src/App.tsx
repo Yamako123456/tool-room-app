@@ -1385,6 +1385,7 @@ useEffect(() => {
               path='/stock'
               element={<Stock 
                 items={items}
+                bins={bins}
                 handleLogOut={handleLogOut}
               />}
             />
