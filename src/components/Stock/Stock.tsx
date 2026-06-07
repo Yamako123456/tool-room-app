@@ -33,6 +33,7 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
   const [selectedItem, setSelectedItem] = useState<ItemModel | null>(null);
   const [selectedBin, setSelectedBin] = useState<BinModel | null>(null);
   const [stockQty, setStockQty] = useState<number>(0);
+   const[itemBins, setItemBins]  = useState<BinModel[]>([]);
 
   const searchItemHandler =  () => {
     const iCode = scannedItemCode.trim();
@@ -45,11 +46,12 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
     // console.log("searchItemHandler(), aItem", aItem);
     if (aItem) {
       setSelectedItem(aItem);
-      const itemBins: BinModel[] = bins.filter((bin) => (bin.item ?? "").toLowerCase() === iCode.toLowerCase());
-      if (itemBins.length === 0) {
-        // console.log("Before set to noBinForItem: iCode", iCode)
+      const iBins: BinModel[] = bins.filter((bin) => (bin.item ?? "").toLowerCase() === iCode.toLowerCase());
+      if (iBins.length === 0) {
+        console.log("Zero bins for ", iCode);
         setStep("noBinForItem");
       } else {
+        setItemBins(iBins);
         setStep("selectBin");
       }
 
@@ -59,9 +61,13 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
     }
   }
 
-  // const onScanAgain = () => {
+  const onSelectBin = (bin: BinModel) => {
 
-  // }
+  }
+
+  const onCancel = () => {
+
+  }
 
   return (
 
@@ -111,7 +117,10 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
 
       {step === "selectBin" && (
         <StockBinSelect
-          
+          selectedItem={selectedItem}
+          itemBins={itemBins}
+          onSelectBin={onSelectBin}
+          onCancel={onCancel}
         />
       )}
 
