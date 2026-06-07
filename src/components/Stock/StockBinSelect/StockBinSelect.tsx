@@ -43,16 +43,6 @@ const StockBinSelect = ({selectedItem, itemBins, onSelectBin, onCancel }: Props)
               {selectedItem?.uom}
             </span>
           </div>
-          <div>
-            <span className=' font-semibold'>
-
-            </span>
-          </div>
-          <div>
-            <span className=' font-semibold'>
-
-            </span>
-          </div>
         </div>
       </div>
 
@@ -64,7 +54,9 @@ const StockBinSelect = ({selectedItem, itemBins, onSelectBin, onCancel }: Props)
               key={bin.binCode}
               type='button'
               onClick={() => onSelectBin(bin)}  
-              className='text-left bg-white rounded-xl shadow-lg border-gray-100 hover:border-blue-500 hover:shadow-xl p-6 transition'
+              // className="text-left bg-white rounded-xl  border border-gray-100 hove:border-blue-500 hover:shadow-2xl p-6 transition"
+
+              className='text-left bg-white rounded-xl border border-gray-800 hover:shadow-2xl p-6 transition'
             >
               <div className='text-sm text-gray-500 mb-1'>
                 Bin Code
@@ -93,12 +85,22 @@ const StockBinSelect = ({selectedItem, itemBins, onSelectBin, onCancel }: Props)
                   {" "}{bin.active ? "Active" : "Inactive" }
                 </div>
               </div>
+              <div className='mt-5 text-blue-600 font-semibold text-sm'>
+                Select this bin
+              </div>
             </button>
           ))}              
         </div>
       ) : (
         <div>
-
+          <h2>No Bin Found</h2>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold"
+          >
+            OK
+          </button>
         </div>
       )} 
     </section>
