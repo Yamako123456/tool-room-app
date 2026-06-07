@@ -62,12 +62,23 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
   }
 
   const onSelectBin = (bin: BinModel) => {
+    setSelectedBin(bin);
+    setStockQty(0);
+    setStep("enterQty");
+  }
+
+  const onContinue = () => {
 
   }
 
-  const onCancel = () => {
-
-  }
+const onCancel = () => {
+  setStep("scanItem");
+  setScannedItemCode("");
+  setSelectedItem(null);
+  setSelectedBin(null);
+  setStockQty(0);
+  setItemBins([]);
+};
 
   return (
 
@@ -126,8 +137,12 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
 
       {step === "enterQty" && (
         <StockQtyEntry
-          
-
+          selectedItem={selectedItem}
+          selectedBin={selectedBin}
+          stockQty={stockQty}
+          setStockQty={setStockQty}
+          onCancel={onCancel}
+          onContinue={onContinue}
         />
       )}
 
