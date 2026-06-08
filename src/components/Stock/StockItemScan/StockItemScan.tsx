@@ -15,14 +15,16 @@ const StockItemScan = ({scannedItemCode, setScannedItemCode, searchItemHandler}:
 return (
     <section id='stockItemScan'>
 
-      <div className='max-w-3xl mx-auto px-6  py-8'>
+      <div className='max-w-xl mx-auto px-6  py-8'>
         <div className='bg-white rounded-xl shadow-lg border p-6'>
-          <h1 className='text-2xl font-bold mb-2'>
-            Stock Item
-          </h1>
-          <p className='text-sm  text-gray-600 mb-6'>
-            Scan or enter the item code of the product you want to stock.
-          </p>
+          <div>
+            <h2 className='text-xl font-bold mb-2'>
+              Stock Item
+            </h2>
+            <p className='text-sm  text-gray-600 mb-6'>
+              Scan or enter the item code of the product you want to stock.
+            </p>
+          </div>
           <label className='block text-sm font-medium mb-2'>
             Item Code Scan or Enter
           </label>

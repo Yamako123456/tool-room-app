@@ -71,13 +71,17 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
 
   }
 
-const onCancel = () => {
+const resetStockState = () => {
   setStep("scanItem");
   setScannedItemCode("");
   setSelectedItem(null);
   setSelectedBin(null);
   setStockQty(0);
   setItemBins([]);
+};
+
+const onCancel = () => {
+  resetStockState();
 };
 
   return (
