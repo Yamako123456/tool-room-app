@@ -68,7 +68,22 @@ const Stock = ({items, bins, handleLogOut,}: Props) => {
   }
 
   const onContinue = () => {
+    if(!selectedItem) {
+      alert("No item selected.");
+      return;
+    }
 
+    if (!selectedBin) {
+      alert("No bin selected.");
+      return;
+    }
+
+    if (stockQty <= 0) {
+      alert("Stock quantity must be greater than zero.");
+      return;
+    }
+
+    setStep("confirm");
   }
 
 const resetStockState = () => {
@@ -83,6 +98,14 @@ const resetStockState = () => {
 const onCancel = () => {
   resetStockState();
 };
+
+const onBack = () => {
+
+}
+
+const onConfirm = () => {
+
+} 
 
   return (
 
@@ -150,9 +173,13 @@ const onCancel = () => {
         />
       )}
 
-      {step === 'confirm' && (
+      {step === 'confirm' &&  selectedItem && selectedBin && (
         <StockConfirm
-        
+          selectedItem={selectedItem}
+          selectedBin={selectedBin}
+          stockQty={stockQty}
+          onBack={onBack}
+          onConfirm={onConfirm}
         />
       )}
     </section>
