@@ -8,11 +8,19 @@ import StockBinSelect from './StockBinSelect/StockBinSelect';
 import StockConfirm from './StockConfirm/StockConfirm';
 import ScannedItemNotFound from './ScannedItemNotFound/ScannedItemNotFound';
 import StockNoBinForItem from './StockNoBinForItem/StockNoBinForItem';
+import { TransactionModel } from '../../models/Transaction/TransactionModel';
+import { NextTranIdType } from '../../types/transactionTypes';
 
 interface Props {
-  handleLogOut: () => void;
-  items: ItemModel[];
   bins: BinModel[];
+  setBins: React.Dispatch<React.SetStateAction<BinModel[]>>;
+  handleLogOut: () => void;
+  empCode: string;
+  items: ItemModel[];
+  tranRecords: TransactionModel[];
+  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
+  nextTranId: NextTranIdType;
+  setNextTranId: React.Dispatch<React.SetStateAction<NextTranIdType>>;
 }
 
 export type StockStep =  
@@ -24,7 +32,18 @@ export type StockStep =
 | "confirm"
 | "success";
 
-const Stock = ({items, bins, handleLogOut,}: Props) => {
+const Stock = ({
+  bins, 
+  setBins, 
+  handleLogOut, 
+  empCode, 
+  items, 
+  tranRecords, 
+  setTranRecords, 
+  nextTranId, 
+  setNextTranId, 
+
+}: Props) => {
 
   const navigate = useNavigate();
 
@@ -100,10 +119,25 @@ const onCancel = () => {
 };
 
 const onBack = () => {
-
+  setStep("enterQty")
 }
 
-const onConfirm = () => {
+const onConfirmStock = () => {
+  
+  if (!selectedItem) {
+    console.log("selectedItem is missing");
+    return;
+  }
+  if (!selectedBin) {
+    console.log("selectedBin is missing");
+    return;
+  }
+  if (stockQty <= 0) {
+    console.log("stockQty must be positive number");
+    return;
+  }
+  
+
 
 } 
 
@@ -179,7 +213,7 @@ const onConfirm = () => {
           selectedBin={selectedBin}
           stockQty={stockQty}
           onBack={onBack}
-          onConfirm={onConfirm}
+          onConfirm={onConfirmStock}
         />
       )}
     </section>

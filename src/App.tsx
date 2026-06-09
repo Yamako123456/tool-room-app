@@ -1384,9 +1384,15 @@ useEffect(() => {
             <Route 
               path='/stock'
               element={<Stock 
-                items={items}
                 bins={bins}
+                setBins={setBins}
                 handleLogOut={handleLogOut}
+                empCode={scannedBadgeNo}
+                items={items}
+                tranRecords={tranRecords}
+                setTranRecords={setTranRecords}
+                nextTranId={nextTranId}
+                setNextTranId={setNextTranId}
               />}
             />
             

@@ -134,3 +134,61 @@ export const issueItemQtyFromBins = (
   }));
   
 }
+
+export const stockItemQtyToBins = (
+  selectedItem: ItemModel,
+  selectedBin: BinModel,
+  stockQty: number,
+  bins: BinModel[],
+  setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
+  empCode: string,
+  tranRecords: TransactionModel[],
+  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
+  nextTranId: NextTranIdType,
+  setNextTranId:  React.Dispatch<React.SetStateAction<NextTranIdType>>,
+) => {
+
+  if (!selectedItem) {
+    console.log("selectedItem is missing");
+    return;
+  }
+  if (!selectedBin) {
+    console.log("selectedBin is missing");
+    return;
+  }
+  if (stockQty <= 0) {
+    console.log("stockQty must be positive number");
+    return;
+  }
+
+  let theTranNo = nextTranId.id;
+
+  const itemCode = selectedItem.code;
+  const binCode = selectedBin.binCode;
+
+  const updatedBins = bins.map((bin) => {
+    if (bin.binCode === binCode) {
+      return {...bin, qty: bin.qty + stockQty}
+    } else {
+      return bin;
+    }
+  });
+
+  setBins(updatedBins);
+
+  const newTran = new TransactionModel(
+      theTranNo,
+      TransactionType.STOCK,
+          itemCode, 
+          binCode,
+          empCode,
+          stockQty,
+  );
+  
+  
+  theTranNo++;
+
+  setTranRecords( (prev) => [...prev, newTran] );  
+      
+  setNextTranId({id: theTranNo});
+}
