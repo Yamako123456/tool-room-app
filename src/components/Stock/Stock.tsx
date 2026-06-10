@@ -10,6 +10,8 @@ import ScannedItemNotFound from './ScannedItemNotFound/ScannedItemNotFound';
 import StockNoBinForItem from './StockNoBinForItem/StockNoBinForItem';
 import { TransactionModel } from '../../models/Transaction/TransactionModel';
 import { NextTranIdType } from '../../types/transactionTypes';
+import { addBinQty } from '../Bins/BinService/BinService';
+import StockSuccess from './StockSuccess/StockSuccess';
 
 interface Props {
   bins: BinModel[];
@@ -137,9 +139,26 @@ const onConfirmStock = () => {
     return;
   }
   
+  addBinQty(
+    bins,
+    setBins,
+    selectedBin.binCode,
+    stockQty,
+  ) 
 
+  setStep("success");
 
 } 
+
+const onBackScanScreen = () => {
+  resetStockState();
+  setStep("scanItem");
+}
+
+const onExitStock = () => {
+  resetStockState();
+  navigate( '/main-menu');
+}
 
   return (
 
@@ -216,6 +235,17 @@ const onConfirmStock = () => {
           onConfirm={onConfirmStock}
         />
       )}
+
+      {step === "success" && selectedItem && selectedBin &&  (
+        <StockSuccess
+          selectedItem={selectedItem}
+          selectedBin={selectedBin}
+          stockQty={stockQty}
+          onBackStockScanScreen={onBackScanScreen}
+          onExitStock={onExitStock}
+        />
+      )}
+      
     </section>
   )
 }
