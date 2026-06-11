@@ -56,7 +56,8 @@ import Transactions from './components/Transactions/Transactions';
 import { initialTrans } from './data/initialTrans';
 import { ItemType } from './types/ItemTypes';
 // import { IssueRecordsState, TranRecordsState } from './types/transactionTypes';
-import { IssueRecordsState, NextIssueIdType, NextTranIdType,  } from './types/transactionTypes';
+import {  NextIssueTranIdType, NextTranIdType,  } from './types/transactionTypes';
+import { IssueTranModel } from './models/Transaction/IssueTranModel';
 // ------------------
 
 export const App = () => {
@@ -152,12 +153,12 @@ export const App = () => {
 
   //-------------------- Operations ------------------------------------------------------
 
-  const [nextIssueId, setNIssueTranId] = useState<NextIssueIdType>({id: 1});
+  const [nextIssueTranId, setNextIssueTranId] = useState<NextIssueTranIdType>({id: 1});
   const [nextTranId, setNextTranId] = useState<NextTranIdType>( {id: 5} );
 
   const [tranRecords, setTranRecords] = useState<TransactionModel[]>(initialTrans);
 
-  const [issueRecords, setIssueRecords] = useState<IssueRecordsState>({nextIssueId: 1, records: []});
+  const [issueTranRecords, setIssueTranRecords] = useState<IssueTranModel[]>([]);
   
   const [scannedBadgeNo, setScannedBadgeNo] = useState("");
 
@@ -923,8 +924,10 @@ useEffect(() => {
       console.log("Just Parsed undefined parsed.nextTranId");
       
     setNextTranId(parsed.nextTranId);
-    console.log("parsed.nextTranId: ", parsed.nextTranId);
-    console.log("parsed.tranRecords: ", parsed.tranRecords);
+    setNextIssueTranId(parsed.nextIssueTranId);
+    
+    // console.log("parsed.nextTranId: ", parsed.nextTranId);
+    // console.log("parsed.tranRecords: ", parsed.tranRecords);
     // const tranIdObj: NextTranIdType = {id: parsed.nextTranId.id };
     // setNextTranId(tranIdObj);
 
@@ -937,12 +940,16 @@ useEffect(() => {
 
     const newTranRecords = parsed.tranRecords.map( (rec:TransactionModel) => {
       const strTranDate = rec.tranDate;
-      console.log("strTranDate: ", strTranDate);
+      // console.log("strTranDate: ", strTranDate);
       return {...rec, tranDate: new Date(strTranDate)}
     });
     setTranRecords(newTranRecords);    
-
-    // setIssueRecords(parsed.issueRecords);
+    
+    const newIssueTranRecords = parsed.issueTranRecords.map( (rec:IssueTranModel) => {
+        const strIssueDate = rec.issueDate;
+        return {...rec, issueDate: new Date(strIssueDate)}
+      });
+      setIssueTranRecords(newIssueTranRecords);    
 
   } else {
     initDemoData();
@@ -958,6 +965,7 @@ useEffect(() => {
 
   const appData = {
     nextTranId,
+    nextIssueTranId,
     emps,
     depts,
     items,
@@ -965,8 +973,7 @@ useEffect(() => {
     cribs,
     suppliers,
     tranRecords,
-    
-    // issueRecords,
+    issueTranRecords,
   };
 
   localStorage.setItem("toolroomAppData", JSON.stringify(appData));
@@ -1360,11 +1367,13 @@ useEffect(() => {
                 handleLogOut={handleLogOut}
                 empCode={scannedBadgeNo}
                 tranRecords={tranRecords}
+                issueTranRecords={issueTranRecords}
+                setTranRecords={setTranRecords} 
+                setIssueTranRecords={setIssueTranRecords} 
                 nextTranId={nextTranId}
+                nextIssueTranId={nextIssueTranId}
                 setNextTranId={setNextTranId}
-                setTranRecords={setTranRecords}  
-                issueRecords={issueRecords}
-                setIssueRecords={setIssueRecords}
+                setNextIssueTranId={setNextIssueTranId}
               />}
             />
             

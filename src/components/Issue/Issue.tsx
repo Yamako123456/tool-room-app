@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import CardIssueItem from './CardIssueItem/CardIssueItem';
 import { getTotalQtyForItem, issueItemQtyFromBins } from '../Bins/BinService/BinService';
 import { IssueModel } from '../../models/Transaction/IssueModel';
-import { CartItem, IssueRecordsState, NextTranIdType,  } from '../../types/transactionTypes';
+import { CartItem, NextIssueTranIdType, NextTranIdType,  } from '../../types/transactionTypes';
 import { TransactionModel } from '../../models/Transaction/TransactionModel';
+import { IssueTranModel } from '../../models/Transaction/IssueTranModel';
 
 interface Props {
   items: ItemModel[];
@@ -15,14 +16,17 @@ interface Props {
   handleLogOut: () => void;
   empCode: string;
   tranRecords: TransactionModel[];
+  issueTranRecords: IssueTranModel[];
   setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
+  setIssueTranRecords: React.Dispatch<React.SetStateAction<IssueTranModel[]>>;
   nextTranId: NextTranIdType;
+  nextIssueTranId: NextIssueTranIdType;
   setNextTranId: React.Dispatch<React.SetStateAction<NextTranIdType>>;
-  issueRecords: IssueRecordsState,
-  setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
+  setNextIssueTranId: React.Dispatch<React.SetStateAction<NextIssueTranIdType>>;
 }
 
-const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTranRecords, nextTranId, setNextTranId, issueRecords, setIssueRecords}: Props) => {
+const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, issueTranRecords,
+  setTranRecords, setIssueTranRecords, nextTranId, nextIssueTranId, setNextTranId, setNextIssueTranId }: Props) => {
 
   const navigate = useNavigate();
 
@@ -137,21 +141,22 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, setTr
 
     issueItemQtyFromBins(
       cartItems,
-
       bins,
       setBins,
-
       empCode,
       tranRecords,
+      issueTranRecords,
       setTranRecords,
+      setIssueTranRecords,
       nextTranId,
+      nextIssueTranId,
       setNextTranId,
-      issueRecords,
-      setIssueRecords
+      setNextIssueTranId,
     );
     setCartItems([]);
     
   }
+  
 
   return (
     <section id="issue">

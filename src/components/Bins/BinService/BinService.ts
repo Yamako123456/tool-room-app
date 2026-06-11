@@ -6,7 +6,8 @@ import { getItemType } from "../../Items/ItemService/ItemService";
 import { ItemType } from "../../../types/ItemTypes";
 import { IssueModel } from "../../../models/Transaction/IssueModel";
 // import { IssueRecordsState, TranRecordsState } from "../../../types/transactionTypes";
-import { CartItem, IssueRecordsState, NextTranIdType, TransactionType, } from "../../../types/transactionTypes";
+import { CartItem, NextIssueTranIdType, NextTranIdType, TransactionType, } from "../../../types/transactionTypes";
+import { IssueTranModel } from "../../../models/Transaction/IssueTranModel";
 
 export const getTotalQtyForItem = (
   itemCode: string,
@@ -66,22 +67,24 @@ export const addBinQty = (
 }
 
 export const issueItemQtyFromBins = (
-  cartItems: CartItem[],
-  bins: BinModel[],
-  setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
-  empCode: string,
-  tranRecords: TransactionModel[],
-  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
-  nextTranId: NextTranIdType,
-  setNextTranId:  React.Dispatch<React.SetStateAction<NextTranIdType>>,
-  issueRecords: IssueRecordsState,
-  setIssueRecords: React.Dispatch<React.SetStateAction<IssueRecordsState>>,
+    cartItems: CartItem[],
+    bins: BinModel[],
+    setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
+    empCode: string,
+    tranRecords: TransactionModel[],
+    issueTranRecords: IssueTranModel[],
+    setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
+    setIssueTranRecords: React.Dispatch<React.SetStateAction<IssueTranModel[]>>,
+    nextTranId: NextTranIdType,
+    nextIssueTranId: NextIssueTranIdType,
+    setNextTranId:  React.Dispatch<React.SetStateAction<NextTranIdType>>,
+    setNextIssueTranId: React.Dispatch<React.SetStateAction<NextIssueTranIdType>>,
 ) => {
 
   const newTranRecords: TransactionModel[] = [];
   const newIssueRecords: IssueModel[] = [];
   let tranCounter = nextTranId.id;
-  let issueCounter = issueRecords.nextIssueId;
+  let issueCounter = nextIssueTranId.id;
 
   cartItems.forEach((cartItem) => {
     const item: ItemModel = cartItem.item;
@@ -128,10 +131,6 @@ export const issueItemQtyFromBins = (
       
   setNextTranId({id: tranCounter});
 
-  setIssueRecords((prev) => ({
-    nextIssueId: issueCounter,
-    records: [...prev.records, ...newIssueRecords],
-  }));
   
 }
 

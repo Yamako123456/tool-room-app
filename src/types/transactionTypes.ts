@@ -14,16 +14,16 @@ import { TransactionModel } from "../models/Transaction/TransactionModel";
     //   records: TransactionModel[];
     // }
 
-    export interface IssueRecordsState {
-      nextIssueId: number;
-      records: IssueModel[];
-    }
+    // export interface IssueRecordsState {
+    //   nextIssueId: number;
+    //   records: IssueModel[];
+    // }
 
     export interface NextTranIdType {
       id: number;
     }
 
-    export interface NextIssueIdType {
+    export interface NextIssueTranIdType {
       id: number;
     }
 
