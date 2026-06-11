@@ -10,7 +10,7 @@ import ScannedItemNotFound from './ScannedItemNotFound/ScannedItemNotFound';
 import StockNoBinForItem from './StockNoBinForItem/StockNoBinForItem';
 import { TransactionModel } from '../../models/Transaction/TransactionModel';
 import { NextTranIdType } from '../../types/transactionTypes';
-import { addBinQty } from '../Bins/BinService/BinService';
+import { addBinQty, postStockTransaction } from '../Bins/BinService/BinService';
 import StockSuccess from './StockSuccess/StockSuccess';
 
 interface Props {
@@ -145,6 +145,17 @@ const onConfirmStock = () => {
     selectedBin.binCode,
     stockQty,
   ) 
+
+  postStockTransaction (
+    selectedItem,
+    selectedBin,
+    stockQty,
+    empCode,
+    tranRecords,
+    setTranRecords,
+    nextTranId,
+    setNextTranId,
+)
 
   setStep("success");
 

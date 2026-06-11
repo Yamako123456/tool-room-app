@@ -135,6 +135,37 @@ export const issueItemQtyFromBins = (
   
 }
 
+export const postStockTransaction = (
+  selectedItem: ItemModel,
+  selectedBin: BinModel,
+  stockQty: number,
+  empCode: string,
+  tranRecords: TransactionModel[],
+  setTranRecords: React.Dispatch<React.SetStateAction<TransactionModel[]>>,
+  nextTranId: NextTranIdType,
+  setNextTranId:  React.Dispatch<React.SetStateAction<NextTranIdType>>,
+) => {
+   let theTranNo = nextTranId.id;
+
+  const itemCode = selectedItem.code;
+  const binCode = selectedBin.binCode;
+  const newTran = new TransactionModel(
+      theTranNo,
+      TransactionType.STOCK,
+          itemCode, 
+          binCode,
+          empCode,
+          stockQty,
+  );
+  
+  
+  theTranNo++;
+
+  setTranRecords( (prev) => [...prev, newTran] );  
+      
+  setNextTranId({id: theTranNo});
+}
+
 export const stockItemQtyToBins = (
   selectedItem: ItemModel,
   selectedBin: BinModel,
