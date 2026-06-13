@@ -66,7 +66,7 @@ export const addBinQty = (
   setBins(updatedBins);
 }
 
-export const issueItemQtyFromBins = (
+export const  issueItemQtyFromBins = (
     cartItems: CartItem[],
     bins: BinModel[],
     setBins: React.Dispatch<React.SetStateAction<BinModel[]>>,
@@ -82,9 +82,9 @@ export const issueItemQtyFromBins = (
 ) => {
 
   const newTranRecords: TransactionModel[] = [];
-  const newIssueRecords: IssueModel[] = [];
+  const newIssueTranRecords: IssueModel[] = [];
   let tranCounter = nextTranId.id;
-  let issueCounter = nextIssueTranId.id;
+  let issueTranCounter = nextIssueTranId.id;
 
   cartItems.forEach((cartItem) => {
     const item: ItemModel = cartItem.item;
@@ -105,22 +105,30 @@ export const issueItemQtyFromBins = (
         const takeQtyFromThisBin = Math.min(bin.qty, remaining);
         remaining -= takeQtyFromThisBin;
 
-        // appendTranRecordForIssue( tranRecords, setTranRecords, nextTranId, setNextTranId, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
         const newTran = new TransactionModel(
           tranCounter,
           TransactionType.ISSUE,
           itemCode, 
           bin.binCode,
-          empCode,takeQtyFromThisBin,
+          empCode,
+          takeQtyFromThisBin,
         );
         newTranRecords.push(newTran);
         tranCounter++;
 
         if (item.itemType === ItemType.DURABLE ){
-          const newIssue = new IssueModel( issueCounter, itemCode, bin.binCode, empCode, takeQtyFromThisBin);
-          newIssueRecords.push(newIssue);
-          issueCounter++;
+          const newIssueTran = new IssueTranModel(
+            issueTranCounter,
+            itemCode, 
+            bin.binCode,
+            empCode,
+            takeQtyFromThisBin,
+          );
+          newIssueTranRecords.push(newIssueTran);
+
+          issueTranCounter++;
         }  
+        
         return {...bin, qty: bin.qty - takeQtyFromThisBin}
     });
 
@@ -131,6 +139,8 @@ export const issueItemQtyFromBins = (
       
   setNextTranId({id: tranCounter});
 
+  setIssueTranRecords( (prev) => [...prev, ...newIssueTranRecords]);
+  setNextIssueTranId({id: issueTranCounter});
   
 }
 
@@ -156,7 +166,6 @@ export const postStockTransaction = (
           empCode,
           stockQty,
   );
-  
   
   theTranNo++;
 

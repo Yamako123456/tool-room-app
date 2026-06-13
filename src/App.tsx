@@ -920,36 +920,58 @@ useEffect(() => {
   if (savedAppData) {
     const parsed = JSON.parse(savedAppData);
 
-    if (!parsed.nextTranId)
-      console.log("Just Parsed undefined parsed.nextTranId");
-      
-    setNextTranId(parsed.nextTranId);
-    setNextIssueTranId(parsed.nextIssueTranId);
+    setNextTranId(
+      parsed.nextTranId && typeof parsed.nextTranId.id === "number"
+      ? parsed.nextTranId
+      : { id: 1 }
+    );
     
-    // console.log("parsed.nextTranId: ", parsed.nextTranId);
-    // console.log("parsed.tranRecords: ", parsed.tranRecords);
-    // const tranIdObj: NextTranIdType = {id: parsed.nextTranId.id };
-    // setNextTranId(tranIdObj);
+    setNextIssueTranId
+    (
+      parsed.nextIssueTranId && typeof parsed.nextIssueTranId.id === "number"
+      ?  parsed.nextTranId
+      : { id: 1 }
+    );
+    
+    setEmps(
+      parsed.emps ? parsed.emps : []
+    );
 
-    setEmps(parsed.emps);
-    setDepts(parsed.depts);
-    setItems(parsed.items);
-    setBins(parsed.bins);
-    setCribs(parsed.cribs);
-    setSuppliers(parsed.suppliers);
+    setDepts(
+      parsed.depts ? parsed.depts : []
+    );
 
-    const newTranRecords = parsed.tranRecords.map( (rec:TransactionModel) => {
+    setItems(
+      parsed.items ? parsed.items : []
+    );
+
+    setBins(
+      parsed.bins ? parsed.bins : []
+    );
+
+    setCribs(
+      parsed.cribs ? parsed.cribs : []
+    );
+
+    setSuppliers(
+      parsed.suppliers ? parsed.suppliers : []
+    );
+
+    const savedTranRecords = parsed.tranRecords && Array.isArray(parsed.tranRecords)
+    ? parsed.tranRecords.map( (rec:TransactionModel) => {
       const strTranDate = rec.tranDate;
-      // console.log("strTranDate: ", strTranDate);
       return {...rec, tranDate: new Date(strTranDate)}
-    });
-    setTranRecords(newTranRecords);    
+    })
+    : [];
+    setTranRecords(savedTranRecords);    
     
-    const newIssueTranRecords = parsed.issueTranRecords.map( (rec:IssueTranModel) => {
+    const savedIssueTranRecords = parsed.issueTranRecords && Array.isArray(parsed.issueTranRecords)
+    ? parsed.issueTranRecords.map( (rec:IssueTranModel) => {
         const strIssueDate = rec.issueDate;
         return {...rec, issueDate: new Date(strIssueDate)}
-      });
-      setIssueTranRecords(newIssueTranRecords);    
+      })
+      : [];
+      setIssueTranRecords(savedIssueTranRecords);    
 
   } else {
     initDemoData();
@@ -1384,11 +1406,6 @@ useEffect(() => {
               />}
             />
 
-            <Route 
-              path='/return'
-              element={<Return
-                 />}
-            />
 
             <Route 
               path='/stock'
@@ -1404,6 +1421,26 @@ useEffect(() => {
                 setNextTranId={setNextTranId}
               />}
             />
+
+            <Route 
+              path='/return'
+              element={<Return 
+                bins={bins}
+                setBins={setBins}                
+                empCode={scannedBadgeNo}
+                items={items}
+                issueTranRecords={issueTranRecords}
+                setIssueTranRecords={setIssueTranRecords}
+                nextIssueTranId={nextIssueTranId}
+                setNextIssueTranId={setNextIssueTranId}
+                tranRecords={tranRecords}
+                setTranRecords={setTranRecords}
+                nextTranId={nextTranId}
+                setNextTranId={setNextTranId}
+                handleLogOut={handleLogOut}
+              />}
+            />
+            
             
             <Route 
               path='/physical-count'

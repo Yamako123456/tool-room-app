@@ -10,13 +10,12 @@ interface Props {
   setSelectedIssueItem: React.Dispatch<React.SetStateAction<ItemModel | undefined>>;
   setSelectedIssueQty: React.Dispatch<React.SetStateAction<number>>;
   addItemtoCart: (newItem: ItemModel, qty: number) => void;
-  issueItems: (newItem: ItemModel, qty: number) => void;
   totalAvailableQty: number;
   remainingAvailableQty: number;
 }
 
 const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty,
-  addItemtoCart, issueItems, totalAvailableQty, remainingAvailableQty
+  addItemtoCart, totalAvailableQty, remainingAvailableQty
   }: Props) => {
 
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
   }
 
   return (
-    <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-green-100'>
+    <div className='relative w-[320px] max-w-full bg-white shadow-lg rounded-xl p-6 border border-gray-100'>
       
       {remainingAvailableQty > 0 ? (<div className='flex justify-end mb-2'>
         <button 
@@ -69,7 +68,7 @@ const CardIssueItem = ({aItem, bins,  setSelectedIssueItem,  setSelectedIssueQty
         <span className='text-sm font-semibold'>
           Item Code:
         </span>
-        <span className='text-2xld'>
+        <span className='text-2xl'>
           {aItem.code}
         </span>
       </div>

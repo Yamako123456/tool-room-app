@@ -7,17 +7,9 @@ import { TransactionModel } from "../models/Transaction/TransactionModel";
     RETURN = "RETURN",
     STOCK = "STOCK",
     PHYSICAL_COUNT = "PHYSICAL_COUNT",
+    SCRAP = "SCRAP",
+    REGRIND = "SCRAP",
   }
-
-    // export interface TranRecordsState {
-    //   nextTranId: number;
-    //   records: TransactionModel[];
-    // }
-
-    // export interface IssueRecordsState {
-    //   nextIssueId: number;
-    //   records: IssueModel[];
-    // }
 
     export interface NextTranIdType {
       id: number;

@@ -30,6 +30,7 @@ const MainMenu = ({loggedInEmp, handleLogOut, hasOpenIssue, setHasOpenIssue}: Pr
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+          
           <button 
             onClick={() => navigate('/issue')}
             className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
@@ -37,29 +38,32 @@ const MainMenu = ({loggedInEmp, handleLogOut, hasOpenIssue, setHasOpenIssue}: Pr
             Issue
           </button>
 
-          {hasOpenIssue &&<button 
+          {/* {hasOpenIssue &&<button  */}
+          {<button 
             onClick={() => navigate('/return')}
             className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
           >
             Return
           </button>
           }  
-            {(loggedInEmp?.isStocker || loggedInEmp?.isSupervisor) &&
-            <button 
-              onClick={() => navigate('/stock')}
-              className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
-            >
-              Stock
-            </button>
-            }
+           
+          {(loggedInEmp?.isStocker || loggedInEmp?.isSupervisor) &&
+          <button 
+            onClick={() => navigate('/stock')}
+            className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3"
+          >
+            Stock
+          </button>
+          }
             
-            {loggedInEmp?.isSupervisor &&
-            <button 
-              onClick={() => navigate("/physical-count")}
-              className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3">
-              Physical Count
-            </button>
-            }
+          {loggedInEmp?.isSupervisor &&
+          <button 
+            onClick={() => navigate("/physical-count")}
+            className="rounded-lg bg-green-600 hover:bg-green-700 text-white py-3">
+            Physical Count
+          </button>
+          }
+
           <button 
             type='button'
             onClick={handleLogOut}

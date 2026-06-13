@@ -74,9 +74,9 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, issue
     }
   }
 
-  const issueItems = () => {
-    console.log("handleIssue hasn't been inmplemented yet.");
-  }
+  // const issueItems = () => {
+  //   console.log("handleIssue hasn't been inmplemented yet.");
+  // }
 
   const incrementCartItemQty = (target: CartItem) => {
     const updatedCartItems: CartItem[] = cartItems.map((prev) => {
@@ -154,7 +154,6 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, issue
       setNextIssueTranId,
     );
     setCartItems([]);
-    
   }
   
 
@@ -195,7 +194,7 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, issue
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 px-10 md:px-6 mb-5'>
-        <div className='relative flex flex-wrap gap-6 items-start max-w-auto max-auto px-10 mb-5 md:px-6'>
+        <div className='relative flex flex-wrap gap-6 items-start max-w-auto mx-autopx-10 mb-5 md:px-6'>
 
           {filteredItems.length > 0 ? (
 
@@ -208,7 +207,7 @@ const Issue = ({ items, bins, setBins, handleLogOut, empCode, tranRecords, issue
               return <CardIssueItem aItem={aItem} bins={bins} 
                 setSelectedIssueItem={setSelectedIssueItem} setSelectedIssueQty={setSelectedIssueQty} 
                 addItemtoCart={addItemtoCart}
-                issueItems={issueItems}
+                //issueItems={issueItems}
                 totalAvailableQty={totalQty}
                 remainingAvailableQty={remainingQty}
               />}
